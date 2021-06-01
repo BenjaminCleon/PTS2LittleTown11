@@ -4,8 +4,8 @@
 ## Notre développement
 ## Ce que ce projet nous a apporté
 ## Notre équipe
-Benjamin **Cleon**
-Enzo **Loubeau**
-Maxence **Bosquain**
-Manon **Vatres**
-Mathis **Pesquerel**
+Benjamin **Cleon**<br/>
+Enzo **Loubeau**<br/>
+Maxence **Bosquain**<br/>
+Manon **Vatres**<br/>
+Mathis **Pesquerel**<br/>
