@@ -1,6 +1,9 @@
 package littletown.metier;
 
 import java.util.ArrayList;
+import littletown.metier.Pion;
+import littletown.metier.CartesObjectifs;
+import littletown.metier.Tuile;
 
 public class Joueur
 {
@@ -86,7 +89,7 @@ public class Joueur
 		
 	}
 	
-	public void ajouterTuile( Tuile tuile )
+	/*public void ajouterTuile( Tuile tuile )
 	{
 		if ( !tuile.estPosseder() )
 		{
@@ -97,7 +100,7 @@ public class Joueur
 		//Verifie si un objectif a été complété
 		for( CartesObjectifs objectif : this.tabOjectif )
 			objectif.estAccompli();
-	}
+	}*/
 	
 	public void consommerRessource(int iVal, String sType)
 	{
@@ -107,7 +110,6 @@ public class Joueur
 			case "EAU"    -> { this.rEau   .consommerRessource( iVal ); }
 			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
 			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
-			default       -> { return null; }
 		}
 		
 		//Verifie si un objectif a été complété
