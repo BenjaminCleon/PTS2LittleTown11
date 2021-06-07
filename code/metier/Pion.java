@@ -1,3 +1,5 @@
+package littletown.metier;
+
 import java.awt.Point;
 
 public class Pion

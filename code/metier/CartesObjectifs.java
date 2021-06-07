@@ -1,3 +1,5 @@
+package littletown.metier;
+
 public class CartesObjectifs
 {
     private int    iScore;
