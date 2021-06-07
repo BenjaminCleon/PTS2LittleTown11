@@ -1,5 +1,3 @@
-//import java.awt.;
-
 public class CartesObjectifs
 {
     private int    iScore;

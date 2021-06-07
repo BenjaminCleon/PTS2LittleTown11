@@ -1,4 +1,4 @@
-//package code.metier;
+package littletown.metier;
 
 public enum Batiment
 {

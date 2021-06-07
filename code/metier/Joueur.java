@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Joueur
 {
-	private final String COULEUR;
+	private final String SCOULEUR;
 	private final int    NB_OUVRIER;
 	private final int    NB_BATIMENT;
 	private final int    NB_OBJECTIF;
@@ -26,7 +26,7 @@ public class Joueur
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
-		this.COULEUR      = sCouleur;
+		this.SCOULEUR      = sCouleur;
 		
 		this.iNbPiece     = 3;
 		
@@ -42,8 +42,8 @@ public class Joueur
 		
 		for(int cpt; cpt<NB_OUVRIER; cpt++)
 		{
-			tabOuvrier .add(new Pion("Ouvrier" ,SCOULEUR, null));
-			tabBatiment.add(new Pion("Batiment",SCOULEUR, null));
+			this.lstOuvrier .add(new Pion("Ouvrier" ,this.SCOULEUR, null));
+			this.lstBatiment.add(new Pion("Batiment",this.SCOULEUR, null));
 		}
 	}
 	
