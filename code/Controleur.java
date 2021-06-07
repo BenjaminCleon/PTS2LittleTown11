@@ -1,4 +1,4 @@
-package littletown.ihm;
+package littletown;
 
 import littletown.metier.*;
 
