@@ -24,4 +24,9 @@ public class Plateau
             if(t == null){ t = new Ressource( "ble", true); }
         }
     }
+
+    public String toString()
+    {
+        return tabPlateau[0][1].toString();    
+    }
 }
