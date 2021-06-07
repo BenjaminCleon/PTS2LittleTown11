@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class Joueur
 {
-	private final String SCOULEUR;
-	private final int    INB_OUVRIER;
-	private final int    INB_BATIMENT;
-	private final int    INB_OBJECTIF;
+	private final String COULEUR;
+	private final int    NB_OUVRIER;
+	private final int    NB_BATIMENT;
+	private final int    NB_OBJECTIF;
 	
-	private ArrayList<Tuile> lstTuile;
-	private int              iNbPiece;
-	private Pion[]           tabOuvrier;
-	private Pion[]           tabBatiment;
-	private Objectif[]       tabOjectif;
-	private int              iScore;
+	private ArrayList<Tuile>  lstTuile;
+	private int               iNbPiece;
+	private Pion[]            tabOuvrier;
+	private Pion[]            tabBatiment;
+	private CartesObjectifs[] tabObjectif;
+	private int               iScore;
 	
 	private Ressource        rBle;
 	private Ressource        rEau;
@@ -23,17 +23,17 @@ public class Joueur
 	
 	public Joueur(String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
 	{
-		this.INB_OUVRIER  = nbOuvrier;
-		this.INB_BATIMENT = nbBatiment;
+		this.NB_OUVRIER  = nbOuvrier;
+		this.NB_BATIMENT = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
-		this.SCOULEUR     = sCouleur;
+		this.COULEUR     = sCouleur;
 		
 		this.iNbPiece     = 3;
 		
 		this.lstTuile     = new ArrayList<Tuile>();
-		this.tabOuvrier   = new Pion[NB_OUVRIER ];
+		this.tabOuvrier   = new Pion[NB_OUVRIER];
 		this.tabBatiment  = new Pion[NB_BATIMENT];
-		this.tabOjectif   = new Objectif[NB_OBJECTIF];
+		this.tabObjectif  = new CartesObjectifs[NB_OBJECTIF];
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
 		this.rEau         = new Ressource("eau",true); //est mangeable
@@ -49,7 +49,7 @@ public class Joueur
 	
 	public int getNbPiece (){ return this.iNbPiece; }
 	
-	public int getRessource(String sType)
+	public Integer getRessource(String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -57,7 +57,6 @@ public class Joueur
 			case "EAU"    -> { return this.rEau   .getQteRessource();}
 			case "BOIS"   -> { return this.rBois  .getQteRessource();}
 			case "PIERRE" -> { return this.rPierre.getQteRessource();}
-			default       -> { return null; }
 		}
 		
 	}
@@ -67,7 +66,7 @@ public class Joueur
 		this.iNbPiece+= nbPiece;  
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.tabOjectif )
+		for( CartesObjectifs objectif : this.tabObjectif )
 			objectif.estAccompli();
 	}
 	
@@ -79,11 +78,10 @@ public class Joueur
 			case "EAU"    -> { this.rEau   .ajouterRessource( iVal ); }
 			case "BOIS"   -> { this.rBois  .ajouterRessource( iVal ); }
 			case "PIERRE" -> { this.rPierre.ajouterRessource( iVal ); }
-			default       -> { return null; }
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.tabOjectif )
+		for( CartesObjectifs objectif : this.tabObjectif )
 			objectif.estAccompli();
 		
 	}
@@ -92,7 +90,7 @@ public class Joueur
 	{
 		if ( !tuile.estPosseder() )
 		{
-			this.lstTuile.add(new Tuile (/*a completer*/));
+			this.lstTuile.add(new Tuile (tuile));
 			this.augmenterScore(tuile.getScore());
 		}
 		
@@ -159,4 +157,9 @@ public class Joueur
 	
 	public boolean estPresentTuile(Tuile tuile){ this.lstTuile.contains(tuile); }
 	
+	public boolean verifierObjectif( CarteObjectifs oObjectif )
+	{
+		
+	}
+
 }
