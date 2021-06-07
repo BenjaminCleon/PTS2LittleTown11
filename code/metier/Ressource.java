@@ -1,3 +1,5 @@
+package littletown.metier;
+
 //package littletown.metier;
 
 
@@ -77,9 +79,9 @@ public class Ressource extends Tuile
 		}
 	}
 
-	public boolean consommerRessource( int iConso, String sType )
+	public boolean consommerRessource( int iConso )
 	{
-		AltInt tmp = this.getRessourceByType( sType );
+		AltInt tmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iConso > tmp.getEntier() )return false;
 
@@ -87,9 +89,9 @@ public class Ressource extends Tuile
 		return true;	
 	}
 
-	public boolean ajouterRessource( int iConso, String sType )
+	public boolean ajouterRessource( int iConso )
 	{
-		AltInt iTmp = this.getRessourceByType( sType );
+		AltInt iTmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iTmp.getEntier() + iConso > 15 )return false;
 
