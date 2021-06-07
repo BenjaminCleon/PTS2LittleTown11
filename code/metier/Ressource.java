@@ -1,4 +1,4 @@
-//package littletown.metier;
+package littletown.metier;
 
 
 /** Cette classe permet de donner les informations générales sur les différentes
