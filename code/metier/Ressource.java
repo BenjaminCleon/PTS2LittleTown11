@@ -1,5 +1,7 @@
 package littletown.metier;
 
+//package littletown.metier;
+
 
 /** Cette classe permet de donner les informations générales sur les différentes
   * Resource disponible.
@@ -48,49 +50,11 @@ public class Ressource extends Tuile
 	 */
 	private static AltInt iQtePierre = new AltInt( 15 );	
 
-	/**
-	 * C'est le nom de la ressource.
-	 * Ici, le préfixe is correspond à "String" selon la notation hongroise.
-	 *
-	 * @see Ressource#getRessourceByType( String )
-	 * @see Ressource#toString()
-	 * @see Ressource#Ressource( String, boolean bEstMangeable )
-	 * @see Ressource#Ressource( String )
-	 * @see Ressource#getRessourceByType( String  )
-	 * @see Ressource#consommerRessource( int, String  )
-	 * @see Ressource#ajouterRessource( int, String )
-	 * @see Ressource#getType()
-	 * @see Ressource#toString()
-	 */
+	private int iQteRessource;
+
 	private String  sType;
-	
-	/**
-	 * Esque cette ressource peut etre utiliser pour nourire les ouvriers.
-	 * Ici, le préfixe is correspond à "boolean" selon la notation hongroise.
-	 *
-	 * @see Ressource#getEstMangeable()
-	 */
 	private boolean bEstMangeable;
 
-	/*--------------*/
-	/* Constructeur */
-	/*--------------*/
-
-	/**
-	 * Constructeur de Ressources
-	 *
-	 * @param sType
-	 *          Titre de la nouvelle Ressource.
-	 * @param bEstMangeable
-	 *          definie si cette ressource peut etre utiliser pour nourire les ouvriers.
-	 * 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 */
 	public Ressource( String sType, boolean bEstMangeable )
 	{
 		super( "Ressource" );
@@ -98,34 +62,11 @@ public class Ressource extends Tuile
 		this.bEstMangeable = bEstMangeable;
 	}
 
-	/**
-	 * Constructeur par recopie de Ressources
-	 * bEstMangeable est rendu false par default
-	 *
-	 * @param sType
-	 *          Titre de la nouvelle Ressource.
-	 * 
-	 * 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 * @see 
-	 */
 	public Ressource( String sType )
 	{
 		this( sType, false );
 	}
 
-	/**
-	 * retourne le Bon type pour AltInt
-	 *
-	 * @param sType
-	 *          nom de la ressource à rechercher
-	 * 
-	 * @see 
-	 */
 	private AltInt getRessourceByType( String sType )
 	{
 		switch ( sType.toUpperCase() )
@@ -138,20 +79,9 @@ public class Ressource extends Tuile
 		}
 	}
 
-	/**
-	 * consomme une quantiter d'une ressource passer en parametre
-	 *
-	 * @param iConso
-	 *          nombre de ressource à consommer
-	 * 
-	 * @param sType
-	 *          nom de la ressource à consommer
-	 * 
-	 * @see 
-	 */
-	public boolean consommerRessource( int iConso, String sType )
+	public boolean consommerRessource( int iConso )
 	{
-		AltInt tmp = this.getRessourceByType( sType );
+		AltInt tmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iConso > tmp.getEntier() )return false;
 
@@ -159,20 +89,9 @@ public class Ressource extends Tuile
 		return true;	
 	}
 
-	/**
-	 * ajoute une quantiter à une ressource passer en parametre
-	 *
-	 * @param iConso
-	 *          nombre de ressource à ajoute
-	 * 
-	 * @param sType
-	 *          nom de la ressource à ajoute
-	 * 
-	 * @see 
-	 */
-	public boolean ajouterRessource( int iConso, String sType )
+	public boolean ajouterRessource( int iConso )
 	{
-		AltInt iTmp = this.getRessourceByType( sType );
+		AltInt iTmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iTmp.getEntier() + iConso > 15 )return false;
 
@@ -181,54 +100,10 @@ public class Ressource extends Tuile
 		return true;	
 	}
 
-	/**
-	 * retourne le nom de la ressource
-	 *
-	 * @see 
-	 */
 	public String  getType()        { return this.sType;         }
-	
-	/**
-	 * retourne si la ressource peut etre utiliser pour nourire les ouvriers.
-	 *
-	 * @see 
-	 */
 	public boolean getEstMangeable(){ return this.bEstMangeable; }
-	
-	/**
-	 * retourne le nombre de ble dans le stock
-	 *
-	 * @see 
-	 */
-	public int     getQteBle(){ return this.iQteBle; }
-	
-	/**
-	 * retourne le nombre de bois dans le stock
-	 *
-	 * @see 
-	 */
-	public int     getQteBois(){ return this.iQteBois; }
-	
-	/**
-	 * retourne le nombre d'Eau dans le stock
-	 *
-	 * @see 
-	 */
-	public int     getQteEau(){ return this.iQteEau; }
-	
-	/**
-	 * retourne le nombre de Pierre dans le stock
-	 *
-	 * @see 
-	 */
-	public int     getQtePierre(){ return this.iQtePierre; }
+	public int     getQteRessource(){ return this.iQteRessource; }
 
-
-	/**
-	 * Retourne en String le nom de la ressource et le quantiter restant dans le stock.
-	 * 
-	 * @see 
-	 */
 	public String  toString()
 	{
 		String sRet = "";
@@ -244,4 +119,3 @@ public class Ressource extends Tuile
 		return sRet;
 	}
 }
-
