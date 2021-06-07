@@ -1,61 +1,54 @@
 package littletown.metier;
 
-public class Batiment extends Tuile
+public enum Batiment
 {
-	// Attributs
-	private String sType;
+	//          pRq eRq blRq boRq pRc eRc blRc boRc ptCtr ptRc pcRq pcRc
+	BAR         ( 2,  0,   2,   0,  0,  0,   0,   0,    7,   3,   0,   0),
+	CHAMPSDEBLE ( 0,  0,   1,   0,  0,  0,   1,   0,    3,   0,   0,   0),
+	LIBRAIRIE   ( 4,  0,   0,   0,  0,  0,   0,   0,    8,   0,   0,   3),
+	MINEDOR     ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   0,   0,   2),
+	PONTON      ( 0,  0,   0,   3,  0,  2,   0,   0,    5,   0,   0,   0),
+    PUIT        ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   2,   0,   0),
+    STATUE      ( 4,  0,   0,   0,  0,  0,   0,   0,   10,   0,   0,   0);
 
-	private String[][] tabConstruction =
-    { {  "0",         "pierre", "bois", "ble", "eau", "exp", },
-      { "bar",         "0",     "2",    "2",   "0",  "5",   },
-      { "boulangerie", "0",     "2",    "0",  "0",  "4",   },
-      { "champs",      "0",     "1",    "0",  "0",  "3",   },
-      { "statue",      "4",      "0",   "0",  "0",  "10"   }};
+	private int iEauReq, iBleReq, iBoisReq, iPierreReq;
+	private int iEauRec, iBleRec, iBoisRec, iPierreRec;
+	private int iPtConstru, iPtRec, iPceReq, iPceRec  ;
 
-	// Méthodes
-	public Batiment( String sType )
+	Batiment(int iPierreReq, int iEauReq, int iBleReq, int iBoisReq,
+			 int iPierreRec, int iEauRec, int iBleRec, int iBoisRec,
+			 int iPtConstru, int iPtRec , int iPceReq, int iPceRec)
 	{
-		super("batiment");
-		this.sType = sType;
+		this.iPierreReq = iPierreReq;
+		this.iEauReq    = iEauReq   ;
+		this.iBleReq    = iBleReq   ;
+		this.iBoisReq   = iBoisReq  ;
+
+		this.iPierreRec = iPierreRec;
+		this.iEauRec    = iEauRec   ;
+		this.iBleRec    = iBleRec   ;
+		this.iBoisRec   = iBoisRec  ;
+
+		this.iPtConstru = iPtConstru;
+		this.iPtRec     = iPtRec    ;
+
+		this.iPceRec    = iPceRec;
+		this.iPceReq    = iPceReq;
 	}
 
-	public Integer parcourirTableau( String sRessource )
-	{
-		for(int i = 0; i < this.tabConstruction.length - 1; i++)
-		{
-			if(this.tabConstruction[i][0].equals(this.sType))
-			{
-				if(sRessource.equals("eau"))
-					return Integer.parseInt(this.tabConstruction[i][4]);
-				
-				if(sRessource.equals("bois"))
-					return Integer.parseInt(this.tabConstruction[i][2]);
+	public int getPierreRec(){ return this.iPierreRec; }
+	public int getEauRec   (){ return this.iEauRec   ; }
+	public int getBleRec   (){ return this.iBleRec   ; }
+	public int getBoisRec  (){ return this.iBoisRec  ; }
 
-				if(sRessource.equals("pierre"))
-					return Integer.parseInt(this.tabConstruction[i][1]);
+	public int getPierreReq(){ return this.iPierreReq; }
+	public int getEauReq   (){ return this.iEauReq   ; }
+	public int getBleReq   (){ return this.iBleReq   ; }
+	public int getBoisReq  (){ return this.iBoisReq  ; }
 
-				if(sRessource.equals("ble"))
-					return Integer.parseInt(this.tabConstruction[i][3]);
+	public int getPtConstru(){ return this.iPtConstru; }
+	public int getPtRec    (){ return this.iPtRec    ; }
 
-				if(sRessource.equals("exp"))
-					return Integer.parseInt(this.tabConstruction[i][5]);
-			}
-		}
-
-		return 0;
-	}
-
-	public String toString()
-	{
-		String sRet;
-		sRet =  super.toString();
-		sRet += "Batiment de type : " + this.sType + "\n";
-		sRet += " Eau : " + this.parcourirTableau( "eau" ) + "\n";
-		sRet += " Ble : " + this.parcourirTableau( "ble" ) + "\n";
-		sRet += " pierre : " + this.parcourirTableau( "pierre" ) + "\n";
-		sRet += " exp : " + this.parcourirTableau( "exp" ) + "\n";
-		sRet += " Bois : " + this.parcourirTableau( "bois" ) + "\n";
-
-		return sRet;
-	}	
+	public int getPcReq    (){ return this.iPceReq   ; }
+	public int getPcRec    (){ return this.iPceRec   ; }
 }
