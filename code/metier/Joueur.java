@@ -70,7 +70,7 @@ public class Joueur
 		
 		//Verifie si un objectif a été complété
 		for( CartesObjectifs objectif : this.lstObjectif )
-			objectif.estAccompli();
+			;
 	}
 	
 	public void ajouterRessource(int iVal, String sType)
@@ -85,7 +85,7 @@ public class Joueur
 		
 		//Verifie si un objectif a été complété
 		for( CartesObjectifs objectif : this.lstObjectif )
-			objectif.estAccompli();
+			;
 		
 	}
 	
@@ -113,16 +113,16 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	public void consommerPiece (int nbPiece ) 
 	{ 
 		this.iNbPiece-= nbPiece;
 		
 		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
 	public void augmenterScore (int score)   
@@ -131,8 +131,8 @@ public class Joueur
 			this.iScore+= score;
 		
 		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	public void diminuerScore (int score) //Un score peut être négatif
 	{ 
@@ -140,8 +140,8 @@ public class Joueur
 			this.iScore-= score; 
 		
 		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
 	public void payerJoueur( Joueur joueur )
@@ -153,13 +153,13 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
 	public boolean estPresentTuile(Tuile tuile){ this.lstTuile.contains(tuile); }
 	
-	public boolean verifierObjectif( CarteObjectifs oObjectif )
+	public boolean verifierObjectif( CartesObjectifs oObjectif )
 	{
 		
 	}
