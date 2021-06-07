@@ -111,7 +111,7 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
+		for( CartesObjectifs objectif : this.lstOjectif )
 			objectif.estAccompli();
 	}
 	public void consommerPiece (int nbPiece ) 
