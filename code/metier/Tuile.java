@@ -1,15 +1,18 @@
-public class Tuile
+package littletown.metier;
+
+public class Tuile extends Pion
 {
     // Attributs
     private String  sType;
-    private boolean bActive;
 
     // Méthodes
-
     public Tuile( String sType )
     {
         this.sType = sType;
     }    
 
-    public boolean isActive(){ return bActive; }
+    public String toString()
+    {
+        return "Tuile de type : " + this.sType;
+    }
 }
