@@ -43,7 +43,7 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 		
-		for(int cpt; cpt<NB_OUVRIER; cpt++)
+		for(int cpt = 0; cpt<NB_OUVRIER; cpt++)
 		{
 			this.lstOuvrier .add(new Pion("Ouvrier" ,this.SCOULEUR, null));
 			this.lstBatiment.add(new Pion("Batiment",this.SCOULEUR, null));
@@ -62,6 +62,7 @@ public class Joueur
 			case "PIERRE" -> { return this.rPierre.getQteRessource();}
 		}
 		
+		return null;
 	}
 	
 	public void ajouterPiece   (int nbPiece ) 
@@ -157,11 +158,11 @@ public class Joueur
 			;
 	}
 	
-	public boolean estPresentTuile(Tuile tuile){ this.lstTuile.contains(tuile); }
+	public boolean estPresentTuile(Tuile tuile){ return this.lstTuile.contains(tuile); }
 	
 	public boolean verifierObjectif( CartesObjectifs oObjectif )
 	{
-		
+		return false;
 	}
 
 }
