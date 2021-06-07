@@ -11,19 +11,9 @@ public class Plateau
     {
         this.tabPlateau      = new Tuile[6][9];
         this.iNombreJoueur = iNombreJoueur;
-
-        remplirPlateau();
     }
 
     public Tuile[][] getPlateau() { return this.tabPlateau; }
-
-    public void remplirPlateau()
-    {
-        for(Tuile t : tabPlateau)
-        {
-            if(t == null){ t = new Ressource( "ble", true); }
-        }
-    }
 
     public String toString()
     {
