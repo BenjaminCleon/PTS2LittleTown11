@@ -95,7 +95,7 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.tabOjectif )
+		for( CartesObjectifs objectif : this.tabOjectif )
 			objectif.estAccompli();
 	}
 	
@@ -119,7 +119,7 @@ public class Joueur
 		this.iNbPiece-= nbPiece;
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
+		for( CartesObjectifs objectif : this.lstOjectif )
 			objectif.estAccompli();
 	}
 	
@@ -129,7 +129,7 @@ public class Joueur
 			this.iScore+= score;
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
+		for( CartesObjectifs objectif : this.lstOjectif )
 			objectif.estAccompli();
 	}
 	public void diminuerScore (int score) //Un score peut être négatif
@@ -138,7 +138,7 @@ public class Joueur
 			this.iScore-= score; 
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
+		for( CartesObjectifs objectif : this.lstOjectif )
 			objectif.estAccompli();
 	}
 	
@@ -151,7 +151,7 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
+		for( CartesObjectifs objectif : this.lstOjectif )
 			objectif.estAccompli();
 	}
 	
