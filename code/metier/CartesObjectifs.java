@@ -20,5 +20,7 @@ public class CartesObjectifs
             case "Avoir 0 piece" -> { if(joueur.getNbPiece() == 0) { return true; } }
             default -> { return false; }
         }
+
+        return false;
     }
 }
