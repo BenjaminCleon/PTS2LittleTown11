@@ -2,16 +2,22 @@
 
 public enum Batiment
 {
-	BAR         ( 2, 0, 2, 0, 0, 0, 0, 0, 7, 3),
-	CHAMPSDEBLE ( 0, 0, 1, 0, 0, 0, 1, 0, 3, 0);
+	//          pRq eRq blRq boRq pRc eRc blRc boRc ptCtr ptRc pcRq pcRc
+	BAR         ( 2,  0,   2,   0,  0,  0,   0,   0,    7,   3,   0,   0),
+	CHAMPSDEBLE ( 0,  0,   1,   0,  0,  0,   1,   0,    3,   0,   0,   0),
+	LIBRAIRIE   ( 4,  0,   0,   0,  0,  0,   0,   0,    8,   0,   0,   3),
+	MINEDOR     ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   0,   0,   2),
+	PONTON      ( 0,  0,   0,   3,  0,  2,   0,   0,    5,   0,   0,   0),
+    PUIT        ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   2,   0,   0),
+    STATUE      ( 4,  0,   0,   0,  0,  0,   0,   0,   10,   0,   0,   0);
 
 	private int iEauReq, iBleReq, iBoisReq, iPierreReq;
 	private int iEauRec, iBleRec, iBoisRec, iPierreRec;
-	private int iPtConstru, iPtRec;
+	private int iPtConstru, iPtRec, iPceReq, iPceRec  ;
 
 	Batiment(int iPierreReq, int iEauReq, int iBleReq, int iBoisReq,
 			 int iPierreRec, int iEauRec, int iBleRec, int iBoisRec,
-			 int iPtConstru, int iPtRec )
+			 int iPtConstru, int iPtRec , int iPceReq, int iPceRec)
 	{
 		this.iPierreReq = iPierreReq;
 		this.iEauReq    = iEauReq   ;
@@ -25,6 +31,9 @@ public enum Batiment
 
 		this.iPtConstru = iPtConstru;
 		this.iPtRec     = iPtRec    ;
+
+		this.iPceRec    = iPceRec;
+		this.iPceReq    = iPceReq;
 	}
 
 	public int getPierreRec(){ return this.iPierreRec; }
@@ -40,8 +49,6 @@ public enum Batiment
 	public int getPtConstru(){ return this.iPtConstru; }
 	public int getPtRec    (){ return this.iPtRec    ; }
 
-	public String toString()
-	{
-		return this.name() + this.getPierreReq() + "|" + this.getEauReq() + "|" + this.getBleReq() + "|" + this.getBoisReq();
-	}
+	public int getPcReq    (){ return this.iPceReq   ; }
+	public int getPcRec    (){ return this.iPceRec   ; }
 }
