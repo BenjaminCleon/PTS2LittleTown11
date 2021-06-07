@@ -1,6 +1,6 @@
 package littletown.metier;
 
-public class Tuile extends Pion
+public class Tuile
 {
     // Attributs
     private String  sType;
@@ -13,6 +13,6 @@ public class Tuile extends Pion
 
     public String toString()
     {
-        return "Tuile de type : " + this.sType;
+        return "Tuile de type : " + this.sType + "\n";
     }
 }
