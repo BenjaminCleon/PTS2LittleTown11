@@ -12,6 +12,8 @@ public class Joueur
 	private final int    NB_BATIMENT;
 	private final int    NB_OBJECTIF;
 	
+	private Plateau oPlateauActuel;
+
 	private ArrayList<Tuile>           lstTuile;
 	private ArrayList<Pion>            lstOuvrier;
 	private ArrayList<Pion>            lstBatiment;
@@ -24,7 +26,7 @@ public class Joueur
 	private Ressource        rBois;
 	private Ressource        rPierre;
 	
-	public Joueur(String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif )
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -163,6 +165,12 @@ public class Joueur
 	public boolean verifierObjectif( CartesObjectifs oObjectif )
 	{
 		return false;
+	}
+
+
+	public boolean construireBatiment( int iX, int iY, String sType )
+	{
+		
 	}
 
 }
