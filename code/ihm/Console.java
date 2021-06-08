@@ -63,6 +63,7 @@ public class Console
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
 		sRet += String.format("|%-36s|", "2. Placer ouvrier") + "\n";
+		sRet += String.format("|%-36s|", "3. Quitter le jeu") + "\n";
 		sRet += "======================================\n";
 
 		return sRet;

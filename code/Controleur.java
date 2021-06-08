@@ -14,8 +14,7 @@ public class Controleur
 		this.metier = new Jeu();
 		this.ihm    = new Console(this);
 
-		this.effectuerActionsSelonChoix();
-
+		bouclePrincipale();
 	}
 
 	public static void main(String[] args)
@@ -23,46 +22,16 @@ public class Controleur
 		new Controleur();
 	}
 
-	public String[][] getPlateau()
-	{
-		return this.metier.getPlateau();
-	}
-
-
-	public String intercepterSaisie()
+	public String getSaisie()
 	{
 		Scanner in = new Scanner(System.in);
 
-		String sRet = in.nextLine();
-
-		return sRet;
+		return in.nextLine();
 	}
 
-	public void effectuerActionsSelonChoix()
+	public String[][] getPlateau()
 	{
-		String choix = intercepterSaisie();
-
-		if(choix.equals("1"))
-		{
-			this.ihm.mettreIhmAJour();
-			System.out.println(this.ihm.afficherMenuConstructionBatiment());
-
-			choix = intercepterSaisie();
-
-			String type = intercepterSaisie();
-
-			type = type.toUpperCase();
-
-			char c = choix.charAt(0);
-			int  l = Character.getNumericValue(choix.charAt(1));
-
-			this.metier.construireBatiment(1, type, l, c);
-		}
-		
-		if(choix.equals("2"))
-			System.out.println("Choix 2 effectué");
-
-		this.ihm.mettreIhmAJour();
+		return this.metier.getPlateau();
 	}
 
 	public int getScoreJoueur()
@@ -73,6 +42,43 @@ public class Controleur
 	public String getCouleurJoueur()
 	{
 		return "Rouge";
+	}
+
+	public void bouclePrincipale()
+	{
+
+		int cpt = 0;
+		while(cpt != 4)
+		{
+			try
+			{
+				
+				int choix = Integer.parseInt(getSaisie());
+
+				switch(choix)
+				{
+					case 1 -> { construire(); }
+					case 3 -> { System.exit(0); }
+				}
+
+				this.ihm.mettreIhmAJour();
+				System.out.println(this.ihm.afficherMenuChoix());
+				cpt++;
+
+			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
+		}
+	}
+
+	public void construire()
+	{
+		System.out.println(this.ihm.afficherMenuConstructionBatiment());
+
+		String coord = getSaisie();
+		coord = coord.toUpperCase();
+		String type  = getSaisie();
+
+		this.metier.construireBatiment(1, type, Character.getNumericValue(coord.charAt(1)),
+					coord.charAt(0));
 	}
 
 }

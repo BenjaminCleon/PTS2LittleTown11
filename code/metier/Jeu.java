@@ -80,7 +80,8 @@ public class Jeu
 	 */
 	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig >       this.tabCase   .length -1 || iLig < 0 ||
+
+		if ( iLig >       this.tabCase   .length    || iLig < 0 ||
 		     cCol > 'A' + this.tabCase[0].length -1 || cCol < 'A' ) return false;
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
@@ -100,7 +101,7 @@ public class Jeu
 		if ( !this.tabCase[iLig - 1][cCol-'A'].isEmpty() )return false;
 
 		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
-		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
+		     jTmp.getRessource("BLE")             < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
 			 return false;
 
 		jTmp.consommerRessource(iPierre, "PIERRE");
