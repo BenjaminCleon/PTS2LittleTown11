@@ -2,7 +2,6 @@ package equipe_11.ihm;
 
 import equipe_11.Controleur;
 import equipe_11.metier.*;
-import equipe_11.metier.utilitaire.Couleur;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;

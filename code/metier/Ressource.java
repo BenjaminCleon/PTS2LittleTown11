@@ -157,7 +157,6 @@ public class Ressource extends Tuile
 		if ( iConso < 1 || iTmp.getEntier() + iConso > 15 )return false;
 
 		iTmp.setEntier( iTmp.getEntier() + iConso );
-
 		return true;	
 	}
 
@@ -202,9 +201,22 @@ public class Ressource extends Tuile
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
 	 */
-	public int getQteRessource()
+	public int getQteRessource(){ return this.iQte; }
+
+	/**
+	 * Permet d'ajouter iNb ressource
+	 * @param
+	 *     Le nombre de ressource que l'on rajoute pour cette ressource
+	 */
+	public boolean setQte(int iNb )
 	{
-		return this.iQte;
+		//AltInt aTmp = this.getRessourceByType(this.sType);
+		//if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
+
+		this.iQte = iNb;
+		// if ( iNb > 0 )aTmp.setEntier(-iNb);
+	
+		return true;
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package equipe_11.metier;
 
-import equipe_11.metier.utilitaire.Couleur;
-
 public class Pion
 {
     private int  iLig;

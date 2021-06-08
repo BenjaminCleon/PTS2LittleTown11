@@ -134,10 +134,10 @@ public class Jeu
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
 			 return false;
 
-		jTmp.consommerRessource(iPierre, "PIERRE");
-		jTmp.consommerRessource(iBle   , "BLE"   );
-		jTmp.consommerRessource(iBois  , "BOIS"  );
-		jTmp.consommerRessource(iEau   , "EAU"   );
+		jTmp.consommerRessource(-iPierre, "PIERRE");
+		jTmp.consommerRessource(-iBle   , "BLE"   );
+		jTmp.consommerRessource(-iBois  , "BOIS"  );
+		jTmp.consommerRessource(-iEau   , "EAU"   );
 
 		jTmp.ajouterBatiment(bTmp, iLig - 1, cCol);
 		this.tabPion[iLig - 1][cCol-'A'].setNom(bTmp.name());
@@ -157,7 +157,7 @@ public class Jeu
 	 */
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
-		if ( !this.tabPion[iLig][cCol - 'A'].getNom().isEmpty() )return false;
+		if ( !this.tabPion[iLig-1][cCol - 'A'].getNom().isEmpty() )return false;
 		
 		Pion pTmp1, pTmp2;
 		BatimentInfo bTmp;		
@@ -183,7 +183,7 @@ public class Jeu
 				     pTmp2.getCoul().equals("BLANC") )
 				{
 					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
-					if ( bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
+					if ( bTmp != null && bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
 					     bTmp.getEauReq() == 0 && bTmp.getPierreReq() == 0 )
 					{
 						this.jCourant.ajouterRessource(bTmp.getBleRec   (), "BLE"   );
@@ -197,6 +197,7 @@ public class Jeu
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(iLig, cCol, pTmp1);
 
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.INB_JOUEURS];
 		this.verifierManche();
 		return true;
 	}

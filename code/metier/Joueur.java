@@ -174,10 +174,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .ajouterRessource( iVal ); }
-			case "EAU"    -> { this.rEau   .ajouterRessource( iVal ); }
-			case "BOIS"   -> { this.rBois  .ajouterRessource( iVal ); }
-			case "PIERRE" -> { this.rPierre.ajouterRessource( iVal ); }
+			case "BLE"    -> { this.rBle   .setQte( iVal ); }
+			case "EAU"    -> { this.rEau   .setQte( iVal ); }
+			case "BOIS"   -> { this.rBois  .setQte( this.rBois.getQteRessource()-iVal); }
+			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
 		}
 		
 	}
@@ -193,10 +193,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .consommerRessource( iVal ); }
-			case "EAU"    -> { this.rEau   .consommerRessource( iVal ); }
-			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
-			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
+			case "BLE"    -> { this.rBle   .setQte( iVal ); }
+			case "EAU"    -> { this.rEau   .setQte( iVal ); }
+			case "BOIS"   -> { this.rBois  .setQte( iVal ); }
+			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
 		}
 	}
 	/**
