@@ -1,9 +1,7 @@
-package littletown;
+package equipe_11;
 
-import java.util.Scanner;
-
-import littletown.ihm.Console;
-import littletown.metier.Jeu;
+import equipe_11.ihm.Console;
+import equipe_11.metier.Jeu;
 
 public class Controleur
 {

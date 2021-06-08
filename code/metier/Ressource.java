@@ -1,6 +1,6 @@
-package littletown.metier;
+package equipe_11.metier;
 
-import littletown.metier.utilitaire.AltInt;
+import equipe_11.metier.utilitaire.AltInt;
 
 /** Cette classe permet de donner les informations générales sur les différentes
   * Resource disponible.

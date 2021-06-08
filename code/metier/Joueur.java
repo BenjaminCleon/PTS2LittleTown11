@@ -1,10 +1,13 @@
-package littletown.metier;
+package equipe_11.metier;
 
 import java.util.ArrayList;
-import littletown.metier.Pion;
-import littletown.metier.CartesObjectifs;
-import littletown.metier.Tuile;
-import littletown.metier.Jeu;
+
+import equipe_11.metier.Batiment;
+import equipe_11.metier.BatimentInfo;
+import equipe_11.metier.Ouvrier ;
+import equipe_11.metier.CartesObjectifs;
+import equipe_11.metier.Tuile   ;
+import equipe_11.metier.Jeu     ;
 
 public class Joueur
 {
@@ -17,7 +20,7 @@ public class Joueur
 
 	private ArrayList<Tuile>           lstTuile;
 	private ArrayList<Ouvrier>         lstOuvrier;
-	private ArrayList<Pion>            lstBatiment;
+	private ArrayList<Batiment>        lstBatiment;
 	private ArrayList<CartesObjectifs> lstObjectif;
 	private int                        iNbPiece;
 	private int                        iScore;
@@ -35,21 +38,15 @@ public class Joueur
 		this.SCOULEUR      = sCouleur;
 		this.iNbPiece     = 3;
 		
-		this.lstTuile     = new ArrayList<Tuile>();
-		this.lstOuvrier   = new ArrayList<Ouvrier> ();
-		this.lstBatiment  = new ArrayList<Pion> ();
+		this.lstTuile     = new ArrayList<Tuile>           ();
+		this.lstOuvrier   = new ArrayList<Ouvrier>         ();
+		this.lstBatiment  = new ArrayList<Batiment>        ();
 		this.lstObjectif  = new ArrayList<CartesObjectifs> ();
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
 		this.rEau         = new Ressource("eau",true); //est mangeable
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
-		
-		for(int cpt = 0; cpt<NB_OUVRIER; cpt++)
-		{
-			this.lstOuvrier .add(new Pion("Ouvrier" ,this.SCOULEUR, null));
-			this.lstBatiment.add(new Pion("Batiment",this.SCOULEUR, null));
-		}
 	}
 	
 	public int    getNbPiece () { return this.iNbPiece; }
@@ -102,19 +99,6 @@ public class Joueur
 		
 	}
 	
-	/*public void ajouterTuile( Tuile tuile )
-	{
-		if ( !tuile.estPosseder() )
-		{
-			this.lstTuile.add(new Tuile (tuile));
-			this.augmenterScore(tuile.getScore());
-		}
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.tabOjectif )
-			objectif.estAccompli();
-	}*/
-	
 	public void consommerRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
@@ -165,7 +149,7 @@ public class Joueur
 			this  .consommerPiece(1);
 		}
 		
-		//Verifie si un objectif a été complété
+		//Verifie si un objectif a été complétégggggg
 		for( CartesObjectifs objectif : this.lstObjectif )
 			;
 	}
@@ -178,9 +162,27 @@ public class Joueur
 	}
 
 
-	public boolean construireBatiment( int iX, int iY, String sType )
+	/**
+	 * Permet d'associer un batiment à un joueur
+	 * @param bt
+	 *        Batiment à ajouter dans la liste pour le joueur
+	 */
+	public void ajouterBatiment(BatimentInfo bt, int iLig, char cCol)
 	{
-		return false;
+		this.lstBatiment.add(new Batiment(iLig, cCol, this.SCOULEUR, bt.name()));
+		this.lstOuvrier .add(new Ouvrier(this.SCOULEUR, iLig, cCol));
+		
+		this.iScore += bt.getPtConstru();
+	}
+
+	/**
+	 * Retourne l'ensemble des batiments
+	 * @return
+	 *     L'ensemble des batiments du Joueur
+	 */
+	public Batiment[] getBatiments()
+	{
+		return this.lstBatiment.toArray(new Batiment[this.lstBatiment.size()]);
 	}
 
 }

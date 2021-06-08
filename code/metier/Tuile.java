@@ -1,4 +1,4 @@
-package littletown.metier;
+package equipe_11.metier;
 
 public class Tuile
 {

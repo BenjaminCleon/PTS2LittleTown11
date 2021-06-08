@@ -1,6 +1,6 @@
-package littletown.ihm;
+package equipe_11.ihm;
 
-import littletown.Controleur;
+import equipe_11.Controleur;
 
 public class Console
 {

@@ -1,4 +1,4 @@
-package littletown.metier;
+package equipe_11.metier;
 
 public class CartesObjectifs
 {
@@ -15,18 +15,7 @@ public class CartesObjectifs
 
     public boolean bAccompli ()
     {
-        switch ( sObjectif )
-        {
-            case "Avoir 0 piece" -> { if(joueur.getNbPiece() == 0) { return true; } }
-            case "Avoir 2 fois plus de nourriture que d'ouvrier" -> 
-                {
-                    if(this.joueur.getRessource("eau")+this.joueur.getRessource("ble") >= this.joueur.getNbOuvrier()*2)
-                    {
-                        return true;
-                    } 
-                }
-            default -> { return false; }
-        }
+
 
         return false;
     }
