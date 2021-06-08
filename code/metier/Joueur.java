@@ -8,26 +8,109 @@ import equipe_11.metier.Ouvrier ;
 import equipe_11.metier.Tuile   ;
 import equipe_11.metier.Jeu     ;
 
+/** Cette classe permet de modifier et d'obtenir les diverses informations
+  * lié aux joueurs
+  *
+  * @author Equipe 11
+  */
+
 public class Joueur
 {
+	/**
+	 * C'est la couleur du joueur
+	 *
+	 * @see Joueur#ajouterBatiment()
+	 * @see Joueur#getCouleur()
+	 */
 	private final String SCOULEUR;
 	private final int    NB_OUVRIER;
 	private final int    NB_BATIMENT;
+	/**
+	 * C'est le nombre d'objectif du joueur
+	 *
+	 */
 	private final int    NB_OBJECTIF;
 	
 	private Jeu jeu;
-
+	
+	/**
+	 * C'est une liste des tuile posséder par le joueur
+	 *
+	 * @see Joueur#estPresentTuile()
+	 */
 	private ArrayList<Tuile>           lstTuile;
+	/**
+	 * C'est une liste des ouvriers du joueur
+	 *
+	 * @see Joueur#ajouterBatiment()
+	 */
 	private ArrayList<Pion>            lstOuvrier;
+	/**
+	 * C'est une liste des batiments du joueur
+	 * 
+	 * @see Joueur#getBatiments()
+	 * @see Joueur#ajouterBatiment()
+	 */
 	private ArrayList<Pion>            lstBatiment;
+	/**
+	 * C'est le nombre de pieces du joueur
+	 *
+	 * @see Joueur#getNbPiece()
+	 * @see Joueur#ajouterPiece()
+	 *
+	 * @see Joueur#payerJoueur()
+	 * @see Joueur#consommerPiece()
+	 */
 	private int                        iNbPiece;
+	/**
+	 * C'est le score du joueur
+	 * @see Joueur#getScore
+	 */
 	private int                        iScore;
-	
+	/**
+	 * C'est les ressource d'eau du joueur
+	 *
+	 * @see getRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
 	private Ressource        rBle;
+	/**
+	 * C'est les ressource de bois du joueur
+	 *
+	 * @see getRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
 	private Ressource        rEau;
+	/**
+	 * C'est les ressource de bois du joueur
+	 *
+	 * @see getRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
 	private Ressource        rBois;
+	/**
+	 * C'est les ressource de pierre du joueur
+	 *
+	 * @see getRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
 	private Ressource        rPierre;
-	
+	/**
+	 * Constructeur de la classe Ressource
+	 *
+	 * @param sCouleur 
+	 * 	Nom de la couleur du joueur
+	 * @param nbOuvrier
+	 * 	Nombre d'ouvrier que le joueur peut avoir dans cette partie
+	 * @param nbBatiment
+	 *	Nombre de batiment que le joueur peut avoir dans cette partie
+	 * @param nbObjectif
+	 *	Nombre d'objectif que le joueur peut avoir dans cette partie
+	 */
 	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif )
 	{
 		this.NB_OUVRIER   = nbOuvrier;
@@ -47,11 +130,31 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 	}
-	
+	/**
+	 * retourne le nombre de piece du joueur
+	 * @return 
+	 *	le nombre de piece du joueur
+	 */
 	public int    getNbPiece () { return this.iNbPiece; }
+	/**
+	 * retourne la couleur du joueur
+	 * @return 
+	 *	la couleur du joueur
+	 */
 	public String getCouleur () { return this.SCOULEUR; }
-    public int    getScore   () { return this.iScore  ; }
-	
+	/**
+	 * retourne le nombre de point du joueur
+	 * @return 
+	 *	le nombre de point du joueur
+	 */
+    	public int    getScore   () { return this.iScore  ; }
+	/**
+	 * retourne le nombre de ressource de la ressource en parametre
+	 * @param sType
+	 *	nom de la ressource
+	 * @return 
+	 *	le nombre de ressource de la ressource en parametre
+	 */
 	public int getRessource(String sType)
 	{
 		switch ( sType.toUpperCase() )
@@ -64,12 +167,24 @@ public class Joueur
 		
 		return 0;
 	}
-	
+	/**
+	 * Augmente le nombre de piece du joueur dont la somme est
+	 * passer en parametre
+	 * @param nbPiece
+	 *	nombre de piece a ajouter
+	 */
 	public void ajouterPiece   (int nbPiece ) 
 	{ 
 		this.iNbPiece+= nbPiece;  
 	}
-	
+	/**
+	 * Augmente le nombre de ressource du joueur dont la somme et
+	 * le nom sont passer en parametre
+	 * @param iVal
+	 *	nombre de ressource a ajouter
+	 * @param sType
+	 * 	nom de la ressource a incrementer
+	 */
 	public void ajouterRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
@@ -81,7 +196,14 @@ public class Joueur
 		}
 		
 	}
-	
+	/**
+	 * Diminue le nombre de ressource du joueur dont la somme et
+	 * le nom sont passer en parametre
+	 * @param iVal
+	 *	nombre de ressource a consommer
+	 * @param sType
+	 * 	nom de la ressource a décrémenter
+	 */
 	public void consommerRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
@@ -92,21 +214,41 @@ public class Joueur
 			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
 		}
 	}
-
+	/**
+	 * Diminue le nombre de piece dont la somme est
+	 * passer en parametre
+	 * @param nbPiece
+	 *	nombre de piece a utiliser
+	 */
 	public void consommerPiece (int nbPiece ) 
 	{ 
 		this.iNbPiece-= nbPiece;
 	}
-	
+	/**
+	 * Augment le score dont la quantite est
+	 * passer en parametre
+	 * @param score
+	 *	nombre de points a utiliser
+	 */
 	public void augmenterScore (int score)   
 	{
 		if(score > 0) this.iScore+= score;
 	}
+	/**
+	 * Diminue le score dont la quantite est
+	 * passer en parametre
+	 * @param score
+	 *	nombre de points a utiliser
+	 */
 	public void diminuerScore (int score) //Un score peut être négatif
 	{ 
 		if(score > 0) this.iScore-= score; 
 	}
-	
+	/**
+	 * Paye un joueur passer en parametre de 1 piece
+	 * @param Joueur
+	 *	joueurs a payer
+	 */
 	public void payerJoueur( Joueur joueur )
 	{
 		if ( this.iNbPiece > 0 )
@@ -116,8 +258,19 @@ public class Joueur
 		}
 	}
 	
+	/**
+	 * Regarde si la tuile passer en paramètre est présente
+	 * dans les tuile posséder par le joueur
+	 * @param tuile
+	 *	tuile a verifier
+	 */
 	public boolean estPresentTuile(Tuile tuile){ return this.lstTuile.contains(tuile); }
 	
+	/**
+	 * Regarde si l'objectif passer en paramètre est compléter
+	 * @param oObjectif
+	 *	objectif a vérifier
+	 */
 	public boolean verifierObjectif( CartesObjectifs oObjectif )
 	{
 		return false;
@@ -154,6 +307,18 @@ public class Joueur
 	 */
 	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
 	
+	/**
+	 * Nourri les ouvriers et retourne si les ouvriers on été nourrir
+	 * ou non et pourquoi
+	 * @param nbEau
+	 *	quantité d'eau au consommer
+	 * @param nbBle
+	 *	quantité de blé au consommer
+	 * @param nbPiece
+	 *	quantité de piece au consommer
+	 * @return
+	 *      Si les ouvriers on été nourrir ou non et pourquoi
+	 */
 	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
 	{
 	int cptOuvrierNourri = 0;
