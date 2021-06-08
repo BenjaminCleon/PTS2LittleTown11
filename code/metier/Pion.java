@@ -1,5 +1,7 @@
 package equipe_11.metier;
 
+import equipe_11.metier.utilitaire.Couleur;
+
 public class Pion
 {
     private int  iLig;
@@ -21,4 +23,9 @@ public class Pion
     public String getNom (){ return this.sNom ; }
     
     public void   setNom ( String sNom ){ this.sNom = sNom; }
+
+    public String toString()
+    {
+        return this.sNom;
+    }
 }

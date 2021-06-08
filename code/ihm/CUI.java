@@ -1,22 +1,22 @@
 package equipe_11.ihm;
 
 import equipe_11.Controleur;
+import equipe_11.metier.*;
+import equipe_11.metier.utilitaire.Couleur;
 
-public class Console
+import iut.algo.CouleurConsole;
+import iut.algo.Console;
+
+public class CUI
 {
-	final String  ANSI_RED   = "\u001B[31m";
-	final String  ANSI_BLUE   = "\u001B[34m";
-	final String  ANSI_RESET = "\u001B[0m";
-
-
 	Controleur ctrl;
 
-	public Console( Controleur ctrl )
+	public CUI( Controleur ctrl )
 	{
 		this.ctrl = ctrl;
 
 		this.mettreIhmAJour();
-		System.out.println(this.afficherMenuChoix());
+	 	Console.println(this.afficherMenuChoix());
 	}
 
 
@@ -28,35 +28,49 @@ public class Console
 		return sRet;
 	}
 
-	public String afficherPlateau()
+	public void afficherPlateau()
 	{
-		String sRet = "";
-		String[][] tabPlateau = this.ctrl.getPlateau();
+		Pion[][] tabPlateau = this.ctrl.getPlateau();
 
 		int  cpt = 0;	
 
-		sRet += "\t";
+		Console.print("\t");
 
 		for(int i = 'A'; i < tabPlateau[0].length + 'A'; i++)
 		{
-			 sRet += String.format("    %-7s", (char)i);
+			Console.print(String.format("    %-7s", (char)i));
 		}
 
-		sRet += "\n";
+		Console.println();
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
-			sRet += ++cpt + "\t| ";
+			Console.print(++cpt + "\t| ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
 			{
-				sRet += String.format("%-6.6s", tabPlateau[i][j]) + "  |  ";
+				this.setCouleur(tabPlateau[i][j].getCoul());
+				Console.print(String.format("%-6.6s", tabPlateau[i][j].toString()));
+				Console.normal();
+				Console.print("  |  ");
 			}
-
-			sRet += "\n";
+			Console.println();
 		}
 
-		return sRet;
+		Console.println();
 	}
+
+	public void setCouleur(String sCoul)
+	{
+		switch( sCoul.toUpperCase() )
+		{
+			case "ROUGE"  -> Console.couleurFont( CouleurConsole.ROUGE );
+			case "VERT"   -> Console.couleurFont( CouleurConsole.VERT  );
+			case "BLEU"   -> Console.couleurFont( CouleurConsole.BLEU  );
+			case "JAUNE"  -> Console.couleurFont( CouleurConsole.JAUNE );
+			default       -> Console.normal();
+		}
+	}
+
 
 	public String afficherMenuChoix()
 	{
@@ -93,12 +107,29 @@ public class Console
 		return sRet;
 	}
 
+	public String afficherMenuPlacementOuvrier()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace Ouvrier " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += String.format("|%-36s|", "Bois : " + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
+		sRet += String.format("|%-36s|", "Ble : " + this.ctrl.getRessourceJoueur("BLE")) + "\n";
+		sRet += String.format("|%-36s|", "Eau : " + this.ctrl.getRessourceJoueur("EAU")) + "\n";
+		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
 	public void mettreIhmAJour()
 	{
-		System.out.print("\033[H\033[2J");  
-    	System.out.flush(); 
+		//System.out.print("\033[H\033[2J");  
+    	//System.out.flush(); 
 
-		System.out.println(this.getHeader());
-		System.out.println(this.afficherPlateau());
+		Console.println(this.getHeader());
+		this.afficherPlateau();
 	}
 }

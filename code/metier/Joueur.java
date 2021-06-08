@@ -67,13 +67,7 @@ public class Joueur
 	 * @see Joueur#getScore
 	 */
 	private int                        iScore;
-	/**
-	 * C'est les ressource d'eau du joueur
-	 *
-	 * @see getRessource()
-	 * @see ajouterRessource()
-	 * @see consommerRessource()
-	 */
+
 	private Ressource        rBle;
 	/**
 	 * C'est les ressource de bois du joueur
@@ -99,19 +93,8 @@ public class Joueur
 	 * @see consommerRessource()
 	 */
 	private Ressource        rPierre;
-	/**
-	 * Constructeur de la classe Ressource
-	 *
-	 * @param sCouleur 
-	 * 	Nom de la couleur du joueur
-	 * @param nbOuvrier
-	 * 	Nombre d'ouvrier que le joueur peut avoir dans cette partie
-	 * @param nbBatiment
-	 *	Nombre de batiment que le joueur peut avoir dans cette partie
-	 * @param nbObjectif
-	 *	Nombre d'objectif que le joueur peut avoir dans cette partie
-	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif )
+	
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -120,6 +103,7 @@ public class Joueur
 
 		this.iNbPiece     = 3;
 		this.iScore       = 0;
+	
 		
 		this.lstTuile     = new ArrayList<Tuile>();
 		this.lstOuvrier   = new ArrayList<Pion> ();
@@ -130,6 +114,7 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 	}
+
 	/**
 	 * retourne le nombre de piece du joueur
 	 * @return 
@@ -315,78 +300,82 @@ public class Joueur
 		this.lstOuvrier.add(pOuv);
 	}
 
-	/**
-	 * Nourri les ouvriers et retourne si les ouvriers on été nourrir
-	 * ou non et pourquoi
-	 * @param nbEau
-	 *	quantité d'eau au consommer
-	 * @param nbBle
-	 *	quantité de blé au consommer
-	 * @param nbPiece
-	 *	quantité de piece au consommer
-	 * @return
-	 *      Si les ouvriers on été nourrir ou non et pourquoi
-	 */
-	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
+	public String nourrirOuvrier()
 	{
-	int cptOuvrierNourri = 0;
+		int nbOuvrierNourri = 0;
 
-		//Si le nombre de ressource est juste ou inferieur
-		if ( nbEau+nbBle+nbPiece/3 <= this.NB_OUVRIER )
-			for ( Pion o : this.lstOuvrier)
+		if( this.rBle.getQteBle() + this.rEau.getQteEau() <= NB_OUVRIER )
+		{
+			nbOuvrierNourri = this.rBle.getQteBle() + this.rEau.getQteEau();
+			
+			this.rBle.consommerRessource( this.rBle.getQteBle() );
+			this.rEau.consommerRessource( this.rEau.getQteEau() );
+
+			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if (nbEau > 0 )
+				if ( this.iNbPiece >= 3 )
 				{
-					//o.nourrir(this.rEau);
-					nbEau--;
-					cptOuvrierNourri++;
-				    return "eau consomme";
+					this.iNbPiece -= 3;
+					nbOuvrierNourri++;
 				}
 				else
-					if (nbBle > 0)
-					{
-						//o.nourrir(this.rBle);
-						nbBle--;
-						cptOuvrierNourri++;
-						return "ble consomme";
-					}
-					else
-						if (nbPiece > 2)
-						{
-							if( this.rEau.getQteEau() > 0 ) //Si reste eau dans la pioche
-							{
-								nbPiece-=3;
-								this.iNbPiece-=3;
-								this.ajouterRessource(1, "eau");
-								//o.nourrir(rEau);
-								cptOuvrierNourri++;
-								return "Piece consomme";
-							}
-							else
-							{
-								if( this.rBle.getQteBle() > 0) //Si reste ble dans la pioche
-								{
-									nbPiece-=3;
-									this.ajouterRessource(1, "ble");
-									//o.nourrir(rBle);
-									cptOuvrierNourri++;
-									return "Piece consomme";
-								}
-								else return "ble et eau vide";
-							}
-						}	
-				//Si toute les ressources envoyer ont été consommer
-				if ( nbEau+nbBle+nbPiece/3 == 0 )
 				{
-					while( cptOuvrierNourri<this.lstOuvrier.size() )
-					{
-						this.diminuerScore(3);
-						cptOuvrierNourri++;
-					}
+					this.iScore -= 3;
+					nbOuvrierNourri++;
 				}
 			}
+			return "Ouvriers Nourri.";
+		}
+		else
+		{
+			if ( this.rBle.getQteBle() == 0)
+			{
+				this.rEau.consommerRessource( NB_OUVRIER );
+				nbOuvrierNourri = NB_OUVRIER;
+			}
 
-		//Si ne passe pas par les autre conditions il n'y a trop de ressources
-		return "Trop de ressources";
-    }
+			if ( this.rBle.getQteEau() == 0)
+			{
+				this.rBle.consommerRessource( NB_OUVRIER );
+				nbOuvrierNourri = NB_OUVRIER;
+			}
+		}
+
+		return "Ouvriers non Nourri.";
+	}
+
+	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
+	{
+		int nbOuvrierNourri = 0;
+		
+		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
+			return "trop de ressources proposé";
+		else
+		{
+			if ( nbBle > this.rBle.getQteBle() )
+				return "le joueur n'a pas assez de ressources d'eau";
+			
+			if ( nbEau > this.rEau.getQteEau() )
+				return "le joueur n'a pas assez de ressources de blé";
+			
+			if ( nbPiece > this.iNbPiece )
+				return "le joueur n'a pas assez de pièces";
+
+			if ( this.rBle.getQteBle() == 0)
+			{
+				this.rEau.consommerRessource( NB_OUVRIER );
+				nbOuvrierNourri = NB_OUVRIER;
+			}
+
+			if ( this.rBle.getQteEau() == 0)
+			{
+				this.rBle.consommerRessource( NB_OUVRIER );
+				nbOuvrierNourri = NB_OUVRIER;
+			}
+
+
+		}
+
+		return "YAYAYAAYA";
+	}
 }

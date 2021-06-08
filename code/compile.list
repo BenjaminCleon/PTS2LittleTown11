@@ -1,9 +1,10 @@
 
 ./Controleur.java
 
-./ihm/Console.java
+./ihm/CUI.java
 
 ./metier/utilitaire/AltInt.java
+
 
 ./metier/Batiment.java
 ./metier/BatimentInfo.java
@@ -12,5 +13,4 @@
 ./metier/Pion.java
 ./metier/Ouvrier.java
 ./metier/Ressource.java
-./metier/Tuile.java
 ./metier/Jeu.java
