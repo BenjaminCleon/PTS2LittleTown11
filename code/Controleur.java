@@ -1,7 +1,7 @@
-package littletown;
+package equipe_11;
 
-import littletown.ihm.Console;
-import littletown.metier.Jeu;
+import equipe_11.ihm.Console;
+import equipe_11.metier.Jeu;
 
 public class Controleur
 {
@@ -12,8 +12,8 @@ public class Controleur
 	{
 		this.jeu = new Jeu();
 
-		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 2));
-		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 0));
+		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 'A'));
+		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 'A'));
 
 	}
 

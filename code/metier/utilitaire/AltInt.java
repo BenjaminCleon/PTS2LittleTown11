@@ -1,4 +1,4 @@
-package littletown.metier.utilitaire;
+package equipe_11.metier.utilitaire;
 
 public class AltInt
 {

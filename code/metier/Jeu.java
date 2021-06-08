@@ -1,4 +1,6 @@
-package littletown.metier;
+package equipe_11.metier;
+
+import equipe_11.metier.BatimentInfo;
 
 public class Jeu 
 {
@@ -53,12 +55,12 @@ public class Jeu
 
 		if ( iNumPlateau == 2 )
 		{
-			String[][] tabCase = {{"PIERRE",     "", "BOIS", "PIERRE",    "", "EAU",     "", "PIERRE", "PIERRE"},
-								  {      "",     "",     "",       "",    "",    "",     "",       "",       ""},
-								  {   "EAU",     "",     "",       "",    "",    "",     "",       "",       ""},
-								  {  "BOIS",     "",     "",       "",    "",    "",     "",       "",    "EAU"},
-								  {      "",     "",     "",       "",    "",    "", "BOIS",       "",       ""},
-								  {      "", "BOIS", "BOIS",       "", "EAU", "EAU",     "",       "",   "BOIS"}};
+			String[][] tabCase = {{"BOIS", "",     "", "PIERRE", "PIERRE",    "", "EAU", "",   "BOIS"},
+								  {    "", "", "BOIS",       "",       "",    "",    "", "",       ""},
+								  {"BOIS", "",     "",       "",       "",    "",    "", "",    "EAU"},
+								  {    "", "",     "",       "",       "",    "",    "", "",   "BOIS"},
+								  { "EAU", "",     "",       "",   "BOIS",    "",    "", "",       ""},
+								  { "EAU", "",     "", "PIERRE",       "",    "", "EAU", "", "PIERRE"}};
 			this.tabCase = tabCase;
 		}
 	}
@@ -76,21 +78,26 @@ public class Jeu
 	 * @return
 	 *      true si le batiment est construit
 	 */
-	public boolean construireBatiment(int iNumJoueur, String sType, int iCol, int iLig)
+	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig > this.tabCase   .length -1 || iLig < 0 ||
-		     iCol > this.tabCase[0].length -1 || iCol < 0 ) return false;
+		if ( iLig >       this.tabCase   .length -1 || iLig < 0 ||
+		     cCol > 'A' + this.tabCase[0].length -1 || cCol < 'A' ) return false;
 
-		Batiment bTmp = Batiment.rechercherBatiment(sType.toUpperCase());
+		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
-
-		for ( Joueur j : this.tabJoueurs )
-			for ( Batiment bt : j.getBatiments() )if ( bt == bTmp )return false;
 
 		int iPierre = bTmp.getPierreReq();
 		int iBle    = bTmp.getBleReq   ();
 		int iBois   = bTmp.getBoisReq  ();
 		int iEau    = bTmp.getEauReq   ();
+
+		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
+		{
+			for ( Joueur j : this.tabJoueurs )
+				for ( Batiment bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
+		}
+
+		if ( !this.tabCase[iLig][cCol-'A'].isEmpty() )return false;
 
 		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
@@ -101,8 +108,8 @@ public class Jeu
 		jTmp.consommerRessource(iBois  , "BOIS"  );
 		jTmp.consommerRessource(iEau   , "EAU"   );
 
-		jTmp.ajouterBatiment(bTmp);
-		this.tabCase[iLig][iCol] = bTmp.name();
+		jTmp.ajouterBatiment(bTmp, iLig, cCol);
+		this.tabCase[iLig][cCol-'A'] = bTmp.name();
 
 		return true;
 	}
