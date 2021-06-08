@@ -1,15 +1,27 @@
 package littletown.metier;
 
-public class Ouvrier extends Pion
+import java.awt.Point;
+
+public class Ouvrier
 {
+    private Point  point;
+    private String sType;
+    private String sCouleur;
+
     private Jeu jeu;
-    private boolean estNourri = false;
+
+    private boolean estNourri = false; //en début de parti et en début de manche l'ouvrier n'est pas nourri
 
     public Ouvrier( String sType, String sCouleur, Point point, Jeu jeu )
     {
-        super(sType, sCouleur, point);
+        this.sType    = sType.toUpperCase();
+        this.sCouleur = sCouleur;
+        this.point = point;
         this.jeu = jeu;
     }
+
+    public String getType()    { return this.sType;    }
+    public String getCouleur() { return this.sCouleur; }
 
     public boolean activer()
     {
@@ -29,10 +41,16 @@ public class Ouvrier extends Pion
         }
     }
 
+    //On vérifie si la ressource est mangeable puis on consomme après pour ne pas consommer sans manger la ressource
     public void nourrir( Ressource res )
     {
         this.setNourri( res.getEstMangeable() && res.consommerRessource(1) )
     }
 
     public void setNourri( boolean estNourri ) { this.estNourri = estNourri; }
+
+    public boolean placer( int posX, int posY )
+    {
+        this.jeu.placerOuvrier( this, posX, posY );
+    }
 }
