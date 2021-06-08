@@ -11,7 +11,7 @@ public class Console
 		this.ctrl = ctrl;
 
 		this.mettreIhmAJour();
-
+		System.out.println(this.afficherMenuChoix());
 	}
 
 
@@ -68,7 +68,7 @@ public class Console
 		return sRet;
 	}
 
-	public String afficherMenuConstuctionBatiment()
+	public String afficherMenuConstructionBatiment()
 	{
 		String sRet = "";
 
@@ -80,6 +80,7 @@ public class Console
 		sRet += String.format("|%-36s|", "Pierre : " + 3) + "\n";
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
+		sRet += String.format("|%-36s|", "Puis entrez le type du batiment.") + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
@@ -92,6 +93,5 @@ public class Console
 
 		System.out.println(this.getHeader());
 		System.out.println(this.afficherPlateau());
-		System.out.println(this.afficherMenuChoix());
 	}
 }

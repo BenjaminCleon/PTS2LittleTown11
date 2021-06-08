@@ -97,7 +97,7 @@ public class Jeu
 				for ( Batiment bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
 		}
 
-		if ( !this.tabCase[iLig][cCol-'A'].isEmpty() )return false;
+		if ( !this.tabCase[iLig - 1][cCol-'A'].isEmpty() )return false;
 
 		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
@@ -108,8 +108,8 @@ public class Jeu
 		jTmp.consommerRessource(iBois  , "BOIS"  );
 		jTmp.consommerRessource(iEau   , "EAU"   );
 
-		jTmp.ajouterBatiment(bTmp, iLig, cCol);
-		this.tabCase[iLig][cCol-'A'] = bTmp.name();
+		jTmp.ajouterBatiment(bTmp, iLig - 1, cCol);
+		this.tabCase[iLig - 1][cCol-'A'] = bTmp.name();
 
 		return true;
 	}
