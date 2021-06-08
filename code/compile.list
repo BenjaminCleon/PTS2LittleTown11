@@ -10,3 +10,4 @@ metier/Joueur.java
 metier/Pion.java
 metier/Ressource.java
 metier/Tuile.java
+metier/Jeu.java

@@ -21,7 +21,7 @@ public class Jeu
 		this.tabCase    = new String[6][9];
 		this.tabJoueurs = new Joueur[2];
 
-		this.initPlateau(1);
+		this.initPlateau(2);
 	}
 
 	/**
