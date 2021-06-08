@@ -23,12 +23,15 @@ public class Joueur
 	private int                        iNbPiece;
 	private int                        iScore;
 	
+	private int iNbOuvrierMax ;
+	private int iNbBatimentMax;
+
 	private Ressource        rBle;
 	private Ressource        rEau;
 	private Ressource        rBois;
 	private Ressource        rPierre;
 	
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif )
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, int iNbOuvrierMax, int iNbBatimentMax )
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -37,6 +40,9 @@ public class Joueur
 
 		this.iNbPiece     = 3;
 		this.iScore       = 0;
+		
+		this.iNbOuvrierMax  = iNbOuvrierMax ;
+		this.iNbBatimentMax = iNbBatimentMax;
 		
 		this.lstTuile     = new ArrayList<Tuile>();
 		this.lstOuvrier   = new ArrayList<Pion> ();
@@ -156,7 +162,7 @@ public class Joueur
 	
 	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
 	{
-	int cptOuvrierNourri = 0;
+		int nbOuvrierNourri = 0;
 
 		//Si le nombre de ressource est juste ou inferieur
 		if ( nbEau+nbBle+nbPiece/3 <= this.NB_OUVRIER )
@@ -166,7 +172,7 @@ public class Joueur
 				{
 					//o.nourrir(this.rEau);
 					nbEau--;
-					cptOuvrierNourri++;
+					nbOuvrierNourri++;
 				    return "eau consomme";
 				}
 				else
@@ -174,7 +180,7 @@ public class Joueur
 					{
 						//o.nourrir(this.rBle);
 						nbBle--;
-						cptOuvrierNourri++;
+						nbOuvrierNourri++;
 						return "ble consomme";
 					}
 					else
@@ -186,7 +192,7 @@ public class Joueur
 								this.iNbPiece-=3;
 								this.ajouterRessource(1, "eau");
 								//o.nourrir(rEau);
-								cptOuvrierNourri++;
+								nbOuvrierNourri++;
 								return "Piece consomme";
 							}
 							else
@@ -196,7 +202,7 @@ public class Joueur
 									nbPiece-=3;
 									this.ajouterRessource(1, "ble");
 									//o.nourrir(rBle);
-									cptOuvrierNourri++;
+									nbOuvrierNourri++;
 									return "Piece consomme";
 								}
 								else return "ble et eau vide";
@@ -205,10 +211,10 @@ public class Joueur
 				//Si toute les ressources envoyer ont été consommer
 				if ( nbEau+nbBle+nbPiece/3 == 0 )
 				{
-					while( cptOuvrierNourri<this.lstOuvrier.size() )
+					while( nbOuvrierNourri<this.lstOuvrier.size() )
 					{
 						this.diminuerScore(3);
-						cptOuvrierNourri++;
+						nbOuvrierNourri++;
 					}
 				}
 			}
@@ -216,4 +222,80 @@ public class Joueur
 		//Si ne passe pas par les autre conditions il n'y a trop de ressources
 		return "Trop de ressources";
     }
+
+	public String nourrirOuvrier()
+	{
+		int nbOuvrierNourri = 0;
+
+		if( this.rBle.getQteBle() + this.rEau.getQteEau() <= iNbOuvrierMax )
+		{
+			nbOuvrierNourri = this.rBle.getQteBle() + this.rEau.getQteEau();
+			
+			this.rBle.consommerRessource( this.rBle.getQteBle() );
+			this.rEau.consommerRessource( this.rEau.getQteEau() );
+
+			while ( nbOuvrierNourri < this.iNbOuvrierMax )
+			{
+				if ( this.iNbPiece >= 3 )
+				{
+					this.nbPiece -= 3;
+					nbOuvrierNourri++;
+				}
+				else
+				{
+					this.iScore -= 3;
+					nbOuvrierNourri++;
+				}
+			}
+		}
+		else
+		{
+			if ( this.rBle.getQteBle() == 0)
+			{
+				this.rEau.consommerRessource( iNbOuvrierMax );
+				nbOuvrierNourri = iNbOuvrierMax;
+			}
+
+			if ( this.rBle.getQteEau() == 0)
+			{
+				this.rBle.consommerRessource( iNbOuvrierMax );
+				nbOuvrierNourri = iNbOuvrierMax;
+			}
+		}
+
+		return "Ouvriers Nourri.";	
+	}
+
+	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
+	{
+		int nbOuvrierNourri = 0;
+		
+		if ( nbEau + nbBle + nbPiece/3 > this.iNbOuvrierMax )
+			return "trop de ressources proposé";
+		else
+		{
+			if ( nbBle > this.rBle.getQteBle() )
+				return "le joueur n'a pas assez de ressources d'eau";
+			
+			if ( nbEau > this.rEau.getQteEau() )
+				return "le joueur n'a pas assez de ressources de blé";
+			
+			if ( nbPiece > this.iNbPiece )
+				return "le joueur n'a pas assez de pièces";
+			
+			
+
+			if ( this.rBle.getQteBle() == 0)
+			{
+				this.rEau.consommerRessource( iNbOuvrierMax );
+				nbOuvrierNourri = iNbOuvrierMax;
+			}
+
+			if ( this.rBle.getQteEau() == 0)
+			{
+				this.rBle.consommerRessource( iNbOuvrierMax );
+				nbOuvrierNourri = iNbOuvrierMax;
+			}
+		}
+	}
 }
