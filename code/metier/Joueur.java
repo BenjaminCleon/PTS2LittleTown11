@@ -184,6 +184,69 @@ public class Joueur
 	{
 		return this.lstBatiment.toArray(new Batiment[this.lstBatiment.size()]);
 	}
+	
+	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
+	{
+	int cptOuvrierNourri = 0;
+
+		//Si le nombre de ressource est juste ou inferieur
+		if ( nbEau+nbBle+nbPiece/3 <= this.NB_OUVRIER )
+			for ( Ouvrier o : this.lstOuvrier)
+			{
+				if (nbEau > 0 )
+				{
+					o.nourrir(this.rEau);
+					nbEau--;
+					cptOuvrierNourri++;
+				    return "eau consomme";
+				}
+				else
+					if (nbBle > 0)
+					{
+						o.nourrir(this.rBle);
+						nbBle--;
+						cptOuvrierNourri++;
+						return "ble consomme";
+					}
+					else
+						if (nbPiece > 2)
+						{
+							if( this.rEau.getQteEau() > 0 ) //Si reste eau dans la pioche
+							{
+								nbPiece-=3;
+								this.iNbPiece-=3;
+								this.ajouterRessource("eau",1);
+								o.nourrir(rEau);
+								cptOuvrierNourri++;
+								return "Piece consomme";
+							}
+							else
+							{
+								if( this.rBle.getQteBle() > 0) //Si reste ble dans la pioche
+								{
+									nbPiece-=3;
+									this.ajouterRessource("ble",1);
+									o.nourrir(rBle);
+									cptOuvrierNourri++;
+									return "Piece consomme";
+								}
+								else return "ble et eau vide";
+							}
+						}	
+				//Si toute les ressources envoyer ont été consommer
+				if ( nbEau+nbBle+nbPiece/3 == 0 )
+				{
+					while( cptOuvrierNourri<this.lstOuvrier.size() )
+					{
+						this.diminuerScore(3);
+						cptOuvrierNourri++;
+					}
+				}
+			}
+
+		//Si ne passe pas par les autre conditions il n'y a trop de ressources
+		return "Trop de ressources";
+    }
 
 	/**
 	 * Retourne le nombre d'ouvrier du joueur
