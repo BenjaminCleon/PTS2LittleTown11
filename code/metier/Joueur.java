@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import equipe_11.metier.Batiment;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Ouvrier ;
-import equipe_11.metier.CartesObjectifs;
 import equipe_11.metier.Tuile   ;
 import equipe_11.metier.Jeu     ;
 
@@ -19,9 +18,8 @@ public class Joueur
 	private Jeu jeu;
 
 	private ArrayList<Tuile>           lstTuile;
-	private ArrayList<Ouvrier>         lstOuvrier;
-	private ArrayList<Batiment>        lstBatiment;
-	private ArrayList<CartesObjectifs> lstObjectif;
+	private ArrayList<Pion>            lstOuvrier;
+	private ArrayList<Pion>            lstBatiment;
 	private int                        iNbPiece;
 	private int                        iScore;
 	
@@ -39,9 +37,8 @@ public class Joueur
 		this.iNbPiece     = 3;
 		
 		this.lstTuile     = new ArrayList<Tuile>           ();
-		this.lstOuvrier   = new ArrayList<Ouvrier>         ();
-		this.lstBatiment  = new ArrayList<Batiment>        ();
-		this.lstObjectif  = new ArrayList<CartesObjectifs> ();
+		this.lstOuvrier   = new ArrayList<Pion>         ();
+		this.lstBatiment  = new ArrayList<Pion>        ();
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
 		this.rEau         = new Ressource("eau",true); //est mangeable
@@ -51,15 +48,7 @@ public class Joueur
 	
 	public int    getNbPiece () { return this.iNbPiece; }
 	public String getCouleur () { return this.SCOULEUR; }
-    	public int    getScore   () { return this.iScore+1; } // Commence à 1
-    	public ArrayList<CartesObjectifs> getObjectifs() { return lstObjectif; }
-	public CartesObjectifs getObjectif(int ind)
-	{ 
-	if ( ind > lstObjectif.size() )
-	    return null;
-	else
-	    return lstObjectif.get(ind);
-	}
+    public int    getScore   () { return this.iScore+1; } // Commence à 1
 	
 	public Integer getRessource(String sType)
 	{
@@ -77,10 +66,6 @@ public class Joueur
 	public void ajouterPiece   (int nbPiece ) 
 	{ 
 		this.iNbPiece+= nbPiece;  
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
 	}
 	
 	public void ajouterRessource(int iVal, String sType)
@@ -93,10 +78,6 @@ public class Joueur
 			case "PIERRE" -> { this.rPierre.ajouterRessource( iVal ); }
 		}
 		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
-		
 	}
 	
 	public void consommerRessource(int iVal, String sType)
@@ -108,37 +89,20 @@ public class Joueur
 			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
 			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
 		}
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
 	}
+
 	public void consommerPiece (int nbPiece ) 
 	{ 
 		this.iNbPiece-= nbPiece;
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
 	}
 	
 	public void augmenterScore (int score)   
 	{
-		if(score > 0)
-			this.iScore+= score;
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
+		if(score > 0) this.iScore+= score;
 	}
 	public void diminuerScore (int score) //Un score peut être négatif
 	{ 
-		if(score > 0)
-			this.iScore-= score; 
-		
-		//Verifie si un objectif a été complété
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
+		if(score > 0) this.iScore-= score; 
 	}
 	
 	public void payerJoueur( Joueur joueur )
@@ -148,10 +112,6 @@ public class Joueur
 			joueur.ajouterPiece  (1);
 			this  .consommerPiece(1);
 		}
-		
-		//Verifie si un objectif a été complétégggggg
-		for( CartesObjectifs objectif : this.lstObjectif )
-			;
 	}
 	
 	public boolean estPresentTuile(Tuile tuile){ return this.lstTuile.contains(tuile); }
@@ -184,6 +144,13 @@ public class Joueur
 	{
 		return this.lstBatiment.toArray(new Batiment[this.lstBatiment.size()]);
 	}
+
+	/**
+	 * Retourne le nombre d'ouvrier du joueur
+	 * @return
+	 *      Le nombre d'ouvrier du joueur
+	 */
+	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
 	
 	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
 	{
@@ -191,11 +158,11 @@ public class Joueur
 
 		//Si le nombre de ressource est juste ou inferieur
 		if ( nbEau+nbBle+nbPiece/3 <= this.NB_OUVRIER )
-			for ( Ouvrier o : this.lstOuvrier)
+			for ( Pion o : this.lstOuvrier)
 			{
 				if (nbEau > 0 )
 				{
-					o.nourrir(this.rEau);
+					//o.nourrir(this.rEau);
 					nbEau--;
 					cptOuvrierNourri++;
 				    return "eau consomme";
@@ -203,7 +170,7 @@ public class Joueur
 				else
 					if (nbBle > 0)
 					{
-						o.nourrir(this.rBle);
+						//o.nourrir(this.rBle);
 						nbBle--;
 						cptOuvrierNourri++;
 						return "ble consomme";
@@ -215,8 +182,8 @@ public class Joueur
 							{
 								nbPiece-=3;
 								this.iNbPiece-=3;
-								this.ajouterRessource("eau",1);
-								o.nourrir(rEau);
+								this.ajouterRessource(1, "eau");
+								//o.nourrir(rEau);
 								cptOuvrierNourri++;
 								return "Piece consomme";
 							}
@@ -225,8 +192,8 @@ public class Joueur
 								if( this.rBle.getQteBle() > 0) //Si reste ble dans la pioche
 								{
 									nbPiece-=3;
-									this.ajouterRessource("ble",1);
-									o.nourrir(rBle);
+									this.ajouterRessource(1, "ble");
+									//o.nourrir(rBle);
 									cptOuvrierNourri++;
 									return "Piece consomme";
 								}
@@ -247,12 +214,4 @@ public class Joueur
 		//Si ne passe pas par les autre conditions il n'y a trop de ressources
 		return "Trop de ressources";
     }
-
-	/**
-	 * Retourne le nombre d'ouvrier du joueur
-	 * @return
-	 *      Le nombre d'ouvrier du joueur
-	 */
-	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
-
 }

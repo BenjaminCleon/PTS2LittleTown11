@@ -4,6 +4,22 @@ import equipe_11.metier.BatimentInfo;
 
 public class Jeu 
 {
+
+	/**
+	 * Joueur en train de jouer
+	 */
+	private Joueur jCourant;
+
+	/**
+	 * Numero du joueur courant
+	 */
+	private int iNumJCourant;
+
+	/**
+	 * Le nombre de joueurs de la partie
+	 */
+	private final int INB_JOUEURS;
+
 	/**
 	 * ensemble des cases sur le plateau
 	 */
@@ -30,6 +46,10 @@ public class Jeu
 
 		this.tabJoueurs[0] = new Joueur("Rouge", 5, 7, 4);
 		this.tabJoueurs[1] = new Joueur("Bleu" , 5, 7, 4);
+
+		this.iNumJCourant = 0;
+		this.jCourant     = this.tabJoueurs[0];
+		this.INB_JOUEURS  = 2;
 
 		this.initPlateau(1);
 	}
@@ -117,9 +137,12 @@ public class Jeu
 		this.tabCase[iLig - 1][cCol-'A'] = bTmp.name();
 
 		this.verifierManche();
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
 
 		return true;
 	}
+
+	public Joueur getJoueurCourant(){ return this.jCourant; }
 
 	public void verifierManche()
 	{

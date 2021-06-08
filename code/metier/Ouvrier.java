@@ -10,12 +10,4 @@ public class Ouvrier extends Pion
     {
         super ( iLig, cCol, sCouleur );
     }
-
-    //On vérifie si la ressource est mangeable puis on consomme après pour ne pas consommer sans manger la ressource
-    public void nourrir( Ressource res )
-    {
-        this.setNourri( res.getEstMangeable() && res.consommerRessource(1) );
-    }
-
-    public void setNourri( boolean bNourri ) { this.bNourri = bNourri; }
 }
