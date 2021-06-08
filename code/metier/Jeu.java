@@ -125,7 +125,7 @@ public class Jeu
 		if ( !this.tabCase[iLig - 1][cCol-'A'].isEmpty() )return false;
 
 		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
-		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
+		     jTmp.getRessource("BLE")             < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
 			 return false;
 
 		jTmp.consommerRessource(iPierre, "PIERRE");
