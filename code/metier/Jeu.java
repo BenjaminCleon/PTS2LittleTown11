@@ -60,8 +60,27 @@ public class Jeu
 		}
 	}
 
-	public void construireBatiment(int iNumJoueur, int iPierre, int iEau, int iBle, int iBois)
+	public boolean construireBatiment(int iNumJoueur, String sType)
 	{
+		Batiment bTmp = Batiment.rechercherBatiment(sType.toUpperCase());
+		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
 		
+		int iPierre = bTmp.getPierreReq();
+		int iBle    = bTmp.getBleReq   ();
+		int iBois   = bTmp.getBoisReq  ();
+		int iEau    = bTmp.getEauReq   ();
+
+		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
+		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
+			 return false;
+
+		jTmp.consommerRessource(iPierre, "PIERRE");
+		jTmp.consommerRessource(iBle   , "BLE"   );
+		jTmp.consommerRessource(iBois  , "BOIS"  );
+		jTmp.consommerRessource(iEau   , "EAU"   );
+
+		jTmp.ajouterBatiment
+
+		return true;
 	}
 }

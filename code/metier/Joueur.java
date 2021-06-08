@@ -1,6 +1,8 @@
 package littletown.metier;
 
 import java.util.ArrayList;
+
+import littletown.metier.Batiment;
 import littletown.metier.Pion;
 import littletown.metier.CartesObjectifs;
 import littletown.metier.Tuile;
@@ -15,6 +17,7 @@ public class Joueur
 	
 	private Jeu jeu;
 
+	private ArrayList<Batiment>        lstBatiments;
 	private ArrayList<Tuile>           lstTuile;
 	private ArrayList<Pion>            lstOuvrier;
 	private ArrayList<Pion>            lstBatiment;
@@ -36,9 +39,10 @@ public class Joueur
 		
 		this.iNbPiece     = 3;
 		
-		this.lstTuile     = new ArrayList<Tuile>();
-		this.lstOuvrier   = new ArrayList<Pion> ();
-		this.lstBatiment  = new ArrayList<Pion> ();
+		this.lstBatiments = new ArrayList<Batiment>();
+		this.lstTuile     = new ArrayList<Tuile>   ();
+		this.lstOuvrier   = new ArrayList<Pion>    ();
+		this.lstBatiment  = new ArrayList<Pion>    ();
 		this.lstObjectif  = new ArrayList<CartesObjectifs> ();
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
@@ -156,7 +160,7 @@ public class Joueur
 			this  .consommerPiece(1);
 		}
 		
-		//Verifie si un objectif a été complété
+		//Verifie si un objectif a été complétégggggg
 		for( CartesObjectifs objectif : this.lstObjectif )
 			;
 	}
@@ -169,9 +173,14 @@ public class Joueur
 	}
 
 
-	public boolean construireBatiment( int iX, int iY, String sType )
+	/**
+	 * Permet d'associer un batiment à un joueur
+	 * @param bt
+	 *        Batiment à ajouter dans la liste pour le joueur
+	 */
+	public void ajouterBatiment(Batiment bt)
 	{
-		return false;
+		this.lstBatiments.add(bt);
 	}
 
 }

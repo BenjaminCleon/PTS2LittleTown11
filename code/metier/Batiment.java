@@ -136,4 +136,17 @@ public enum Batiment
 	 * @return un entier correspond aux pièces obtenues
 	 */
 	public int getPcRec    (){ return this.iPceRec   ; }
+
+	/**
+	 * Permet de chercher un batiment depuis une chaine
+	 * @param
+	 *       Le type du batiment
+	 */
+	public static Batiment rechercherBatiment(String sBat)
+	{
+		for ( Batiment bt : Batiment.values() )
+			if ( bt.name().equals(sBat)) return bt;
+
+		return null;
+	}
 }
