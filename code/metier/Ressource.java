@@ -59,6 +59,8 @@ public class Ressource extends Tuile
 	 * @see Ressource#toString()
 	 */
 	private String  sType;
+
+	private int iQte;
 	
 	/**
 	 * Esque cette ressource peut etre utiliser pour nourire les ouvriers.
@@ -84,6 +86,7 @@ public class Ressource extends Tuile
 		super( "Ressource" );
 		this.sType         = sType.toUpperCase();
 		this.bEstMangeable = bEstMangeable;
+		this.iQte          = 0;
 	}
 
 	/**
@@ -199,17 +202,9 @@ public class Ressource extends Tuile
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
 	 */
-	public int     getQteRessource()
+	public int getQteRessource()
 	{
-		switch ( this.sType.toUpperCase() )
-		{
-			case "BLE"    -> { return Ressource.iQteBle   .getEntier(); }
-			case "BOIS"   -> { return Ressource.iQteBois  .getEntier(); }
-			case "EAU"    -> { return Ressource.iQteEau   .getEntier(); }
-			case "PIERRE" -> { return Ressource.iQtePierre.getEntier(); }
-		}
-
-		return 0;
+		return this.iQte;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package equipe_11;
 
 import equipe_11.ihm.Console;
 import equipe_11.metier.Jeu;
+import equipe_11.metier.Pion;
 import java.util.Scanner;
 
 public class Controleur
@@ -29,20 +30,11 @@ public class Controleur
 		return in.nextLine();
 	}
 
-	public String[][] getPlateau()
-	{
-		return this.metier.getPlateau();
-	}
+	public Pion[][] getPlateau(){ return this.metier.getPlateau();}
 
-	public int getScoreJoueur()
-	{
-		return 1212221;
-	}
+	public int getScoreJoueur(){ return 1212221;}
 
-	public String getCouleurJoueur()
-	{
-		return "Rouge";
-	}
+	public String getCouleurJoueur(){return "Rouge";}
 
 	public void bouclePrincipale()
 	{

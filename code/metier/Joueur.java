@@ -33,12 +33,14 @@ public class Joueur
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
-		this.SCOULEUR      = sCouleur;
+		this.SCOULEUR     = sCouleur;
+
 		this.iNbPiece     = 3;
+		this.iScore       = 0;
 		
-		this.lstTuile     = new ArrayList<Tuile>           ();
-		this.lstOuvrier   = new ArrayList<Pion>         ();
-		this.lstBatiment  = new ArrayList<Pion>        ();
+		this.lstTuile     = new ArrayList<Tuile>();
+		this.lstOuvrier   = new ArrayList<Pion> ();
+		this.lstBatiment  = new ArrayList<Pion> ();
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
 		this.rEau         = new Ressource("eau",true); //est mangeable
@@ -48,9 +50,9 @@ public class Joueur
 	
 	public int    getNbPiece () { return this.iNbPiece; }
 	public String getCouleur () { return this.SCOULEUR; }
-    public int    getScore   () { return this.iScore+1; } // Commence à 1
+    public int    getScore   () { return this.iScore  ; }
 	
-	public Integer getRessource(String sType)
+	public int getRessource(String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -60,7 +62,7 @@ public class Joueur
 			case "PIERRE" -> { return this.rPierre.getQteRessource();}
 		}
 		
-		return null;
+		return 0;
 	}
 	
 	public void ajouterPiece   (int nbPiece ) 

@@ -6,7 +6,7 @@ public class Batiment extends Pion
 
     public Batiment(int iLig, char cCol, String sCoul, String sNom)
     {
-        super(iLig, cCol, sCoul);
+        super(iLig, cCol, sCoul, "");
 
         this.sNom = sNom;
     }

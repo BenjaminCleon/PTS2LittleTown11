@@ -8,6 +8,6 @@ public class Ouvrier extends Pion
 
     public Ouvrier( String sCouleur, int iLig, char cCol )
     {
-        super ( iLig, cCol, sCouleur );
+        super ( iLig, cCol, sCouleur , "");
     }
 }

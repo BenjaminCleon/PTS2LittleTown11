@@ -1,6 +1,7 @@
 package equipe_11.metier;
 
 import equipe_11.metier.BatimentInfo;
+import equipe_11.metier.Pion;
 
 public class Jeu 
 {
@@ -23,7 +24,7 @@ public class Jeu
 	/**
 	 * ensemble des cases sur le plateau
 	 */
-	private String[][] tabCase ;
+	private Pion[][] tabPion ;
 
 	/**
 	 * ensemble des joueurs qui composeront la partie
@@ -41,7 +42,7 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.tabCase    = new String[6][9];
+		this.tabPion    = new Pion[6][9];
 		this.tabJoueurs = new Joueur[2];
 
 		this.tabJoueurs[0] = new Joueur("Rouge", 5, 7, 4);
@@ -58,7 +59,7 @@ public class Jeu
 	 * Retourne le plateau
 	 * @return un tableau à deux dimensions de String
 	 */
-	public String[][] getPlateau() { return this.tabCase; }
+	public Pion[][] getPlateau() { return this.tabPion; }
 
 	/**
 	 * Permet de charger le plateau avec les cases par défauts.
@@ -67,6 +68,8 @@ public class Jeu
 	 */
 	public void initPlateau(int iNumPlateau)
 	{
+		String[][] ensCase;
+
 		if ( iNumPlateau == 1 )
 		{
 			String[][] tabCase = {{"PIERRE",     "", "BOIS", "PIERRE",    "", "EAU",     "", "PIERRE", "PIERRE"},
@@ -75,7 +78,7 @@ public class Jeu
 								  {  "BOIS",     "",     "",       "",    "",    "",     "",       "",    "EAU"},
 								  {      "",     "",     "",       "",    "",    "", "BOIS",       "",       ""},
 								  {      "", "BOIS", "BOIS",       "", "EAU", "EAU",     "",       "",   "BOIS"}};
-			this.tabCase = tabCase;
+			ensCase = tabCase;
 		}
 
 		if ( iNumPlateau == 2 )
@@ -86,8 +89,12 @@ public class Jeu
 								  {    "", "",     "",       "",       "",    "",    "", "",   "BOIS"},
 								  { "EAU", "",     "",       "",   "BOIS",    "",    "", "",       ""},
 								  { "EAU", "",     "", "PIERRE",       "",    "", "EAU", "", "PIERRE"}};
-			this.tabCase = tabCase;
+			ensCase = tabCase;
 		}
+
+		for ( int lig=0;lig<this.tabPion.length;lig++)
+			for ( int col=0;col<this.tabPion[0].length;col++)
+				this.tabPion[lig][col] = new Pion(lig, (char)('A' + col), "BLANC", ensCase[lig][col]);
 	}
 
 	/**
@@ -105,8 +112,8 @@ public class Jeu
 	 */
 	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig >       this.tabCase   .length    || iLig < 0 ||
-		     cCol > 'A' + this.tabCase[0].length -1 || cCol < 'A' ) return false;
+		if ( iLig >       this.tabPion   .length    || iLig < 0 ||
+		     cCol > 'A' + this.tabPion[0].length -1 || cCol < 'A' ) return false;
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
@@ -122,10 +129,10 @@ public class Jeu
 				for ( Batiment bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
 		}
 
-		if ( !this.tabCase[iLig - 1][cCol-'A'].isEmpty() )return false;
+		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
 		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
-		     jTmp.getRessource("BLE")             < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
+		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
 			 return false;
 
 		jTmp.consommerRessource(iPierre, "PIERRE");
@@ -134,7 +141,7 @@ public class Jeu
 		jTmp.consommerRessource(iEau   , "EAU"   );
 
 		jTmp.ajouterBatiment(bTmp, iLig - 1, cCol);
-		this.tabCase[iLig - 1][cCol-'A'] = bTmp.name();
+		this.tabPion[iLig - 1][cCol-'A'].setNom(bTmp.name());
 
 		this.verifierManche();
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
