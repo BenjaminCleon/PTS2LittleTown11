@@ -68,7 +68,7 @@ public class Jeu
 	 */
 	public void initPlateau(int iNumPlateau)
 	{
-		String[][] ensCase;
+		String[][] ensCase = new String[6][9];
 
 		if ( iNumPlateau == 1 )
 		{

@@ -1,19 +1,22 @@
 package equipe_11;
 
-import equipe_11.ihm.Console;
+import equipe_11.ihm.CUI;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
 import java.util.Scanner;
 
+import iut.algo.CouleurConsole;
+import iut.algo.Console;
+
 public class Controleur
 {
-	Console ihm;
+	CUI ihm;
 	Jeu     metier;
 
 	public Controleur()
 	{
 		this.metier = new Jeu();
-		this.ihm    = new Console(this);
+		this.ihm    = new CUI(this);
 
 		bouclePrincipale();
 	}
@@ -68,7 +71,7 @@ public class Controleur
 				}
 
 				this.ihm.mettreIhmAJour();
-				System.out.println(this.ihm.afficherMenuChoix());
+				Console.println(this.ihm.afficherMenuChoix());
 
 			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
 		}
