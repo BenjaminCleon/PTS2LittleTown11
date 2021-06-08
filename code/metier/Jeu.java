@@ -5,7 +5,6 @@ import equipe_11.metier.Pion;
 
 public class Jeu 
 {
-
 	/**
 	 * Joueur en train de jouer
 	 */
@@ -149,8 +148,81 @@ public class Jeu
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param iLig
+	 *     Position de la ligne de l'ouvrier
+	 * @param cCol
+	 *     Position de la colonne de l'ouvrier
+	 */
+	public boolean ajouterOuvrier(int iLig, char cCol)
+	{
+		if ( !this.tabPion[iLig][cCol].getNom().isEmpty() )return false;
+		
+		Pion pTmp1, pTmp2;
+		BatimentInfo bTmp;		
+		
+		int iLigDepTab, iLigFinTab;
+		int iColDepTab, iColFinTab;
+
+		if ( iLig >= 1                          )iLigDepTab = iLig-1; else iLigDepTab = iLig;
+		if ( iLig <= this.tabPion[0].length     )iLigFinTab = iLig+1; else iLigDepTab = iLig;
+
+		if ( cCol >= 'B'                        )iColDepTab = cCol-1; else iColFinTab=cCol;
+		if ( cCol <=  this.tabPion.length + 'A' )iColDepTab = cCol+1; else iColFinTab=cCol;
+
+		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
+		
+		for (int iLigTab=iLigDepTab; iLigTab<iLigFinTab; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<iColFinTab; iColTab++)
+			{
+				pTmp2 = this.tabPion[iLigTab][iColTab];
+
+				// activation automatique des ressources qui ne couteront rien au joueur
+				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) )
+				{
+					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
+					if ( bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
+					     bTmp.getEauReq() == 0 && bTmp.getPierreReq() == 0 )
+					{
+						this.jCourant.ajouterRessource(bTmp.getBleRec   (), "BLE"   );
+						this.jCourant.ajouterRessource(bTmp.getBoisRec  (), "BOIS"  );
+						this.jCourant.ajouterRessource(bTmp.getPierreRec(), "PIERRE");
+						this.jCourant.ajouterRessource(bTmp.getEauRec   (), "EAU"   );
+					}
+				}
+			}
+
+		this.tabPion[iLig][cCol] = pTmp1; 
+		this.jCourant.ajouterOuvrier(iLig, cCol, pTmp1);
+
+		this.verifierManche();
+		return true;
+	}
+
+	public boolean activerBatiment(int iLig, char cCol)
+	{
+		Pion pTmp = this.tabPion[iLig][cCol-'A'];
+
+		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
+		{
+			for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(pTmp.getCoul()) )j.ajouterPiece(1);
+				
+			this.jCourant.consommerPiece(1);
+		}
+	}
+
+	/**
+	 * Retourne le joueur en train de jouer
+	 * @return 
+	 *    Le joueur en train de jouer
+	 */
 	public Joueur getJoueurCourant(){ return this.jCourant; }
 
+	/**
+	 * Verifie si nous devons passer la manche
+	 */
 	public void verifierManche()
 	{
 		boolean bOk = true;
