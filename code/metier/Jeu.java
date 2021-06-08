@@ -15,6 +15,11 @@ public class Jeu
 	private Joueur[]  tabJoueurs;
 
 	/**
+	 * le numéro de la manche courante
+	 */
+	private int iNumManche;
+
+	/**
 	 * Constructeur de la classe Jeu
 	 * Initialise tous les attributs
 	 */
@@ -80,7 +85,7 @@ public class Jeu
 	 */
 	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig >       this.tabCase   .length -1 || iLig < 0 ||
+		if ( iLig >       this.tabCase   .length    || iLig < 0 ||
 		     cCol > 'A' + this.tabCase[0].length -1 || cCol < 'A' ) return false;
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
@@ -111,6 +116,20 @@ public class Jeu
 		jTmp.ajouterBatiment(bTmp, iLig - 1, cCol);
 		this.tabCase[iLig - 1][cCol-'A'] = bTmp.name();
 
+		this.verifierManche();
+
 		return true;
 	}
+
+	public void verifierManche()
+	{
+		boolean bOk = true;
+
+		for ( Joueur j : this.tabJoueurs )
+			if ( j.getNbOuvrier() != 3 )bOk = false;
+		
+		if ( bOk ) this.iNumManche ++;
+	}
+
+	public int getNumManche(){ return this.iNumManche; }
 }

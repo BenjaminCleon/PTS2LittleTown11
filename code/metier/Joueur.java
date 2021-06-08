@@ -185,4 +185,11 @@ public class Joueur
 		return this.lstBatiment.toArray(new Batiment[this.lstBatiment.size()]);
 	}
 
+	/**
+	 * Retourne le nombre d'ouvrier du joueur
+	 * @return
+	 *      Le nombre d'ouvrier du joueur
+	 */
+	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
+
 }
