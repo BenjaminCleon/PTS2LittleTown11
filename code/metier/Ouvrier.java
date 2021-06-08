@@ -23,10 +23,10 @@ public class Ouvrier
     public String getType()    { return this.sType;    }
     public String getCouleur() { return this.sCouleur; }
 
-    public boolean activer()
+    /*public boolean activer()
     {
-        int posX = point.getX();
-        int posY = point.getY();
+        double posX = point.getX();
+        double posY = point.getY();
         String[][] plateau = jeu.getPlateau();
 
         for( int lig = posY - 1; lig <= posY + 1; lig++ )
@@ -39,7 +39,7 @@ public class Ouvrier
                 }
             }
         }
-    }
+    }*/
 
     //On vérifie si la ressource est mangeable puis on consomme après pour ne pas consommer sans manger la ressource
     public void nourrir( Ressource res )
