@@ -34,25 +34,33 @@ public class Controleur
 		return this.metier.getPlateau();
 	}
 
+	public int getRessourceJoueur( String sType )
+	{
+		return this.metier.getJoueurCourant().getRessource(sType);
+	}
+
+	public int getPieceJoueur()
+	{
+		return this.metier.getJoueurCourant().getNbPiece();
+	}
+
 	public int getScoreJoueur()
 	{
-		return 1212221;
+		return this.metier.getJoueurCourant().getScore();
 	}
 
 	public String getCouleurJoueur()
 	{
-		return "Rouge";
+		return this.metier.getJoueurCourant().getCouleur();
 	}
 
 	public void bouclePrincipale()
 	{
-
-		int cpt = 0;
-		while(cpt != 4)
+		while(this.metier.getNumManche() != 4)
 		{
 			try
 			{
-				
+
 				int choix = Integer.parseInt(getSaisie());
 
 				switch(choix)
@@ -63,7 +71,6 @@ public class Controleur
 
 				this.ihm.mettreIhmAJour();
 				System.out.println(this.ihm.afficherMenuChoix());
-				cpt++;
 
 			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
 		}
