@@ -1,8 +1,10 @@
+package littletown.metier;
+
 import java.awt.Point;
 
 public class Pion
 {
-    private Point  Point;
+    private Point  point;
     private String sType;
     private String sCouleur;
 

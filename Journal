@@ -1,0 +1,75 @@
+07/06 :
+Création des classes :
+Batiment : -> Banjamin
+	constructeur : Batiment()
+	méthode      : getPierreRec() -> retourne la pierre reçu après activation,
+	               getEauRec()    -> retourne l'eau reçu après activation,
+	               getBleRec()    -> retourne le ble reçu après activation,
+	               getBoisRec()   -> retourne le bois reçu après activation,
+	               
+	               getPierreReq() -> retourne la pierre requis a l'activation,
+	               getEauReq()    -> retourne l'eau requis a l'activation,
+	               getBleReq()    -> retourne le ble requis a l'activation,
+	               getBoisReq()   -> retourne le bois requis a l'activation,
+	               
+	               getPtConstru() -> retourne ,
+	               getPtRec()     -> retourne ,
+	               
+	               getPcReq()     -> retourne ,
+	               getPcRec()     -> retourne ,
+	               
+CartesObjectifs : -> Mathis
+	constructeur : CartesObjectifs(),
+	methode      : bAccompli() -> retourne si un objectif est completer + deffiniton
+	                              de 2 objectifs,
+	                              
+Joueur : -> Manon
+	constructeur : Joueur(String Couleur, int nombre d'Ouvrier, int nombre de Batiment, 
+	                      int nombre d'Objectif) -> peut varie en fonction du nombre de 
+	                      joueurs
+	                      
+	methode      : getRessource( type )         -> retourne la qantité de ressources de l'attribut
+	                                               passé en paramètre (blé, eau, etc.) du joueur,
+	               getNbPiece()                 -> retourne le nombre de pièces du joueur,
+	               ajouterPiece( quantite)      -> ajoute le nombre de pieces passé en paramètre
+                   ajouter ressource( quantite  -> ajoute le nombre de ressources passé en     
+                                      type    )    paramètre ainsi que le type de ressource
+                   consommerRessource(quantite  -> utilise les ressource du type et d'une qte
+                                      type    )
+                   consommerPiece ( quantite )  -> utilise les pièces et d'une quantité
+                   augmenterScore ( quantite )  -> incrémente le score
+                   diminuerScore  ( quantite )  -> décrémente le score
+                   payerJoueur    ( joueur   )  -> paye un joueur ( utilisation d'un batiment )
+                   estPresentTuile( tuile    )  -> si la tuile est utlisé
+
+Pion : -> Mathis
+    constructeur : Pion(Type, couleur, point) -> type : ouvrier/batiment, couleur ,coordonné ,
+    methode      : getType()                  -> retourne si c'est un pion ou un batiment,
+                   getCouleur()               -> retourne la couleur,
+Plateau : -> Benjamin
+    constructeur : Plateau(Nombre de joueur),
+    methode      : getPlateau(),
+                   remplirTableau(),
+                   toString() ,
+Ressource : -> Maxence
+    constructeur : Ressource( Type, estMangeable)   -> creer une ressource (blé,bois,etc.) et si                                                     il est mangeable
+                   Ressource( Type )                -> creer une ressource (blé,bois,etc.), n'est
+                                                       pas mangeable
+    methode      : getRessourceByType(Type)
+                   consommerRessource(quantite, type) -> consomme les ressources du type en 
+                                                         paramètre(eau,etc.) et sa quantité en
+                                                         parametre
+                   getType()                          -> retourne le nom de la ressource
+                   getEstMangeable()                  -> retourne si la ressource est mangeable
+                   getQteBle()                        ->
+                   getQteBois()                       ->
+                   getQteEau()                        ->
+                   getQtePierre()                     ->
+                   getQteRessource()                  ->
+                   toString()                         ->
+
+Tuile : -> Enzo
+    constructeur : Tuile( type )
+    methode      : toString()
+
+Réglage des bugs -> Enzo

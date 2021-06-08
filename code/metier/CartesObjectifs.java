@@ -1,3 +1,5 @@
+package littletown.metier;
+
 public class CartesObjectifs
 {
     private int    iScore;
@@ -25,5 +27,7 @@ public class CartesObjectifs
                 }
             default -> { return false; }
         }
+
+        return false;
     }
 }

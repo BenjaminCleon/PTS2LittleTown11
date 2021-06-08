@@ -1,6 +1,9 @@
 package littletown.metier;
 
 import java.util.ArrayList;
+import littletown.metier.Pion;
+import littletown.metier.CartesObjectifs;
+import littletown.metier.Tuile;
 
 public class Joueur
 {
@@ -9,6 +12,8 @@ public class Joueur
 	private final int    NB_BATIMENT;
 	private final int    NB_OBJECTIF;
 	
+	private Plateau oPlateauActuel;
+
 	private ArrayList<Tuile>           lstTuile;
 	private ArrayList<Pion>            lstOuvrier;
 	private ArrayList<Pion>            lstBatiment;
@@ -21,7 +26,7 @@ public class Joueur
 	private Ressource        rBois;
 	private Ressource        rPierre;
 	
-	public Joueur(String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif )
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -40,7 +45,7 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 		
-		for(int cpt; cpt<NB_OUVRIER; cpt++)
+		for(int cpt = 0; cpt<NB_OUVRIER; cpt++)
 		{
 			this.lstOuvrier .add(new Pion("Ouvrier" ,this.SCOULEUR, null));
 			this.lstBatiment.add(new Pion("Batiment",this.SCOULEUR, null));
@@ -59,6 +64,7 @@ public class Joueur
 			case "PIERRE" -> { return this.rPierre.getQteRessource();}
 		}
 		
+		return null;
 	}
 	
 	public void ajouterPiece   (int nbPiece ) 
@@ -67,7 +73,7 @@ public class Joueur
 		
 		//Verifie si un objectif a été complété
 		for( CartesObjectifs objectif : this.lstObjectif )
-			objectif.estAccompli();
+			;
 	}
 	
 	public void ajouterRessource(int iVal, String sType)
@@ -82,11 +88,11 @@ public class Joueur
 		
 		//Verifie si un objectif a été complété
 		for( CartesObjectifs objectif : this.lstObjectif )
-			objectif.estAccompli();
+			;
 		
 	}
 	
-	public void ajouterTuile( Tuile tuile )
+	/*public void ajouterTuile( Tuile tuile )
 	{
 		if ( !tuile.estPosseder() )
 		{
@@ -95,9 +101,9 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.tabOjectif )
+		for( CartesObjectifs objectif : this.tabOjectif )
 			objectif.estAccompli();
-	}
+	}*/
 	
 	public void consommerRessource(int iVal, String sType)
 	{
@@ -107,20 +113,19 @@ public class Joueur
 			case "EAU"    -> { this.rEau   .consommerRessource( iVal ); }
 			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
 			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
-			default       -> { return null; }
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	public void consommerPiece (int nbPiece ) 
 	{ 
 		this.iNbPiece-= nbPiece;
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
 	public void augmenterScore (int score)   
@@ -129,8 +134,8 @@ public class Joueur
 			this.iScore+= score;
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	public void diminuerScore (int score) //Un score peut être négatif
 	{ 
@@ -138,8 +143,8 @@ public class Joueur
 			this.iScore-= score; 
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
 	public void payerJoueur( Joueur joueur )
@@ -151,15 +156,21 @@ public class Joueur
 		}
 		
 		//Verifie si un objectif a été complété
-		for( Objectif objectif : this.lstOjectif )
-			objectif.estAccompli();
+		for( CartesObjectifs objectif : this.lstObjectif )
+			;
 	}
 	
-	public boolean estPresentTuile(Tuile tuile){ this.lstTuile.contains(tuile); }
+	public boolean estPresentTuile(Tuile tuile){ return this.lstTuile.contains(tuile); }
 	
-	public boolean verifierObjectif( CarteObjectifs oObjectif )
+	public boolean verifierObjectif( CartesObjectifs oObjectif )
 	{
-		
+		return false;
+	}
+
+
+	public boolean construireBatiment( int iX, int iY, String sType )
+	{
+		return false;
 	}
 
 }

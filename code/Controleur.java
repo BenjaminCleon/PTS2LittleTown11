@@ -1,14 +1,14 @@
-package littletown.ihm;
+package littletown;
 
-import littletown.metier.*;
+import littletown.ihm.Console;
 
 public class Controleur
 {
+	Console ihm;
+
 	public Controleur()
 	{
-		
 	}
-
 
 	public static void main(String[] args)
 	{
