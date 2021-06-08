@@ -9,6 +9,10 @@ package equipe_11.metier;
 public enum BatimentInfo
 {
 	//          pRq eRq blRq boRq pRc eRc blRc boRc ptCtr ptRc pcRq pcRc
+	BLE         ( 0,  0,   0,   0,  0,  0,   1,   0,    0,   0,   0,   0),
+	PIERRE      ( 0,  0,   0,   0,  1,  0,   0,   0,    0,   0,   0,   0),
+	BOIS        ( 0,  0,   0,   0,  0,  0,   0,   1,    0,   0,   0,   0),
+	EAU         ( 0,  0,   0,   0,  0,  1,   0,   0,    0,   0,   0,   0),
 	BAR         ( 2,  0,   2,   0,  0,  0,   0,   0,    7,   3,   0,   0),
 	CHAMPSDEBLE ( 0,  0,   1,   0,  0,  0,   1,   0,    3,   0,   0,   0),
 	LIBRAIRIE   ( 4,  0,   0,   0,  0,  0,   0,   0,    8,   0,   0,   3),
