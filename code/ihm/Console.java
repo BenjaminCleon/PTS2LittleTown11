@@ -68,6 +68,23 @@ public class Console
 		return sRet;
 	}
 
+	public String afficherMenuConstuctionBatiment()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace Construction " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += String.format("|%-36s|", "Bois : " + 9) + "\n";
+		sRet += String.format("|%-36s|", "Ble : " + 12) + "\n";
+		sRet += String.format("|%-36s|", "Eau : " + 1) + "\n";
+		sRet += String.format("|%-36s|", "Pierre : " + 3) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
 	public void mettreIhmAJour()
 	{
 		System.out.print("\033[H\033[2J");  

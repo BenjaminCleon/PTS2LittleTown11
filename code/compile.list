@@ -7,7 +7,6 @@ metier/utilitaire/AltInt.java
 metier/Batiment.java
 metier/CartesObjectifs.java
 metier/Joueur.java
-metier/Pion.java
 metier/Ressource.java
 metier/Tuile.java
 metier/Jeu.java

@@ -44,7 +44,7 @@ public class Controleur
 		String choix = intercepterSaisie();
 
 		if(choix.equals("1"))
-			this.metier.getPlateau()[3][4] = "Yikes";
+			this.ihm.afficherMenuConstructionBatiment();
 		
 		if(choix.equals("2"))
 			System.out.println("Choix 2 effectué");
@@ -61,4 +61,5 @@ public class Controleur
 	{
 		return "Rouge";
 	}
+
 }

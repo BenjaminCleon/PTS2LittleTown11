@@ -33,7 +33,6 @@ public class Joueur
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
 		this.SCOULEUR      = sCouleur;
-		batiment
 		this.iNbPiece     = 3;
 		
 		this.lstTuile     = new ArrayList<Tuile>();
