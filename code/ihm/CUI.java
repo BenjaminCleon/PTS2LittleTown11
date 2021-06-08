@@ -107,10 +107,27 @@ public class CUI
 		return sRet;
 	}
 
+	public String afficherMenuPlacementOuvrier()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace Ouvrier " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += String.format("|%-36s|", "Bois : " + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
+		sRet += String.format("|%-36s|", "Ble : " + this.ctrl.getRessourceJoueur("BLE")) + "\n";
+		sRet += String.format("|%-36s|", "Eau : " + this.ctrl.getRessourceJoueur("EAU")) + "\n";
+		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
 	public void mettreIhmAJour()
 	{
-		System.out.print("\033[H\033[2J");  
-    	System.out.flush(); 
+		//System.out.print("\033[H\033[2J");  
+    	//System.out.flush(); 
 
 		Console.println(this.getHeader());
 		this.afficherPlateau();

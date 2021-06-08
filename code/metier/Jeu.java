@@ -157,29 +157,30 @@ public class Jeu
 	 */
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
-		if ( !this.tabPion[iLig][cCol].getNom().isEmpty() )return false;
+		if ( !this.tabPion[iLig][cCol - 'A'].getNom().isEmpty() )return false;
 		
 		Pion pTmp1, pTmp2;
 		BatimentInfo bTmp;		
 		
-		int iLigDepTab, iLigFinTab;
-		int iColDepTab, iColFinTab;
+		int iLigDepTab = 0, iLigFinTab = 0;
+		int iColDepTab = 0, iColFinTab = 0;
 
+		iLig--;
 		if ( iLig >= 1                          )iLigDepTab = iLig-1; else iLigDepTab = iLig;
 		if ( iLig <= this.tabPion[0].length     )iLigFinTab = iLig+1; else iLigDepTab = iLig;
 
-		if ( cCol >= 'B'                        )iColDepTab = cCol-1; else iColFinTab=cCol;
-		if ( cCol <=  this.tabPion.length + 'A' )iColDepTab = cCol+1; else iColFinTab=cCol;
+		if ( cCol >= 'B'                        )iColDepTab = cCol-1- 'A'; else iColFinTab=cCol;
+		if ( cCol <=  this.tabPion.length + 'A' )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol;
 
 		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
-		for (int iLigTab=iLigDepTab; iLigTab<iLigFinTab; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<iColFinTab; iColTab++)
+		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
-
 				// activation automatique des ressources qui ne couteront rien au joueur
-				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) )
+				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) ||
+				     pTmp2.getCoul().equals("BLANC") )
 				{
 					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
 					if ( bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
@@ -193,7 +194,7 @@ public class Jeu
 				}
 			}
 
-		this.tabPion[iLig][cCol] = pTmp1; 
+		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(iLig, cCol, pTmp1);
 
 		this.verifierManche();
@@ -211,6 +212,8 @@ public class Jeu
 				
 			this.jCourant.consommerPiece(1);
 		}
+
+		return false;
 	}
 
 	/**

@@ -67,6 +67,7 @@ public class Controleur
 				switch(choix)
 				{
 					case 1 -> { construire(); }
+					case 2 -> { ajouterOuvrier(); }
 					case 3 -> { System.exit(0); }
 				}
 
@@ -87,6 +88,16 @@ public class Controleur
 
 		this.metier.construireBatiment(1, type, Character.getNumericValue(coord.charAt(1)),
 					coord.charAt(0));
+	}
+
+	public void ajouterOuvrier()
+	{
+		System.out.println(this.ihm.afficherMenuPlacementOuvrier());
+
+		String coord = getSaisie();
+		coord = coord.toUpperCase();
+
+		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
 	}
 
 }
