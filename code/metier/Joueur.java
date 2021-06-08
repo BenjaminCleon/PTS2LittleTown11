@@ -97,7 +97,7 @@ public class Joueur
 	 */
 	private Ressource        rPierre;
 	
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, int iNbOuvrierMax, int iNbBatimentMax )
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -394,7 +394,7 @@ public class Joueur
 			{
 				if ( this.iNbPiece >= 3 )
 				{
-					this.nbPiece -= 3;
+					this.iNbPiece -= 3;
 					nbOuvrierNourri++;
 				}
 				else
@@ -403,6 +403,7 @@ public class Joueur
 					nbOuvrierNourri++;
 				}
 			}
+			return "Ouvriers Nourri.";
 		}
 		else
 		{
@@ -419,10 +420,10 @@ public class Joueur
 			}
 		}
 
-		return "Ouvriers Nourri.";	
+		return "Ouvriers non Nourri.";
 	}
 
-	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
+	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
 	{
 		int nbOuvrierNourri = 0;
 		
@@ -438,8 +439,6 @@ public class Joueur
 			
 			if ( nbPiece > this.iNbPiece )
 				return "le joueur n'a pas assez de pièces";
-			
-
 
 			if ( this.rBle.getQteBle() == 0)
 			{
@@ -452,6 +451,8 @@ public class Joueur
 				this.rBle.consommerRessource( iNbOuvrierMax );
 				nbOuvrierNourri = iNbOuvrierMax;
 			}
+
+
 		}
 	}
 }
