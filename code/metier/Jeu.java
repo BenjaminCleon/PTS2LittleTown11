@@ -21,6 +21,9 @@ public class Jeu
 		this.tabCase    = new String[6][9];
 		this.tabJoueurs = new Joueur[2];
 
+		this.tabJoueurs[0] = new Joueur("Rouge", 5, 7, 4);
+		this.tabJoueurs[1] = new Joueur("Bleu" , 5, 7, 4);
+
 		this.initPlateau(1);
 	}
 
@@ -60,11 +63,30 @@ public class Jeu
 		}
 	}
 
-	public boolean construireBatiment(int iNumJoueur, String sType)
+	/**
+	 * 
+	 * @param iNumJoueur
+	 *      Le numéro du Joueur
+	 * @param sType
+	 *      Le type du batiment que l'on veux construire
+	 * @param iCol
+	 *      La colonne où l'on veux construire le batiment
+	 * @param iLig
+	 *      La ligne où l'on veux construire le batiment
+	 * @return
+	 *      true si le batiment est construit
+	 */
+	public boolean construireBatiment(int iNumJoueur, String sType, int iCol, int iLig)
 	{
+		if ( iLig > this.tabCase   .length -1 || iLig < 0 ||
+		     iCol > this.tabCase[0].length -1 || iCol < 0 ) return false;
+
 		Batiment bTmp = Batiment.rechercherBatiment(sType.toUpperCase());
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
-		
+
+		for ( Joueur j : this.tabJoueurs )
+			for ( Batiment bt : j.getBatiments() )if ( bt == bTmp )return false;
+
 		int iPierre = bTmp.getPierreReq();
 		int iBle    = bTmp.getBleReq   ();
 		int iBois   = bTmp.getBoisReq  ();
@@ -79,7 +101,8 @@ public class Jeu
 		jTmp.consommerRessource(iBois  , "BOIS"  );
 		jTmp.consommerRessource(iEau   , "EAU"   );
 
-		jTmp.ajouterBatiment
+		jTmp.ajouterBatiment(bTmp);
+		this.tabCase[iLig][iCol] = bTmp.name();
 
 		return true;
 	}

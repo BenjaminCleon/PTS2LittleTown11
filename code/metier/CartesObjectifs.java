@@ -15,11 +15,7 @@ public class CartesObjectifs
 
     public boolean bAccompli ()
     {
-        switch ( sObjectif )
-        {
-            case "Avoir 0 piece" -> { if(joueur.getNbPiece() == 0) { return true; } }
-            default -> { return false; }
-        }
+
 
         return false;
     }

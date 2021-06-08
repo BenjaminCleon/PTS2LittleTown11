@@ -190,6 +190,18 @@ public class Joueur
 	public void ajouterBatiment(Batiment bt)
 	{
 		this.lstBatiments.add(bt);
+		this.lstOuvrier  .
+		this.iScore += bt.getPtConstru();
+	}
+
+	/**
+	 * Retourne l'ensemble des batiments
+	 * @return
+	 *     L'ensemble des batiments du Joueur
+	 */
+	public Batiment[] getBatiments()
+	{
+		return this.lstBatiments.toArray(new Batiment[this.lstBatiments.size()]);
 	}
 
 }

@@ -12,7 +12,9 @@ public class Controleur
 	{
 		this.jeu = new Jeu();
 
-		this.jeu.construireBatiment(1, "bar");
+		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 2));
+		System.out.println(this.jeu.construireBatiment(1, "bar", 4, 0));
+
 	}
 
 	public static void main(String[] args)
