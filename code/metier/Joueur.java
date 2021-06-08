@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import littletown.metier.Pion;
 import littletown.metier.CartesObjectifs;
 import littletown.metier.Tuile;
+import littletown.metier.Jeu;
 
 public class Joueur
 {
@@ -12,7 +13,7 @@ public class Joueur
 	private final int    NB_BATIMENT;
 	private final int    NB_OBJECTIF;
 	
-	private Plateau oPlateauActuel;
+	private Jeu jeu;
 
 	private ArrayList<Tuile>           lstTuile;
 	private ArrayList<Pion>            lstOuvrier;
