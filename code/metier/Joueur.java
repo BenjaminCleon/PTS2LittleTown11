@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import littletown.metier.Pion;
 import littletown.metier.CartesObjectifs;
 import littletown.metier.Tuile;
+import littletown.metier.Jeu;
 
 public class Joueur
 {
@@ -12,10 +13,10 @@ public class Joueur
 	private final int    NB_BATIMENT;
 	private final int    NB_OBJECTIF;
 	
-	private Plateau oPlateauActuel;
+	private Jeu jeu;
 
 	private ArrayList<Tuile>           lstTuile;
-	private ArrayList<Pion>            lstOuvrier;
+	private ArrayList<Ouvrier>         lstOuvrier;
 	private ArrayList<Pion>            lstBatiment;
 	private ArrayList<CartesObjectifs> lstObjectif;
 	private int                        iNbPiece;
@@ -32,11 +33,11 @@ public class Joueur
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
 		this.SCOULEUR      = sCouleur;
-		
+		batiment
 		this.iNbPiece     = 3;
 		
 		this.lstTuile     = new ArrayList<Tuile>();
-		this.lstOuvrier   = new ArrayList<Pion> ();
+		this.lstOuvrier   = new ArrayList<Ouvrier> ();
 		this.lstBatiment  = new ArrayList<Pion> ();
 		this.lstObjectif  = new ArrayList<CartesObjectifs> ();
 		
@@ -52,7 +53,17 @@ public class Joueur
 		}
 	}
 	
-	public int getNbPiece (){ return this.iNbPiece; }
+	public int    getNbPiece () { return this.iNbPiece; }
+	public String getCouleur () { return this.SCOULEUR; }
+    	public int    getScore   () { return this.iScore+1; } // Commence à 1
+    	public ArrayList<CartesObjectifs> getObjectifs() { return lstObjectif; }
+	public CartesObjectifs getObjectif(int ind)
+	{ 
+	if ( ind > lstObjectif.size() )
+	    return null;
+	else
+	    return lstObjectif.get(ind);
+	}
 	
 	public Integer getRessource(String sType)
 	{
