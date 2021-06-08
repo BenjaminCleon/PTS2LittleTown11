@@ -324,6 +324,7 @@ public class Joueur
 					nbOuvrierNourri++;
 				}
 			}
+			return "Ouvriers Nourri.";
 		}
 		else
 		{
@@ -340,10 +341,10 @@ public class Joueur
 			}
 		}
 
-		return "Ouvriers Nourri.";	
+		return "Ouvriers non Nourri.";
 	}
 
-	public String nourrirOuvriers ( int nbEau, int nbBle, int nbPiece )
+	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
 	{
 		int nbOuvrierNourri = 0;
 		
@@ -359,8 +360,6 @@ public class Joueur
 			
 			if ( nbPiece > this.iNbPiece )
 				return "le joueur n'a pas assez de pièces";
-			
-
 
 			if ( this.rBle.getQteBle() == 0)
 			{
@@ -373,6 +372,8 @@ public class Joueur
 				this.rBle.consommerRessource( NB_OUVRIER );
 				nbOuvrierNourri = NB_OUVRIER;
 			}
+
+
 		}
 
 		return "YAYAYAAYA";
