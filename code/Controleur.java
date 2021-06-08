@@ -1,15 +1,13 @@
 package littletown;
 
-import littletown.metier.*;
+import littletown.ihm.Console;
 
 public class Controleur
 {
-	Plateau metier;
 	Console ihm;
 
 	public Controleur()
 	{
-		this.metier = new Plateau( 2 );
 	}
 
 	public static void main(String[] args)

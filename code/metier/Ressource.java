@@ -86,10 +86,6 @@ public class Ressource extends Tuile
 		this.bEstMangeable = bEstMangeable;
 	}
 
-package littletown.metier;
-
-import littletown.metier.utilitaire.AltInt;
-
 	/**
 	 * Constructeur par recopie de Ressources
 	 * bEstMangeable est defini sur false par default
@@ -119,7 +115,7 @@ import littletown.metier.utilitaire.AltInt;
 			case "BOIS"   -> { return Ressource.iQteBois;   }
 			case "EAU"    -> { return Ressource.iQteEau;    }
 			case "PIERRE" -> { return Ressource.iQtePierre; }
-			default       -> { return null;                 }
+			default -> { return null; }		
 		}
 	}
 
@@ -132,9 +128,9 @@ import littletown.metier.utilitaire.AltInt;
 	 * @param sType
 	 *          nom de la ressource à consommer
 	 */
-	public boolean consommerRessource( int iConso, String sType )
+	public boolean consommerRessource( int iConso )
 	{
-		AltInt tmp = this.getRessourceByType( sType );
+		AltInt tmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iConso > tmp.getEntier() )return false;
 
@@ -151,9 +147,9 @@ import littletown.metier.utilitaire.AltInt;
 	 * @param sType
 	 *          nom de la ressource à ajoute
 	 */
-	public boolean ajouterRessource( int iConso, String sType )
+	public boolean ajouterRessource( int iConso )
 	{
-		AltInt iTmp = this.getRessourceByType( sType );
+		AltInt iTmp = this.getRessourceByType( this.sType );
 
 		if ( iConso < 1 || iTmp.getEntier() + iConso > 15 )return false;
 
@@ -198,7 +194,7 @@ import littletown.metier.utilitaire.AltInt;
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public int     getQtePierre(){ return this.iQtePierre.getEntier; }
+	public int     getQtePierre(){ return this.iQtePierre.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
@@ -211,8 +207,9 @@ import littletown.metier.utilitaire.AltInt;
 			case "BOIS"   -> { return Ressource.iQteBois  .getEntier(); }
 			case "EAU"    -> { return Ressource.iQteEau   .getEntier(); }
 			case "PIERRE" -> { return Ressource.iQtePierre.getEntier(); }
-			default       -> { return null;                             }
 		}
+
+		return 0;
 	}
 
 	/**

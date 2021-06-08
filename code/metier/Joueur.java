@@ -170,7 +170,7 @@ public class Joueur
 
 	public boolean construireBatiment( int iX, int iY, String sType )
 	{
-		
+		return false;
 	}
 
 }
