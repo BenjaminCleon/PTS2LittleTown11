@@ -297,6 +297,14 @@ public class Joueur
 	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
 	
 	/**
+	 * Permet d'ajouter un ouvrier au joueur
+	 */
+	public void ajouterOuvrier(int iLig, char cCol, Pion pOuv )
+	{
+		this.lstOuvrier.add(pOuv);
+	}
+
+	/**
 	 * Nourri les ouvriers et retourne si les ouvriers on été nourrir
 	 * ou non et pourquoi
 	 * @param nbEau
