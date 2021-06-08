@@ -36,12 +36,11 @@ public class Joueur
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
 		this.SCOULEUR      = sCouleur;
-		
 		this.iNbPiece     = 3;
 		
 		this.lstBatiments = new ArrayList<Batiment>();
 		this.lstTuile     = new ArrayList<Tuile>   ();
-		this.lstOuvrier   = new ArrayList<Pion>    ();
+		this.lstOuvrier   = new ArrayList<Pion> ();
 		this.lstBatiment  = new ArrayList<Pion>    ();
 		this.lstObjectif  = new ArrayList<CartesObjectifs> ();
 		
@@ -57,7 +56,7 @@ public class Joueur
 		}
 	}
 	
-	public int    getNbPiece (){ return this.iNbPiece; }
+	public int    getNbPiece () { return this.iNbPiece; }
 	public String getCouleur () { return this.SCOULEUR; }
     	public int    getScore   () { return this.iScore+1; } // Commence à 1
     	public ArrayList<CartesObjectifs> getObjectifs() { return lstObjectif; }
