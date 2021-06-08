@@ -53,7 +53,7 @@ public class Joueur
 		}
 	}
 	
-	public int getNbPiece (){ return this.iNbPiece; }
+	public int    getNbPiece (){ return this.iNbPiece; }
 	public String getCouleur () { return this.SCOULEUR; }
     	public int    getScore   () { return this.iScore+1; } // Commence à 1
     	public ArrayList<CartesObjectifs> getObjectifs() { return lstObjectif; }
