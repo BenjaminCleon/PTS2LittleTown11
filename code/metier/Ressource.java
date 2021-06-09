@@ -7,7 +7,7 @@ import equipe_11.metier.utilitaire.AltInt;
   *
   * @author Equipe 11
   */
-public class Ressource extends Tuile
+public class Ressource
 {
 	/*-----------*/
 	/* Attributs */
@@ -83,7 +83,6 @@ public class Ressource extends Tuile
 	 */
 	public Ressource( String sType, boolean bEstMangeable )
 	{
-		super( "Ressource" );
 		this.sType         = sType.toUpperCase();
 		this.bEstMangeable = bEstMangeable;
 		this.iQte          = 0;
@@ -175,28 +174,28 @@ public class Ressource extends Tuile
 	 *
 	 * @see Ressource#toString()
 	 */
-	public int     getQteBle(){ return this.iQteBle.getEntier(); }
+	public static int getQteBle(){ return Ressource.iQteBle.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de bois dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public int     getQteBois(){ return this.iQteBois.getEntier(); }
+	public static int getQteBois(){ return Ressource.iQteBois.getEntier(); }
 	
 	/**
 	 * Retourne le nombre d'Eau dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public int     getQteEau(){ return this.iQteEau.getEntier(); }
+	public static int getQteEau(){ return Ressource.iQteEau.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de Pierre dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public int     getQtePierre(){ return this.iQtePierre.getEntier(); }
+	public static int getQtePierre(){ return Ressource.iQtePierre.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
@@ -210,8 +209,8 @@ public class Ressource extends Tuile
 	 */
 	public boolean setQte(int iNb )
 	{
-		//AltInt aTmp = this.getRessourceByType(this.sType);
-		//if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
+		AltInt aTmp = this.getRessourceByType(this.sType);
+		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 
 		this.iQte = iNb;
 		// if ( iNb > 0 )aTmp.setEntier(-iNb);

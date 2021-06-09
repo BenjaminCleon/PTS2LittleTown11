@@ -42,6 +42,10 @@ public enum BatimentInfo
 	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//            C  A        C  A        C  A        C  A        C  A        C  A
+	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0 ),
+	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0 ),
+	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0 ),
+	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0 ),
 	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3 ),
 	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0 ),
 	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0 ),
@@ -68,9 +72,6 @@ public enum BatimentInfo
 	private int iEauRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
 
 	private int iPtConstru, iPtRec;
-
-	private int[] tabInfoBati;
-
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
 	 *
@@ -123,8 +124,6 @@ public enum BatimentInfo
 	         int iPtConstru, int iPtRec
 	        )
 	{
-		tabInfoBati = new int[ 17 ];		
-		
 		this.iEauReq    = iEauReq;
 		this.iEauReA    = iEauReA;
 		this.iEauRec    = iEauRec;
@@ -250,4 +249,17 @@ public enum BatimentInfo
 	 * @return un entier correspond à la quantité de piece
 	 */
 	public int getPieceReA  (){ return this.iPceReA  ; }
+
+	/**
+	 * Permet de chercher un batiment depuis une chaine
+	 * @param
+	 *       Le type du batiment
+	 */
+	public static BatimentInfo rechercherBatiment(String sBat)
+	{
+		for ( BatimentInfo bt : BatimentInfo.values() )
+			if ( bt.name().equals(sBat)) return bt;
+
+		return null;
+	}
 }

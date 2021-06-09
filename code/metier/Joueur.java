@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import equipe_11.metier.Batiment;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Ouvrier ;
-import equipe_11.metier.Tuile   ;
 import equipe_11.metier.Jeu     ;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
@@ -33,12 +32,6 @@ public class Joueur
 	
 	private Jeu jeu;
 	
-	/**
-	 * C'est une liste des tuile posséder par le joueur
-	 *
-	 * @see Joueur#estPresentTuile()
-	 */
-	private ArrayList<Tuile>           lstTuile;
 	/**
 	 * C'est une liste des ouvriers du joueur
 	 *
@@ -104,8 +97,6 @@ public class Joueur
 		this.iNbPiece     = 3;
 		this.iScore       = 0;
 	
-		
-		this.lstTuile     = new ArrayList<Tuile>();
 		this.lstOuvrier   = new ArrayList<Pion> ();
 		this.lstBatiment  = new ArrayList<Pion> ();
 		
@@ -176,7 +167,7 @@ public class Joueur
 		{
 			case "BLE"    -> { this.rBle   .setQte( iVal ); }
 			case "EAU"    -> { this.rEau   .setQte( iVal ); }
-			case "BOIS"   -> { this.rBois  .setQte( this.rBois.getQteRessource()-iVal); }
+			case "BOIS"   -> { this.rBois  .setQte( iVal ); }
 			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
 		}
 		
@@ -242,14 +233,6 @@ public class Joueur
 			this  .consommerPiece(1);
 		}
 	}
-	
-	/**
-	 * Regarde si la tuile passer en paramètre est présente
-	 * dans les tuile posséder par le joueur
-	 * @param tuile
-	 *	tuile a verifier
-	 */
-	public boolean estPresentTuile(Tuile tuile){ return this.lstTuile.contains(tuile); }
 	
 	/**
 	 * Regarde si l'objectif passer en paramètre est compléter

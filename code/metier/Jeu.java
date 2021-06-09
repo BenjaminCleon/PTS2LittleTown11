@@ -169,13 +169,13 @@ public class Jeu
 		if ( iLig >= 1                          )iLigDepTab = iLig-1; else iLigDepTab = iLig;
 		if ( iLig <= this.tabPion[0].length     )iLigFinTab = iLig+1; else iLigDepTab = iLig;
 
-		if ( cCol >= 'B'                        )iColDepTab = cCol-1- 'A'; else iColFinTab=cCol;
-		if ( cCol <=  this.tabPion.length + 'A' )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol;
+		if ( cCol >= 'B'                        )iColDepTab = cCol-1- 'A'; else iColFinTab=cCol-'A';
+		if ( cCol <  this.tabPion.length + 'A'  )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol-'A';
 
 		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
-		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
+		for (int iLigTab=iLigDepTab; iLigTab<iLigFinTab; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<iColFinTab; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
 				// activation automatique des ressources qui ne couteront rien au joueur
