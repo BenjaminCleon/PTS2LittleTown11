@@ -185,10 +185,7 @@ public class Jeu
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		jTmp.gererRessource(-bTmp.getPierreReq(), "PIERRE");
-		jTmp.gererRessource(-bTmp.getBleReq   (), "BLE"   );
-		jTmp.gererRessource(-bTmp.getBoisReq  (), "BOIS"  );
-		jTmp.gererRessource(-bTmp.getEauReq   (), "EAU"   );
+		this.gererRessource(-1);
 
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
@@ -226,8 +223,9 @@ public class Jeu
 
 		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
-		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
+		bTmp = null;
+		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab && bTmp != null; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<=iColFinTab && bTmp != null; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
 				// activation automatique des ressources qui ne couteront rien au joueur
@@ -235,16 +233,26 @@ public class Jeu
 				     pTmp2.getCoul().equals("BLANC") )
 				{
 					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
-					if ( bTmp != null && bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
-					     bTmp.getEauReq() == 0 && bTmp.getPierreReq() == 0 )
-					{
-						this.jCourant.gererRessource(bTmp.getBleRec   (), "BLE"   );
-						this.jCourant.gererRessource(bTmp.getBoisRec  (), "BOIS"  );
-						this.jCourant.gererRessource(bTmp.getPierreRec(), "PIERRE");
-						this.jCourant.gererRessource(bTmp.getEauRec   (), "EAU"   );
-					}
 				}
 			}
+
+		if ( bTmp != null )
+		{
+			if( bTmp.estGain() || bTmp.estRessource() )
+				this.gererRessource(1, bTmp);
+			else if ( bTmp.estEchange() &&
+			          this.verifierEchange(bTmp.getBleReA(), bTmp.getPierreReA(),
+					                       bTmp.getEauReA(), bTmp.getBoisReA  (),
+										   bTmp.getPieceReA()  ))
+				 	this.gererRessource(iSigne, bTmp);
+				 else
+				 {
+				 	 this.ctrl.demanderRessource();
+				 	 this.ctrl.demanderRessource();
+			{
+				this.gererRessource(1, bTmp);
+			}
+		}
 
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
@@ -252,6 +260,23 @@ public class Jeu
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 		this.verifierManche();
 		return true;
+	}
+
+	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
+	{
+		if ( this.jCourant.getQteBle() < iBle || this.jCourant.getQteBois  () < iBois   ||
+		     this.jCourant.getQteEau() < iEau || this.jCourant.getQtePierre() < iPierre ||
+			 this.jCourant.getNbPiece() < iPiece )return false;
+
+		return true;
+	}
+
+	public void gererRessource( int iSigne, BatimentInfo bTmp )
+	{
+		this.jCourant.gererRessource(iSigne*bTmp.getBleRec   (), "BLE"   );
+		this.jCourant.gererRessource(iSigne*bTmp.getBoisRec  (), "BOIS"  );
+		this.jCourant.gererRessource(iSigne*bTmp.getPierreRec(), "PIERRE");
+		this.jCourant.gererRessource(iSigne*bTmp.getEauRec   (), "EAU"   );
 	}
 
 	/**
