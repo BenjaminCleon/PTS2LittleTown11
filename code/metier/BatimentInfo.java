@@ -8,65 +8,145 @@ package equipe_11.metier;
 
 public enum BatimentInfo
 {
-	//          pRq eRq blRq boRq pRc eRc blRc boRc ptCtr ptRc pcRq pcRc
-	BLE         ( 0,  0,   0,   0,  0,  0,   1,   0,    0,   0,   0,   0),
-	PIERRE      ( 0,  0,   0,   0,  1,  0,   0,   0,    0,   0,   0,   0),
-	BOIS        ( 0,  0,   0,   0,  0,  0,   0,   1,    0,   0,   0,   0),
-	EAU         ( 0,  0,   0,   0,  0,  1,   0,   0,    0,   0,   0,   0),
-	BAR         ( 2,  0,   2,   0,  0,  0,   0,   0,    7,   3,   0,   0),
-	CHAMPSDEBLE ( 0,  0,   0,   1,  0,  0,   1,   0,    3,   0,   0,   0),
-	LIBRAIRIE   ( 4,  0,   0,   0,  0,  0,   0,   0,    8,   0,   0,   3),
-	MINEDOR     ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   0,   0,   2),
-	PONTON      ( 0,  0,   0,   3,  0,  2,   0,   0,    5,   0,   0,   0),
-	PUIT        ( 1,  0,   0,   1,  0,  0,   0,   0,    4,   2,   0,   0),
-	STATUE      ( 4,  0,   0,   0,  0,  0,   0,   0,   10,   0,   0,   0);
-	
-	private int iEauReq, iBleReq, iBoisReq, iPierreReq;
-	private int iEauRec, iBleRec, iBoisRec, iPierreRec;
-	private int iPtConstru, iPtRec, iPceReq, iPceRec  ;
+	/**
+	 * // Ble
+	 * blRqC : ble requi         à la construction
+	 * blRqA : ble requi         à l'activation
+	 * blRc  : ble en recompense à l'activation
+	 * 
+	 * // Bois
+	 * boRqC : bois requi         à la construction
+	 * boRqA : bois requi         à l'activation
+	 * boRc  : bois en recompense à l'activation
+	 * 
+	 * // Eau
+	 * eRqC  : eau requi         à la construction
+	 * eRqA  : eau requi         à l'activation
+	 * eRc   : eau en recompense à l'activation
+	 * 
+	 * // Pierre
+	 * pRqC  : pierre requi         à la construction
+	 * pRqA  : pierre requi         à l'activation
+	 * pRc   : pierre en recompense à l'activation
+	 * 
+	 * // Piece
+	 * pcRqC : piece  requi         à la construction
+	 * pcRqA : piece  requi         à l'activation
+	 * pcRc  : piece  en recompense à l'activation	
+	 * 
+	 * // Point
+	 * ptCtr : point  reçu          à la construction
+	 * ptRc  : point  en recompense à l'activation
+	 */
+	//              Ble        Bois         Eau        Pierre      Piece      Point
+	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
+	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
+	//            C  A        C  A        C  A        C  A        C  A        C  A
+	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3 ),
+	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0 ),
+	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0 ),
+	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0 ),
+	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0 ),
+	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2 ),
+	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0 ),
+	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3 ),
+	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0 ),
+	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3 ),
+	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0 ),
+	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0 ),
+	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0 ),
+	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5 ),
+	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5 ),
+	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7 ),
+	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3 ),
+	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6 ),
+	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0 ),
+	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4 );
+
+	private int iEauReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
+	private int iEauReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
+	private int iEauRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
+
+	private int iPtConstru, iPtRec;
+
+	private int[] tabInfoBati;
 
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
-	 * @param iPierreReq
-	 *           quantite de pierre requise pour la construction
+	 *
 	 * @param iEauReq
-	 *           quantite d'eau requise pour la construction
-	 * @param iBleReq
-	 *           quantite de ble requise pour la construction
-	 * @param iPierreRec
-	 *           quantite de pierre en récompense après activation
+	 *           Quantite d'eau requise pour la construction.
+	 * @param iEauReA
+	 *           Quantite d'eau nécessaire pour activation.
 	 * @param iEauRec
-	 *           quantite d'eau en récompense après activation
+	 *           Quantite d'eau en récompense après activation.
+	 *
+	 * @param iBleReq
+	 *           Quantite de ble requise pour la construction.
+	 * @param BleReA
+	 *           Quantite de ble nécessaire pour activation.
 	 * @param iBleRec
-	 *           quantite de ble en récompense après activation
+	 *           Quantite de ble en récompense après activation.
+	 *
+	 * @param iBoisReq
+	 *           Quantite de bois requise pour la construction.
+	 * @param iBoisReA
+	 *           Quantite de bois nécessaire pour activation.
 	 * @param iBoisRec
-	 *           quantite de bois en récompense après activation
-	 * @param iPtConstru
-	 *           quantite de points de victoire obtenu après construction
-	 * @param iPtRec
-	 *           quantite de points de victoire obtenu après activation
+	 *           Quantite de bois en récompense après activation.
+	 *
+	 * @param iPierreReq
+	 *           Quantite de pierre requise pour la construction.
+	 * @param iPierreReA
+	 *           Quantite de pierre nécessaire pour activation.
+	 * @param iPierreRec
+	 *           Quantite de pierre en récompense après activation.
+	 *
 	 * @param iPceReq
-	 *           quantite de piece requise pour activation
+	 *           Quantite de piece requise pour la construction.
+	 * @param iPceReA
+	 *           Quantite de piece nécessaire pour activation.
+	 * @param iPceRec
+	 *           Quantite de piece en récompense après activation.
+	 *
+	 * @param iPtConstru
+	 *           Quantite de Point en récompense après construction.
+	 * @param iPtRec
+	 *           Quantite de Point en récompense après activation.
 	 */
-	BatimentInfo(int iPierreReq, int iEauReq, int iBleReq, int iBoisReq,
-			     int iPierreRec, int iEauRec, int iBleRec, int iBoisRec,
-			     int iPtConstru, int iPtRec , int iPceReq, int iPceRec)
+	BatimentInfo(
+	         int iEauReq   , int iEauReA   , int iEauRec   ,
+	         int iBleReq   , int iBleReA   , int iBleRec   ,
+	         int iBoisReq  , int iBoisReA  , int iBoisRec  ,
+	         int iPierreReq, int iPierreReA, int iPierreRec,
+	         int iPceReA   , int iPceReq   , int iPceRec   ,
+	         int iPtConstru, int iPtRec
+	        )
 	{
-		this.iPierreReq = iPierreReq;
-		this.iEauReq    = iEauReq   ;
-		this.iBleReq    = iBleReq   ;
-		this.iBoisReq   = iBoisReq  ;
+		tabInfoBati = new int[ 17 ];		
+		
+		this.iEauReq    = iEauReq;
+		this.iEauReA    = iEauReA;
+		this.iEauRec    = iEauRec;
 
+		this.iBleReq    = iBleReq;
+		this.iBleReA    = iBleReA;
+		this.iBleRec    = iBleRec;
+
+		this.iBoisReq   = iBoisReq;
+		this.iBoisReA   = iBoisReA;
+		this.iBoisRec   = iBoisRec;
+
+		this.iPierreReq = iPierreReq;
+		this.iPierreReA = iPierreReA;
 		this.iPierreRec = iPierreRec;
-		this.iEauRec    = iEauRec   ;
-		this.iBleRec    = iBleRec   ;
-		this.iBoisRec   = iBoisRec  ;
+
+		this.iPceReA    = iPceReA;
+		this.iPceReq    = iPceReq;
+		this.iPceRec    = iPceRec;
 
 		this.iPtConstru = iPtConstru;
-		this.iPtRec     = iPtRec    ;
-
-		this.iPceRec    = iPceRec;
-		this.iPceReq    = iPceReq;
+		this.iPtRec     = iPtRec;
 	}
 
 	/**
@@ -140,17 +220,34 @@ public enum BatimentInfo
 	 * @return un entier correspond aux pièces obtenues
 	 */
 	public int getPcRec    (){ return this.iPceRec   ; }
-
+	
 	/**
-	 * Permet de chercher un batiment depuis une chaine
-	 * @param
-	 *       Le type du batiment
+	 * Accesseur sur le ble nécessaire pour activation.
+	 * @return un entier correspond à la quantité de ble
 	 */
-	public static BatimentInfo rechercherBatiment(String sBat)
-	{
-		for ( BatimentInfo bt : BatimentInfo.values() )
-			if ( bt.name().equals(sBat)) return bt;
-
-		return null;
-	}
+	public int getBleReA  (){ return this.iBleReA  ; }
+	
+	/**
+	 * Accesseur sur le bois nécessaire pour activation.
+	 * @return un entier correspond à la quantité de bois
+	 */
+	public int getBoisReA  (){ return this.iBoisReA  ; }
+	
+	/**
+	 * Accesseur sur l'eau nécessaire pour activation.
+	 * @return un entier correspond à la quantité d'eau
+	 */
+	public int getEauReA  (){ return this.iEauReA  ; }
+	
+	/**
+	 * Accesseur sur la pierre nécessaire pour activation.
+	 * @return un entier correspond à la quantité de pierre
+	 */
+	public int getPierreReA  (){ return this.iPierreReA  ; }
+	
+	/**
+	 * Accesseur sur les pieces nécessaire pour activation.
+	 * @return un entier correspond à la quantité de piece
+	 */
+	public int getPieceReA  (){ return this.iPceReA  ; }
 }
