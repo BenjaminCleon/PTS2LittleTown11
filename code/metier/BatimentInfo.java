@@ -287,6 +287,16 @@ public enum BatimentInfo
 	 */
 	public boolean estEchange(){ return this.sCategorie.equals("ECHANGE"); }
 
+	public static String getLstBat()
+	{
+		String sRet = "";
+
+		for ( BatimentInfo bt : BatimentInfo.values() )
+			sRet += bt.name();
+	
+		return sRet;
+	}
+
 	/**
 	 * Permet de chercher un batiment depuis une chaine
 	 * @param

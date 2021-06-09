@@ -244,11 +244,11 @@ public class Jeu
 			          this.verifierEchange(bTmp.getBleReA(), bTmp.getPierreReA(),
 					                       bTmp.getEauReA(), bTmp.getBoisReA  (),
 										   bTmp.getPieceReA()  ))
-				 	this.gererRessource(iSigne, bTmp);
+				 	this.gererRessource(1, bTmp);
 				 else
 				 {
-					this.ctrl.demanderRessource();
-					this.ctrl.demanderRessource();
+					// this.ctrl.demanderRessource();
+					// this.ctrl.demanderRessource();
 				 }
 			{
 				this.gererRessource(1, bTmp);
@@ -265,8 +265,8 @@ public class Jeu
 
 	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
 	{
-		if ( this.jCourant.getQteBle() < iBle || this.jCourant.getQteBois  () < iBois   ||
-		     this.jCourant.getQteEau() < iEau || this.jCourant.getQtePierre() < iPierre ||
+		if ( this.jCourant.getRessource("BLE") < iBle || this.jCourant.getRessource("BOIS")   < iBois   ||
+		     this.jCourant.getRessource("EAU") < iEau || this.jCourant.getRessource("PIERRE") < iPierre ||
 			 this.jCourant.getNbPiece() < iPiece )return false;
 
 		return true;
@@ -324,4 +324,6 @@ public class Jeu
 	}
 
 	public int getNumManche(){ return this.iNumManche; }
+
+	public String getLstBat(){ return BatimentInfo.getLstBat(); }
 }

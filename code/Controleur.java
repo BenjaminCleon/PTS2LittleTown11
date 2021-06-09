@@ -11,7 +11,7 @@ import iut.algo.Console;
 public class Controleur
 {
 	CUI ihm;
-	Jeu     metier;
+	Jeu metier;
 
 	public Controleur()
 	{
@@ -103,12 +103,12 @@ public class Controleur
 	
 	public void ObtenirInfo()
 	{
-		ihm.AfficherInfo();
+		this.ihm.AfficherInfo();
 	}
 	
 	public String getLstBat()
 	{
-		return metier.getLstBat();
+		return this.metier.getLstBat();
 	}
 
 }
