@@ -236,15 +236,18 @@ public class Jeu
 
 	/**
 	 * Verifie si nous devons passer la manche
+	 * @return
+	 *        Si la macnhe est passé ou non
 	 */
-	public void verifierManche()
+	public boolean verifierManche()
 	{
 		boolean bOk = true;
 
 		for ( Joueur j : this.tabJoueurs )
-			if ( j.getNbOuvrier() != 3 )bOk = false;
+			if ( ! j.estNourri() )return false;
 		
-		if ( bOk ) this.iNumManche ++;
+		this.iNumManche ++;
+		return true;
 	}
 
 	public int getNumManche(){ return this.iNumManche; }

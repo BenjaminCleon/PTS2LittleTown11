@@ -87,7 +87,24 @@ public class Joueur
 	 * @see consommerRessource()
 	 */
 	private Ressource        rPierre;
-	
+
+
+	/**
+	 * Si tous les ouvriers sont nourries
+	 */
+	private boolean bNourri;
+
+	/**
+	 * Constructeur de joueur
+	 * @param sCouleur
+	 *       Couleur du joueur
+	 * @param nbOuvrier
+	 *       Nombre d'ouvrier pour le joueur
+	 * @param nbBatiment
+	 *       Nombre de batiment pour le joueur
+	 * @param nbObjectif 
+	 *       Nombre de cartes objectifs pour le joueur
+	 */
 	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
 	{
 		this.NB_OUVRIER   = nbOuvrier;
@@ -97,6 +114,8 @@ public class Joueur
 
 		this.iNbPiece     = 3;
 		this.iScore       = 0;
+
+		this.bNourri = false;
 	
 		this.lstOuvrier   = new ArrayList<Pion> ();
 		this.lstBatiment  = new ArrayList<Pion> ();
@@ -215,11 +234,20 @@ public class Joueur
 		return false;
 	}
 
+	/**
+	 * Précise si les ouvriers du joueur sont nourris
+	 * @return
+	 *     True si tous les ouvriers sont nourris
+	 */
+	public boolean estNourri(){ return this.bNourri; }
+
 
 	/**
 	 * Permet d'associer un batiment à un joueur
-	 * @param bt
+	 * @param bTmp
 	 *        Batiment à ajouter dans la liste pour le joueur
+	 * @param pTmp
+	 *        Pion à ajouter dans la liste des batiments
 	 */
 	public void ajouterBatiment(Pion pTmp, BatimentInfo bTmp)
 	{
@@ -249,7 +277,7 @@ public class Joueur
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
 	 */
-	public void ajouterOuvrier(Pion pOuv )
+	public void ajouterOuvrier(Pion pOuv)
 	{
 		this.lstOuvrier.add(pOuv);
 	}
@@ -267,74 +295,69 @@ public class Joueur
 
 			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if ( this.setPiece(-3) )
-				{
-					nbOuvrierNourri++;
-				}
-				else
-				{
-					this.iScore -= 3;
-					nbOuvrierNourri++;
-				}
+				if ( !this.setPiece(-3) )this.iScore -= 3;
+				nbOuvrierNourri++;
 			}
-			return "Ouvriers Nourri.";
+			this.bNourri = false;
+			return "Ouvriers nourris avec le peu de vos ressources.";
 		}
 
-		return "Ouvriers non Nourri.";
+		return "Vous pouvez nourrir vos ouvriers en choisissant vos ressources";
 	}
 
 	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
 	{
-		int nbOuvrierNourri = 0;
+		// int nbOuvrierNourri = 0;
 		String sRet = "";
-		boolean nourrissable = true;
 
 		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
-			sRet += "trop de ressources proposé\n";
-		else
-		{
-			if ( nbBle > this.rBle.getQteRessource() )
-			{
-				sRet +=  "le joueur n'a pas assez de ressources de blé\n";
-				nourrissable = false;
-			}
-			
-			if ( nbEau > this.rEau.getQteRessource() )
-			{
-				sRet += "le joueur n'a pas assez de ressources d'eau\n";
-				nourrissable = false;
-			}
+			sRet += "trop de ressources proposées\n";
 
-			if ( nbPiece > this.iNbPiece )
-			{
-				sRet += "le joueur n'a pas assez de pièces\n";
-				nourrissable = false;
-			}
+		if ( nbEau + nbBle + nbPiece/3 < this.NB_OUVRIER )
+			sRet += "pas assez de ressources proposées\n";
 
-			if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER && nourrissable &&
-			     this.rEau.consommerRessource( this.NB_OUVRIER ) )
-				nbOuvrierNourri = this.NB_OUVRIER;
-			
-			if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER && nourrissable &&
-			     this.rBle.consommerRessource( NB_OUVRIER ) )
-				nbOuvrierNourri = this.NB_OUVRIER;
+		if ( nbBle > this.rBle.getQteRessource() )
+			sRet +=  "le joueur n'a pas assez de ressources de blé\n";
+		
+		if ( nbEau > this.rEau.getQteRessource() )
+			sRet += "le joueur n'a pas assez de ressources d'eau\n";
 
-			if ( nbOuvrierNourri < this.NB_OUVRIER && nourrissable)
-			{
-				this.rEau.consommerRessource(nbEau);
-				this.rBle.consommerRessource(nbBle);
-				this.setPiece(-nbPiece);
+		if ( nbPiece > this.iNbPiece )
+			sRet += "le joueur n'a pas assez de pièces\n";
 
-				nbOuvrierNourri = nbPiece + nbBle + nbEau;
-			}
+		if ( ! sRet.isEmpty() )return sRet;
 
-			while ( nbOuvrierNourri < this.NB_OUVRIER && nourrissable )
-			{
-				this.iScore -= 3;
-				nbOuvrierNourri++;
-			}
-		}
+		// if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER &&
+		// 		this.rEau.consommerRessource( this.NB_OUVRIER ) )
+		// 	nbOuvrierNourri = this.NB_OUVRIER;
+		
+		// if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER &&
+		// 		this.rBle.consommerRessource( NB_OUVRIER ) )
+		// 	nbOuvrierNourri = this.NB_OUVRIER;
 
-		return sRet;
+		// if ( nbOuvrierNourri < this.NB_OUVRIER)
+		// {
+			this.rEau.consommerRessource(nbEau);
+			this.rBle.consommerRessource(nbBle);
+			this.setPiece(-nbPiece);
+
+			//nbOuvrierNourri = nbPiece + nbBle + nbEau;
+		//}
+
+		// while ( nbOuvrierNourri < this.NB_OUVRIER)
+		// {
+		// 	this.iScore -= 3;
+		// 	nbOuvrierNourri++;
+		// }
+
+		this.bNourri = true;
+
+		return "Ouvriers nourris avec succès";
+	}
+
+	public void resetJoueur()
+	{
+		this.bNourri = false;
+		this.lstOuvrier.clear();
 	}
 }
