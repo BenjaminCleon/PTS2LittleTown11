@@ -3,18 +3,9 @@ package equipe_11.metier;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
+
 public class Jeu 
 {
-	/**
-	 * Nombre de batiment max
-	 */
-	private int iNbBatimentMax;
-
-	/**
-	 * Nombre d'ouvrier max
-	 */
-	private int iNbOuvrierMax;
-
 	/**
 	 * Joueur en train de jouer
 	 */
@@ -28,7 +19,7 @@ public class Jeu
 	/**
 	 * Le nombre de joueurs de la partie
 	 */
-	private int iNbJoueur;
+	private final int INB_JOUEURS;
 
 	/**
 	 * ensemble des cases sur le plateau
@@ -47,58 +38,21 @@ public class Jeu
 
 	/**
 	 * Constructeur de la classe Jeu
-	 * Initialise uniquement tabPion
+	 * Initialise tous les attributs
 	 */
 	public Jeu()
 	{
 		this.tabPion    = new Pion[6][9];
-	}
+		this.tabJoueurs = new Joueur[2];
 
-	/**
-	 * Cette methode permet d'initialiser le plateau selon le numéro
-	 * @param iNumPlateau
-	 *        numéro du plateau 1 ou 2
-	 * @return
-	 *        true si le plateau est bien créer
-	 */
-	public boolean setNumPlateau( int iNumPlateau )
-	{
-		if ( iNumPlateau != 1 && iNumPlateau != 2 )return false;
+		this.tabJoueurs[0] = new Joueur("Rouge", 5, 7, 4);
+		this.tabJoueurs[1] = new Joueur("Bleu" , 5, 7, 4);
 
-		this.initPlateau(iNumPlateau);
-		return true;
-	}
+		this.iNumJCourant = 0;
+		this.jCourant     = this.tabJoueurs[0];
+		this.INB_JOUEURS  = 2;
 
-	/**
-	 * Créer le tableau de joueur avec lenombre de joueur donné en paramètre
-	 * Initialise le joueur courant au premier joueur
-	 * Initialise la constante iNbJoueur
-	 * @param iNbJoueur
-	 *       le nombre de joueur
-	 * @return
-	 *       true si cela à réussi
-	 */
-	public boolean setJoueur( int iNbJoueur )
-	{
-		if ( iNbJoueur > 4 || iNbJoueur < 2 )return false;
-		
-		String[] ensCouleur = { "Rouge", "Bleu", "Jaune", "Vert" };
-
-		this.iNbJoueur = iNbJoueur;
-		this.tabJoueurs  = new Joueur[this.iNbJoueur];
-		this.jCourant    = this.tabJoueurs[0];
-
-		switch ( this.iNbJoueur )
-		{
-			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
-			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
-			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; }
-		}
-
-		for ( int i=0;i<this.iNbJoueur;i++)
-			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
-		
-		return true;
+		this.initPlateau(1);
 	}
 
 	/**
@@ -170,8 +124,6 @@ public class Jeu
 		int iBois   = bTmp.getBoisReq  ();
 		int iEau    = bTmp.getEauReq   ();
 
-		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
-
 		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
 		{
 			for ( Joueur j : this.tabJoueurs )
@@ -180,12 +132,12 @@ public class Jeu
 
 		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
-		if ( bTmp.estRessource() || 
+		if ( bTmp.estRessource() ||
 		     jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		this.gererRessource(-1);
+		this.gererRessource(-1, bTmp);
 
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
@@ -228,6 +180,7 @@ public class Jeu
 			for (int iColTab=iColDepTab; iColTab<=iColFinTab && bTmp != null; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
+				System.out.println(pTmp2.getNom());
 				// activation automatique des ressources qui ne couteront rien au joueur
 				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) ||
 				     pTmp2.getCoul().equals("BLANC") )
@@ -258,7 +211,7 @@ public class Jeu
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.INB_JOUEURS];
 		this.verifierManche();
 		return true;
 	}
@@ -294,9 +247,9 @@ public class Jeu
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
 			for ( Joueur j : this.tabJoueurs )
-				if ( j.getCouleur().equals(pTmp.getCoul()) )j.setPiece(1);
+				if ( j.getCouleur().equals(pTmp.getCoul()) )j.ajouterPiece(1);
 				
-			this.jCourant.setPiece(-1);
+			this.jCourant.consommerPiece(1);
 		}
 
 		return false;
@@ -311,17 +264,19 @@ public class Jeu
 
 	/**
 	 * Verifie si nous devons passer la manche
-	 * @return
-	 *        Si la macnhe est passé ou non
 	 */
-	public boolean verifierManche()
+	public void verifierManche()
 	{
+		boolean bOk = true;
+
 		for ( Joueur j : this.tabJoueurs )
-			if ( ! j.estNourri() )return false;
+			if ( j.getNbOuvrier() != 3 )bOk = false;
 		
-		this.iNumManche ++;
-		return true;
+		if ( bOk ) this.iNumManche ++;
 	}
 
 	public int getNumManche(){ return this.iNumManche; }
+
+	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+
 }

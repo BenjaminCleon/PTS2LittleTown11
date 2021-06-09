@@ -68,7 +68,8 @@ public class Controleur
 				{
 					case 1 -> { this.construire(); }
 					case 2 -> { this.ajouterOuvrier(); }
-					case 3 -> { System.exit(0); }
+					case 3 -> { this.ObtenirInfo(); }
+					case 4 -> { System.exit(0); }
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -98,6 +99,16 @@ public class Controleur
 		coord = coord.toUpperCase();
 
 		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
+	}
+	
+	public void ObtenirInfo()
+	{
+		ihm.AfficherInfo();
+	}
+	
+	public String getLstBat()
+	{
+		return metier.getLstBat();
 	}
 
 }
