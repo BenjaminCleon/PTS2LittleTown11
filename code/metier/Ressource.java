@@ -21,7 +21,7 @@ public class Ressource
 	 * @see Ressource#toString()
 	 */
 	private static AltInt iQteBleStock    = new AltInt( 15 );
-	
+
 	/**
 	 * C'est la quantite de Bois disponible dans le stock.
 	 *
@@ -30,7 +30,7 @@ public class Ressource
 	 * @see Ressource#toString()
 	 */
 	private static AltInt iQteBoisStock   = new AltInt( 15 );
-	
+
 	/**
 	 * C'est la quantite d'Eau disponible dans le stock.
 	 *
@@ -64,6 +64,17 @@ public class Ressource
 	 */
 	private String  sType;
 
+	/**
+	 * C'est la quantiter de ressource.
+	 *
+	 * @see Ressource#Ressource( String, boolean bEstMangeable )
+	 * @see Ressource#Ressource( String )
+	 * @see Ressource#consommerRessourceStock( int, String  )
+	 * @see Ressource#consommerRessource( int, String  )
+	 * @see Ressource#ajouterRessourceStock( int, String )
+	 * @see Ressource#ajouterRessource( int, String )
+	 * @see Ressource#setQte(int iNb )
+	 */
 	private int iQte;
 	
 	/**
@@ -130,9 +141,6 @@ public class Ressource
 	 *
 	 * @param iConso
 	 *          nombre de ressource à consommer
-	 * 
-	 * @param sType
-	 *          nom de la ressource à consommer
 	 */
 	public boolean consommerRessourceStock( int iConso )
 	{
@@ -144,6 +152,12 @@ public class Ressource
 		return true;	
 	}
 	
+	/**
+	 * Consomme une quantiter d'une ressource passer en parametre.
+	 *
+	 * @param iConso
+	 *          nombre de ressource à consommer
+	 */
 	public boolean consommerRessource( int iConso )
 	{
 		if( iConso < 1 || iConso > getQteRessource() )
@@ -158,9 +172,6 @@ public class Ressource
 	 *
 	 * @param iConso
 	 *          nombre de ressource à ajoute
-	 * 
-	 * @param sType
-	 *          nom de la ressource à ajoute
 	 */
 	public boolean ajouterRessourceStock( int iConso )
 	{
@@ -172,6 +183,12 @@ public class Ressource
 		return true;	
 	}
 	
+	/**
+	 * Ajoute une quantiter à une ressource passer en parametre.
+	 *
+	 * @param iConso
+	 *          nombre de ressource à ajoute
+	 */
 	public boolean ajouterRessource( int iConso )
 	{
 		if( iConso < 1 )
