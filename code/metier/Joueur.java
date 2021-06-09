@@ -206,10 +206,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .setQte( iVal ); }
-			case "EAU"    -> { this.rEau   .setQte( iVal ); }
-			case "BOIS"   -> { this.rBois  .setQte( iVal ); }
-			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
+			case "BLE"    -> { this.rBle   .setQteJoueur( iVal ); }
+			case "EAU"    -> { this.rEau   .setQteJoueur( iVal ); }
+			case "BOIS"   -> { this.rBois  .setQteJoueur( iVal ); }
+			case "PIERRE" -> { this.rPierre.setQteJoueur( iVal ); }
 		}
 	}
 
