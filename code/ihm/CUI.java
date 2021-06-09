@@ -43,7 +43,7 @@ public class CUI
 
 		Console.println();
 
-		for(iConsole.nt i = 0; i < tabPlateau.length; i++)
+		for(int i = 0; i < tabPlateau.length; i++)
 		{
 			Console.print(++cpt + "\t| ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
