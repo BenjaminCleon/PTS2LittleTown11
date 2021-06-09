@@ -8,12 +8,12 @@ public class Jeu
 	/**
 	 * Nombre de batiment max
 	 */
-	private final int NB_BATIMENT_MAX;
+	private int iNbBatimentMax;
 
 	/**
 	 * Nombre d'ouvrier max
 	 */
-	private final int NB_OUVRIER_MAX;
+	private int iNbOuvrierMax;
 
 	/**
 	 * Joueur en train de jouer
@@ -28,7 +28,7 @@ public class Jeu
 	/**
 	 * Le nombre de joueurs de la partie
 	 */
-	private final int INB_JOUEURS;
+	private int iNbJoueur;
 
 	/**
 	 * ensemble des cases sur le plateau
@@ -47,29 +47,58 @@ public class Jeu
 
 	/**
 	 * Constructeur de la classe Jeu
-	 * Initialise tous les attributs
+	 * Initialise uniquement tabPion
 	 */
 	public Jeu()
 	{
 		this.tabPion    = new Pion[6][9];
+	}
 
-		this.INB_JOUEURS  = 2;
-		this.tabJoueurs = new Joueur[this.INB_JOUEURS];
+	/**
+	 * Cette methode permet d'initialiser le plateau selon le numéro
+	 * @param iNumPlateau
+	 *        numéro du plateau 1 ou 2
+	 * @return
+	 *        true si le plateau est bien créer
+	 */
+	public boolean setNumPlateau( int iNumPlateau )
+	{
+		if ( iNumPlateau != 1 && iNumPlateau != 2 )return false;
 
-		switch ( this.INB_JOUEURS )
+		this.initPlateau(iNumPlateau);
+		return true;
+	}
+
+	/**
+	 * Créer le tableau de joueur avec lenombre de joueur donné en paramètre
+	 * Initialise le joueur courant au premier joueur
+	 * Initialise la constante iNbJoueur
+	 * @param iNbJoueur
+	 *       le nombre de joueur
+	 * @return
+	 *       true si cela à réussi
+	 */
+	public boolean setJoueur( int iNbJoueur )
+	{
+		if ( iNbJoueur > 4 || iNbJoueur < 2 )return false;
+		
+		String[] ensCouleur = { "Rouge", "Bleu", "Jaune", "Vert" };
+
+		this.iNbJoueur = iNbJoueur;
+		this.tabJoueurs  = new Joueur[this.iNbJoueur];
+		this.jCourant    = this.tabJoueurs[0];
+
+		switch ( this.iNbJoueur )
 		{
-			case 3  -> { this.NB_OUVRIER_MAX = 4; this.NB_BATIMENT_MAX = 6; }
-			case 4  -> { this.NB_OUVRIER_MAX = 3; this.NB_BATIMENT_MAX = 6; }
-			default -> { this.NB_OUVRIER_MAX = 5; this.NB_BATIMENT_MAX = 7; }
+			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
+			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
+			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; }
 		}
 
-		this.tabJoueurs[0] = new Joueur("Rouge", this.NB_OUVRIER_MAX, this.NB_BATIMENT_MAX, 4);
-		this.tabJoueurs[1] = new Joueur("Bleu" , this.NB_OUVRIER_MAX, this.NB_BATIMENT_MAX, 4);
-
-		this.iNumJCourant = 0;
-		this.jCourant     = this.tabJoueurs[0];
-
-		this.initPlateau(1);
+		for ( int i=0;i<this.iNbJoueur;i++)
+			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
+		
+		return true;
 	}
 
 	/**
@@ -141,8 +170,8 @@ public class Jeu
 		int iBois   = bTmp.getBoisReq  ();
 		int iEau    = bTmp.getEauReq   ();
 
-		if ( this.jCourant.getNbBatiment() == this.NB_BATIMENT_MAX )return false;
-		
+		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
+
 		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
 		{
 			for ( Joueur j : this.tabJoueurs )
@@ -220,7 +249,7 @@ public class Jeu
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.INB_JOUEURS];
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 		this.verifierManche();
 		return true;
 	}
