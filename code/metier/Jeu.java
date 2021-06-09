@@ -249,6 +249,7 @@ public class Jeu
 				 {
 				 	 this.ctrl.demanderRessource();
 				 	 this.ctrl.demanderRessource();
+				 }
 			{
 				this.gererRessource(1, bTmp);
 			}
