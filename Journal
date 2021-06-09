@@ -1,75 +1,227 @@
+---------------------------------------------------------------------------------------------------
 07/06 :
-Création des classes :
-Batiment : -> Banjamin
-	constructeur : Batiment()
-	méthode      : getPierreRec() -> retourne la pierre reçu après activation,
-	               getEauRec()    -> retourne l'eau reçu après activation,
-	               getBleRec()    -> retourne le ble reçu après activation,
-	               getBoisRec()   -> retourne le bois reçu après activation,
-	               
-	               getPierreReq() -> retourne la pierre requis a l'activation,
-	               getEauReq()    -> retourne l'eau requis a l'activation,
-	               getBleReq()    -> retourne le ble requis a l'activation,
-	               getBoisReq()   -> retourne le bois requis a l'activation,
-	               
-	               getPtConstru() -> retourne ,
-	               getPtRec()     -> retourne ,
-	               
-	               getPcReq()     -> retourne ,
-	               getPcRec()     -> retourne ,
-	               
-CartesObjectifs : -> Mathis
-	constructeur : CartesObjectifs(),
-	methode      : bAccompli() -> retourne si un objectif est completer + deffiniton
-	                              de 2 objectifs,
-	                              
-Joueur : -> Manon
-	constructeur : Joueur(String Couleur, int nombre d'Ouvrier, int nombre de Batiment, 
-	                      int nombre d'Objectif) -> peut varie en fonction du nombre de 
-	                      joueurs
-	                      
-	methode      : getRessource( type )         -> retourne la qantité de ressources de l'attribut
-	                                               passé en paramètre (blé, eau, etc.) du joueur,
-	               getNbPiece()                 -> retourne le nombre de pièces du joueur,
-	               ajouterPiece( quantite)      -> ajoute le nombre de pieces passé en paramètre
-                   ajouter ressource( quantite  -> ajoute le nombre de ressources passé en     
-                                      type    )    paramètre ainsi que le type de ressource
-                   consommerRessource(quantite  -> utilise les ressource du type et d'une qte
-                                      type    )
-                   consommerPiece ( quantite )  -> utilise les pièces et d'une quantité
-                   augmenterScore ( quantite )  -> incrémente le score
-                   diminuerScore  ( quantite )  -> décrémente le score
-                   payerJoueur    ( joueur   )  -> paye un joueur ( utilisation d'un batiment )
-                   estPresentTuile( tuile    )  -> si la tuile est utlisé
+---------------------------------------------------------------------------------------------------
+*****************************************
+Metier :                                *
+*****************************************
+Création des classes :      *
+*****************************
+    Batiment : -> Banjamin
+	    constructeur : Batiment( toutes les info sur le batiment, coût, point, etc.)
+	    méthode      : getPierreRec() -> retourne la pierre reçu après activation,
+	                   getEauRec()    -> retourne l'eau reçu après activation,
+	                   getBleRec()    -> retourne le ble reçu après activation,
+	                   getBoisRec()   -> retourne le bois reçu après activation,
+	                   
+	                   getPierreReq() -> retourne la pierre requis a l'activation,
+	                   getEauReq()    -> retourne l'eau requis a l'activation,
+	                   getBleReq()    -> retourne le ble requis a l'activation,
+	                   getBoisReq()   -> retourne le bois requis a l'activation,
+	                   
+	                   getPtConstru() -> retourne les points de constructions,
+	                   getPtRec()     -> retourne ,
+	                   
+	                   getPcReq()     -> retourne ,
+	                   getPcRec()     -> retourne ,
+	                   
+    CartesObjectifs : -> Mathis
+	    constructeur : CartesObjectifs(),
+	    methode      : bAccompli() -> retourne si un objectif est completer + deffiniton
+	                                  de 2 objectifs,
+	                                  
+    Joueur : -> Manon
+	    constructeur : Joueur(Couleur, nombre d'Ouvrier,  -> peut varie en fonction du nombre de 
+	                          nombre de Batiment,            joueurs
+	                          nombre d'Objectif, joueurs)
+	                          
+	    methode      : getRessource( type )         -> retourne la qantité de ressources de
+                                                       l'attribut passer en paramètre passé 
+                                                       en paramètre (blé, eau, etc.) du joueur,
+	                   getNbPiece()                 -> retourne le nombre de pièces du joueur,
+	                   ajouterPiece( quantite )     -> ajoute au joueur le nombre de pieces passé 
+	                                                   en paramètre
+                       ajouter ressource( quantite, -> ajoute au joueur le nombre de ressources     
+                                          type    )    passé en paramètre ainsi que le type de
+                                                       ressource
+                       consommerRessource(quantite, -> utilise les ressources du type passé en
+                                          type    )    paramètre et d'une qte
+                       consommerPiece ( quantite )  -> utilise les pièces d'un joueur d'une certaine
+                                                       quantité
+                       augmenterScore ( quantite )  -> incrémente le score du joueur
+                       diminuerScore  ( quantite )  -> décrémente le score du joueur
+                       payerJoueur    ( joueur   )  -> paye un joueur ( utilisation d'un batiment )
+                       estPresentTuile( tuile    )  -> si la tuile passé en paramètre est possedé
 
-Pion : -> Mathis
-    constructeur : Pion(Type, couleur, point) -> type : ouvrier/batiment, couleur ,coordonné ,
-    methode      : getType()                  -> retourne si c'est un pion ou un batiment,
-                   getCouleur()               -> retourne la couleur,
-Plateau : -> Benjamin
-    constructeur : Plateau(Nombre de joueur),
-    methode      : getPlateau(),
-                   remplirTableau(),
-                   toString() ,
-Ressource : -> Maxence
-    constructeur : Ressource( Type, estMangeable)   -> creer une ressource (blé,bois,etc.) et si                                                     il est mangeable
-                   Ressource( Type )                -> creer une ressource (blé,bois,etc.), n'est
-                                                       pas mangeable
-    methode      : getRessourceByType(Type)
-                   consommerRessource(quantite, type) -> consomme les ressources du type en 
-                                                         paramètre(eau,etc.) et sa quantité en
-                                                         parametre
-                   getType()                          -> retourne le nom de la ressource
-                   getEstMangeable()                  -> retourne si la ressource est mangeable
-                   getQteBle()                        ->
-                   getQteBois()                       ->
-                   getQteEau()                        ->
-                   getQtePierre()                     ->
-                   getQteRessource()                  ->
-                   toString()                         ->
+    Pion : -> Mathis
+        constructeur : Pion(Type, couleur, point) -> type : ouvrier/batiment, couleur, coordonné,
+        methode      : getType()                  -> retourne si c'est un pion ou un batiment,
+                       getCouleur()               -> retourne la couleur,
+    
+    Plateau : -> Benjamin
+        constructeur : Plateau(Nombre de joueur),
+        methode      : getPlateau(),
+                       remplirTableau(),
+                       toString() ,
+    
+    Ressource : -> Maxence
+        constructeur : Ressource( Type, estMangeable)     -> creer une ressource (blé,bois,etc.) et 
+                                                             si il est mangeable
+                       Ressource( Type )                  -> creer une ressource (blé,bois,etc.), 
+                                                             n'est pas mangeable
+        methode      : getRessourceByType(Type)
+                       consommerRessource(quantite, type) -> consomme les ressources du type en 
+                                                             paramètre(eau,etc.) et sa quantité en
+                                                             parametre
+                       getType()                          -> retourne le nom de la ressource
+                       getEstMangeable()                  -> retourne si la ressource est mangeable
+                       getQteBle()                        ->
+                       getQteBois()                       ->
+                       getQteEau()                        ->
+                       getQtePierre()                     ->
+                       getQteRessource()                  ->
+                       toString()                         ->
 
-Tuile : -> Enzo
-    constructeur : Tuile( type )
-    methode      : toString()
+    Tuile : -> Enzo
+        constructeur : Tuile( type )
+        methode      : toString()     -> retourne le type de la tuile
+        
+    /utilitaire/AltInt : -> Enzo
+		constructeur : AltInt( entier )
+		methode      : setEntier(entier) ->
+		               getEntier()       -> 
 
-Réglage des bugs -> Enzo
+    Réglage des bugs -> Enzo
+    
+*****************************************
+Controleur :                            *
+*****************************************
+Création des classes :      *
+*****************************
+Controleur : -> Enzo
+Constructeur : Controleur()
+---------------------------------------------------------------------------------------------------
+08/06 :
+---------------------------------------------------------------------------------------------------
+*****************************************
+metier :                                *
+*****************************************
+Changement nom de classes : *
+*****************************
+	Batiment -> BatimentInfo
+	Plateau  -> Jeu
+*****************************
+Supréssion des classes :    *
+*****************************
+	Pion
+*****************************
+Création des classes :      *
+*****************************
+    Ouvrier      : hérite de Pion -> Mathis
+    constructeur : Ouvrier( type, couleur, jeu)
+    methode      : activer()            -> 
+                   nourrir(ressource)   -> nourri un ouvrier avec la ressource en paramètre
+                   setNourri(estNourri) -> mais à vrai si l'ouvier est nourri
+	
+	Batiment     :  -> Benjamin
+		ancien Batiment devient batimentInfo
+	constructeur : Batiment( ligne, collone, couleur, nom )
+	methode      : getNom()    -> retourne le nom du batiment (bar, ponton,etc.)
+    
+*****************************    
+Modification des classes :  *
+*****************************
+	Joueur  : -> Manon
+	    ajout de javaDoc
+	methode : getCouleur()                      -> retourne la couleur du joueur
+	          getScore()                        -> retourne le score total du joueur
+	          getObjectifs()                    -> retourne la liste des objectifs du joueur
+	          getObjectif( ind )                -> retourne l'objectif  de l'indice en paramètre
+	          nourrirOuvrier( quantite de ble,  -> retourne une chaine de caractère qui indique si
+	                          quantite d'eau,      oui ou non les ressources on été consommés et
+	                          nombre de Pièces)    pourquoi
+
+	Joueur  : -> Benjamin
+	methode : ajouterBatiment(Info du batiment, -> ajoute un batiment au joueur et incremente au
+	                          ligne, commande )    score les points de constructions
+	          getBatiments()                    -> retourne une liste de batiments
+	          getNbOuvrier()                    -> retourne le nombre d'ouvrier
+	         
+	Batiment : -> Benjamin
+	    devient BatimentInfo
+	methode : rechercherBatiment(type) -> retourne les informations (BatimentInfo) du batiment dont
+	                                      le nom est passé en paramètre
+	
+	Ressource : -> Enzo 
+		Fix des erreurs de compliation 
+		
+	Jeu : -> Benjamin
+	methode : initPlateau( numero du plateau )      -> initialise en fonction du plateau
+	          contruireBatiment( numero joueur,
+	                             type, ligne, col ) -> construit un batiment au joueur dont le
+	                                                   numero est passé en parametre
+	          getJoueurCourant()                    -> retourne le joueur dont c'est le tour
+	          verifierManche()                      -> verifie si la manche n'est pas fini
+	          getNumManche()                        -> retourne le numero de la manche en cour
+
+	Pion : -> Mathis
+	methode : setNom( nom ) -> met un nom au setNom
+	
+	Ressource : -> Maxence
+	    ajout de la javaDoc
+	
+	Joueur : -> Mathis
+	    optimisation de nourrirOuvrier
+
+    BatimentInfo : -> Benjamin
+      ajout de la javaDoc
+	
+Correction de bugs : -> Benjamin
+    BatimentInfo,Jeu,Joueur,Pion,Ressource
+    
+*****************************************
+IHM :                                   *
+*****************************************
+Création des classes :      *
+*****************************
+	Console : -> Enzo
+	Constructeur : Console( controleur )
+	Methode : getHeader()         -> retourne l'entête de l'ihm
+	          afficherPlateau()   -> retourne le tableau sous fomr de chaine de caractères
+	          afficherMenuChoix() -> retourne le menu de choix (ex : construire)
+	          mettreIhmAJour()    -> met à jour l'ihm, (affiche les differentes methodes ci dessus)
+
+*****************************************
+Controleur :                            *
+*****************************************
+Modification des classes :  *
+*****************************
+	Controleur : -> Enzo
+	Methode : main()
+	          getSaisie()          -> retourne la saisie faite par l'utilisateur
+	          getPlateau()         -> retourne le plateau
+	          getRessourceJoueur() -> retourne la ressource passer en paramètre du joueur dont
+	                                  c'est le tour
+	          getPieceJoueur()     -> retourne le nombre de piece du joueur dont c'est le tour
+	          getScoreJoueur()     -> retourne le score du joueur dont c'est le tour
+	          getCouleurJoueur()   -> retourne la couleur du joueur dont c'est le tour
+	          bouclePricipale()    -> fait l'action du choix saisi par l'utilisateur
+	          construire()         -> costruit un batiment dont le type et les coordonnées sont
+	                                  passer en paramètre
+	          ajouterOuvrier()     -> place un ouvrier
+---------------------------------------------------------------------------------------------------
+09/06 :
+---------------------------------------------------------------------------------------------------
+*****************************************
+Metier :                                *
+*****************************************
+Modification methode nom :  *
+*****************************
+	Ressource :
+		consommerRessource() -> consommerRessourceStock()
+
+*****************************    
+Modification des classes :  *
+*****************************
+	Ressource : -> Maxence
+	Methode :
+		consommerRessource() -> Conssome les ressources du joueur
