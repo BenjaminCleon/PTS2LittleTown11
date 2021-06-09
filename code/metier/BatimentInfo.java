@@ -42,34 +42,39 @@ public enum BatimentInfo
 	 * Catégorie du batiment, précise si il y a gain ou échange ou 
 	 *           si c'est des ressources.
 	 */
-	//              Ble        Bois         Eau        Pierre      Piece      Point   Catégorie
-	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
-	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
-	//            C  A        C  A        C  A        C  A        C  A        C  A
-	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
-	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
-	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
-	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
-	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   "GAIN"       ),
-	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   "GAIN"       ),
-	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   "GAIN"       ),
-	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   "GAIN"       ),
-	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   "GAIN"       ),
-	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   "GAIN"       ),
-	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   "GAIN"       ),
-	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   "ECHANGE"    ),
-	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   "ECHANGE"    ),
-	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3,   "ECHANGE"    ),
-	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0,   "ECHANGE"    ),
-	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"    ),
-	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"    ),
-	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5,   "ECHANGE"    ),
-	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5,   "ECHANGE"    ),
-	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7,   "ECHANGE"    ),
-	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3,   "ECHANGE"    ),
-	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6,   "ECHANGE"    ),
-	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0,   "ECHANGE"    ),
-	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4,   "ECHANGE"    );
+	//                  Ble        Bois         Eau        Pierre      Piece      Point   Catégorie
+	//                R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
+	//                q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
+	//                C  A        C  A        C  A        C  A        C  A        C  A
+	BLE             ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
+	PIERRE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
+	BOIS            ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
+	EAU             ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
+	BAR             ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   "GAIN"        ),
+	CHAMPSDEBLE     ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   "GAIN"        ),
+	LIBRAIRIE       ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   "GAIN"        ),
+	MINEDOR         ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   "GAIN"        ),
+	PONTON          ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   "GAIN"        ),
+	PUIT            ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   "GAIN"        ),
+	STATUE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   "GAIN"        ),
+	ATELIER         ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   "ECHANGE"     ),
+	BOULANGERIE     ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   "ECHANGE"     ),
+	BRASSERIE       ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3,   "ECHANGE"     ),
+	CARRIERE        ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0,   "ECHANGE"     ),
+	CHARPENTIER     ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"     ),
+	EPICERIE        ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"     ),
+	ENTREPOT        ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5,   "ECHANGE"     ),
+	EGLISE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5,   "ECHANGE"     ),
+	FOIRE           ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7,   "ECHANGE"     ),
+	FONTAINE        ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3,   "ECHANGE"     ),
+	GRENIER         ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6,   "ECHANGE"     ),
+	POISSONNIER     ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0,   "ECHANGE"     ),
+	RESTAURANT      ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4,   "ECHANGE"     ),
+	PRETEURSURGAGE  ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 0,   "PRETSURGAGE" ),
+	CATHEDRALE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    6, 0, 0,    0, 0, 0,   11, 0,   "SPECIAL"     ),
+	RESIDENCE       ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    6, 0, 0,    2, 0,   "SPECIAL"     ),
+	CHATEAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    6, 0, 0,    0, 0, 0,    0, 0,   "SPECIAL"     ),
+	TOURDEGARDE     ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0,   "SPECIAL"     );
 
 	private int iEauReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
 	private int iEauReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
