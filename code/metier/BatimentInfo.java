@@ -38,44 +38,45 @@ public enum BatimentInfo
 	 * ptCtr : point  reçu          à la construction
 	 * ptRc  : point  en recompense à l'activation
 	 * 
-	 * // Ressource
-	 * Si c'est une ressource ou non
+	 * // Catégorie
+	 * Catégorie du batiment, précise si il y a gain ou échange ou 
+	 *           si c'est des ressources.
 	 */
-	//              Ble        Bois         Eau        Pierre      Piece      Point Ressource
+	//              Ble        Bois         Eau        Pierre      Piece      Point   Catégorie
 	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//            C  A        C  A        C  A        C  A        C  A        C  A
-	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
-	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   true  ),
-	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
-	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
-	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   false ),
-	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   false ),
-	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   false ),
-	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   false ),
-	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   false ),
-	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   false ),
-	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   false ),
-	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   false ),
-	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   false ),
-	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3,   false ),
-	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0,   false ),
-	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0,   false ),
-	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0,   false ),
-	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5,   false ),
-	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5,   false ),
-	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7,   false ),
-	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3,   false ),
-	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6,   false ),
-	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0,   false ),
-	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4,   false );
+	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
+	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
+	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
+	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"  ),
+	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   "GAIN"       ),
+	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   "GAIN"       ),
+	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   "GAIN"       ),
+	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   "GAIN"       ),
+	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   "GAIN"       ),
+	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   "GAIN"       ),
+	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   "GAIN"       ),
+	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   "ECHANGE"    ),
+	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   "ECHANGE"    ),
+	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3,   "ECHANGE"    ),
+	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0,   "ECHANGE"    ),
+	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"    ),
+	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0,   "ECHANGE"    ),
+	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5,   "ECHANGE"    ),
+	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5,   "ECHANGE"    ),
+	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7,   "ECHANGE"    ),
+	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3,   "ECHANGE"    ),
+	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6,   "ECHANGE"    ),
+	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0,   "ECHANGE"    ),
+	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4,   "ECHANGE"    );
 
 	private int iEauReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
 	private int iEauReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
 	private int iEauRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
 
 	private int iPtConstru, iPtRec;
-	private boolean bRessource;
+	private String sCategorie;
 
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
@@ -119,8 +120,9 @@ public enum BatimentInfo
 	 *           Quantite de Point en récompense après construction.
 	 * @param iPtRec
 	 *           Quantite de Point en récompense après activation.
-	 * @param
-	 *           Si c'est une ressource
+	 * @param sCategorie
+	 *           Catégorie du batiment, précise si il y a gain ou échange ou 
+	 *           si c'est des ressources.
 	 */
 	BatimentInfo(
 		     int iBleReq   , int iBleReA   , int iBleRec   ,
@@ -128,7 +130,7 @@ public enum BatimentInfo
 	         int iEauReq   , int iEauReA   , int iEauRec   ,
 	         int iPierreReq, int iPierreReA, int iPierreRec,
 	         int iPceReA   , int iPceReq   , int iPceRec   ,
-	         int iPtConstru, int iPtRec    , boolean bRessource
+	         int iPtConstru, int iPtRec    , String sCategorie
 	        )
 	{
 		this.iEauReq    = iEauReq;
@@ -154,7 +156,7 @@ public enum BatimentInfo
 		this.iPtConstru = iPtConstru;
 		this.iPtRec     = iPtRec;
 
-		this.bRessource = bRessource;
+		this.sCategorie = sCategorie;
 	}
 
 	/**
@@ -264,7 +266,21 @@ public enum BatimentInfo
 	 * Dit si le batiment est une ressource ou non
 	 * @return true si le batiment est une ressource
 	 */
-	public boolean estRessource(){ return this.bRessource; }
+	public boolean estRessource(){ return this.sCategorie.equals("RESSOURCE"); }
+
+	/**
+	 * 
+	 * Dit si le batiment est un gain ou non
+	 * @return true si le batiment fait gagner quelque chose sans contrepartie
+	 */
+	public boolean estGain(){ return this.sCategorie.equals("GAIN"); }
+
+	/**
+	 * 
+	 * Dit si le batiment est un échange ou non
+	 * @return true si le batiment fait gagner quelque chose en échange d'une autre
+	 */
+	public boolean estEchange(){ return this.sCategorie.equals("ECHANGE"); }
 
 	/**
 	 * Permet de chercher un batiment depuis une chaine
