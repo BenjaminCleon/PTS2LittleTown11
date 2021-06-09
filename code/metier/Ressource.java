@@ -17,33 +17,37 @@ public class Ressource
 	 * C'est la quantite de Ble disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
+	 * @see Ressource#getQteBle()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteBle    = new AltInt( 15 );
+	private static AltInt iQteBleStock    = new AltInt( 15 );
 	
 	/**
 	 * C'est la quantite de Bois disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
+	 * @see Ressource#getQteBois()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteBois   = new AltInt( 15 );
+	private static AltInt iQteBoisStock   = new AltInt( 15 );
 	
 	/**
 	 * C'est la quantite d'Eau disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
+	 * @see Ressource#getQteEau()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteEau    = new AltInt( 15 );
+	private static AltInt iQteEauStock    = new AltInt( 15 );
 	
 	/**
 	 * C'est la quantite de Pierre disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
+	 * @see Ressource#getQtePierre()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQtePierre = new AltInt( 15 );	
+	private static AltInt iQtePierreStock = new AltInt( 15 );	
 
 	/**
 	 * C'est le nom de la ressource.
@@ -52,10 +56,10 @@ public class Ressource
 	 * @see Ressource#toString()
 	 * @see Ressource#Ressource( String, boolean bEstMangeable )
 	 * @see Ressource#Ressource( String )
-	 * @see Ressource#getRessourceByType( String  )
 	 * @see Ressource#consommerRessource( int, String  )
 	 * @see Ressource#ajouterRessource( int, String )
 	 * @see Ressource#getType()
+	 * @see Ressource#setQte(int iNb )
 	 * @see Ressource#toString()
 	 */
 	private String  sType;
@@ -113,10 +117,10 @@ public class Ressource
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { return Ressource.iQteBle;    }
-			case "BOIS"   -> { return Ressource.iQteBois;   }
-			case "EAU"    -> { return Ressource.iQteEau;    }
-			case "PIERRE" -> { return Ressource.iQtePierre; }
+			case "BLE"    -> { return Ressource.iQteBleStock;    }
+			case "BOIS"   -> { return Ressource.iQteBoisStock;   }
+			case "EAU"    -> { return Ressource.iQteEauStock;    }
+			case "PIERRE" -> { return Ressource.iQtePierreStock; }
 			default -> { return null; }		
 		}
 	}
@@ -174,28 +178,28 @@ public class Ressource
 	 *
 	 * @see Ressource#toString()
 	 */
-	public static int getQteBle(){ return Ressource.iQteBle.getEntier(); }
+	public static int getQteBle(){ return Ressource.iQteBleStock.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de bois dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public static int getQteBois(){ return Ressource.iQteBois.getEntier(); }
+	public static int getQteBois(){ return Ressource.iQteBoisStock.getEntier(); }
 	
 	/**
 	 * Retourne le nombre d'Eau dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public static int getQteEau(){ return Ressource.iQteEau.getEntier(); }
+	public static int getQteEau(){ return Ressource.iQteEauStock.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de Pierre dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public static int getQtePierre(){ return Ressource.iQtePierre.getEntier(); }
+	public static int getQtePierre(){ return Ressource.iQtePierreStock.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
@@ -227,10 +231,10 @@ public class Ressource
 
 		switch( sType )
 		{
-			case "BLE"    ->  sRet += String.format( "%-6s", "Ble"   ) + " : " + String.format( "%2d", Ressource.iQteBle   .getEntier() );
-			case "BOIS"   ->  sRet += String.format( "%-6s", "Bois"  ) + " : " + String.format( "%2d", Ressource.iQteBois  .getEntier() );
-			case "EAU"    ->  sRet += String.format( "%-6s", "Eau"   ) + " : " + String.format( "%2d", Ressource.iQteEau   .getEntier() );
-			case "PIERRE" ->  sRet += String.format( "%-6s", "Pierre") + " : " + String.format( "%2d", Ressource.iQtePierre.getEntier() );
+			case "BLE"    ->  sRet += String.format( "%-6s", "Ble"   ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() );
+			case "BOIS"   ->  sRet += String.format( "%-6s", "Bois"  ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() );
+			case "EAU"    ->  sRet += String.format( "%-6s", "Eau"   ) + " : " + String.format( "%2d", Ressource.iQteEauStock   .getEntier() );
+			case "PIERRE" ->  sRet += String.format( "%-6s", "Pierre") + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() );
 		}		
 
 		return sRet;
