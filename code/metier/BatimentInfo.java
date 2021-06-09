@@ -287,6 +287,20 @@ public enum BatimentInfo
 	 */
 	public boolean estEchange(){ return this.sCategorie.equals("ECHANGE"); }
 
+	/**
+	 * 
+	 * Dit si le batiment est un préteur sur gage ou non
+	 * @return true si le batiment correspond au préteur sur gage
+	 */
+	public boolean estPretSurGage(){ return this.sCategorie.equals("PRETSURGAGE"); }
+
+	/**
+	 * 
+	 * Dit si le batiment est un spécial ou non
+	 * @return true si le batiment est spécial (cathédrale, résidence, château, tour de garde)
+	 */
+	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
+
 	public static String getLstBat()
 	{
 		String sRet = "";
