@@ -94,7 +94,7 @@ public class Controleur
 				}
 
 				this.ihm.mettreIhmAJour();
-				Console.println(this.ihm.afficherMenuChoix());
+				if ( !this.metier.isToutOuvriersPose())Console.println(this.ihm.afficherMenuChoix());
 
 			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
 		}
@@ -102,6 +102,8 @@ public class Controleur
 
 	public void construire()
 	{
+		this.ihm.mettreIhmAJour();
+
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
 		String sType = null;
@@ -157,6 +159,9 @@ public class Controleur
 
 	public void ajouterOuvrier()
 	{
+
+		this.ihm.mettreIhmAJour();
+
 		System.out.println(this.ihm.afficherMenuPlacementOuvrier());
 
 		String coord = getSaisie();
@@ -165,8 +170,52 @@ public class Controleur
 		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
 	}
 
+	public void nourrirOuvrier()
+	{
+
+		this.ihm.mettreIhmAJour();
+
+		System.out.println(this.ihm.afficherMenuNourriture());
+
+		
+		try
+		{
+			iEntreeUtilisateur = Integer.parseInt(getSaisie());
+		}catch(NumberFormatException e){ System.out.println("Nombre invalide"); }
+
+		switch(iEntreeUtilisateur)
+		{
+			case 1 -> { 
+				this.ihm.mettreIhmAJour();
+				System.out.println(this.ihm.afficherMenuSaisie("Coord"));
+				sCoord = getSaisie();
+			}
+
+			case 2 -> { 
+				this.ihm.mettreIhmAJour();
+				System.out.println(this.ihm.afficherMenuSaisie("Type"));
+				sType = getSaisie(); 
+			}
+
+			case 3 -> { 
+				if(verifierPossibleConstruire(sType, sCoord))
+				{
+					this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
+				        sCoord.charAt(0));
+
+					iEntreeUtilisateur = 4;
+				}
+			}
+		}
+
+		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
+	}
+
 	public void echangerPiece()
 	{
+
+		this.ihm.mettreIhmAJour();
+
 		System.out.println(this.ihm.afficherMenuEchangePiece());
 
 		String sRessource = getSaisie();
@@ -184,6 +233,25 @@ public class Controleur
 	public String getLstBat()
 	{
 		return this.metier.getLstBat();
+	}
+
+	public int getNumManche(){ return this.metier.getNumManche(); }
+
+	public boolean isToutOuvriersPose()
+	{
+		if ( !this.isToutOuvriersPose() )return false;
+		
+		for ( Joueur j : this.metier.getJoueurs() )
+			if ( ! j.nourrirOuvrier().equals("Ouvriers nourris avec succès") )
+			{
+				while( this.metier.verifierManche() )
+				{
+					this.ihm.afficherMenuNourriture();
+					
+				}
+			}
+
+		return true;
 	}
 
 }
