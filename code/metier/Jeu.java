@@ -341,7 +341,20 @@ public class Jeu
 		for ( Joueur j : this.tabJoueurs )
 			if ( ! j.estNourri() )return false;
 		
+		this.tabJoueurs.clear();
+
+		for ( Pion p : this.tabPion )
+			if ( p.getNom().equals("OUVRIER") ) p = new Pion(p.getLig(), p.getCol(), "BLANC", "");
+
 		this.iNumManche ++;
+		return true;
+	}
+
+	public boolean isToutOuvriersPose()
+	{
+		for ( Joueur j : this.tabJoueurs )
+				if ( ! j.getNbOuvrier() != 3 )return false;
+
 		return true;
 	}
 
@@ -371,5 +384,10 @@ public class Jeu
 			if ( this.tabJoueurs[i] == this.jCourant )return i;
 
 		return 0;
+	}
+
+	public Joueur[] getJoueurs()
+	{
+		return this.tabJoueurs;
 	}
 }
