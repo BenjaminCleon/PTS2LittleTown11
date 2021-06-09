@@ -40,6 +40,7 @@ public class Joueur
 	/**
 	 * C'est une liste des batiments du joueur
 	 * 
+	 * @see Joueur#getNbBatiment()
 	 * @see Joueur#getBatiments()
 	 * @see Joueur#ajouterBatiment()
 	 */
@@ -144,6 +145,12 @@ public class Joueur
 	 *	le nombre de point du joueur
 	 */
     	public int    getScore   () { return this.iScore  ; }
+	 /**
+	 * retourne le nombre de Batiment possédé par le joueur
+	 * @return 
+	 * le nombre de batiment possédé par le joueur
+	 */
+    	public int getNbBatiment() { return this.lstBatiment.size();}
 	/**
 	 * retourne le nombre de ressource de la ressource en parametre
 	 * @param sType
@@ -151,6 +158,7 @@ public class Joueur
 	 * @return 
 	 *	le nombre de ressource de la ressource en parametre
 	 */
+	
 	public int getRessource(String sType)
 	{
 		switch ( sType.toUpperCase() )
