@@ -126,7 +126,7 @@ public class Ressource
 	}
 
 	/**
-	 * Consomme une quantiter d'une ressource passer en parametre.
+	 * Consomme une quantiter d'une ressource en stock passer en parametre.
 	 *
 	 * @param iConso
 	 *          nombre de ressource à consommer
@@ -134,7 +134,7 @@ public class Ressource
 	 * @param sType
 	 *          nom de la ressource à consommer
 	 */
-	public boolean consommerRessource( int iConso )
+	public boolean consommerRessourceStock( int iConso )
 	{
 		AltInt tmp = this.getRessourceByType( this.sType );
 
@@ -143,9 +143,18 @@ public class Ressource
 		tmp.setEntier( tmp.getEntier() - iConso );
 		return true;	
 	}
+	
+	public boolean consommerRessource( int iConso )
+	{
+		if( iConso < 1 || iConso > getQteRessource() )
+			return false;
+		
+		this.iQte -= iConso;
+		return true;
+	}
 
 	/**
-	 * Ajoute une quantiter à une ressource passer en parametre.
+	 * Ajoute une quantiter à une ressource en stock passer en parametre.
 	 *
 	 * @param iConso
 	 *          nombre de ressource à ajoute
@@ -153,7 +162,7 @@ public class Ressource
 	 * @param sType
 	 *          nom de la ressource à ajoute
 	 */
-	public boolean ajouterRessource( int iConso )
+	public boolean ajouterRessourceStock( int iConso )
 	{
 		AltInt iTmp = this.getRessourceByType( this.sType );
 
@@ -161,6 +170,15 @@ public class Ressource
 
 		iTmp.setEntier( iTmp.getEntier() + iConso );
 		return true;	
+	}
+	
+	public boolean ajouterRessource( int iConso )
+	{
+		if( iConso < 1 )
+			return false;
+		
+		this.iQte += iConso;
+		return true;
 	}
 
 	/**
