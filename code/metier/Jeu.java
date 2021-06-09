@@ -54,14 +54,6 @@ public class Jeu
 		this.tabPion    = new Pion[6][9];
 	}
 	
-	public boolean setNumPlateau( int iNumPlateau )
-	{
-		if ( iNumPlateau != 1 && iNumPlateau != 2 )return false;
-
-		this.initPlateau(iNumPlateau);
-		return true;
-	}
-	
 	public void setNumJoueur(int iNbJoueur)
 	{
 		this.tabJoueurs[iNbJoueur-1].setNumJoueur(iNbJoueur+1);
@@ -98,13 +90,10 @@ public class Jeu
 	 */
 	public boolean setJoueur( int iNbJoueur )
 	{
-		if ( iNbJoueur > 4 || iNbJoueur < 2 )return false;
-		
 		String[] ensCouleur = { "Rouge", "Bleu", "Jaune", "Vert" };
 
 		this.iNbJoueur = iNbJoueur;
 		this.tabJoueurs  = new Joueur[this.iNbJoueur];
-		this.jCourant    = this.tabJoueurs[0];
 
 		switch ( this.iNbJoueur )
 		{
@@ -115,6 +104,8 @@ public class Jeu
 
 		for ( int i=0;i<this.iNbJoueur;i++)
 			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
+		
+		this.jCourant    = this.tabJoueurs[0];
 		
 		return true;
 	}

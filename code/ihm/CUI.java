@@ -75,28 +75,21 @@ public class CUI
 	{
 		int iNbJoueur;
 		int iPlateau;
+		String sTmp;
 		String sNomJoueur;
 		String sRet = "";
 
-		Console.println("Combien de joueurs va participer ?");
-		iNbJoueur = Integer.parseInt(this.ctrl.getSaisie());
-		this.ctrl.setJoueur(iNbJoueur);
-		for(int iJoueur=1; iJoueur<=iNbJoueur; iJoueur++)
+		do
 		{
-			this.ctrl.setNumJoueur(iJoueur);
-			Console.println("Joueur " + iJoueur + " quel est ton nom ?\n");
+			Console.print("Combien de joueurs va participer ?");
+		}while(!this.ctrl.setNbJoueur());
 
-			sNomJoueur = this.ctrl.getSaisie();
-			this.ctrl.setNomJoueur(iJoueur, sNomJoueur);
-		}
+		Console.println();
 
-		Console.println("Quel plateau voulez-vous utliser ? ( 1 ou 2)");
-		iPlateau = Integer.parseInt(this.ctrl.getSaisie());
-		while(!this.ctrl.setNumPlateau(iPlateau))
+		do
 		{
-			Console.println("Veuillez choisir un plateau valide ( 1 ou 2)");
-				iPlateau = Integer.parseInt(this.ctrl.getSaisie());
-		}
+			Console.print("Choisissez le numéro du plateau ?");
+		}while(!this.ctrl.setNumPlateau());
 	}
 
 	public String afficherMenuChoix()
@@ -158,7 +151,7 @@ public class CUI
 		return sRet;
 	}
 	
-	public void AfficherInfo()
+	public void afficherInfo()
 	{
 		System.out.println( ctrl.getLstBat() );
 		

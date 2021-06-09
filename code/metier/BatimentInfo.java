@@ -292,7 +292,7 @@ public enum BatimentInfo
 		String sRet = "";
 
 		for ( BatimentInfo bt : BatimentInfo.values() )
-			sRet += bt.name();
+			sRet += bt.name() + "\n";
 	
 		return sRet;
 	}

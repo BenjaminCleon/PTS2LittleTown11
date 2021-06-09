@@ -10,15 +10,15 @@ import iut.algo.Console;
 
 public class Controleur
 {
-	CUI ihm;
-	Jeu metier;
+	private CUI ihm;
+	private Jeu metier;
 
 	public Controleur()
 	{
 		this.metier = new Jeu();
 		this.ihm    = new CUI(this);
 
-		bouclePrincipale();
+		this.bouclePrincipale();
 	}
 
 	public static void main(String[] args)
@@ -26,23 +26,24 @@ public class Controleur
 		new Controleur();
 	}
 	
-	public void setJoueur(int iNbJoueur)
+	public boolean setNbJoueur()
 	{
-		this.metier.setJoueur(iNbJoueur);
-	}
-	public void setNumJoueur(int iNbJoueur)
-	{
-		this.metier.setNumJoueur(iNbJoueur);
-	}
-	
-	public boolean setNumPlateau(int iNumPlateau)
-	{
-		return this.metier.setNumPlateau(iNumPlateau);
+		String saisie = this.getSaisie();
+		
+		if (!saisie.matches("^[2-4]$"))return false;
+
+		this.metier.setJoueur(Integer.parseInt(saisie));
+		return true;
 	}
 	
-	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
+	public boolean setNumPlateau()
 	{
-		this.metier.setNomJoueur(iNbJoueur, sNomJoueur);
+		String saisie = this.getSaisie();
+		if (!saisie.matches("^[12]$"))return false;
+
+		this.metier.setNumPlateau(Integer.parseInt(saisie));
+
+		return true;
 	}
 
 	public String getSaisie()
@@ -85,10 +86,10 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 -> { this.construire(); }
+					case 1 -> { this.construire    (); }
 					case 2 -> { this.ajouterOuvrier(); }
-					case 3 -> { this.ObtenirInfo(); }
-					case 4 -> { System.exit(0); }
+					case 3 -> { this.obtenirInfo   (); }
+					case 4 -> { System.exit(0)       ; }
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -120,9 +121,9 @@ public class Controleur
 		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
 	}
 	
-	public void ObtenirInfo()
+	public void obtenirInfo()
 	{
-		this.ihm.AfficherInfo();
+		this.ihm.afficherInfo();
 	}
 	
 	public String getLstBat()
