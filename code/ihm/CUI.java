@@ -14,6 +14,7 @@ public class CUI
 	{
 		this.ctrl = ctrl;
 
+		this.choixDebutPartie();
 		this.mettreIhmAJour();
 	 	Console.println(this.afficherMenuChoix());
 	}
@@ -70,6 +71,33 @@ public class CUI
 		}
 	}
 
+	public void choixDebutPartie()
+	{
+		int iNbJoueur;
+		int iPlateau;
+		String sNomJoueur;
+		String sRet = "";
+
+		Console.println("Combien de joueurs va participer ?");
+		iNbJoueur = Integer.parseInt(this.ctrl.getSaisie());
+		this.ctrl.setJoueur(iNbJoueur);
+		for(int iJoueur=1; iJoueur<=iNbJoueur; iJoueur++)
+		{
+			this.ctrl.setNumJoueur(iJoueur);
+			Console.println("Joueur " + iJoueur + " quel est ton nom ?\n");
+
+			sNomJoueur = this.ctrl.getSaisie();
+			this.ctrl.setNomJoueur(iJoueur, sNomJoueur);
+		}
+
+		Console.println("Quel plateau voulez-vous utliser ? ( 1 ou 2)");
+		iPlateau = Integer.parseInt(this.ctrl.getSaisie());
+		while(!this.ctrl.setNumPlateau(iPlateau))
+		{
+			Console.println("Veuillez choisir un plateau valide ( 1 ou 2)");
+				iPlateau = Integer.parseInt(this.ctrl.getSaisie());
+		}
+	}
 
 	public String afficherMenuChoix()
 	{
