@@ -116,6 +116,7 @@ public class Jeu
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
+		Pion     pTmp;
 
 		int iPierre = bTmp.getPierreReq();
 		int iBle    = bTmp.getBleReq   ();
@@ -125,22 +126,24 @@ public class Jeu
 		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
 		{
 			for ( Joueur j : this.tabJoueurs )
-				for ( Batiment bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
+				for ( Pion bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
 		}
 
 		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
-		if ( jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
-		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois    )
+		if ( bTmp.estRessource() || 
+		     jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
+		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		jTmp.consommerRessource(-iPierre, "PIERRE");
-		jTmp.consommerRessource(-iBle   , "BLE"   );
-		jTmp.consommerRessource(-iBois  , "BOIS"  );
-		jTmp.consommerRessource(-iEau   , "EAU"   );
+		jTmp.gererRessource(-iPierre, "PIERRE");
+		jTmp.gererRessource(-iBle   , "BLE"   );
+		jTmp.gererRessource(-iBois  , "BOIS"  );
+		jTmp.gererRessource(-iEau   , "EAU"   );
 
-		jTmp.ajouterBatiment(bTmp, iLig - 1, cCol);
-		this.tabPion[iLig - 1][cCol-'A'].setNom(bTmp.name());
+		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
+		jTmp.ajouterBatiment(pTmp, bTmp);
+		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
 		this.verifierManche();
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
@@ -166,18 +169,19 @@ public class Jeu
 		int iColDepTab = 0, iColFinTab = 0;
 
 		iLig--;
-		if ( iLig >= 1                          )iLigDepTab = iLig-1; else iLigDepTab = iLig;
-		if ( iLig <= this.tabPion[0].length     )iLigFinTab = iLig+1; else iLigDepTab = iLig;
+		if ( iLig > 0                        )iLigDepTab = iLig-1; else iLigDepTab = iLig;
+		if ( iLig <  this.tabPion.length - 1 )iLigFinTab = iLig+1; else iLigFinTab = iLig;
 
-		if ( cCol >= 'B'                        )iColDepTab = cCol-1- 'A'; else iColFinTab=cCol-'A';
-		if ( cCol <  this.tabPion.length + 'A'  )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol-'A';
+		if ( cCol > 'A'                              )iColDepTab = cCol-1- 'A'; else iColDepTab=cCol-'A';
+		if ( cCol <  this.tabPion[0].length + 'A' -1 )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol-'A';
 
 		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
-		for (int iLigTab=iLigDepTab; iLigTab<iLigFinTab; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<iColFinTab; iColTab++)
+		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
+				System.out.println(pTmp2.getNom());
 				// activation automatique des ressources qui ne couteront rien au joueur
 				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) ||
 				     pTmp2.getCoul().equals("BLANC") )
@@ -186,22 +190,29 @@ public class Jeu
 					if ( bTmp != null && bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
 					     bTmp.getEauReq() == 0 && bTmp.getPierreReq() == 0 )
 					{
-						this.jCourant.ajouterRessource(bTmp.getBleRec   (), "BLE"   );
-						this.jCourant.ajouterRessource(bTmp.getBoisRec  (), "BOIS"  );
-						this.jCourant.ajouterRessource(bTmp.getPierreRec(), "PIERRE");
-						this.jCourant.ajouterRessource(bTmp.getEauRec   (), "EAU"   );
+						this.jCourant.gererRessource(-bTmp.getBleRec   (), "BLE"   );
+						this.jCourant.gererRessource(-bTmp.getBoisRec  (), "BOIS"  );
+						this.jCourant.gererRessource(-bTmp.getPierreRec(), "PIERRE");
+						this.jCourant.gererRessource(-bTmp.getEauRec   (), "EAU"   );
 					}
 				}
 			}
 
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
-		this.jCourant.ajouterOuvrier(iLig, cCol, pTmp1);
+		this.jCourant.ajouterOuvrier(pTmp1);
 
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.INB_JOUEURS];
 		this.verifierManche();
 		return true;
 	}
 
+	/**
+	 * Cette méthode permet d'activer un batiment avec les coordonées en paramètre
+	 * @param
+	 *      Le numéro de la ligne pour le joueur
+	 * @param
+	 *      Le caractère de la colonne correspondante
+	 */
 	public boolean activerBatiment(int iLig, char cCol)
 	{
 		Pion pTmp = this.tabPion[iLig][cCol-'A'];

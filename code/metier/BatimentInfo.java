@@ -37,41 +37,46 @@ public enum BatimentInfo
 	 * // Point
 	 * ptCtr : point  reçu          à la construction
 	 * ptRc  : point  en recompense à l'activation
+	 * 
+	 * // Ressource
+	 * Si c'est une ressource ou non
 	 */
-	//              Ble        Bois         Eau        Pierre      Piece      Point
+	//              Ble        Bois         Eau        Pierre      Piece      Point Ressource
 	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//            C  A        C  A        C  A        C  A        C  A        C  A
-	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0 ),
-	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0 ),
-	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0 ),
-	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0 ),
-	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3 ),
-	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0 ),
-	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0 ),
-	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0 ),
-	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0 ),
-	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2 ),
-	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0 ),
-	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3 ),
-	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0 ),
-	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3 ),
-	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0 ),
-	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0 ),
-	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0 ),
-	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5 ),
-	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5 ),
-	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7 ),
-	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3 ),
-	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6 ),
-	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0 ),
-	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4 );
+	BLE         ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
+	PIERRE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   true  ),
+	BOIS        ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
+	EAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   true  ),
+	BAR         ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   false ),
+	CHAMPSDEBLE ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   false ),
+	LIBRAIRIE   ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   false ),
+	MINEDOR     ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   false ),
+	PONTON      ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   false ),
+	PUIT        ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   false ),
+	STATUE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   false ),
+	ATELIER     ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   false ),
+	BOULANGERIE ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   false ),
+	BRASSERIE   ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 3,   false ),
+	CARRIERE    ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0, 2,    0, 2, 0,    5, 0,   false ),
+	CHARPENTIER ( 0, 0, 0,    2, 0, 3,    0, 0, 0,    0, 0, 0,    0, 1, 0,    4, 0,   false ),
+	EPICERIE    ( 0, 0, 1,    2, 0, 0,    0, 0, 1,    0, 0, 0,    0, 1, 0,    4, 0,   false ),
+	ENTREPOT    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 2, 0,    0, 0, 0,    8, 5,   false ),
+	EGLISE      ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 3, 0,    8, 5,   false ),
+	FOIRE       ( 0, 1, 0,    4, 1, 0,    0, 1, 0,    0, 1, 0,    0, 0, 0,    6, 7,   false ),
+	FONTAINE    ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 1, 0,    5, 3,   false ),
+	GRENIER     ( 0, 2, 0,    4, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    5, 6,   false ),
+	POISSONNIER ( 0, 0, 0,    1, 0, 0,    0, 1, 0,    1, 0, 0,    0, 0, 3,    4, 0,   false ),
+	RESTAURANT  ( 0, 1, 0,    2, 0, 0,    0, 1, 0,    2, 0, 0,    0, 0, 0,    7, 4,   false );
 
 	private int iEauReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
 	private int iEauReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
 	private int iEauRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
 
 	private int iPtConstru, iPtRec;
+	private boolean bRessource;
+
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
 	 *
@@ -114,14 +119,16 @@ public enum BatimentInfo
 	 *           Quantite de Point en récompense après construction.
 	 * @param iPtRec
 	 *           Quantite de Point en récompense après activation.
+	 * @param
+	 *           Si c'est une ressource
 	 */
 	BatimentInfo(
+		     int iBleReq   , int iBleReA   , int iBleRec   ,
+		     int iBoisReq  , int iBoisReA  , int iBoisRec  ,
 	         int iEauReq   , int iEauReA   , int iEauRec   ,
-	         int iBleReq   , int iBleReA   , int iBleRec   ,
-	         int iBoisReq  , int iBoisReA  , int iBoisRec  ,
 	         int iPierreReq, int iPierreReA, int iPierreRec,
 	         int iPceReA   , int iPceReq   , int iPceRec   ,
-	         int iPtConstru, int iPtRec
+	         int iPtConstru, int iPtRec    , boolean bRessource
 	        )
 	{
 		this.iEauReq    = iEauReq;
@@ -146,6 +153,8 @@ public enum BatimentInfo
 
 		this.iPtConstru = iPtConstru;
 		this.iPtRec     = iPtRec;
+
+		this.bRessource = bRessource;
 	}
 
 	/**
@@ -249,6 +258,13 @@ public enum BatimentInfo
 	 * @return un entier correspond à la quantité de piece
 	 */
 	public int getPieceReA  (){ return this.iPceReA  ; }
+
+	/**
+	 * 
+	 * Dit si le batiment est une ressource ou non
+	 * @return true si le batiment est une ressource
+	 */
+	public boolean estRessource(){ return this.bRessource; }
 
 	/**
 	 * Permet de chercher un batiment depuis une chaine

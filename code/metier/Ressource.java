@@ -212,8 +212,8 @@ public class Ressource
 		AltInt aTmp = this.getRessourceByType(this.sType);
 		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 
-		this.iQte = iNb;
-		// if ( iNb > 0 )aTmp.setEntier(-iNb);
+		this.iQte += iNb;
+		aTmp.setEntier(-iNb);
 	
 		return true;
 	}
