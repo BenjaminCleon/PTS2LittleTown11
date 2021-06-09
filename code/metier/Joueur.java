@@ -196,30 +196,27 @@ public class Joueur
 	 * @param nbPiece
 	 *	nombre de piece a utiliser
 	 */
-	public void consommerPiece (int nbPiece ) 
+	public boolean consommerPiece (int nbPiece ) 
 	{ 
-		this.iNbPiece-= nbPiece;
+		if(this.iNbPiece - nbPiece >= 0)
+		{
+			this.iNbPiece -= nbPiece;
+			return true;
+		}
+		return false;
 	}
+	
 	/**
-	 * Augment le score dont la quantite est
+	 * Augmente ou diminue le score en fonction de la quantite
 	 * passer en parametre
 	 * @param score
 	 *	nombre de points a utiliser
 	 */
-	public void augmenterScore (int score)   
+	public void setScore( int score )
 	{
-		if(score > 0) this.iScore+= score;
+		this.iScore -= score;
 	}
-	/**
-	 * Diminue le score dont la quantite est
-	 * passer en parametre
-	 * @param score
-	 *	nombre de points a utiliser
-	 */
-	public void diminuerScore (int score) //Un score peut être négatif
-	{ 
-		if(score > 0) this.iScore-= score; 
-	}
+
 	/**
 	 * Paye un joueur passer en parametre de 1 piece
 	 * @param Joueur
@@ -287,18 +284,17 @@ public class Joueur
 	{
 		int nbOuvrierNourri = 0;
 
-		if( this.rBle.getQteBle() + this.rEau.getQteEau() <= NB_OUVRIER )
+		if( this.rBle.getQteRessource() + this.rEau.getQteRessource() <= NB_OUVRIER )
 		{
-			nbOuvrierNourri = this.rBle.getQteBle() + this.rEau.getQteEau();
+			nbOuvrierNourri = this.rBle.getQteRessource() + this.rEau.getQteRessource();
 			
-			this.rBle.consommerRessource( this.rBle.getQteBle() );
-			this.rEau.consommerRessource( this.rEau.getQteEau() );
+			this.rBle.consommerRessource( this.rBle.getQteRessource() );
+			this.rEau.consommerRessource( this.rEau.getQteRessource() );
 
 			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if ( this.iNbPiece >= 3 )
+				if ( this.consommerPiece(3) )
 				{
-					this.iNbPiece -= 3;
 					nbOuvrierNourri++;
 				}
 				else
@@ -309,20 +305,6 @@ public class Joueur
 			}
 			return "Ouvriers Nourri.";
 		}
-		else
-		{
-			if ( this.rBle.getQteBle() == 0)
-			{
-				this.rEau.consommerRessource( NB_OUVRIER );
-				nbOuvrierNourri = NB_OUVRIER;
-			}
-
-			if ( this.rBle.getQteEau() == 0)
-			{
-				this.rBle.consommerRessource( NB_OUVRIER );
-				nbOuvrierNourri = NB_OUVRIER;
-			}
-		}
 
 		return "Ouvriers non Nourri.";
 	}
@@ -330,35 +312,45 @@ public class Joueur
 	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
 	{
 		int nbOuvrierNourri = 0;
-		
+		String sRet = "";
+
 		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
-			return "trop de ressources proposé";
+			sRet += "trop de ressources proposé\n";
 		else
 		{
-			if ( nbBle > this.rBle.getQteBle() )
-				return "le joueur n'a pas assez de ressources d'eau";
+			if ( nbBle > this.rBle.getQteRessource() )
+				sRet +=  "le joueur n'a pas assez de ressources de blé\n";
 			
-			if ( nbEau > this.rEau.getQteEau() )
-				return "le joueur n'a pas assez de ressources de blé";
+			if ( nbEau > this.rEau.getQteRessource() )
+				sRet += "le joueur n'a pas assez de ressources d'eau\n";
 			
 			if ( nbPiece > this.iNbPiece )
-				return "le joueur n'a pas assez de pièces";
+				sRet += "le joueur n'a pas assez de pièces\n";
 
-			if ( this.rBle.getQteBle() == 0)
+			if ( this.rBle.getQteRessource() == 0 && nbEeau == this.NB_OUVRIER &&
+			     this.rEau.consommerRessource( this.NB_OUVRIER ) )
+				nbOuvrierNourri = this.NB_OUVRIER;
+			
+			if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER &&
+			     this.rBle.consommerRessource( NB_OUVRIER ) )
+				nbOuvrierNourri = this.NB_OUVRIER;
+
+			if ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				this.rEau.consommerRessource( NB_OUVRIER );
-				nbOuvrierNourri = NB_OUVRIER;
+				this.rEau.consommerRessource(nbEau);
+				this.rBle.consommerRessource(nbBle);
+				this.consommerPiece(nbPiece);
+
+				nbOuvrierNourri = nbPiece + nbBle + nbEau;
 			}
 
-			if ( this.rBle.getQteEau() == 0)
+			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				this.rBle.consommerRessource( NB_OUVRIER );
-				nbOuvrierNourri = NB_OUVRIER;
+				this.iScore -= 3;
+				nbOuvrierNourri++;
 			}
-
-
 		}
 
-		return "YAYAYAAYA";
+		return sRet;
 	}
 }
