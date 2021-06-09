@@ -25,6 +25,25 @@ public class Controleur
 	{
 		new Controleur();
 	}
+	
+	public void setJoueur(int iNbJoueur)
+	{
+		this.metier.setJoueur(iNbJoueur);
+	}
+	public void setNumJoueur(int iNbJoueur)
+	{
+		this.metier.setNumJoueur(iNbJoueur);
+	}
+	
+	public boolean setNumPlateau(int iNumPlateau)
+	{
+		return this.metier.setNumPlateau(iNumPlateau);
+	}
+	
+	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
+	{
+		this.metier.setNomJoueur(iNbJoueur, sNomJoueur);
+	}
 
 	public String getSaisie()
 	{

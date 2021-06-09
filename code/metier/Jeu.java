@@ -53,6 +53,24 @@ public class Jeu
 	{
 		this.tabPion    = new Pion[6][9];
 	}
+	
+	public boolean setNumPlateau( int iNumPlateau )
+	{
+		if ( iNumPlateau != 1 && iNumPlateau != 2 )return false;
+
+		this.initPlateau(iNumPlateau);
+		return true;
+	}
+	
+	public void setNumJoueur(int iNbJoueur)
+	{
+		this.tabJoueurs[iNbJoueur-1].setNumJoueur(iNbJoueur+1);
+	}
+	
+	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
+	{
+		this.tabJoueurs[iNbJoueur-1].setNomJoueur(sNomJoueur);
+	}
 
 	/**
 	 * Cette methode permet d'initialiser le plateau selon le numéro
