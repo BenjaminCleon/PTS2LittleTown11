@@ -6,6 +6,16 @@ import equipe_11.metier.Pion;
 public class Jeu 
 {
 	/**
+	 * Nombre de batiment max
+	 */
+	private final int NB_BATIMENT_MAX;
+
+	/**
+	 * Nombre d'ouvrier max
+	 */
+	private final int NB_OUVRIER_MAX;
+
+	/**
 	 * Joueur en train de jouer
 	 */
 	private Joueur jCourant;
@@ -42,14 +52,22 @@ public class Jeu
 	public Jeu()
 	{
 		this.tabPion    = new Pion[6][9];
-		this.tabJoueurs = new Joueur[2];
 
-		this.tabJoueurs[0] = new Joueur("Rouge", 5, 7, 4);
-		this.tabJoueurs[1] = new Joueur("Bleu" , 5, 7, 4);
+		this.INB_JOUEURS  = 2;
+		this.tabJoueurs = new Joueur[this.INB_JOUEURS];
+
+		switch ( this.INB_JOUEURS )
+		{
+			case 3  -> { this.NB_OUVRIER_MAX = 4; this.NB_BATIMENT_MAX = 6; }
+			case 4  -> { this.NB_OUVRIER_MAX = 3; this.NB_BATIMENT_MAX = 6; }
+			default -> { this.NB_OUVRIER_MAX = 5; this.NB_BATIMENT_MAX = 7; }
+		}
+
+		this.tabJoueurs[0] = new Joueur("Rouge", this.NB_OUVRIER_MAX, this.NB_BATIMENT_MAX, 4);
+		this.tabJoueurs[1] = new Joueur("Bleu" , this.NB_OUVRIER_MAX, this.NB_BATIMENT_MAX, 4);
 
 		this.iNumJCourant = 0;
 		this.jCourant     = this.tabJoueurs[0];
-		this.INB_JOUEURS  = 2;
 
 		this.initPlateau(1);
 	}
@@ -123,6 +141,8 @@ public class Jeu
 		int iBois   = bTmp.getBoisReq  ();
 		int iEau    = bTmp.getEauReq   ();
 
+		if ( this.jCourant.getNbBatiment() == this.NB_BATIMENT_MAX )return false;
+		
 		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
 		{
 			for ( Joueur j : this.tabJoueurs )
@@ -241,8 +261,6 @@ public class Jeu
 	 */
 	public boolean verifierManche()
 	{
-		boolean bOk = true;
-
 		for ( Joueur j : this.tabJoueurs )
 			if ( ! j.estNourri() )return false;
 		
