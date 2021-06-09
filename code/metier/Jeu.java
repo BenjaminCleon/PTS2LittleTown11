@@ -364,4 +364,12 @@ public class Jeu
 		
 		return false;
 	}
+
+	public int getNumeroJoueurCourant()
+	{
+		for (int i=0;i<this.tabJoueurs.length;i++)
+			if ( this.tabJoueurs[i] == this.jCourant )return i;
+
+		return 0;
+	}
 }

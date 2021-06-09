@@ -134,7 +134,7 @@ public class Controleur
 				case 3 -> { 
 					if(verifierPossibleConstruire(sType, sCoord))
 					{
-						this.metier.construireBatiment(1, sType, Character.getNumericValue(sCoord.charAt(1)),
+						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
 
 						iEntreeUtilisateur = 4;
