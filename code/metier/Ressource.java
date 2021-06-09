@@ -246,15 +246,10 @@ public class Ressource
 	 * @param
 	 *     Le nombre de ressource que l'on rajoute pour cette ressource
 	 */
-	public boolean setQte(int iNb )
+	public boolean setQteJoueur(int iNb )
 	{
-		return this.setQte(iNb, this.sType);
-	}
-
-	public boolean setQte(int iNb, String sType)
-	{
-		AltInt aTmp = this.getRessourceByType(sType);
-		
+		AltInt aTmp = this.getRessourceByType(this.sType);
+		System.out.println(this.sType + iNb + (aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15));
 		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 
 		this.iQte += iNb;
@@ -266,7 +261,7 @@ public class Ressource
 	/**
 	 * Retourne en String le nom de la ressource et le quantiter restant dans le stock.
 	 */
-	public String  toString()
+	public String toString()
 	{
 		String sRet = "";
 

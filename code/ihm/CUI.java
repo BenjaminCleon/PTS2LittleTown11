@@ -43,7 +43,7 @@ public class CUI
 
 		Console.println();
 
-		for(int i = 0; i < tabPlateau.length; i++)
+		for(iConsole.nt i = 0; i < tabPlateau.length; i++)
 		{
 			Console.print(++cpt + "\t| ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
@@ -195,11 +195,11 @@ public class CUI
 	
 	public void afficherInfo()
 	{
-		System.out.println( ctrl.getLstBat() );
+		Console.println( ctrl.getLstBat() );
 		
 		String sRet = ctrl.getSaisie().toUpperCase();
 		
-		System.out.println( BatimentInfo.rechercherBatiment(sRet) );
+		Console.println( BatimentInfo.rechercherBatiment(sRet) );
 	}
 
 	public void mettreIhmAJour()

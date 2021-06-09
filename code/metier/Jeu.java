@@ -169,10 +169,13 @@ public class Jeu
 	{
 		if ( iLig >       this.tabPion   .length    || iLig < 0 ||
 		     cCol > 'A' + this.tabPion[0].length -1 || cCol < 'A' ) return false;
+		sType = sType.toUpperCase();
 
-		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType.toUpperCase());
+		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType);
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
 		Pion     pTmp;
+
+		if ( bTmp == null )return false;
 
 		int iPierre = bTmp.getPierreReq();
 		int iBle    = bTmp.getBleReq   ();
@@ -181,7 +184,7 @@ public class Jeu
 
 		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
 
-		if ( ! sType.toUpperCase().equals("CHAMPSDEBLE") )
+		if ( ! sType.equals("CHAMPSDEBLE") )
 		{
 			for ( Joueur j : this.tabJoueurs )
 				for ( Pion bt : j.getBatiments() )if ( bt.getNom().equals(bTmp.name()) )return false;
@@ -194,7 +197,7 @@ public class Jeu
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		this.gererRessource(-1, bTmp);
+		this.gererRessourceReq(bTmp);
 
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
@@ -233,8 +236,8 @@ public class Jeu
 		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
 		bTmp = null;
-		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab && bTmp != null; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<=iColFinTab && bTmp != null; iColTab++)
+		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
+			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
 				// activation automatique des ressources qui ne couteront rien au joueur
@@ -242,27 +245,9 @@ public class Jeu
 				     pTmp2.getCoul().equals("BLANC") )
 				{
 					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
+					this.gererActivation(bTmp);
 				}
 			}
-
-		if ( bTmp != null )
-		{
-			if( bTmp.estGain() || bTmp.estRessource() )
-				this.gererRessource(1, bTmp);
-			else if ( bTmp.estEchange() &&
-			          this.verifierEchange(bTmp.getBleReA(), bTmp.getPierreReA(),
-					                       bTmp.getEauReA(), bTmp.getBoisReA  (),
-										   bTmp.getPieceReA()  ))
-				 	this.gererRessource(1, bTmp);
-				 else
-				 {
-					// this.ctrl.demanderRessource();
-					// this.ctrl.demanderRessource();
-				 }
-			{
-				this.gererRessource(1, bTmp);
-			}
-		}
 
 		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
@@ -270,6 +255,26 @@ public class Jeu
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 		this.verifierManche();
 		return true;
+	}
+
+	public void gererActivation(BatimentInfo bTmp)
+	{
+		if ( bTmp != null )
+		{
+			if( bTmp.estGain() || bTmp.estRessource() )
+				this.gererRessourceRec(bTmp);
+			else if ( bTmp.estEchange() &&
+			          this.verifierEchange(bTmp.getBleReA(), bTmp.getPierreReA(),
+					                       bTmp.getEauReA(), bTmp.getBoisReA  (),
+										   bTmp.getPieceReA()  ))
+				 	this.gererRessourceRec(bTmp);
+				 else
+				 {;
+					// this.ctrl.demanderRessource();
+					// this.ctrl.demanderRessource();
+				 }
+
+		}
 	}
 
 	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
@@ -281,12 +286,20 @@ public class Jeu
 		return true;
 	}
 
-	public void gererRessource( int iSigne, BatimentInfo bTmp )
+	public void gererRessourceRec( BatimentInfo bTmp )
 	{
-		this.jCourant.gererRessource(iSigne*bTmp.getBleRec   (), "BLE"   );
-		this.jCourant.gererRessource(iSigne*bTmp.getBoisRec  (), "BOIS"  );
-		this.jCourant.gererRessource(iSigne*bTmp.getPierreRec(), "PIERRE");
-		this.jCourant.gererRessource(iSigne*bTmp.getEauRec   (), "EAU"   );
+		this.jCourant.gererRessource(bTmp.getBleRec   (), "BLE"   );
+		this.jCourant.gererRessource(bTmp.getBoisRec  (), "BOIS"  );
+		this.jCourant.gererRessource(bTmp.getPierreRec(), "PIERRE");
+		this.jCourant.gererRessource(bTmp.getEauRec   (), "EAU"   );
+	}
+
+	public void gererRessourceReq( BatimentInfo bTmp )
+	{
+		this.jCourant.gererRessource(-bTmp.getBleReq   (), "BLE"   );
+		this.jCourant.gererRessource(-bTmp.getBoisReq  (), "BOIS"  );
+		this.jCourant.gererRessource(-bTmp.getPierreReq(), "PIERRE");
+		this.jCourant.gererRessource(-bTmp.getEauReq   (), "EAU"   );
 	}
 
 	/**
