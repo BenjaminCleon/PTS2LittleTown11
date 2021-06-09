@@ -3,6 +3,7 @@ package equipe_11.metier;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
+
 public class Jeu 
 {
 	/**
@@ -131,7 +132,7 @@ public class Jeu
 
 		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
-		if ( bTmp.estRessource() || 
+		if ( bTmp.estRessource() ||
 		     jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
@@ -249,4 +250,7 @@ public class Jeu
 	}
 
 	public int getNumManche(){ return this.iNumManche; }
+
+	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+
 }

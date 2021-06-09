@@ -41,7 +41,7 @@ public enum BatimentInfo
 	 * // Ressource
 	 * Si c'est une ressource ou non
 	 */
-	//              Ble        Bois         Eau        Pierre      Piece      Point Ressource
+	//              Ble        Bois         Eau        Pierre      Piece      Point  Ressource
 	//            R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//            q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//            C  A        C  A        C  A        C  A        C  A        C  A
@@ -76,6 +76,8 @@ public enum BatimentInfo
 
 	private int iPtConstru, iPtRec;
 	private boolean bRessource;
+	
+	private int[] tabInfoBati;
 
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
@@ -123,36 +125,38 @@ public enum BatimentInfo
 	 *           Si c'est une ressource
 	 */
 	BatimentInfo(
-		     int iBleReq   , int iBleReA   , int iBleRec   ,
-		     int iBoisReq  , int iBoisReA  , int iBoisRec  ,
+	         int iBleReq   , int iBleReA   , int iBleRec   ,
+	         int iBoisReq  , int iBoisReA  , int iBoisRec  ,
 	         int iEauReq   , int iEauReA   , int iEauRec   ,
 	         int iPierreReq, int iPierreReA, int iPierreRec,
 	         int iPceReA   , int iPceReq   , int iPceRec   ,
 	         int iPtConstru, int iPtRec    , boolean bRessource
 	        )
 	{
-		this.iEauReq    = iEauReq;
-		this.iEauReA    = iEauReA;
-		this.iEauRec    = iEauRec;
+		tabInfoBati = new int[ 17 ];		
+		
+		this.iBleReq    = tabInfoBati[ 0] = iBleReq;
+		this.iBleReA    = tabInfoBati[ 1] = iBleReA;
+		this.iBleRec    = tabInfoBati[ 2] = iBleRec;
 
-		this.iBleReq    = iBleReq;
-		this.iBleReA    = iBleReA;
-		this.iBleRec    = iBleRec;
+		this.iBoisReq   = tabInfoBati[ 3] = iBoisReq;
+		this.iBoisReA   = tabInfoBati[ 4] = iBoisReA;
+		this.iBoisRec   = tabInfoBati[ 5] = iBoisRec;
+		
+		this.iEauReq    = tabInfoBati[ 6] = iEauReq;
+		this.iEauReA    = tabInfoBati[ 7] = iEauReA;
+		this.iEauRec    = tabInfoBati[ 8] = iEauRec;
 
-		this.iBoisReq   = iBoisReq;
-		this.iBoisReA   = iBoisReA;
-		this.iBoisRec   = iBoisRec;
+		this.iPierreReq = tabInfoBati[ 9] = iPierreReq;
+		this.iPierreReA = tabInfoBati[10] = iPierreReA;
+		this.iPierreRec = tabInfoBati[11] = iPierreRec;
 
-		this.iPierreReq = iPierreReq;
-		this.iPierreReA = iPierreReA;
-		this.iPierreRec = iPierreRec;
+		this.iPceReA    = tabInfoBati[12] = iPceReA;
+		this.iPceReq    = tabInfoBati[13] = iPceReq;
+		this.iPceRec    = tabInfoBati[14] = iPceRec;
 
-		this.iPceReA    = iPceReA;
-		this.iPceReq    = iPceReq;
-		this.iPceRec    = iPceRec;
-
-		this.iPtConstru = iPtConstru;
-		this.iPtRec     = iPtRec;
+		this.iPtConstru = tabInfoBati[15] = iPtConstru;
+		this.iPtRec     = tabInfoBati[16] = iPtRec;
 
 		this.bRessource = bRessource;
 	}
@@ -277,5 +281,73 @@ public enum BatimentInfo
 			if ( bt.name().equals(sBat)) return bt;
 
 		return null;
+	}
+/*
+	this.getSaisie()
+*/
+	public static String getLstBat()
+	{
+		String sRet = "";
+		
+		for ( BatimentInfo bt : BatimentInfo.values() )
+			sRet += bt.name() + "\n";
+		
+		return sRet;
+	}
+
+	public String toString()
+	{
+		String sRet = "";
+
+		String CoutConstru    = "";
+		String CoutActivation = "";
+
+		String RecompenseActivation   = "";
+		String RecompenseConstruction = "";
+
+		for( int cpt=0; cpt < this.tabInfoBati.length; cpt++ )
+		{
+			if( this.tabInfoBati[cpt] == 0 )
+			{
+				sRet += "";
+			}
+			else
+			{
+				
+				switch( cpt )
+				{
+					case  0 -> { CoutConstru          += "  Ble    : " + this.tabInfoBati[cpt] +"\n"; }
+					case  1 -> { CoutActivation       += "  Ble    : " + this.tabInfoBati[cpt] +"\n"; }
+					case  2 -> { RecompenseActivation += "  Ble    : " + this.tabInfoBati[cpt] +"\n"; }
+					
+					case  3 -> { CoutConstru          += "  Bois   : " + this.tabInfoBati[cpt] +"\n"; }
+					case  4 -> { CoutActivation       += "  Bois   : " + this.tabInfoBati[cpt] +"\n"; }
+					case  5 -> { RecompenseActivation += "  Bois   : " + this.tabInfoBati[cpt] +"\n"; }
+					
+					case  6 -> { CoutConstru          += "  Eau    : " + this.tabInfoBati[cpt] +"\n"; }
+					case  7 -> { CoutActivation       += "  Eau    : " + this.tabInfoBati[cpt] +"\n"; }
+					case  8 -> { RecompenseActivation += "  Eau    : " + this.tabInfoBati[cpt] +"\n"; }
+					
+					case  9 -> { CoutConstru          += "  Pierre : " + this.tabInfoBati[cpt] +"\n"; }
+					case 10 -> { CoutActivation       += "  Pierre : " + this.tabInfoBati[cpt] +"\n"; }
+					case 11 -> { RecompenseActivation += "  Pierre : " + this.tabInfoBati[cpt] +"\n"; }
+					
+					case 12 -> { CoutConstru          += "  Piece  : " + this.tabInfoBati[cpt] +"\n"; }
+					case 13 -> { CoutActivation       += "  Piece  : " + this.tabInfoBati[cpt] +"\n"; }
+					case 14 -> { RecompenseActivation += "  Piece  : " + this.tabInfoBati[cpt] +"\n"; }
+					
+					case 15 -> { RecompenseConstruction += "  Point  : " + this.tabInfoBati[cpt] +"\n"; }
+					case 16 -> { RecompenseActivation   += "  Point  : " + this.tabInfoBati[cpt] +"\n"; }
+				}
+			}
+		}
+
+		sRet += this.name() + " : "                                         + "\n" +
+		        "CoutConstru : "            + "\n" + CoutConstru            + "\n" +
+		        "CoutActivation : "         + "\n" + CoutActivation         + "\n" +
+		        "RecompenseActivation : "   + "\n" + RecompenseActivation   + "\n" +
+		        "RecompenseConstruction : " + "\n" + RecompenseConstruction          ;
+
+		return sRet;
 	}
 }

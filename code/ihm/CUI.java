@@ -81,8 +81,9 @@ public class CUI
 		sRet += String.format("|%-36s|", "Piece : " + this.ctrl.getPieceJoueur()) + "\n";
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
-		sRet += String.format("|%-36s|", "2. Placer ouvrier") + "\n";
-		sRet += String.format("|%-36s|", "3. Quitter le jeu") + "\n";
+		sRet += String.format("|%-36s|", "2. Placer ouvrier")      + "\n";
+		sRet += String.format("|%-36s|", "3. Liste des batiments") + "\n";
+		sRet += String.format("|%-36s|", "4. Quitter le jeu")      + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
@@ -94,15 +95,24 @@ public class CUI
 
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Espace Construction " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += String.format("|%-36s|", "Bois : " + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
-		sRet += String.format("|%-36s|", "Ble : " + this.ctrl.getRessourceJoueur("BLE")) + "\n";
-		sRet += String.format("|%-36s|", "Eau : " + this.ctrl.getRessourceJoueur("EAU")) + "\n";
-		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
+		sRet += this.afficherRessource();
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
 		sRet += String.format("|%-36s|", "Puis entrez le type du batiment.") + "\n";
 		sRet += "======================================\n";
 
+		return sRet;
+	}
+	
+	public String afficherRessource()
+	{
+		String sRet = "";
+		sRet += String.format("|%-36s|", "Bois : "   + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
+		sRet += String.format("|%-36s|", "Ble : "    + this.ctrl.getRessourceJoueur("BLE")) + "\n";
+		sRet += String.format("|%-36s|", "Eau : "    + this.ctrl.getRessourceJoueur("EAU")) + "\n";
+		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
+		sRet += String.format("|%-36s|", "Piece : "  + this.ctrl.getPieceJoueur()) + "\n";
+		
 		return sRet;
 	}
 
@@ -112,15 +122,21 @@ public class CUI
 
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Espace Ouvrier " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += String.format("|%-36s|", "Bois : " + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
-		sRet += String.format("|%-36s|", "Ble : " + this.ctrl.getRessourceJoueur("BLE")) + "\n";
-		sRet += String.format("|%-36s|", "Eau : " + this.ctrl.getRessourceJoueur("EAU")) + "\n";
-		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
+		sRet += this.afficherRessource();
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
+	}
+	
+	public void AfficherInfo()
+	{
+		System.out.println( ctrl.getLstBat() );
+		
+		String sRet = ctrl.getSaisie().toUpperCase();
+		
+		System.out.println( BatimentInfo.rechercherBatiment(sRet) );
 	}
 
 	public void mettreIhmAJour()
