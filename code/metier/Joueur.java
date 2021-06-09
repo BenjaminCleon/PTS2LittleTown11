@@ -6,7 +6,7 @@ import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Jeu     ;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
-  * lié aux joueurs
+  * liées aux joueurs
   *
   * @author Equipe 11
   */
@@ -85,7 +85,7 @@ public class Joueur
 	 */
 	private Ressource        rEau;
 	/**
-	 * C'est les ressource de bois du joueur
+	 * C'est les ressources de bois du joueur
 	 *
 	 * @see getRessource()
 	 * @see ajouterRessource()
@@ -93,7 +93,7 @@ public class Joueur
 	 */
 	private Ressource        rBois;
 	/**
-	 * C'est les ressource de pierre du joueur
+	 * C'est les ressources de pierre du joueur
 	 *
 	 * @see getRessource()
 	 * @see ajouterRessource()
@@ -103,7 +103,7 @@ public class Joueur
 
 
 	/**
-	 * Si tous les ouvriers sont nourries
+	 * Si tous les ouvriers sont nourris
 	 */
 	private boolean bNourri;
 
@@ -196,7 +196,7 @@ public class Joueur
 	
 	/**
 	 * Augmente le nombre de ressource du joueur dont la somme et
-	 * le nom sont passer en parametre
+	 * le nom sont passés en parametre
 	 * @param iVal
 	 *	nombre de ressource a ajouter
 	 * @param sType
@@ -231,7 +231,7 @@ public class Joueur
 	
 	/**
 	 * Augmente ou diminue le score en fonction de la quantite
-	 * passer en parametre
+	 * passée en parametre
 	 * @param score
 	 *	nombre de points a utiliser
 	 */
@@ -241,7 +241,7 @@ public class Joueur
 	}
 
 	/**
-	 * Paye un joueur passer en parametre de 1 piece
+	 * Paye un joueur passé en parametre de 1 piece
 	 * @param Joueur
 	 *	joueurs a payer
 	 */
@@ -255,7 +255,7 @@ public class Joueur
 	}
 	
 	/**
-	 * Regarde si l'objectif passer en paramètre est compléter
+	 * Regarde si l'objectif passé en paramètre est complété
 	 * @param oObjectif
 	 *	objectif a vérifier
 	 */
