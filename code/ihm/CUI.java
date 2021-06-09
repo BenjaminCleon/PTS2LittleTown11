@@ -104,7 +104,8 @@ public class CUI
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
 		sRet += String.format("|%-36s|", "2. Placer ouvrier")      + "\n";
 		sRet += String.format("|%-36s|", "3. Liste des batiments") + "\n";
-		sRet += String.format("|%-36s|", "4. Quitter le jeu")      + "\n";
+		sRet += String.format("|%-36s|", "4. Echanger trois pièces") + "\n";
+		sRet += String.format("|%-36s|", "5. Quitter le jeu")      + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
@@ -118,9 +119,50 @@ public class CUI
 		sRet += String.format("|%-36s|", "Espace Construction " + this.ctrl.getCouleurJoueur()) + "\n";
 		sRet += this.afficherRessource();
 		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
-		sRet += String.format("|%-36s|", "Puis entrez le type du batiment.") + "\n";
+		sRet += String.format("|%-36s|", "1. Entrer les coordonnees") + "\n";
+		sRet += String.format("|%-36s|", "2. Entrer le type du batiment") + "\n";
+		sRet += String.format("|%-36s|", "3. Construire le batiment") + "\n";
+		sRet += String.format("|%-36s|", "4. Quitter le menu de construction.") + "\n";
 		sRet += "======================================\n";
+
+		return sRet;
+	}
+
+	public String afficherMenuEchangePiece()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace changement de piece " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Veuillez entrer une ressource") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
+	public String afficherMenuSaisie(String sTypeSaisie)
+	{
+
+		String sRet = "";
+
+		if(sTypeSaisie.equals("Coord"))
+		{
+			sRet += "======================================\n";
+			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
+			sRet += "======================================\n";
+			sRet += String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
+			sRet += "======================================\n";
+		}
+
+		if(sTypeSaisie.equals("Type"))
+		{
+			sRet += "======================================\n";
+			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
+			sRet += "======================================\n";
+			sRet += String.format("|%-36s|", "Veuillez entrer un type de batiment") + "\n";
+			sRet += "======================================\n";
+		}
 
 		return sRet;
 	}
@@ -162,9 +204,7 @@ public class CUI
 
 	public void mettreIhmAJour()
 	{
-		//System.out.print("\033[H\033[2J");  
-    	//System.out.flush(); 
-
+		Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 	}

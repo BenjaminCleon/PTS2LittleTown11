@@ -348,4 +348,28 @@ public class Jeu
 	public int getNumManche(){ return this.iNumManche; }
 
 	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+
+	public boolean echangerPieceContreRessource( String sTypeRes )
+	{
+
+		if(!sTypeRes.matches("^(BLE|BOIS|PIERRE|EAU)$"))
+			return false;
+
+		if(this.jCourant.getNbPiece() >= 3)
+		{
+			this.jCourant.gererRessource( 1, sTypeRes );
+			this.jCourant.setPiece(-3);
+			return true;
+		}
+		
+		return false;
+	}
+
+	public int getNumeroJoueurCourant()
+	{
+		for (int i=0;i<this.tabJoueurs.length;i++)
+			if ( this.tabJoueurs[i] == this.jCourant )return i;
+
+		return 0;
+	}
 }
