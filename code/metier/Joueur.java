@@ -144,16 +144,7 @@ public class Joueur
 		
 		return 0;
 	}
-	/**
-	 * Augmente le nombre de piece du joueur dont la somme est
-	 * passer en parametre
-	 * @param nbPiece
-	 *	nombre de piece a ajouter
-	 */
-	public void ajouterPiece   (int nbPiece ) 
-	{ 
-		this.iNbPiece+= nbPiece;  
-	}
+	
 	/**
 	 * Augmente le nombre de ressource du joueur dont la somme et
 	 * le nom sont passer en parametre
@@ -174,16 +165,16 @@ public class Joueur
 	}
 
 	/**
-	 * Diminue le nombre de piece dont la somme est
-	 * passer en parametre
+	 * Augmente ou Diminue le nombre de piece en fonction de la quantité
+	 * passée en parametre
 	 * @param nbPiece
 	 *	nombre de piece a utiliser
 	 */
-	public boolean consommerPiece (int nbPiece ) 
-	{ 
-		if(this.iNbPiece - nbPiece >= 0)
+	public boolean setPiece( int nbPiece )
+	{
+		if(this.iNbPiece + nbPiece >= 0)
 		{
-			this.iNbPiece -= nbPiece;
+			this.iNbPiece += nbPiece;
 			return true;
 		}
 		return false;
@@ -209,8 +200,8 @@ public class Joueur
 	{
 		if ( this.iNbPiece > 0 )
 		{
-			joueur.ajouterPiece  (1);
-			this  .consommerPiece(1);
+			joueur.setPiece( 1);
+			this  .setPiece(-1);
 		}
 	}
 	
@@ -276,7 +267,7 @@ public class Joueur
 
 			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if ( this.consommerPiece(3) )
+				if ( this.setPiece(-3) )
 				{
 					nbOuvrierNourri++;
 				}
@@ -310,7 +301,7 @@ public class Joueur
 			if ( nbPiece > this.iNbPiece )
 				sRet += "le joueur n'a pas assez de pièces\n";
 
-			if ( this.rBle.getQteRessource() == 0 && nbEeau == this.NB_OUVRIER &&
+			if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER &&
 			     this.rEau.consommerRessource( this.NB_OUVRIER ) )
 				nbOuvrierNourri = this.NB_OUVRIER;
 			
@@ -322,7 +313,7 @@ public class Joueur
 			{
 				this.rEau.consommerRessource(nbEau);
 				this.rBle.consommerRessource(nbBle);
-				this.consommerPiece(nbPiece);
+				this.setPiece(-nbPiece);
 
 				nbOuvrierNourri = nbPiece + nbBle + nbEau;
 			}

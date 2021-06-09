@@ -220,9 +220,9 @@ public class Jeu
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
 			for ( Joueur j : this.tabJoueurs )
-				if ( j.getCouleur().equals(pTmp.getCoul()) )j.ajouterPiece(1);
+				if ( j.getCouleur().equals(pTmp.getCoul()) )j.setPiece(1);
 				
-			this.jCourant.consommerPiece(1);
+			this.jCourant.setPiece(-1);
 		}
 
 		return false;
