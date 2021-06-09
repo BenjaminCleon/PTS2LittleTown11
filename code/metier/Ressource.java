@@ -248,7 +248,12 @@ public class Ressource
 	 */
 	public boolean setQte(int iNb )
 	{
-		AltInt aTmp = this.getRessourceByType(this.sType);
+		return this.setQte(iNb, this.sType);
+	}
+
+	public boolean setQte(int iNb, String sType)
+	{
+		AltInt aTmp = this.getRessourceByType(sType);
 		
 		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 

@@ -326,4 +326,15 @@ public class Jeu
 	public int getNumManche(){ return this.iNumManche; }
 
 	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+
+	public boolean echangerPieceContreRessource( String sTypeRes )
+	{
+		if(this.jCourant.getNbPiece() >= 3)
+		{
+			this.jCourant.gererRessource( 1, sTypeRes );
+			this.jCourant.setPiece(-3);
+		}
+		
+		return false;
+	}
 }

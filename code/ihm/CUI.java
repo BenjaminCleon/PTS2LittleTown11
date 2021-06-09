@@ -83,7 +83,8 @@ public class CUI
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
 		sRet += String.format("|%-36s|", "2. Placer ouvrier")      + "\n";
 		sRet += String.format("|%-36s|", "3. Liste des batiments") + "\n";
-		sRet += String.format("|%-36s|", "4. Quitter le jeu")      + "\n";
+		sRet += String.format("|%-36s|", "4. Echanger trois pièces") + "\n";
+		sRet += String.format("|%-36s|", "5. Quitter le jeu")      + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
@@ -99,6 +100,19 @@ public class CUI
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
 		sRet += String.format("|%-36s|", "Puis entrez le type du batiment.") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
+	public String afficherMenuEchangePiece()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace changement de piece " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Veuillez entrer une ressource") + "\n";
 		sRet += "======================================\n";
 
 		return sRet;
