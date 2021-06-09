@@ -287,29 +287,39 @@ public class Joueur
 	{
 		int nbOuvrierNourri = 0;
 		String sRet = "";
+		boolean nourrissable = true;
 
 		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
 			sRet += "trop de ressources proposé\n";
 		else
 		{
 			if ( nbBle > this.rBle.getQteRessource() )
+			{
 				sRet +=  "le joueur n'a pas assez de ressources de blé\n";
+				nourrissable = false;
+			}
 			
 			if ( nbEau > this.rEau.getQteRessource() )
+			{
 				sRet += "le joueur n'a pas assez de ressources d'eau\n";
-			
-			if ( nbPiece > this.iNbPiece )
-				sRet += "le joueur n'a pas assez de pièces\n";
+				nourrissable = false;
+			}
 
-			if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER &&
+			if ( nbPiece > this.iNbPiece )
+			{
+				sRet += "le joueur n'a pas assez de pièces\n";
+				nourrissable = false;
+			}
+
+			if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER && nourrissable &&
 			     this.rEau.consommerRessource( this.NB_OUVRIER ) )
 				nbOuvrierNourri = this.NB_OUVRIER;
 			
-			if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER &&
+			if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER && nourrissable &&
 			     this.rBle.consommerRessource( NB_OUVRIER ) )
 				nbOuvrierNourri = this.NB_OUVRIER;
 
-			if ( nbOuvrierNourri < this.NB_OUVRIER )
+			if ( nbOuvrierNourri < this.NB_OUVRIER && nourrissable)
 			{
 				this.rEau.consommerRessource(nbEau);
 				this.rBle.consommerRessource(nbBle);
@@ -318,7 +328,7 @@ public class Joueur
 				nbOuvrierNourri = nbPiece + nbBle + nbEau;
 			}
 
-			while ( nbOuvrierNourri < this.NB_OUVRIER )
+			while ( nbOuvrierNourri < this.NB_OUVRIER && nourrissable )
 			{
 				this.iScore -= 3;
 				nbOuvrierNourri++;
