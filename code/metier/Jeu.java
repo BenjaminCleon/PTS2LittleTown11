@@ -338,10 +338,15 @@ public class Jeu
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
+
+		if(!sTypeRes.matches("^(BLE|BOIS|PIERRE|EAU)$"))
+			return false;
+
 		if(this.jCourant.getNbPiece() >= 3)
 		{
 			this.jCourant.gererRessource( 1, sTypeRes );
 			this.jCourant.setPiece(-3);
+			return true;
 		}
 		
 		return false;
