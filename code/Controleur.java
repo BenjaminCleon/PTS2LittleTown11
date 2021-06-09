@@ -66,8 +66,8 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 -> { construire(); }
-					case 2 -> { ajouterOuvrier(); }
+					case 1 -> { this.construire(); }
+					case 2 -> { this.ajouterOuvrier(); }
 					case 3 -> { System.exit(0); }
 				}
 

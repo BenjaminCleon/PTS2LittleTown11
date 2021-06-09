@@ -2,9 +2,7 @@ package equipe_11.metier;
 
 import java.util.ArrayList;
 
-import equipe_11.metier.Batiment;
 import equipe_11.metier.BatimentInfo;
-import equipe_11.metier.Ouvrier ;
 import equipe_11.metier.Jeu     ;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
@@ -28,7 +26,7 @@ public class Joueur
 	 * C'est le nombre d'objectif du joueur
 	 *
 	 */
-	private final int    NB_OBJECTIF;
+	private final int NB_OBJECTIF;
 	
 	private Jeu jeu;
 	
@@ -37,14 +35,16 @@ public class Joueur
 	 *
 	 * @see Joueur#ajouterBatiment()
 	 */
-	private ArrayList<Pion>            lstOuvrier;
+	private ArrayList<Pion> lstOuvrier;
+
 	/**
 	 * C'est une liste des batiments du joueur
 	 * 
 	 * @see Joueur#getBatiments()
 	 * @see Joueur#ajouterBatiment()
 	 */
-	private ArrayList<Pion>            lstBatiment;
+	private ArrayList<Pion> lstBatiment;
+
 	/**
 	 * C'est le nombre de pieces du joueur
 	 *
@@ -54,14 +54,15 @@ public class Joueur
 	 * @see Joueur#payerJoueur()
 	 * @see Joueur#consommerPiece()
 	 */
-	private int                        iNbPiece;
+	private int iNbPiece;
+
 	/**
 	 * C'est le score du joueur
 	 * @see Joueur#getScore
 	 */
-	private int                        iScore;
+	private int iScore;
 
-	private Ressource        rBle;
+	private Ressource rBle;
 	/**
 	 * C'est les ressource de bois du joueur
 	 *
@@ -161,26 +162,7 @@ public class Joueur
 	 * @param sType
 	 * 	nom de la ressource a incrementer
 	 */
-	public void ajouterRessource(int iVal, String sType)
-	{
-		switch ( sType.toUpperCase() )
-		{
-			case "BLE"    -> { this.rBle   .setQte( iVal ); }
-			case "EAU"    -> { this.rEau   .setQte( iVal ); }
-			case "BOIS"   -> { this.rBois  .setQte( iVal ); }
-			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
-		}
-		
-	}
-	/**
-	 * Diminue le nombre de ressource du joueur dont la somme et
-	 * le nom sont passer en parametre
-	 * @param iVal
-	 *	nombre de ressource a consommer
-	 * @param sType
-	 * 	nom de la ressource a décrémenter
-	 */
-	public void consommerRessource(int iVal, String sType)
+	public void gererRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -190,6 +172,7 @@ public class Joueur
 			case "PIERRE" -> { this.rPierre.setQte( iVal ); }
 		}
 	}
+
 	/**
 	 * Diminue le nombre de piece dont la somme est
 	 * passer en parametre
@@ -247,12 +230,12 @@ public class Joueur
 	 * @param bt
 	 *        Batiment à ajouter dans la liste pour le joueur
 	 */
-	public void ajouterBatiment(BatimentInfo bt, int iLig, char cCol)
+	public void ajouterBatiment(Pion pTmp, BatimentInfo bTmp)
 	{
-		this.lstBatiment.add(new Batiment(iLig, cCol, this.SCOULEUR, bt.name()));
-		this.lstOuvrier .add(new Ouvrier(this.SCOULEUR, iLig, cCol));
+		this.lstBatiment.add(pTmp);
+		this.lstOuvrier .add(new Pion(pTmp.getLig(), pTmp.getCol(), pTmp.getCoul(), "OUVRIER"));
 		
-		this.iScore += bt.getPtConstru();
+		this.iScore += bTmp.getPtConstru();
 	}
 
 	/**
@@ -260,9 +243,9 @@ public class Joueur
 	 * @return
 	 *     L'ensemble des batiments du Joueur
 	 */
-	public Batiment[] getBatiments()
+	public Pion[] getBatiments()
 	{
-		return this.lstBatiment.toArray(new Batiment[this.lstBatiment.size()]);
+		return this.lstBatiment.toArray(new Pion[this.lstBatiment.size()]);
 	}
 
 	/**
@@ -275,7 +258,7 @@ public class Joueur
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
 	 */
-	public void ajouterOuvrier(int iLig, char cCol, Pion pOuv )
+	public void ajouterOuvrier(Pion pOuv )
 	{
 		this.lstOuvrier.add(pOuv);
 	}

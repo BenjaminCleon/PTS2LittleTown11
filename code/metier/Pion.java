@@ -19,6 +19,9 @@ public class Pion
 
     public String getCoul(){ return this.sCoul; }
     public String getNom (){ return this.sNom ; }
+
+    public int  getLig(){ return this.iLig; }
+    public char getCol(){ return this.cCol; }
     
     public void   setNom ( String sNom ){ this.sNom = sNom; }
 
