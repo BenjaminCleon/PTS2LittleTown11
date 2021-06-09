@@ -31,6 +31,18 @@ public class Joueur
 	private Jeu jeu;
 	
 	/**
+	 *C'est le nom du joueur
+	 * @see Joueur#getNomJoueur()
+	 */
+	private String sNomJoueur;
+	
+	/**
+	 *C'est le numero du joueur
+	 * @see Joueur#getNumero()
+	 */
+	private int sNumJoueur;
+	
+	/**
 	 * C'est une liste des ouvriers du joueur
 	 *
 	 * @see Joueur#ajouterBatiment()
@@ -125,6 +137,16 @@ public class Joueur
 		this.rEau         = new Ressource("eau",true); //est mangeable
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
+	}
+	
+	public void setNumJoueur(int iNumJoueur)
+	{
+		this.sNumJoueur = iNumJoueur;
+	}
+	
+	public void setNomJoueur(String sNomJoueur)
+	{
+		this.sNomJoueur = sNomJoueur;
 	}
 
 	/**
