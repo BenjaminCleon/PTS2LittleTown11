@@ -301,14 +301,17 @@ public enum BatimentInfo
 	 */
 	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
 
-	public static String getLstBat()
+	public static ArrayList<String> getLstBat()
 	{
-		String sRet = "";
+		ArrayList<String> alNomBat;
 
 		for ( BatimentInfo bt : BatimentInfo.values() )
-			sRet += bt.name() + "\n";
+		{
+			if( !bt.estRessource() )
+				alNomBat.add( bt.name() );
+		}
 	
-		return sRet;
+		return alNomBat;
 	}
 
 	/**

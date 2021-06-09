@@ -41,6 +41,11 @@ public class Jeu
 	private Joueur[]  tabJoueurs;
 
 	/**
+	 * ensemble des batiment sur le marché
+	 */
+	private BatimentInfo[] tabBatiment;
+
+	/**
 	 * le numéro de la manche courante
 	 */
 	private int iNumManche;
@@ -52,6 +57,18 @@ public class Jeu
 	public Jeu()
 	{
 		this.tabPion    = new Pion[6][9];
+		this.tabBatiment = new BatimentInfo[17];
+		ArrayList<String> alNomBat = BatimentInfo.getLstBat()
+
+		for( int cpt = 0; cpt < 5; cpt++)
+			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment("CHAMPSDEBLE");
+
+		for( int cpt = 5; cpt < 17; cpt++)
+		{
+			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment( alNomBat.get( Math.random( alNomBat.size() ) ) );
+		}
+
+
 	}
 	
 	public void setNumJoueur(int iNbJoueur)
