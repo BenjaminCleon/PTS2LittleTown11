@@ -136,10 +136,10 @@ public class Jeu
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		jTmp.gererRessource(-iPierre, "PIERRE");
-		jTmp.gererRessource(-iBle   , "BLE"   );
-		jTmp.gererRessource(-iBois  , "BOIS"  );
-		jTmp.gererRessource(-iEau   , "EAU"   );
+		jTmp.gererRessource(-bTmp.getPierreReq(), "PIERRE");
+		jTmp.gererRessource(-bTmp.getBleReq   (), "BLE"   );
+		jTmp.gererRessource(-bTmp.getBoisReq  (), "BOIS"  );
+		jTmp.gererRessource(-bTmp.getEauReq   (), "EAU"   );
 
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
@@ -181,7 +181,6 @@ public class Jeu
 			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
-				System.out.println(pTmp2.getNom());
 				// activation automatique des ressources qui ne couteront rien au joueur
 				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) ||
 				     pTmp2.getCoul().equals("BLANC") )
@@ -190,10 +189,10 @@ public class Jeu
 					if ( bTmp != null && bTmp.getBleReq() == 0 && bTmp.getBoisReq  () == 0 &&
 					     bTmp.getEauReq() == 0 && bTmp.getPierreReq() == 0 )
 					{
-						this.jCourant.gererRessource(-bTmp.getBleRec   (), "BLE"   );
-						this.jCourant.gererRessource(-bTmp.getBoisRec  (), "BOIS"  );
-						this.jCourant.gererRessource(-bTmp.getPierreRec(), "PIERRE");
-						this.jCourant.gererRessource(-bTmp.getEauRec   (), "EAU"   );
+						this.jCourant.gererRessource(bTmp.getBleRec   (), "BLE"   );
+						this.jCourant.gererRessource(bTmp.getBoisRec  (), "BOIS"  );
+						this.jCourant.gererRessource(bTmp.getPierreRec(), "PIERRE");
+						this.jCourant.gererRessource(bTmp.getEauRec   (), "EAU"   );
 					}
 				}
 			}
