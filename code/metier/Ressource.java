@@ -249,7 +249,6 @@ public class Ressource
 	public boolean setQteJoueur(int iNb )
 	{
 		AltInt aTmp = this.getRessourceByType(this.sType);
-		System.out.println(this.sType + iNb + (aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15));
 		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 
 		this.iQte += iNb;

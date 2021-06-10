@@ -46,7 +46,6 @@ public enum BatimentInfo
 	//                R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//                q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//                C  A        C  A        C  A        C  A        C  A        C  A
-	BLE             ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	PIERRE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	BOIS            ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	EAU             ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
@@ -55,7 +54,7 @@ public enum BatimentInfo
 	LIBRAIRIE       ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   "GAIN"        ),
 	MINEDOR         ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 2,    4, 0,   "GAIN"        ),
 	PONTON          ( 0, 0, 0,    3, 0, 0,    0, 0, 2,    0, 0, 0,    0, 0, 0,    5, 0,   "GAIN"        ),
-	PUIT            ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   "GAIN"        ),
+	PUITS           ( 0, 0, 0,    1, 0, 0,    0, 0, 0,    1, 0, 0,    0, 0, 0,    4, 2,   "GAIN"        ),
 	STATUE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 0,   10, 0,   "GAIN"        ),
 	ATELIER         ( 0, 0, 0,    0, 2, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    5, 3,   "ECHANGE"     ),
 	BOULANGERIE     ( 0, 1, 0,    2, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 4,    4, 0,   "ECHANGE"     ),
@@ -264,7 +263,7 @@ public enum BatimentInfo
 	 * Accesseur sur les pieces nécessaire pour activation.
 	 * @return un entier correspond à la quantité de piece
 	 */
-	public int getPieceReA  (){ return this.iPceReA  ; }
+	public int getPcReA  (){ return this.iPceReA  ; }
 
 	/**
 	 * 
@@ -301,6 +300,54 @@ public enum BatimentInfo
 	 */
 	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
 
+	public int getRea(String sType)
+	{
+		int iVal = 0;
+
+		switch ( sType )
+		{
+			case "BLE"    -> iVal = this.getBleReA   ();
+			case "PIERRE" -> iVal = this.getPierreReA();
+			case "BOIS"   -> iVal = this.getBoisReA  ();
+			case "EAU"    -> iVal = this.getEauReA   ();
+			case "PIECE"  -> iVal = this.getPcReA    ();
+		}
+
+		return iVal;
+	}
+
+	public int getRec(String sType)
+	{
+		int iVal = 0;
+
+		switch ( sType )
+		{
+			case "BLE"    -> iVal = this.getBleRec   (); 
+			case "PIERRE" -> iVal = this.getPierreRec(); 
+			case "BOIS"   -> iVal = this.getBoisRec  (); 
+			case "EAU"    -> iVal = this.getEauRec   ();
+			case "PIECE"  -> iVal = this.getPcRec    ();
+		}
+
+		return iVal;
+	}
+
+	public int getReq(String sType)
+	{
+		int iVal = 0;
+
+		switch ( sType )
+		{
+			case "BLE"    -> iVal = this.getBleReq   ();
+			case "PIERRE" -> iVal = this.getPierreReq();
+			case "BOIS"   -> iVal = this.getBoisReq  ();
+			case "EAU"    -> iVal = this.getEauReq   ();
+			case "PIECE"  -> iVal = this.getPcReq    ();
+		}
+
+		return iVal;
+	}
+
 	public static String getLstBat()
 	{
 		String sRet = "";
@@ -322,5 +369,28 @@ public enum BatimentInfo
 			if ( bt.name().equals(sBat)) return bt;
 
 		return null;
+	}
+
+	public String toStringInfoActivation()
+	{
+		String sRet = "";
+
+		sRet += this.name() + " :\n";
+		sRet += "             PIERRE | EAU | BOIS | BLÉ | PIECE \n";
+		sRet += " Requis     :" +
+		        String.format("%7.7d", this.iPierreReA) + "|" + 
+				String.format("%5.5d", this.iEauReA   ) + "|" +
+				String.format("%6.6d", this.iBoisReA  ) + "|" +
+				String.format("%5.5d", this.iBleReA   ) + "|" +
+				String.format("%7.7d", this.iPceReA   ) + "\n";
+		sRet += "-----------------------------------------------\n";
+		sRet += " Recompense :" +
+		        String.format("%7.7d", this.iPierreRec) + "|" + 
+		        String.format("%5.5d", this.iEauRec   ) + "|" +
+		        String.format("%6.6d", this.iBoisRec  ) + "|" +
+		        String.format("%5.5d", this.iBleRec   ) + "|" +
+		        String.format("%7.7d", this.iPceRec   ) + "\n";
+		
+		return sRet;
 	}
 }

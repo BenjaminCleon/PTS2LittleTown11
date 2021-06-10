@@ -1,9 +1,12 @@
 package equipe_11;
 
 import equipe_11.ihm.CUI;
+import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -105,12 +108,11 @@ public class Controleur
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
 		String sType = null;
-		String sTypeSaisie = null;
 
 		do
 		{
 
-			System.out.println(this.ihm.afficherMenuConstructionBatiment());
+			this.ihm.afficherMenuConstructionBatiment();
 
 			try
 			{
@@ -121,13 +123,13 @@ public class Controleur
 			{
 				case 1 -> { 
 					this.ihm.mettreIhmAJour();
-					System.out.println(this.ihm.afficherMenuSaisie("Coord"));
+					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie();
 				}
 
 				case 2 -> { 
 					this.ihm.mettreIhmAJour();
-					System.out.println(this.ihm.afficherMenuSaisie("Type"));
+					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie(); 
 				}
 
@@ -157,23 +159,68 @@ public class Controleur
 
 	public void ajouterOuvrier()
 	{
-		System.out.println(this.ihm.afficherMenuPlacementOuvrier());
+		this.ihm.mettreIhmAJour();
+		this.ihm.afficherMenuPlacementOuvrier();
+		ArrayList<BatimentInfo> alBat;
+		String saisie;
 
-		String coord = getSaisie();
-		coord = coord.toUpperCase();
+		do
+		{
+			saisie = this.getSaisie();
+			if ( saisie.equals("2") )return;
+		}while ( !saisie.matches("^[12]$") );
 
-		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
+		do
+		{
+			this.ihm.mettreIhmAJour();
+			this.ihm.afficherMenuSaisie("Coord");
+			saisie = this.getSaisie().toUpperCase();
+		}while ( !saisie.matches("^[A-I][1-6]$"));
+
+		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
+		{
+			do
+			{
+				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuActivation();
+				alBat = this.metier.getLstBatimentAutourOuvrier  ();
+				if ( alBat.size() == 0 )
+				{
+					saisie = "3";
+				}
+				else
+				{
+					saisie = this.getSaisie();
+					switch ( saisie )
+					{
+						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat);}
+						case "2" ->
+						{
+							do
+							{
+								this.ihm.mettreIhmAJour();
+								this.ihm.afficherMenuSaisie("Coord");
+								{
+									saisie = this.getSaisie().toUpperCase();
+								}while ( !saisie.matches("^[A-I][1-6]$"));
+							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
+						}
+					}
+				}
+			}
+			while ( !saisie.equals("3") );
+		}
+		this.metier.changerJoueur();
 	}
 
 	public void echangerPiece()
 	{
-		System.out.println(this.ihm.afficherMenuEchangePiece());
+		this.ihm.afficherMenuEchangePiece();
 
 		String sRessource = getSaisie();
 		sRessource = sRessource.toUpperCase();
 
 		this.metier.echangerPieceContreRessource( sRessource );
-
 	}
 	
 	public void obtenirInfo()

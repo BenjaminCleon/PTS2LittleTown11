@@ -1,5 +1,8 @@
 package equipe_11.metier;
 
+import java.util.function.Function;
+import java.util.ArrayList;
+
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
@@ -197,20 +200,36 @@ public class Jeu
 		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
 			 return false;
 
-		this.gererRessourceReq(bTmp);
+		this.gererRessource(bTmp::getReq, -1);
 
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
 		this.verifierManche();
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
+		this.changerJoueur();
 
 		return true;
 	}
 
+	public int[] gererCoordonneeAutourDuJoueur(int iLig, char cCol)
+	{
+		//                 ligDeb, ligFin, colDeb, colFin
+		int[] coordonees = {    0,      0,      0,      0};
+
+		iLig--;
+		if ( iLig > 0                        )coordonees[0] = iLig-1; else coordonees[0] = iLig;
+		if ( iLig <  this.tabPion.length - 1 )coordonees[1] = iLig+1; else coordonees[1] = iLig;
+
+		if ( cCol > 'A'                              )coordonees[2] = cCol-1- 'A'; else coordonees[3]=cCol-'A';
+		if ( cCol <  this.tabPion[0].length + 'A' -1 )coordonees[3] = cCol+1- 'A'; else coordonees[3]=cCol-'A';
+
+		return coordonees;
+	}
+
 	/**
-	 * 
+	 * Permet d'ajouter des ouvriers au joueur courant
+	 * Active les batiments qui n'engendre aucune perte au joueur
 	 * @param iLig
 	 *     Position de la ligne de l'ouvrier
 	 * @param cCol
@@ -218,63 +237,62 @@ public class Jeu
 	 */
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
+		this.jCourant.clearLstBatimentAutourOuvrier();
 		if ( !this.tabPion[iLig-1][cCol - 'A'].getNom().isEmpty() )return false;
 		
 		Pion pTmp1, pTmp2;
 		BatimentInfo bTmp;		
 		
-		int iLigDepTab = 0, iLigFinTab = 0;
-		int iColDepTab = 0, iColFinTab = 0;
+		int[] coordonees = this.gererCoordonneeAutourDuJoueur(iLig, cCol);		
 
-		iLig--;
-		if ( iLig > 0                        )iLigDepTab = iLig-1; else iLigDepTab = iLig;
-		if ( iLig <  this.tabPion.length - 1 )iLigFinTab = iLig+1; else iLigFinTab = iLig;
-
-		if ( cCol > 'A'                              )iColDepTab = cCol-1- 'A'; else iColDepTab=cCol-'A';
-		if ( cCol <  this.tabPion[0].length + 'A' -1 )iColFinTab = cCol+1- 'A'; else iColFinTab=cCol-'A';
-
-		pTmp1 = new Pion(iLig, cCol, this.jCourant.getCouleur(), "OUVRIER");
+		pTmp1 = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), "OUVRIER");
 		
 		bTmp = null;
-		for (int iLigTab=iLigDepTab; iLigTab<=iLigFinTab; iLigTab++)
-			for (int iColTab=iColDepTab; iColTab<=iColFinTab; iColTab++)
+
+		for (int iLigTab=coordonees[0]; iLigTab<=coordonees[1]; iLigTab++)
+			for (int iColTab=coordonees[2]; iColTab<=coordonees[3]; iColTab++)
 			{
 				pTmp2 = this.tabPion[iLigTab][iColTab];
-				// activation automatique des ressources qui ne couteront rien au joueur
-				if ( pTmp2.getCoul().equals(this.jCourant.getCouleur()) ||
-				     pTmp2.getCoul().equals("BLANC") )
+				if ( !pTmp2.getNom().equals ("") )
 				{
 					bTmp = BatimentInfo.rechercherBatiment(pTmp2.getNom());
 					this.gererActivation(bTmp);
 				}
 			}
 
-		this.tabPion[iLig][cCol - 'A'] = pTmp1; 
+		this.tabPion[iLig-1][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 		this.verifierManche();
 		return true;
 	}
 
+	/**
+	 * Permet d'activer les batiments qui n'engendre pas de perte au joueur
+	 * Permet d'ajouter les batiments engendrant des pertes à l'utilisateur dans une liste tmporaire
+	 * @param
+	 *     Le batiment que l'on souhaite activer
+	 */
 	public void gererActivation(BatimentInfo bTmp)
 	{
 		if ( bTmp != null )
 		{
-			if( bTmp.estGain() || bTmp.estRessource() )
-				this.gererRessourceRec(bTmp);
-			else if ( bTmp.estEchange() &&
-			          this.verifierEchange(bTmp.getBleReA(), bTmp.getPierreReA(),
-					                       bTmp.getEauReA(), bTmp.getBoisReA  (),
-										   bTmp.getPieceReA()  ))
-				 	this.gererRessourceRec(bTmp);
-				 else
-				 {;
-					// this.ctrl.demanderRessource();
-					// this.ctrl.demanderRessource();
-				 }
-
+			if ( bTmp.estRessource() )this.gererRessource(bTmp::getRec, 1);
+			else if ( ! bTmp.estSpecial() )
+			{
+				this.jCourant.ajouterBatimentAListeTmp(bTmp);
+			}
 		}
+	}
+
+	/**
+	 * Retourne les batiments autres que des ressources autour du dernier ouvrier posé
+	 * @return
+	 *     La liste des batiments autour du dernier ouvrier posé ( autre que les ressources )
+	 */
+	public ArrayList<BatimentInfo> getLstBatimentAutourOuvrier()
+	{
+		return this.jCourant.getLstBatimentAutourOuvrier();
 	}
 
 	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
@@ -286,20 +304,24 @@ public class Jeu
 		return true;
 	}
 
-	public void gererRessourceRec( BatimentInfo bTmp )
+	/**
+	 * Cette méthode permet d'ajuster les ressources du joueur courant
+	 * @param function
+	 * 		Une référence sur méthode pour la gestion des ressource
+	 * 		(getRea, getRec, getReq)
+	 */
+	public void gererRessource( Function<String, Integer> function, int signe )
 	{
-		this.jCourant.gererRessource(bTmp.getBleRec   (), "BLE"   );
-		this.jCourant.gererRessource(bTmp.getBoisRec  (), "BOIS"  );
-		this.jCourant.gererRessource(bTmp.getPierreRec(), "PIERRE");
-		this.jCourant.gererRessource(bTmp.getEauRec   (), "EAU"   );
+		this.jCourant.gererRessource(signe*function.apply("BLE"   ), "BLE"   );
+		this.jCourant.gererRessource(signe*function.apply("EAU"   ), "EAU"   );
+		this.jCourant.gererRessource(signe*function.apply("BOIS"  ), "BOIS"  );
+		this.jCourant.gererRessource(signe*function.apply("PIERRE"), "PIERRE");
+		this.jCourant.gererRessource(signe*function.apply("PIECE" ), "PIECE" );
 	}
 
-	public void gererRessourceReq( BatimentInfo bTmp )
+	public void changerJoueur()
 	{
-		this.jCourant.gererRessource(-bTmp.getBleReq   (), "BLE"   );
-		this.jCourant.gererRessource(-bTmp.getBoisReq  (), "BOIS"  );
-		this.jCourant.gererRessource(-bTmp.getPierreReq(), "PIERRE");
-		this.jCourant.gererRessource(-bTmp.getEauReq   (), "EAU"   );
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
 	}
 
 	/**
@@ -311,17 +333,33 @@ public class Jeu
 	 */
 	public boolean activerBatiment(int iLig, char cCol)
 	{
-		Pion pTmp = this.tabPion[iLig][cCol-'A'];
+		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
+		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
+
+		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
 			for ( Joueur j : this.tabJoueurs )
-				if ( j.getCouleur().equals(pTmp.getCoul()) )j.setPiece(1);
-				
-			this.jCourant.setPiece(-1);
+				if ( j.getCouleur().equals(pTmp.getCoul()) )
+				{
+					j.setPiece(1);
+					this.jCourant.setPiece(-1);
+				}
 		}
 
-		return false;
+		if ( bTmp.estSpecial() || bTmp.estRessource() )return false;
+
+		if ( bTmp.estEchange() && this.verifierEchange(bTmp.getBleReA (), bTmp.getPierreReA(),
+		                                               bTmp.getEauReA (), bTmp.getBoisReA  (),
+													   bTmp.getPcReq()))
+			this.gererRessource(bTmp::getRea, -1);
+
+		this.gererRessource(bTmp::getRec, 1);
+
+		this.jCourant.setScore(bTmp.getPtRec());
+
+		return true;
 	}
 
 	/**
