@@ -1,9 +1,10 @@
 package equipe_11.metier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import equipe_11.metier.BatimentInfo;
-import equipe_11.metier.Jeu     ;
+import equipe_11.metier.Jeu;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
   * lié aux joueurs
@@ -237,7 +238,7 @@ public class Joueur
 	 */
 	public void setScore( int score )
 	{
-		this.iScore -= score;
+		this.iScore += score;
 	}
 
 	/**
@@ -389,5 +390,24 @@ public class Joueur
 	{
 		this.bNourri = false;
 		this.lstOuvrier.clear();
+	}
+
+	public int classementJoueurs()
+	{
+		
+		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
+
+		ArrayList<Integer> alInt = new ArrayList<Integer>();
+
+		for ( int cpt = 0; cpt < classement.length; cpt++)
+			alInt.add(jeu.getJoueurs()[cpt].getScore());
+
+		Collections.sort(alInt);
+
+		for ( Integer score : alInt)
+			if ( this.iScore == score )
+				return alInt.indexOf(score);
+
+		return 0;
 	}
 }
