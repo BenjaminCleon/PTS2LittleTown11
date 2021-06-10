@@ -1,5 +1,6 @@
 package equipe_11.metier;
 
+import java.util.ArrayList.*;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
@@ -58,15 +59,20 @@ public class Jeu
 	{
 		this.tabPion    = new Pion[6][9];
 		this.tabBatiment = new BatimentInfo[17];
-		ArrayList<String> alNomBat = BatimentInfo.getLstBat()
+		ArrayList<String> alNomBat = BatimentInfo.getLstBat();
+		BatimentInfo tmpBat;
 
 		for( int cpt = 0; cpt < 5; cpt++)
 			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment("CHAMPSDEBLE");
 
 		for( int cpt = 5; cpt < 17; cpt++)
 		{
-			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment( alNomBat.get( Math.random( alNomBat.size() ) ) );
+			tmpBat = BatimentInfo.rechercherBatiment( alNomBat.get( Math.random() * alNomBat.size() ) );
+			this.tabBatiment[cpt] = tmpBat;
+			alNomBat.remove(tmpBat);
 		}
+
+		System.out.print(alNomBat);
 
 
 	}
@@ -370,7 +376,7 @@ public class Jeu
 	public boolean isToutOuvriersPose()
 	{
 		for ( Joueur j : this.tabJoueurs )
-				if ( ! j.getNbOuvrier() != 3 )return false;
+				if ( !(j.getNbOuvrier() != 3) )return false;
 
 		return true;
 	}

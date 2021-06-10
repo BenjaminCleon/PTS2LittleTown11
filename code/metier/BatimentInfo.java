@@ -1,5 +1,7 @@
 package equipe_11.metier;
 
+import java.util.ArrayList.*;
+
 /**
  * Cette enum contient tous les batiments du jeu 
  * 
@@ -303,7 +305,7 @@ public enum BatimentInfo
 
 	public static ArrayList<String> getLstBat()
 	{
-		ArrayList<String> alNomBat;
+		ArrayList<String> alNomBat = new ArrayList<String>();
 
 		for ( BatimentInfo bt : BatimentInfo.values() )
 		{
