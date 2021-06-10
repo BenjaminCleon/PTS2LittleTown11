@@ -67,7 +67,7 @@ public class Jeu
 
 		for( int cpt = 5; cpt < 17; cpt++)
 		{
-			tmpBat = BatimentInfo.rechercherBatiment( alNomBat.get( Math.random() * alNomBat.size() ) );
+			tmpBat = BatimentInfo.rechercherBatiment( alNomBat.get( (int) (Math.random() * alNomBat.size()) ) );
 			this.tabBatiment[cpt] = tmpBat;
 			alNomBat.remove(tmpBat);
 		}
@@ -383,7 +383,7 @@ public class Jeu
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+	public ArrayList<String> getLstBat(){ return BatimentInfo.getLstBat(); }
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
