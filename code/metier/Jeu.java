@@ -359,7 +359,10 @@ public class Jeu
 	public boolean verifierManche()
 	{
 		for ( Joueur j : this.tabJoueurs )
+		{
+			System.out.println(!j.estNourri());
 			if ( ! j.estNourri() )return false;
+		}
 		
 
 		for( int i = 0; i < tabPion.length; i++)
@@ -373,6 +376,10 @@ public class Jeu
 		}
 
 		this.iNumManche ++;
+
+		for( Joueur j : this.tabJoueurs)
+			j.resetJoueur();
+
 		return true;
 	}
 
@@ -382,7 +389,7 @@ public class Jeu
 		{
 			Joueur jTmp = this.tabJoueurs[i];
 
-			if ( !(jTmp.getNbOuvrier() != 3) )return false;
+			if ( jTmp.getNbOuvrier() != this.iNbOuvrierMax )return false;
 		}
 		return true;
 	}

@@ -16,7 +16,6 @@ public class CUI
 
 		this.choixDebutPartie();
 		this.mettreIhmAJour();
-	 	Console.println(this.afficherMenuChoix());
 	}
 
 
@@ -45,15 +44,31 @@ public class CUI
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
-			Console.print(++cpt + "\t| ");
+			Console.print(++cpt + "\t|  ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
 			{
 				this.setCouleur(tabPlateau[i][j].getCoul());
 				Console.print(String.format("%-6.6s", tabPlateau[i][j].toString()));
 				Console.normal();
 				Console.print("  |  ");
+				/*Pion pTmp = tabPlateau[i][j];
+				if ( pTmp.getNom().equals("OUVRIER") )this.setCouleur(pTmp.getCoul());
+
+				Console.print(String.format("%-6.6s", pTmp	.toString()));
+				Console.print((!pTmp.getNom ().equals("OUVRIER") &&
+					           !pTmp.getCoul().equals("BLANC"))?"*":" ");
+				Console.normal();
+				Console.print("  |  ");*/
 			}
 			Console.println();
+
+			Console.print("+-------+");
+			for(int nbCol = 0; nbCol < 9; nbCol++)
+			{
+				Console.print("----------+");
+			}
+			Console.println();
+
 		}
 
 		Console.println();
@@ -113,12 +128,12 @@ public class CUI
 		return sRet;
 	}
 
-	public String afficherMenuNourriture()
+	public String afficherMenuNourriture(Joueur j)
 	{
 		String sRet = "";
 
 		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Espace nourriture " + this.ctrl.getCouleurJoueur()) + "\n";
+		sRet += String.format("|%-36s|", "Espace nourriture " + j.getCouleur()) + "\n";
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "1. Choisir ressource") + "\n";
 		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
@@ -164,23 +179,33 @@ public class CUI
 
 		String sRet = "";
 
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
+		sRet += "======================================\n";
+
+
 		if(sTypeSaisie.equals("Coord"))
 		{
-			sRet += "======================================\n";
-			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
-			sRet += "======================================\n";
 			sRet += String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
-			sRet += "======================================\n";
 		}
 
 		if(sTypeSaisie.equals("Type"))
 		{
-			sRet += "======================================\n";
-			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
-			sRet += "======================================\n";
 			sRet += String.format("|%-36s|", "Veuillez entrer un type de batiment") + "\n";
-			sRet += "======================================\n";
 		}
+
+		if(sTypeSaisie.equals("TypeR"))
+		{
+			sRet += String.format("|%-36s|", "Veuillez entrer un type de ressource") + "\n";
+		}
+
+		if(sTypeSaisie.equals("Qte"))
+		{
+			sRet += String.format("|%-36s|", "Veuillez entrer une quantité") + "\n";
+		}
+
+
+		sRet += "======================================\n";
 
 		return sRet;
 	}

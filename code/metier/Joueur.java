@@ -139,6 +139,13 @@ public class Joueur
 		this.rPierre      = new Ressource("pierre"  );
 	}
 	
+	public void setNourri( boolean estNourri )
+	{
+		this.bNourri = estNourri;
+	}
+
+	
+	
 	public void setNumJoueur(int iNumJoueur)
 	{
 		this.sNumJoueur = iNumJoueur;
