@@ -1,9 +1,7 @@
 package equipe_11;
 
 import equipe_11.ihm.CUI;
-import equipe_11.metier.Jeu;
-import equipe_11.metier.Pion;
-import equipe_11.metier.Joueur;
+import equipe_11.metier.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -216,7 +214,7 @@ public class Controleur
 		this.ihm.afficherInfo();
 	}
 	
-	public ArrayList<String> getLstNomBat()
+	public ArrayList<BatimentInfo> getLstNomBat()
 	{
 		return this.metier.getLstNomBat();
 	}

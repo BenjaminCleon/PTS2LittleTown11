@@ -213,7 +213,11 @@ public class CUI
 	
 	public void afficherInfo()
 	{
-		Console.println( ctrl.getLstNomBat() );
+		String sPrint = "";
+		for( BatimentInfo b : ctrl.getLstNomBat() )
+			sPrint += b + "\n";
+		
+		Console.println( sPrint );
 	}
 
 	public void mettreIhmAJour()

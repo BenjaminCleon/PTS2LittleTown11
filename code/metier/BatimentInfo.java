@@ -304,8 +304,9 @@ public enum BatimentInfo
 
 	public static ArrayList<String> getLstNomBat()
 	{
-		ArrayList<String> alNomBat = null;
-
+		ArrayList<String> alNomBat = new ArrayList<String>();
+		
+		
 		for ( BatimentInfo bt : BatimentInfo.values() )
 		{
 			if(bt != null && alNomBat != null)
@@ -314,13 +315,16 @@ public enum BatimentInfo
 				alNomBat.add( bt.name() );
 			}
 		}
-	
+		
 		return alNomBat;
 	}
 
-	public static BatimentInfo[] getLstBat()
+	public static ArrayList<BatimentInfo> getLstBat()
 	{
-		return BatimentInfo.values();
+		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
+		for ( BatimentInfo b : BatimentInfo.values() )alBat.add(b);
+		
+		return alBat;
 	}
 
 	/**

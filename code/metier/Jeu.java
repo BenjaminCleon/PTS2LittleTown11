@@ -2,6 +2,8 @@ package equipe_11.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
@@ -47,7 +49,7 @@ public class Jeu
 	/**
 	 * ensemble des batiment sur le marché
 	 */
-	private BatimentInfo[] tabBatiment;
+	private ArrayList<BatimentInfo> alBat;
 
 	/**
 	 * le numéro de la manche courante
@@ -55,30 +57,30 @@ public class Jeu
 	private int iNumManche;
 
 	/**
+	 * Le nombre de champs de blé dans le jeu
+	 */
+	private int nbChampsDeBle;
+
+	/**
 	 * Constructeur de la classe Jeu
 	 * Initialise uniquement tabPion
 	 */
 	public Jeu()
 	{
-		this.tabPion     = new Pion[6][9];
-		this.tabBatiment = new BatimentInfo[17];
-		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
-		BatimentInfo[] ensBat = BatimentInfo.getLstBat();
+		this.nbChampsDeBle = 5;
+		this.tabPion       = new Pion[6][9];
+		this.alBat         = BatimentInfo.getLstBat();
 
-		for (int i=0;i<ensBat.length;i++)
-			if ( !ensBat[i].estRessource() )
-				alBat.add(ensBat[i]);
+		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
+		this.alBat.remove(BatimentInfo.PIERRE     );
+		this.alBat.remove(BatimentInfo.BOIS       );
+		this.alBat.remove(BatimentInfo.EAU        );
 
-		for( int cpt = 0; cpt < 5; cpt++)
-			this.tabBatiment[cpt] = BatimentInfo.CHAMPSDEBLE;
+		Collections.shuffle(this.alBat);
 
-		for( int cpt = 5; cpt < 17; cpt++)
-		{
-			this.tabBatiment[cpt] = alBat.get( (int) (Math.random() * alBat.size()) );
-			alBat.remove(this.tabBatiment[cpt]);
-		}
+		for ( int i=0;this.alBat.size()>12;i++)this.alBat.remove(i);
+		this.alBat.add(BatimentInfo.CHAMPSDEBLE);
 	}
-
 	
 	public void setNumJoueur(int iNbJoueur)
 	{
@@ -395,7 +397,10 @@ public class Jeu
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public ArrayList<String> getLstNomBat() { return BatimentInfo.getLstNomBat(); }
+	public ArrayList<BatimentInfo> getLstNomBat()
+	{
+		return this.alBat;
+	}
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
