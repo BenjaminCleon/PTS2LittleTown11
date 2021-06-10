@@ -1,6 +1,7 @@
 package equipe_11.metier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
@@ -59,25 +60,25 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.tabPion    = new Pion[6][9];
+		this.tabPion     = new Pion[6][9];
 		this.tabBatiment = new BatimentInfo[17];
-		ArrayList<String> alNomBat = BatimentInfo.getLstBat();
-		BatimentInfo tmpBat;
+		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
+		BatimentInfo[] ensBat = BatimentInfo.getLstBat();
+
+		for (int i=0;i<ensBat.length;i++)
+			if ( !ensBat[i].estRessource() )
+				alBat.add(ensBat[i]);
 
 		for( int cpt = 0; cpt < 5; cpt++)
-			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment("CHAMPSDEBLE");
+			this.tabBatiment[cpt] = BatimentInfo.CHAMPSDEBLE;
 
 		for( int cpt = 5; cpt < 17; cpt++)
 		{
-			tmpBat = BatimentInfo.rechercherBatiment( alNomBat.get( (int) (Math.random() * alNomBat.size()) ) );
-			this.tabBatiment[cpt] = tmpBat;
-			alNomBat.remove(tmpBat);
+			this.tabBatiment[cpt] = alBat.get( (int) (Math.random() * alBat.size()) );
+			alBat.remove(this.tabBatiment[cpt]);
 		}
-
-		System.out.print(alNomBat);
-
-
 	}
+
 	
 	public void setNumJoueur(int iNbJoueur)
 	{
@@ -394,7 +395,7 @@ public class Jeu
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public ArrayList<String> getLstBat(){ return BatimentInfo.getLstBat(); }
+	public ArrayList<String> getLstNomBat() { return BatimentInfo.getLstNomBat(); }
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{

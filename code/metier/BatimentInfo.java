@@ -48,7 +48,6 @@ public enum BatimentInfo
 	//                R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//                q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//                C  A        C  A        C  A        C  A        C  A        C  A
-	BLE             ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	PIERRE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	BOIS            ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	EAU             ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
@@ -303,7 +302,7 @@ public enum BatimentInfo
 	 */
 	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
 
-	public static ArrayList<String> getLstBat()
+	public static ArrayList<String> getLstNomBat()
 	{
 		ArrayList<String> alNomBat = null;
 
@@ -317,6 +316,11 @@ public enum BatimentInfo
 		}
 	
 		return alNomBat;
+	}
+
+	public static BatimentInfo[] getLstBat()
+	{
+		return BatimentInfo.values();
 	}
 
 	/**

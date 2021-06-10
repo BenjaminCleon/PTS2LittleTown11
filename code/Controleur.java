@@ -181,10 +181,7 @@ public class Controleur
 
 	public void nourrirOuvrier()
 	{
-
-
 		int iEntreeUtilisateur = 0;
-
 
 		this.ihm.mettreIhmAJour();
 
@@ -219,9 +216,9 @@ public class Controleur
 		this.ihm.afficherInfo();
 	}
 	
-	public ArrayList<String> getLstBat()
+	public ArrayList<String> getLstNomBat()
 	{
-		return this.metier.getLstBat();
+		return this.metier.getLstNomBat();
 	}
 
 	public int getNumManche(){ return this.metier.getNumManche(); }
