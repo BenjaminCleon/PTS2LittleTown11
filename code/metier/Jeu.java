@@ -1,6 +1,6 @@
 package equipe_11.metier;
 
-import java.util.ArrayList.*;
+import java.util.ArrayList;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
