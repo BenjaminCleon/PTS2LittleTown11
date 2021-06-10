@@ -238,11 +238,11 @@ public class CUI
 	
 	public void afficherInfo()
 	{
-		Console.println( ctrl.getLstBat() );
+		String sPrint = "";
+		for( BatimentInfo b : ctrl.getLstNomBat() )
+			sPrint += b + "\n";
 		
-		String sRet = ctrl.getSaisie().toUpperCase();
-		
-		Console.println( BatimentInfo.rechercherBatiment(sRet) );
+		Console.println( sPrint );
 	}
 
 	public void mettreIhmAJour()

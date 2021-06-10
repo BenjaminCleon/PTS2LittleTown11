@@ -48,7 +48,6 @@ public enum BatimentInfo
 	//                R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//                q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//                C  A        C  A        C  A        C  A        C  A        C  A
-	BLE             ( 0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	PIERRE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	BOIS            ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	EAU             ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
@@ -303,10 +302,11 @@ public enum BatimentInfo
 	 */
 	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
 
-	public static ArrayList<String> getLstBat()
+	public static ArrayList<String> getLstNomBat()
 	{
-		ArrayList<String> alNomBat = null;
-
+		ArrayList<String> alNomBat = new ArrayList<String>();
+		
+		
 		for ( BatimentInfo bt : BatimentInfo.values() )
 		{
 			if(bt != null && alNomBat != null)
@@ -315,8 +315,16 @@ public enum BatimentInfo
 				alNomBat.add( bt.name() );
 			}
 		}
-	
+		
 		return alNomBat;
+	}
+
+	public static ArrayList<BatimentInfo> getLstBat()
+	{
+		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
+		for ( BatimentInfo b : BatimentInfo.values() )alBat.add(b);
+		
+		return alBat;
 	}
 
 	/**
