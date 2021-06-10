@@ -3,6 +3,8 @@ package equipe_11.metier;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
+import java.util.ArrayList;
+
 public class Jeu 
 {
 	/**
@@ -58,14 +60,15 @@ public class Jeu
 	{
 		this.tabPion    = new Pion[6][9];
 		this.tabBatiment = new BatimentInfo[17];
-		ArrayList<String> alNomBat = BatimentInfo.getLstBat()
+		ArrayList<String> alNomBat = BatimentInfo.getLstBat();
 
 		for( int cpt = 0; cpt < 5; cpt++)
 			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment("CHAMPSDEBLE");
 
 		for( int cpt = 5; cpt < 17; cpt++)
 		{
-			this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment( alNomBat.get( Math.random( alNomBat.size() ) ) );
+			if(alNomBat != null)
+				this.tabBatiment[cpt] = BatimentInfo.rechercherBatiment( alNomBat.get( (int)(Math.random() * alNomBat.size()) ) );
 		}
 
 
@@ -358,10 +361,16 @@ public class Jeu
 		for ( Joueur j : this.tabJoueurs )
 			if ( ! j.estNourri() )return false;
 		
-		this.tabJoueurs.clear();
 
-		for ( Pion p : this.tabPion )
-			if ( p.getNom().equals("OUVRIER") ) p = new Pion(p.getLig(), p.getCol(), "BLANC", "");
+		for( int i = 0; i < tabPion.length; i++)
+		{
+			for( int j = 0; j < tabPion[0].length; j++)
+			{
+				Pion pTmp = this.tabPion[i][j];
+
+				if ( pTmp.getNom().equals("OUVRIER") ) pTmp = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
+			}
+		}
 
 		this.iNumManche ++;
 		return true;
@@ -369,15 +378,18 @@ public class Jeu
 
 	public boolean isToutOuvriersPose()
 	{
-		for ( Joueur j : this.tabJoueurs )
-				if ( ! j.getNbOuvrier() != 3 )return false;
+		for( int i = 0; i < this.tabJoueurs.length; i++ )
+		{
+			Joueur jTmp = this.tabJoueurs[i];
 
+			if ( !(jTmp.getNbOuvrier() != 3) )return false;
+		}
 		return true;
 	}
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+	public ArrayList<String> getLstBat(){ return BatimentInfo.getLstBat(); }
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
