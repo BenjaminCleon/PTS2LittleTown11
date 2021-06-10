@@ -3,7 +3,10 @@ package equipe_11;
 import equipe_11.ihm.CUI;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
+import equipe_11.metier.Joueur;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -17,6 +20,8 @@ public class Controleur
 	{
 		this.metier = new Jeu();
 		this.ihm    = new CUI(this);
+
+
 
 		this.bouclePrincipale();
 	}
@@ -94,7 +99,11 @@ public class Controleur
 				}
 
 				this.ihm.mettreIhmAJour();
-				if ( !this.metier.isToutOuvriersPose())Console.println(this.ihm.afficherMenuChoix());
+
+				this.isToutOuvriersPose();
+
+				Console.println(this.ihm.afficherMenuChoix());
+
 
 			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
 		}
@@ -173,11 +182,14 @@ public class Controleur
 	public void nourrirOuvrier()
 	{
 
+
+		int iEntreeUtilisateur = 0;
+
+
 		this.ihm.mettreIhmAJour();
 
 		System.out.println(this.ihm.afficherMenuNourriture());
 
-		
 		try
 		{
 			iEntreeUtilisateur = Integer.parseInt(getSaisie());
@@ -185,30 +197,7 @@ public class Controleur
 
 		switch(iEntreeUtilisateur)
 		{
-			case 1 -> { 
-				this.ihm.mettreIhmAJour();
-				System.out.println(this.ihm.afficherMenuSaisie("Coord"));
-				sCoord = getSaisie();
-			}
-
-			case 2 -> { 
-				this.ihm.mettreIhmAJour();
-				System.out.println(this.ihm.afficherMenuSaisie("Type"));
-				sType = getSaisie(); 
-			}
-
-			case 3 -> { 
-				if(verifierPossibleConstruire(sType, sCoord))
-				{
-					this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
-				        sCoord.charAt(0));
-
-					iEntreeUtilisateur = 4;
-				}
-			}
 		}
-
-		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
 	}
 
 	public void echangerPiece()
@@ -230,7 +219,7 @@ public class Controleur
 		this.ihm.afficherInfo();
 	}
 	
-	public String getLstBat()
+	public ArrayList<String> getLstBat()
 	{
 		return this.metier.getLstBat();
 	}
@@ -239,17 +228,20 @@ public class Controleur
 
 	public boolean isToutOuvriersPose()
 	{
-		if ( !this.isToutOuvriersPose() )return false;
+		if ( !this.metier.isToutOuvriersPose() )return false;
 		
 		for ( Joueur j : this.metier.getJoueurs() )
-			if ( ! j.nourrirOuvrier().equals("Ouvriers nourris avec succès") )
+		{
+			if ( ! j.nourrirOuvrier().equals("Ouvriers nourris avec le peu de vos ressources.") )
 			{
 				while( this.metier.verifierManche() )
 				{
 					this.ihm.afficherMenuNourriture();
-					
+
+
 				}
 			}
+		}
 
 		return true;
 	}

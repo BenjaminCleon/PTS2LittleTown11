@@ -305,12 +305,15 @@ public enum BatimentInfo
 
 	public static ArrayList<String> getLstBat()
 	{
-		ArrayList<String> alNomBat = new ArrayList<>();
+		ArrayList<String> alNomBat = null;
 
 		for ( BatimentInfo bt : BatimentInfo.values() )
 		{
-			if( !bt.estRessource() )
+			if(bt != null && alNomBat != null)
+			{
+				if( !bt.estRessource() )
 				alNomBat.add( bt.name() );
+			}
 		}
 	
 		return alNomBat;
