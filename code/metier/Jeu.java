@@ -60,6 +60,8 @@ public class Jeu
 	 */
 	private int nbChampsDeBle;
 
+	private boolean preteurSurGage;
+
 	/**
 	 * Constructeur de la classe Jeu
 	 * Initialise uniquement tabPion
@@ -389,6 +391,9 @@ public class Jeu
 
 		if ( bTmp.estSpecial() || bTmp.estRessource() )return false;
 
+		if( bTmp.estPreteurSurGage() )
+			this.preteurSurGage = true;
+
 		if ( bTmp.estEchange() && this.verifierEchange(bTmp.getBleReA (), bTmp.getPierreReA(),
 		                                               bTmp.getEauReA (), bTmp.getBoisReA  (),
 													   bTmp.getPcReq()))
@@ -506,5 +511,39 @@ public class Jeu
 				return j;
 
 		return null;
+	}
+	
+	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
+	{
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
+
+		int iQteC = 1;
+		if( ressourceSaisi1.equals( ressourceSaisi2 ) )
+			iQteC = 2;
+
+		int iQteV = 1;
+		if( ressourceVoulu1.equals( ressourceVoulu2 ) )
+			iQteV = 2;
+
+		if(
+		    this.jCourant.consommerRessourcePossible( iQteC, ressourceSaisi1 ) &&
+		    this.jCourant.consommerRessourcePossible( iQteC, ressourceSaisi2 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu1 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu2 )
+		  )
+		{
+			this.jCourant.consommerRessource(  1, ressourceSaisi1 );
+			this.jCourant.consommerRessource(  1, ressourceSaisi2 );
+			this.jCourant.ajouterRessource( 1, ressourceVoulu1 );
+			this.jCourant.ajouterRessource( 1, ressourceVoulu2 );
+		}
+
+		this.preteurSurGage = false;
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
+	}
+
+	public boolean getPreteurSurGage()
+	{
+		return this.preteurSurGage;
 	}
 }
