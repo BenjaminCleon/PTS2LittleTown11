@@ -261,98 +261,104 @@ public class Controleur
 	public int getNumManche(){ return this.metier.getNumManche(); }
 
 	public boolean nourrirOuvrier()
-	{
+    {
 
-		System.out.println(this.metier.isToutOuvriersPose());
+        System.out.println(this.metier.isToutOuvriersPose());
 
-		if ( !this.metier.isToutOuvriersPose() )return false;
-		
-		Stack<Integer> pileQuantite = new Stack<Integer>();
-		Stack<String> pileRessource = new Stack<String>();
+        if ( !this.metier.isToutOuvriersPose() )return false;
 
-		int iQteRessource;
-		int iQuantiteBle;
-		int iQuantiteEau; 
-		int iQuantitePiece;
+        Stack<Integer> pileQuantite = new Stack<Integer>();
+        Stack<String> pileRessource = new Stack<String>();
 
-		for(Joueur j : this.metier.getJoueurs())
-		{
-			if(!j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
+		String sRet = "";
+        int iQteRessource;
+        int iQuantiteBle;
+        int iQuantiteEau; 
+        int iQuantitePiece;
 
-			iQteRessource  = 0;
-			iQuantiteBle   = 0;
-			iQuantiteEau   = 0;
-			iQuantitePiece = 0;
+        for(Joueur j : this.metier.getJoueurs())
+        {
+            if(!j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
 
-			while(iQteRessource < j.getNbOuvrier())
-			{
+            iQteRessource  = 0;
+            iQuantiteBle   = 0;
+            iQuantiteEau   = 0;
+            iQuantitePiece = 0;
 
-				this.ihm.mettreIhmAJour();
-				this.ihm.afficherMenuNourriture(j);
+            while(iQteRessource < j.getNbOuvrier())
+            {
 
+                this.ihm.mettreIhmAJour();
+                this.ihm.afficherMenuNourriture(j, "");
 
-				int iSaisie = Integer.parseInt(getSaisie());
+				sRet = "";
+				
+				String saisie;
 
-				switch(iSaisie)
+				do
 				{
-					case 1 : { 
-						this.ihm.mettreIhmAJour();
+					saisie = getSaisie();
+				}while(!saisie.matches("^[1-3]$"));
 
-						this.ihm.afficherMenuSaisie("TypeR"); 
+				int iSaisie = Integer.parseInt(saisie);
 
-						pileRessource.push(getSaisie());
+				System.out.println(iSaisie);
 
-						break;
-					}
+                switch(iSaisie)
+                {
+                    case 1 : { 
+                        this.ihm.mettreIhmAJour();
 
-					case 2 : { 
-						this.ihm.mettreIhmAJour();
+                        this.ihm.afficherMenuSaisie("TypeR"); 
 
-						this.ihm.afficherMenuSaisie("Qte"); 
+                        pileRessource.push(getSaisie());
 
-						pileQuantite.add(Integer.parseInt(getSaisie()));
+                        break;
+                    }
 
-						break;
-					}
+                    case 2 : { 
+                        this.ihm.mettreIhmAJour();
+
+                        this.ihm.afficherMenuSaisie("Qte"); 
+
+                        int valeur = Integer.parseInt(getSaisie());
+
+                    	if(iQteRessource + valeur > j.getNbOuvrier())
+                    	valeur = j.getNbOuvrier() - iQteRessource;
+
+                        pileQuantite.add(valeur);
+
+                        break;
+                    }
 
 					case 3 : {
-						
-						String sRessource = pileRessource.pop();
-						sRessource = sRessource.toUpperCase();
-
-						if(sRessource.equals("BLE"))
+						if ( !pileRessource.isEmpty() || !pileQuantite.isEmpty() )
 						{
-							iQuantiteBle += pileQuantite.pop();
+							System.out.println("cc");
+							String sRessource = pileRessource.pop();
+	                        sRessource = sRessource.toUpperCase();
+
+	                        if(sRessource.equals("BLE")  )iQuantiteBle += pileQuantite.pop();
+	                        if(sRessource.equals("EAU")  )iQuantiteEau += pileQuantite.pop();
+	                        if(sRessource.equals("PIECE"))iQuantitePiece += pileQuantite.pop();
+
+	                        iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece/3;
 						}
-
-						if(sRessource.equals("EAU"))
-						{
-							iQuantiteEau += pileQuantite.pop();
-						}
-
-						if(sRessource.equals("PIECE"))
-						{
-							iQuantitePiece += pileQuantite.pop();
-						}
-
-						iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece;
-
-						break;
-					}
-				}
-			}
-
-			this.ihm.mettreIhmAJour();
-			this.ihm.afficherMenuNourriture(j);
-			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
+                        
+                        break;
+                    }
+                }
+            }
+            System.out.println(iQteRessource + "/" + j.getNbOuvrier());
 
 
-			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
-		}
-		this.metier.passerManche();
-	
-		return true;
-	}
+            sRet = j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece);
+        }
+        this.metier.passerManche();
+
+        return true;
+    }
+
 
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
