@@ -184,7 +184,7 @@ public class Ressource
 	}
 	
 	/**
-	 * Ajoute à une ressource passée une quantité en paramètre.
+	 * Ajoute à une ressource une quantité passée en paramètre.
 	 *
 	 * @param iConso
 	 *          nombre de ressources à ajouter
