@@ -228,6 +228,11 @@ public class Controleur
 		}
 	}
 
+	public Joueur[] getJoueurs()
+	{
+		return this.metier.getJoueurs();
+	}
+
 	public void echangerPiece()
 	{
 		this.ihm.afficherMenuEchangePiece();
