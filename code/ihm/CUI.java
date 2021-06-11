@@ -109,7 +109,7 @@ public class CUI
 		}while(!this.ctrl.setNumPlateau());
 	}
 
-	public String afficherMenuChoix()
+	public void afficherMenuChoix()
 	{
 		String sRet = "";
 
@@ -127,7 +127,7 @@ public class CUI
 		sRet += String.format("|%-36s|", "5. Quitter le jeu")      + "\n";
 		sRet += "======================================\n";
 
-		return sRet;
+		Console.println(sRet);
 	}
 
 	public void afficherMenuConstructionBatiment()

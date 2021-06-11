@@ -1,13 +1,8 @@
 package equipe_11.metier;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-=======
 import java.util.function.Function;
-import java.util.ArrayList;
->>>>>>> 6db201b3a5b1af254d1955b35c6962d77a433784
 
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
@@ -444,9 +439,14 @@ public class Jeu
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public ArrayList<BatimentInfo> getLstNomBat()
+	public ArrayList<BatimentInfo> getLstBat()
 	{
 		return this.alBat;
+	}
+
+	public ArrayList<String> getLstNomBat()
+	{
+		return BatimentInfo.getLstNomBat();
 	}
 
 	public boolean echangerPieceContreRessource( String sTypeRes )

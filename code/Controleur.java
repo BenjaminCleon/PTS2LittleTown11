@@ -87,18 +87,18 @@ public class Controleur
 			try
 			{
 				this.ihm.mettreIhmAJour();
-				Console.println(this.ihm.afficherMenuChoix());
+				this.ihm.afficherMenuChoix();
 
 
 				int choix = Integer.parseInt(getSaisie());
 
 				switch(choix)
 				{
-					case 1 -> { this.construire    (); }
-					case 2 -> { this.ajouterOuvrier(); }
-					case 3 -> { this.obtenirInfo   (); }
-					case 4 -> { this.echangerPiece();  }
-					case 5 -> { System.exit(0)       ; }
+					case 1 : { this.construire    (); break; }
+					case 2 : { this.ajouterOuvrier(); break; }
+					case 3 : { this.obtenirInfo   (); break; }
+					case 4 : { this.echangerPiece();  break; }
+					case 5 : { System.exit(0)       ; break; }
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -106,7 +106,7 @@ public class Controleur
 				if(!this.nourrirOuvrier())
 					continue;
 
-			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
+			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
 	}
 
@@ -126,23 +126,27 @@ public class Controleur
 			try
 			{
 				iEntreeUtilisateur = Integer.parseInt(getSaisie());
-			}catch(NumberFormatException e){ System.out.println("Nombre invalide"); }
+			}catch(NumberFormatException e){ Console.println("Nombre invalide"); }
 
 			switch(iEntreeUtilisateur)
 			{
-				case 1 -> { 
+				case 1 : { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie();
+
+					break;
 				}
 
-				case 2 -> { 
+				case 2 : { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie(); 
+
+					break;
 				}
 
-				case 3 -> { 
+				case 3 : { 
 					if(verifierPossibleConstruire(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
@@ -150,6 +154,8 @@ public class Controleur
 
 						iEntreeUtilisateur = 4;
 					}
+
+					break;
 				}
 			}
 
@@ -202,8 +208,8 @@ public class Controleur
 					saisie = this.getSaisie();
 					switch ( saisie )
 					{
-						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat);}
-						case "2" ->
+						case "1" : { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); break;}
+						case "2" :
 						{
 							do
 							{
@@ -213,6 +219,8 @@ public class Controleur
 									saisie = this.getSaisie().toUpperCase();
 								}while ( !saisie.matches("^[A-I][1-6]$"));
 							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
+
+							break;
 						}
 					}
 				}
@@ -239,7 +247,7 @@ public class Controleur
 	
 	public ArrayList<String> getLstBat()
 	{
-		return this.metier.getLstBat();
+		return this.metier.getLstNomBat();
 	}
 
 	public int getNumManche(){ return this.metier.getNumManche(); }
@@ -270,30 +278,34 @@ public class Controleur
 			{
 
 				this.ihm.mettreIhmAJour();
-				System.out.println(this.ihm.afficherMenuNourriture(j));
+				this.ihm.afficherMenuNourriture(j);
 
 
 				int iSaisie = Integer.parseInt(getSaisie());
 
 				switch(iSaisie)
 				{
-					case 1 -> { 
+					case 1 : { 
 						this.ihm.mettreIhmAJour();
 
 						this.ihm.afficherMenuSaisie("TypeR"); 
 
 						pileRessource.push(getSaisie());
+
+						break;
 					}
 
-					case 2 -> { 
+					case 2 : { 
 						this.ihm.mettreIhmAJour();
 
 						this.ihm.afficherMenuSaisie("Qte"); 
 
 						pileQuantite.add(Integer.parseInt(getSaisie()));
+
+						break;
 					}
 
-					case 3 -> {
+					case 3 : {
 
 
 						String sRessource = pileRessource.pop();
@@ -315,12 +327,14 @@ public class Controleur
 						}
 
 						iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece;
+
+						break;
 					}
 				}
 			}
 
 			this.ihm.mettreIhmAJour();
-			System.out.println(this.ihm.afficherMenuNourriture(j));
+			this.ihm.afficherMenuNourriture(j);
 			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
 			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
 		}
