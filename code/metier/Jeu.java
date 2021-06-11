@@ -416,7 +416,7 @@ public class Jeu
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
 				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
-						this.tabPion[i][j] = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
+						this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
 		}
 
 		this.iNumManche++;
@@ -438,7 +438,8 @@ public class Jeu
 		return true;
 	}
 
-	public int getNumManche(){ return this.iNumManche; }
+	public int getNbChampsDeble(){ return this.iNbChampsDeBle; }
+	public int getNumManche    (){ return this.iNumManche    ; }
 
 	public ArrayList<BatimentInfo> getLstBat()
 	{

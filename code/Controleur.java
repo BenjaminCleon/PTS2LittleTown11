@@ -256,6 +256,8 @@ public class Controleur
 		return this.metier.getLstNomBat();
 	}
 
+	public int getNbChampsDeble(){ return this.metier.getNbChampsDeble(); }
+
 	public int getNumManche(){ return this.metier.getNumManche(); }
 
 	public boolean nourrirOuvrier()
