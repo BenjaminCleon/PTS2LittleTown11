@@ -7,8 +7,6 @@ import java.util.function.Function;
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
 
-import java.util.ArrayList;
-
 public class Jeu 
 {
 	/**
