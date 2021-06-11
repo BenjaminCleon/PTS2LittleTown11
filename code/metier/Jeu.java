@@ -1,7 +1,13 @@
 package equipe_11.metier;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Pion;
+
+import java.util.ArrayList;
 
 public class Jeu 
 {
@@ -41,9 +47,19 @@ public class Jeu
 	private Joueur[]  tabJoueurs;
 
 	/**
+	 * ensemble des batiment sur le marché
+	 */
+	private ArrayList<BatimentInfo> alBat;
+
+	/**
 	 * le numéro de la manche courante
 	 */
 	private int iNumManche;
+
+	/**
+	 * Le nombre de champs de blé dans le jeu
+	 */
+	private int nbChampsDeBle;
 
 	/**
 	 * Constructeur de la classe Jeu
@@ -51,7 +67,19 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.tabPion    = new Pion[6][9];
+		this.nbChampsDeBle = 5;
+		this.tabPion       = new Pion[6][9];
+		this.alBat         = BatimentInfo.getLstBat();
+
+		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
+		this.alBat.remove(BatimentInfo.PIERRE     );
+		this.alBat.remove(BatimentInfo.BOIS       );
+		this.alBat.remove(BatimentInfo.EAU        );
+
+		Collections.shuffle(this.alBat);
+
+		for ( int i=0;this.alBat.size()>12;i++)this.alBat.remove(i);
+		this.alBat.add(BatimentInfo.CHAMPSDEBLE);
 	}
 	
 	public void setNumJoueur(int iNbJoueur)
@@ -339,15 +367,47 @@ public class Jeu
 	public boolean verifierManche()
 	{
 		for ( Joueur j : this.tabJoueurs )
+		{
+			System.out.println(!j.estNourri());
 			if ( ! j.estNourri() )return false;
+		}
 		
+
+		for( int i = 0; i < tabPion.length; i++)
+		{
+			for( int j = 0; j < tabPion[0].length; j++)
+			{
+				Pion pTmp = this.tabPion[i][j];
+
+				if ( pTmp.getNom().equals("OUVRIER") ) pTmp = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
+			}
+		}
+
 		this.iNumManche ++;
+
+		for( Joueur j : this.tabJoueurs)
+			j.resetJoueur();
+
+		return true;
+	}
+
+	public boolean isToutOuvriersPose()
+	{
+		for( int i = 0; i < this.tabJoueurs.length; i++ )
+		{
+			Joueur jTmp = this.tabJoueurs[i];
+
+			if ( jTmp.getNbOuvrier() != this.iNbOuvrierMax )return false;
+		}
 		return true;
 	}
 
 	public int getNumManche(){ return this.iNumManche; }
 
-	public String getLstBat(){ return BatimentInfo.getLstBat(); }
+	public ArrayList<BatimentInfo> getLstNomBat()
+	{
+		return this.alBat;
+	}
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
@@ -371,5 +431,10 @@ public class Jeu
 			if ( this.tabJoueurs[i] == this.jCourant )return i;
 
 		return 0;
+	}
+
+	public Joueur[] getJoueurs()
+	{
+		return this.tabJoueurs;
 	}
 }
