@@ -80,11 +80,11 @@ public class CUI
 	{
 		switch( sCoul.toUpperCase() )
 		{
-			case "ROUGE"  -> Console.couleurFont( CouleurConsole.ROUGE );
-			case "VERT"   -> Console.couleurFont( CouleurConsole.VERT  );
-			case "BLEU"   -> Console.couleurFont( CouleurConsole.BLEU  );
-			case "JAUNE"  -> Console.couleurFont( CouleurConsole.JAUNE );
-			default       -> Console.normal();
+			case "ROUGE"  : { Console.couleurFont( CouleurConsole.ROUGE ); break; }
+			case "VERT"   : { Console.couleurFont( CouleurConsole.VERT  ); break; }
+			case "BLEU"   : { Console.couleurFont( CouleurConsole.BLEU  ); break; }
+			case "JAUNE"  : { Console.couleurFont( CouleurConsole.JAUNE ); break; }
+			default       : { Console.normal(); break; }
 		}
 	}
 
@@ -269,7 +269,7 @@ public class CUI
 	public void afficherInfo()
 	{
 		String sPrint = "";
-		for( BatimentInfo b : ctrl.getLstNomBat() )
+		for( BatimentInfo b : ctrl.getLstBat() )
 			sPrint += b + "\n";
 		
 		Console.println( sPrint );
