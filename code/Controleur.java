@@ -61,9 +61,9 @@ public class Controleur
 
 	public Pion[][] getPlateau(){ return this.metier.getPlateau();}
 
-	public int getRessourceJoueur( String sType )
+	public int getQteRessourceJoueur( String sType )
 	{
-		return this.metier.getJoueurCourant().getRessource(sType);
+		return this.metier.getJoueurCourant().getQteRessource(sType);
 	}
 
 	public int getPieceJoueur()

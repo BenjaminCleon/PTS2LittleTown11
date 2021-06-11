@@ -65,7 +65,7 @@ public class Ressource
 	private String  sType;
 
 	/**
-	 * C'est la quantiter de ressource.
+	 * C'est la quantité de ressource.
 	 *
 	 * @see Ressource#Ressource( String, boolean bEstMangeable )
 	 * @see Ressource#Ressource( String )
@@ -78,7 +78,7 @@ public class Ressource
 	private int iQte;
 	
 	/**
-	 * Esque cette ressource peut etre utiliser pour nourire les ouvriers.
+	 * Est-ce que cette ressource peut être utilisé pour nourrir les ouvriers.
 	 *
 	 * @see Ressource#getEstMangeable()
 	 */
@@ -89,12 +89,12 @@ public class Ressource
 	/*--------------*/
 
 	/**
-	 * Constructeur de Ressources.
+	 * Constructeur de Ressource.
 	 *
 	 * @param sType
 	 *          Nom de la nouvelle Ressource.
 	 * @param bEstMangeable
-	 *          Definie si cette ressource peut etre utiliser pour nourire les ouvriers.
+	 *          Définie si cette ressource peut etre utilisé pour nourire les ouvriers.
 	 */
 	public Ressource( String sType, boolean bEstMangeable )
 	{
@@ -124,7 +124,7 @@ public class Ressource
 	 * @see Ressource#consommerRessource
 	 * @see Ressource#ajouterRessource
 	 */
-	private AltInt getRessourceByType( String sType )
+	private static AltInt getRessourceByType( String sType )
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -142,9 +142,9 @@ public class Ressource
 	 * @param iConso
 	 *          nombre de ressource à consommer
 	 */
-	public boolean consommerRessourceStock( int iConso )
+	public static boolean consommerRessourceStock( int iConso, String sType )
 	{
-		AltInt tmp = this.getRessourceByType( this.sType );
+		AltInt tmp = Ressource.getRessourceByType( sType );
 
 		if ( iConso < 1 || iConso > tmp.getEntier() )return false;
 
@@ -173,9 +173,9 @@ public class Ressource
 	 * @param iConso
 	 *          nombre de ressource à ajoute
 	 */
-	public boolean ajouterRessourceStock( int iConso )
+	public static boolean ajouterRessourceStock( int iConso, String sType )
 	{
-		AltInt iTmp = this.getRessourceByType( this.sType );
+		AltInt iTmp = Ressource.getRessourceByType( sType );
 
 		if ( iConso < 1 || iTmp.getEntier() + iConso > 15 )return false;
 
@@ -200,7 +200,7 @@ public class Ressource
 
 	public boolean ajouterRessourcePossible( int iQte )
 	{
-		return ( this.iQte + iQte ) < 15;
+		return ( Ressource.getRessourceByType(this.sType).getEntier() - iQte ) > 0;
 	}
 
 	public boolean consommerRessourcePossible( int iQte )
@@ -258,7 +258,7 @@ public class Ressource
 	 */
 	public boolean setQteJoueur(int iNb )
 	{
-		AltInt aTmp = this.getRessourceByType(this.sType);
+		AltInt aTmp = Ressource.getRessourceByType(this.sType);
 		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
 
 		this.iQte += iNb;

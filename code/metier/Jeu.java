@@ -231,8 +231,8 @@ public class Jeu
 		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
 		if ( bTmp.estRessource() || 
-		     jTmp.getRessource("EAU") < iEau || jTmp.getRessource("PIERRE") < iPierre ||
-		     jTmp.getRessource("BLE") < iBle || jTmp.getRessource("BOIS"  ) < iBois   )
+		     jTmp.getQteRessource("EAU") < iEau || jTmp.getQteRessource("PIERRE") < iPierre ||
+		     jTmp.getQteRessource("BLE") < iBle || jTmp.getQteRessource("BOIS"  ) < iBois   )
 			 return false;
 
 		this.gererRessource(bTmp::getReq, -1);
@@ -339,8 +339,8 @@ public class Jeu
 
 	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
 	{
-		if ( this.jCourant.getRessource("BLE") < iBle || this.jCourant.getRessource("BOIS")   < iBois   ||
-		     this.jCourant.getRessource("EAU") < iEau || this.jCourant.getRessource("PIERRE") < iPierre ||
+		if ( this.jCourant.getQteRessource("BLE") < iBle || this.jCourant.getQteRessource("BOIS")   < iBois   ||
+		     this.jCourant.getQteRessource("EAU") < iEau || this.jCourant.getQteRessource("PIERRE") < iPierre ||
 			 this.jCourant.getNbPiece() < iPiece )return false;
 
 		return true;
@@ -525,10 +525,18 @@ public class Jeu
 		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu2 )
 		  )
 		{
-			this.jCourant.consommerRessource(  1, ressourceSaisi1 );
-			this.jCourant.consommerRessource(  1, ressourceSaisi2 );
-			this.jCourant.ajouterRessource( 1, ressourceVoulu1 );
-			this.jCourant.ajouterRessource( 1, ressourceVoulu2 );
+			//this.jCourant.consommerRessource  (  1, ressourceSaisi1 );
+			this.jCourant.getRessource(ressourceSaisi1).consommerRessource(1);
+			Ressource.ajouterRessourceStock   (  1, ressourceSaisi1 );
+			//this.jCourant.consommerRessource  (  1, ressourceSaisi2 );
+			this.jCourant.getRessource(ressourceSaisi2).consommerRessource(1);
+			Ressource.ajouterRessourceStock   (  1, ressourceSaisi2 );
+			//this.jCourant.ajouterRessource    (  1, ressourceVoulu1 );
+			this.jCourant.getRessource(ressourceVoulu1).ajouterRessource(1);
+			Ressource.consommerRessourceStock (  1, ressourceVoulu1 );
+			//this.jCourant.ajouterRessource    (  1, ressourceVoulu2 );
+			this.jCourant.getRessource(ressourceVoulu2).ajouterRessource(1);
+			Ressource.consommerRessourceStock (  1, ressourceVoulu2 );
 		}
 
 		this.preteurSurGage = false;

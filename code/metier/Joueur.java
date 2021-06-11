@@ -81,7 +81,7 @@ public class Joueur
 	/**
 	 * C'est les ressource de bois du joueur
 	 *
-	 * @see getRessource()
+	 * @see getQteRessource()
 	 * @see ajouterRessource()
 	 * @see consommerRessource()
 	 */
@@ -89,7 +89,7 @@ public class Joueur
 	/**
 	 * C'est les ressources de bois du joueur
 	 *
-	 * @see getRessource()
+	 * @see getQteRessource()
 	 * @see ajouterRessource()
 	 * @see consommerRessource()
 	 */
@@ -97,7 +97,7 @@ public class Joueur
 	/**
 	 * C'est les ressources de pierre du joueur
 	 *
-	 * @see getRessource()
+	 * @see getQteRessource()
 	 * @see ajouterRessource()
 	 * @see consommerRessource()
 	 */
@@ -171,24 +171,28 @@ public class Joueur
 	 *	le nombre de piece du joueur
 	 */
 	public int    getNbPiece () { return this.iNbPiece; }
+	
 	/**
 	 * retourne la couleur du joueur
 	 * @return 
 	 *	la couleur du joueur
 	 */
 	public String getCouleur () { return this.SCOULEUR; }
+	
 	/**
 	 * retourne le nombre de point du joueur
 	 * @return 
 	 *	le nombre de point du joueur
 	 */
-    	public int    getScore   () { return this.iScore  ; }
-	 /**
+    public int    getScore   () { return this.iScore  ; }
+	
+	/**
 	 * retourne le nombre de Batiment possédé par le joueur
 	 * @return 
 	 * le nombre de batiment possédé par le joueur
 	 */
-    	public int getNbBatiment() { return this.alBatiment.size();}
+    public int getNbBatiment() { return this.alBatiment.size();}
+	
 	/**
 	 * retourne le nombre de ressource de la ressource en parametre
 	 * @param sType
@@ -197,7 +201,7 @@ public class Joueur
 	 *	le nombre de ressource de la ressource en parametre
 	 */
 	
-	public int getRessource(String sType)
+	public int getQteRessource(String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -208,6 +212,27 @@ public class Joueur
 		}
 		
 		return 0;
+	}
+
+	/**
+	 * retourne la ressource en parametre
+	 * @param sType
+	 *	nom de la ressource
+	 * @return 
+	 *	la ressource en parametre
+	 */
+	
+	public Ressource getRessource(String sType)
+	{
+		switch ( sType.toUpperCase() )
+		{
+			case "BLE"    -> { return this.rBle;    }
+			case "EAU"    -> { return this.rEau;    }
+			case "BOIS"   -> { return this.rBois;   }
+			case "PIERRE" -> { return this.rPierre; }
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -447,7 +472,7 @@ public class Joueur
 	}
 
 
-	public void ajouterRessource(int iVal, String sType)
+	/*public void ajouterRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -456,9 +481,9 @@ public class Joueur
 			case "BOIS"   : { this.rBois  .ajouterRessource( iVal ); break; }
 			case "PIERRE" : { this.rPierre.ajouterRessource( iVal ); break; }
 		}
-	}
+	}*/
 
-	public void consommerRessource(int iVal, String sType)
+	/*public void consommerRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
@@ -467,7 +492,7 @@ public class Joueur
 			case "BOIS"   : { this.rBois  .consommerRessource( iVal ); }
 			case "PIERRE" : { this.rPierre.consommerRessource( iVal ); }
 		}
-	}
+	}*/
 
 	public boolean ajouterRessourcePossible( int iQte, String sRessource )
 	{
@@ -505,10 +530,10 @@ public class Joueur
 		sRet += String.format("|%-28s", "Espace joueur " + this.SCOULEUR    ) + "\n";
 		sRet += String.format("|%-28s", "Score : " + this.iScore                ) + "\n";
 		sRet += String.format("|%-28s", "Piece : " + this.iNbPiece              ) + "\n";
-		sRet += String.format("|%-28s", "Bois  : " + this.getRessource("BOIS"  )) + "\n";
-		sRet += String.format("|%-28s", "Ble   : " + this.getRessource("BLE"   )) + "\n";
-		sRet += String.format("|%-28s", "Eau   : " + this.getRessource("EAU"   )) + "\n";
-		sRet += String.format("|%-28s", "Pierre: " + this.getRessource("PIERRE")) + "\n";
+		sRet += String.format("|%-28s", "Bois  : " + this.getQteRessource("BOIS"  )) + "\n";
+		sRet += String.format("|%-28s", "Ble   : " + this.getQteRessource("BLE"   )) + "\n";
+		sRet += String.format("|%-28s", "Eau   : " + this.getQteRessource("EAU"   )) + "\n";
+		sRet += String.format("|%-28s", "Pierre: " + this.getQteRessource("PIERRE")) + "\n";
 
 		return sRet;
 	}
