@@ -130,6 +130,22 @@ public class CUI
 		return sRet;
 	}
 
+	public String afficherMenuNourriture(Joueur j)
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace nourriture " + j.getCouleur()) + "\n";
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "1. Choisir ressource") + "\n";
+		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
+		sRet += String.format("|%-36s|", "3. Valider") + "\n";
+		sRet += "======================================\n";
+
+		return sRet;
+	}
+
+
 	public void afficherMenuConstructionBatiment()
 	{
 		String sRet = "";
@@ -179,6 +195,19 @@ public class CUI
 		{
 			sRet += String.format("|%-36s|", "Veuillez entrer un type de batiment") + "\n";
 		}
+
+		if(sTypeSaisie.equals("TypeR"))
+		{
+			sRet += String.format("|%-36s|", "Veuillez entrer un type de ressource") + "\n";
+		}
+
+		if(sTypeSaisie.equals("Qte"))
+		{
+			sRet += String.format("|%-36s|", "Veuillez entrer une quantité") + "\n";
+		}
+
+
+		sRet += "======================================\n";
 
 		Console.println(sRet);
 	}
