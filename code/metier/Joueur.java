@@ -426,4 +426,43 @@ public class Joueur
 		this.bNourri = false;
 		this.alOuvrier.clear();
 	}
+
+	public int classementJoueurs()
+	{
+		
+		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
+
+		ArrayList<Integer> alInt = new ArrayList<Integer>();
+
+		for ( int cpt = 0; cpt < classement.length; cpt++)
+			alInt.add(jeu.getJoueurs()[cpt].getScore());
+
+		Collections.sort(alInt);
+
+		for ( Integer score : alInt)
+			if ( this.iScore == score )
+				return alInt.indexOf(score);
+
+		return 0;
+	}
+
+	/**
+	 * toString par défaut de la classe joueur
+	 * @return
+	 *      Toutes les données d'un joueur
+	 */
+	public String toString()
+	{
+		String sRet = "";
+
+		sRet += String.format("|%-28s", "Espace joueur " + this.SCOULEUR    ) + "\n";
+		sRet += String.format("|%-28s", "Score : " + this.iScore                ) + "\n";
+		sRet += String.format("|%-28s", "Piece : " + this.iNbPiece              ) + "\n";
+		sRet += String.format("|%-28s", "Bois  : " + this.getRessource("BOIS"  )) + "\n";
+		sRet += String.format("|%-28s", "Ble   : " + this.getRessource("BLE"   )) + "\n";
+		sRet += String.format("|%-28s", "Eau   : " + this.getRessource("EAU"   )) + "\n";
+		sRet += String.format("|%-28s", "Pierre: " + this.getRessource("PIERRE")) + "\n";
+
+		return sRet;
+	}
 }
