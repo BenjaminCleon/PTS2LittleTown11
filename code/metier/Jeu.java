@@ -1,5 +1,6 @@
 package equipe_11.metier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Function;
