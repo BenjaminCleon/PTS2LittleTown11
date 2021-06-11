@@ -176,7 +176,7 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public void afficherMenuNourriture(Joueur j)
+	public void afficherMenuNourriture(Joueur j, String sMes)
 	{
 		String sRet = "";
 
@@ -187,10 +187,10 @@ public class CUI
 		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
 		sRet += String.format("|%-36s|", "3. Valider") + "\n";
 		sRet += "======================================\n";
+		sRet += sMes;
 
 		Console.println(sRet);
 	}
-
 
 	public void afficherMenuConstructionBatiment()
 	{
