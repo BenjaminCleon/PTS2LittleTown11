@@ -2,6 +2,7 @@ package equipe_11.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import equipe_11.metier.BatimentInfo;
 import equipe_11.metier.Jeu;
@@ -200,10 +201,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { return this.rBle   .getQteRessource();}
-			case "EAU"    -> { return this.rEau   .getQteRessource();}
-			case "BOIS"   -> { return this.rBois  .getQteRessource();}
-			case "PIERRE" -> { return this.rPierre.getQteRessource();}
+			case "BLE"    : { return this.rBle   .getQteRessource(); }
+			case "EAU"    : { return this.rEau   .getQteRessource(); }
+			case "BOIS"   : { return this.rBois  .getQteRessource(); }
+			case "PIERRE" : { return this.rPierre.getQteRessource(); }
 		}
 		
 		return 0;
@@ -221,10 +222,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .setQteJoueur( iVal ); }
-			case "EAU"    -> { this.rEau   .setQteJoueur( iVal ); }
-			case "BOIS"   -> { this.rBois  .setQteJoueur( iVal ); }
-			case "PIERRE" -> { this.rPierre.setQteJoueur( iVal ); }
+			case "BLE"    : { this.rBle   .setQteJoueur( iVal ); break; }
+			case "EAU"    : { this.rEau   .setQteJoueur( iVal ); break; }
+			case "BOIS"   : { this.rBois  .setQteJoueur( iVal ); break; }
+			case "PIERRE" : { this.rPierre.setQteJoueur( iVal ); break; }
 		}
 	}
 

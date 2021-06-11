@@ -103,8 +103,7 @@ public class Controleur
 
 				this.ihm.mettreIhmAJour();
 
-				if(!this.nourrirOuvrier())
-					continue;
+				this.nourrirOuvrier();
 
 			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
@@ -245,7 +244,12 @@ public class Controleur
 		this.ihm.afficherInfo();
 	}
 	
-	public ArrayList<String> getLstBat()
+	public ArrayList<BatimentInfo> getLstBat()
+	{
+		return this.metier.getLstBat();
+	}
+
+	public ArrayList<String> getLstNomBat()
 	{
 		return this.metier.getLstNomBat();
 	}

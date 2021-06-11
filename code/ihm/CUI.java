@@ -130,7 +130,7 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public String afficherMenuNourriture(Joueur j)
+	public void afficherMenuNourriture(Joueur j)
 	{
 		String sRet = "";
 
@@ -142,7 +142,7 @@ public class CUI
 		sRet += String.format("|%-36s|", "3. Valider") + "\n";
 		sRet += "======================================\n";
 
-		return sRet;
+		Console.println(sRet);
 	}
 
 

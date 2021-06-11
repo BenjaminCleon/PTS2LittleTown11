@@ -2,6 +2,7 @@ package equipe_11.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.function.Function;
 
@@ -124,9 +125,9 @@ public class Jeu
 
 		switch ( this.iNbJoueur )
 		{
-			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
-			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
-			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; }
+			case 3  : { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; break; }
+			case 4  : { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; break; }
+			default : { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; break; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
