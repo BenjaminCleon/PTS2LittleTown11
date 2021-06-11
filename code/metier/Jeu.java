@@ -134,6 +134,12 @@ public class Jeu
 		
 		this.jCourant    = this.tabJoueurs[0];
 		
+		System.out.println( this.detVainqueur().getCouleur() );
+		this.tabJoueurs[0].setScore(1);
+		System.out.println( this.detVainqueur().getCouleur() );
+		this.tabJoueurs[1].setScore(2);
+		System.out.println( this.detVainqueur().getCouleur() );
+
 		return true;
 	}
 
@@ -229,6 +235,8 @@ public class Jeu
 		pTmp = new Pion(iLig-1, cCol, this.jCourant.getCouleur(), sType);
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
+
+		this.alBat.remove(bTmp);
 
 		this.verifierManche();
 		this.changerJoueur();
@@ -475,5 +483,22 @@ public class Jeu
 	public Joueur[] getJoueurs()
 	{
 		return this.tabJoueurs;
+	}
+
+	public Joueur detVainqueur()
+	{
+
+		ArrayList<Integer> alInt = new ArrayList<Integer>();
+
+		for ( int cpt = 0; cpt < this.tabJoueurs.length; cpt++)
+			alInt.add(this.getJoueurs()[cpt].getScore());
+
+		alInt.sort(null);
+
+		for ( Joueur j : this.tabJoueurs )
+			if ( j.getScore() == alInt.get(1) )
+				return j;
+
+		return null;
 	}
 }

@@ -426,23 +426,4 @@ public class Joueur
 		this.bNourri = false;
 		this.alOuvrier.clear();
 	}
-
-	public int classementJoueurs()
-	{
-		
-		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
-
-		ArrayList<Integer> alInt = new ArrayList<Integer>();
-
-		for ( int cpt = 0; cpt < classement.length; cpt++)
-			alInt.add(jeu.getJoueurs()[cpt].getScore());
-
-		Collections.sort(alInt);
-
-		for ( Integer score : alInt)
-			if ( this.iScore == score )
-				return alInt.indexOf(score);
-
-		return 0;
-	}
 }
