@@ -32,8 +32,10 @@ public class CUI
 	public void afficherPlateau()
 	{
 		Pion[][] tabPlateau = this.ctrl.getPlateau();
+		BatimentInfo[] tabPioche = this.ctrl.getLstBat().toArray(new BatimentInfo[this.ctrl.getLstBat().size()]);
 
-		int  cpt = 0;	
+		int  cpt       = 0;
+		int  cptPioche = 0;
 
 		Console.print("\t");
 
@@ -44,7 +46,7 @@ public class CUI
 		for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
-		Console.println();
+		Console.println(tabPioche[cptPioche++]);
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
@@ -59,17 +61,16 @@ public class CUI
 				Console.print((!pTmp.getNom ().equals("OUVRIER") &&
 					           !pTmp.getCoul().equals("BLANC"))?"*":" ");
 				Console.normal();
-				Console.print("  |  ");
+				Console.print(j==tabPlateau[0].length-1?"  |":"  |  ");
 			}
-			Console.println();
+			Console.println(tabPioche[cptPioche++].name());
 
 			Console.print("+-------+");
 			for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
-			Console.println();
+			Console.println(tabPioche[cptPioche++].name() + ((cptPioche==13)?" x" + this.ctrl.getNbChampsDeble():""));
 		}
-
 		this.plateauBas();
 	}
 
@@ -120,11 +121,11 @@ public class CUI
 	{
 		switch( sCoul.toUpperCase() )
 		{
-			case "ROUGE"  : { Console.couleurFont( CouleurConsole.ROUGE ); break; }
-			case "VERT"   : { Console.couleurFont( CouleurConsole.VERT  ); break; }
-			case "BLEU"   : { Console.couleurFont( CouleurConsole.BLEU  ); break; }
-			case "JAUNE"  : { Console.couleurFont( CouleurConsole.JAUNE ); break; }
-			default       : { Console.normal(); break; }
+			case "ROUGE"  -> Console.couleurFont( CouleurConsole.ROUGE );
+			case "VERT"   -> Console.couleurFont( CouleurConsole.VERT  );
+			case "BLEU"   -> Console.couleurFont( CouleurConsole.CYAN );
+			case "JAUNE"  -> Console.couleurFont( CouleurConsole.JAUNE );
+			default       -> Console.normal();
 		}
 	}
 
@@ -242,6 +243,12 @@ public class CUI
 		sRet += "======================================\n";
 
 		Console.println(sRet);
+	}
+
+
+	public String afficherCoord()
+	{
+		return String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
 	}
 	
 	public String afficherRessource(Joueur j)

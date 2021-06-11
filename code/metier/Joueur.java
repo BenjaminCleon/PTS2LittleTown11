@@ -201,10 +201,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    : { return this.rBle   .getQteRessource(); }
-			case "EAU"    : { return this.rEau   .getQteRessource(); }
-			case "BOIS"   : { return this.rBois  .getQteRessource(); }
-			case "PIERRE" : { return this.rPierre.getQteRessource(); }
+			case "BLE"    -> { return this.rBle   .getQteRessource(); }
+			case "EAU"    -> { return this.rEau   .getQteRessource(); }
+			case "BOIS"   -> { return this.rBois  .getQteRessource(); }
+			case "PIERRE" -> { return this.rPierre.getQteRessource(); }
 		}
 		
 		return 0;
@@ -222,10 +222,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    : { this.rBle   .setQteJoueur( iVal ); break; }
-			case "EAU"    : { this.rEau   .setQteJoueur( iVal ); break; }
-			case "BOIS"   : { this.rBois  .setQteJoueur( iVal ); break; }
-			case "PIERRE" : { this.rPierre.setQteJoueur( iVal ); break; }
+			case "BLE"    -> this.rBle   .setQteJoueur( iVal );
+			case "EAU"    -> this.rEau   .setQteJoueur( iVal );
+			case "BOIS"   -> this.rBois  .setQteJoueur( iVal );
+			case "PIERRE" -> this.rPierre.setQteJoueur( iVal );
 		}
 	}
 
@@ -344,7 +344,7 @@ public class Joueur
 				if ( !this.setPiece(-3) )this.iScore -= 3;
 				nbOuvrierNourri++;
 			}
-			this.bNourri = false;
+			this.bNourri = true;
 			return "Ouvriers nourris avec le peu de vos ressources.";
 		}
 

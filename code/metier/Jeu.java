@@ -1,5 +1,6 @@
 package equipe_11.metier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,8 +70,9 @@ public class Jeu
 	public Jeu()
 	{
 		this.iNbChampsDeBle = 5;
-		this.tabPion       = new Pion[6][9];
-		this.alBat         = BatimentInfo.getLstBat();
+		this.iNumManche     = 1;
+		this.tabPion        = new Pion[6][9];
+		this.alBat          = BatimentInfo.getLstBat();
 
 		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
 		this.alBat.remove(BatimentInfo.PIERRE     );
@@ -128,7 +130,7 @@ public class Jeu
 		{
 			case 3  : { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; break; }
 			case 4  : { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; break; }
-			default : { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; break; }
+			default : { this.iNbOuvrierMax = 2; this.iNbBatimentMax = 7; break; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
@@ -305,7 +307,6 @@ public class Jeu
 		this.tabPion[iLig-1][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.verifierManche();
 		return true;
 	}
 
@@ -419,25 +420,16 @@ public class Jeu
 	 * @return
 	 *        Si la macnhe est passé ou non
 	 */
-	public boolean verifierManche()
+	public boolean passerManche()
 	{
-		for ( Joueur j : this.tabJoueurs )
-		{
-			if ( ! j.estNourri() )return false;
-		}
-		
-
 		for( int i = 0; i < tabPion.length; i++)
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
-			{
-				Pion pTmp = this.tabPion[i][j];
-
-				if ( pTmp.getNom().equals("OUVRIER") ) pTmp = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
-			}
+				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
+						this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
 		}
 
-		this.iNumManche ++;
+		this.iNumManche++;
 
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();
@@ -456,7 +448,8 @@ public class Jeu
 		return true;
 	}
 
-	public int getNumManche(){ return this.iNumManche; }
+	public int getNbChampsDeble(){ return this.iNbChampsDeBle; }
+	public int getNumManche    (){ return this.iNumManche    ; }
 
 	public ArrayList<BatimentInfo> getLstBat()
 	{

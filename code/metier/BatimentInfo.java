@@ -308,11 +308,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleReA   (); break; }
-			case "PIERRE" : { iVal = this.getPierreReA(); break; }
-			case "BOIS"   : { iVal = this.getBoisReA  (); break; }
-			case "EAU"    : { iVal = this.getEauReA   (); break; }
-			case "PIECE"  : { iVal = this.getPcReA    (); break; }
+			case "BLE"    -> iVal = this.getBleReA   ();
+			case "PIERRE" -> iVal = this.getPierreReA();
+			case "BOIS"   -> iVal = this.getBoisReA  ();
+			case "EAU"    -> iVal = this.getEauReA   ();
+			case "PIECE"  -> iVal = this.getPcReA    ();
 		}
 
 		return iVal;
@@ -324,11 +324,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleRec   (); break; } 
-			case "PIERRE" : { iVal = this.getPierreRec(); break; } 
-			case "BOIS"   : { iVal = this.getBoisRec  (); break; } 
-			case "EAU"    : { iVal = this.getEauRec   (); break; }
-			case "PIECE"  : { iVal = this.getPcRec    (); break; }
+			case "BLE"    -> iVal = this.getBleRec   (); 
+			case "PIERRE" -> iVal = this.getPierreRec(); 
+			case "BOIS"   -> iVal = this.getBoisRec  (); 
+			case "EAU"    -> iVal = this.getEauRec   ();
+			case "PIECE"  -> iVal = this.getPcRec    ();
 		}
 
 		return iVal;
@@ -340,11 +340,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleReq   (); break; }
-			case "PIERRE" : { iVal = this.getPierreReq(); break; }
-			case "BOIS"   : { iVal = this.getBoisReq  (); break; }
-			case "EAU"    : { iVal = this.getEauReq   (); break; }
-			case "PIECE"  : { iVal = this.getPcReq    (); break; }
+			case "BLE"    -> iVal = this.getBleReq   ();
+			case "PIERRE" -> iVal = this.getPierreReq();
+			case "BOIS"   -> iVal = this.getBoisReq  ();
+			case "EAU"    -> iVal = this.getEauReq   ();
+			case "PIECE"  -> iVal = this.getPcReq    ();
 		}
 
 		return iVal;

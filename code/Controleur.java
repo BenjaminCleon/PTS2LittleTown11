@@ -9,6 +9,7 @@ import equipe_11.metier.Joueur;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.EmptyStackException;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -94,11 +95,11 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 : { this.construire    (); break; }
-					case 2 : { this.ajouterOuvrier(); break; }
-					case 3 : { this.obtenirInfo   (); break; }
-					case 4 : { this.echangerPiece();  break; }
-					case 5 : { System.exit(0)       ; break; }
+					case 1 -> this.construire    ();
+					case 2 -> this.ajouterOuvrier();
+					case 3 -> this.obtenirInfo   ();
+					case 4 -> this.echangerPiece ();
+					case 5 -> System.exit(0)       ;
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -129,23 +130,19 @@ public class Controleur
 
 			switch(iEntreeUtilisateur)
 			{
-				case 1 : { 
+				case 1 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie();
-
-					break;
 				}
 
-				case 2 : { 
+				case 2 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie(); 
-
-					break;
 				}
 
-				case 3 : { 
+				case 3 -> { 
 					if(verifierParametereConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
@@ -153,8 +150,6 @@ public class Controleur
 
 						iEntreeUtilisateur = 4;
 					}
-
-					break;
 				}
 			}
 
@@ -206,8 +201,8 @@ public class Controleur
 					saisie = this.getSaisie();
 					switch ( saisie )
 					{
-						case "1" : { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); break;}
-						case "2" :
+						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); }
+						case "2" ->
 						{
 							do
 							{
@@ -222,8 +217,6 @@ public class Controleur
 							{
 								this.ihm.afficherPreteurSurGage();
 							}
-
-							break;
 						}
 					}
 				}
@@ -263,6 +256,8 @@ public class Controleur
 		return this.metier.getLstNomBat();
 	}
 
+	public int getNbChampsDeble(){ return this.metier.getNbChampsDeble(); }
+
 	public int getNumManche(){ return this.metier.getNumManche(); }
 
 	public boolean nourrirOuvrier()
@@ -282,9 +277,11 @@ public class Controleur
 
 		for(Joueur j : this.metier.getJoueurs())
 		{
-			iQteRessource = 0;
-			iQuantiteBle = 0;
-			iQuantiteEau = 0;
+			if(!j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
+
+			iQteRessource  = 0;
+			iQuantiteBle   = 0;
+			iQuantiteEau   = 0;
 			iQuantitePiece = 0;
 
 			while(iQteRessource < j.getNbOuvrier())
@@ -319,8 +316,7 @@ public class Controleur
 					}
 
 					case 3 : {
-
-
+						
 						String sRessource = pileRessource.pop();
 						sRessource = sRessource.toUpperCase();
 
@@ -349,8 +345,11 @@ public class Controleur
 			this.ihm.mettreIhmAJour();
 			this.ihm.afficherMenuNourriture(j);
 			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
+
+
 			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
 		}
+		this.metier.passerManche();
 	
 		return true;
 	}
