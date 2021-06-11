@@ -381,6 +381,7 @@ public class Jeu
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
+			if ( this.jCourant.getNbPiece() == 0 )return false;
 			for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(pTmp.getCoul()) )
 				{
@@ -402,6 +403,7 @@ public class Jeu
 		this.gererRessource(bTmp::getRec, 1);
 
 		this.jCourant.setScore(bTmp.getPtRec());
+		this.jCourant.retirerBatimentAListeTmp(bTmp);
 
 		return true;
 	}
@@ -435,6 +437,11 @@ public class Jeu
 		return true;
 	}
 
+	/**
+	 * Vérifie si tous les ouvriers de tous les joueurs sont posés
+	 * @return
+	 *    true si tous les ouvriers sont posés
+	 */
 	public boolean isToutOuvriersPose()
 	{
 		for( int i = 0; i < this.tabJoueurs.length; i++ )
@@ -444,6 +451,23 @@ public class Jeu
 			if ( jTmp.getNbOuvrier() != this.iNbOuvrierMax )return false;
 		}
 		return true;
+	}
+
+	public boolean verifierConstruction()
+	{
+		boolean bOk = true;
+
+		if ( this.jCourant.getLstBatimentAutourOuvrier().size() == 0 ) return false;
+
+		if ( this.jCourant.getNbPiece() == 0 )
+		{
+			bOk = false;
+			for ( BatimentInfo b : this.jCourant.getLstBatimentAutourOuvrier() )
+				for ( Pion p : this.jCourant.getBatiments())
+					if ( b.name().equals(p.getNom()) )bOk = true;
+		}
+		
+		return bOk;
 	}
 
 	public int getNbChampsDeble(){ return this.iNbChampsDeBle; }

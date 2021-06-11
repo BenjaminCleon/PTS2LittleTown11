@@ -97,9 +97,8 @@ public class Controleur
 				{
 					case 1 -> this.construire    ();
 					case 2 -> this.ajouterOuvrier();
-					case 3 -> this.obtenirInfo   ();
-					case 4 -> this.echangerPiece ();
-					case 5 -> System.exit(0)       ;
+					case 3 -> this.echangerPiece ();
+					case 4 -> System.exit(0)       ;
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -183,7 +182,7 @@ public class Controleur
 			this.ihm.mettreIhmAJour();
 			this.ihm.afficherMenuSaisie("Coord");
 			saisie = this.getSaisie().toUpperCase();
-		}while ( !saisie.matches("^[A-I][1-6]$"));
+		}while ( !saisie.matches("^([a-i]|[A-I])[1-6]$"));
 
 		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
 		{
@@ -192,7 +191,7 @@ public class Controleur
 				this.ihm.mettreIhmAJour();
 				this.ihm.afficherMenuActivation();
 				alBat = this.metier.getLstBatimentAutourOuvrier  ();
-				if ( alBat.size() == 0 )
+				if ( !this.metier.verifierConstruction() )
 				{
 					saisie = "3";
 				}
@@ -210,7 +209,8 @@ public class Controleur
 								this.ihm.afficherMenuSaisie("Coord");
 								{
 									saisie = this.getSaisie().toUpperCase();
-								}while ( !saisie.matches("^[A-I][1-6]$"));
+								}while ( !saisie.matches("^([a-i]|[A-I])[1-6]$"));
+
 							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
 
 							if( metier.getPreteurSurGage() )

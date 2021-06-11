@@ -226,6 +226,7 @@ public class Joueur
 			case "EAU"    -> this.rEau   .setQteJoueur( iVal );
 			case "BOIS"   -> this.rBois  .setQteJoueur( iVal );
 			case "PIERRE" -> this.rPierre.setQteJoueur( iVal );
+			case "PIECE"  -> this.iNbPiece += iVal;
 		}
 	}
 
@@ -373,28 +374,9 @@ public class Joueur
 
 		if ( ! sRet.isEmpty() )return sRet;
 
-		// if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER &&
-		// 		this.rEau.consommerRessource( this.NB_OUVRIER ) )
-		// 	nbOuvrierNourri = this.NB_OUVRIER;
-		
-		// if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER &&
-		// 		this.rBle.consommerRessource( NB_OUVRIER ) )
-		// 	nbOuvrierNourri = this.NB_OUVRIER;
-
-		// if ( nbOuvrierNourri < this.NB_OUVRIER)
-		// {
-			this.rEau.consommerRessource(nbEau);
-			this.rBle.consommerRessource(nbBle);
-			this.setPiece(-nbPiece);
-
-			//nbOuvrierNourri = nbPiece + nbBle + nbEau;
-		//}
-
-		// while ( nbOuvrierNourri < this.NB_OUVRIER)
-		// {
-		// 	this.iScore -= 3;
-		// 	nbOuvrierNourri++;
-		// }
+		this.rEau.consommerRessource(nbEau);
+		this.rBle.consommerRessource(nbBle);
+		this.setPiece(-nbPiece);
 
 		this.bNourri = true;
 
@@ -502,13 +484,13 @@ public class Joueur
 	{
 		String sRet = "";
 
-		sRet += String.format("|%-28s", "Espace joueur " + this.SCOULEUR    ) + "\n";
-		sRet += String.format("|%-28s", "Score : " + this.iScore                ) + "\n";
-		sRet += String.format("|%-28s", "Piece : " + this.iNbPiece              ) + "\n";
-		sRet += String.format("|%-28s", "Bois  : " + this.getRessource("BOIS"  )) + "\n";
-		sRet += String.format("|%-28s", "Ble   : " + this.getRessource("BLE"   )) + "\n";
-		sRet += String.format("|%-28s", "Eau   : " + this.getRessource("EAU"   )) + "\n";
-		sRet += String.format("|%-28s", "Pierre: " + this.getRessource("PIERRE")) + "\n";
+		sRet += String.format("|%-27s", "Espace joueur " + this.SCOULEUR    ) + "\n";
+		sRet += String.format("|%-27s", "Score : " + this.iScore                ) + "\n";
+		sRet += String.format("|%-27s", "Piece : " + this.iNbPiece              ) + "\n";
+		sRet += String.format("|%-27s", "Bois  : " + this.getRessource("BOIS"  )) + "\n";
+		sRet += String.format("|%-27s", "Ble   : " + this.getRessource("BLE"   )) + "\n";
+		sRet += String.format("|%-27s", "Eau   : " + this.getRessource("EAU"   )) + "\n";
+		sRet += String.format("|%-27s", "Pierre: " + this.getRessource("PIERRE")) + "\n";
 
 		return sRet;
 	}
