@@ -3,6 +3,8 @@ package equipe_11.ihm;
 import equipe_11.Controleur;
 import equipe_11.metier.*;
 
+import java.util.ArrayList;
+
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
 
@@ -16,7 +18,6 @@ public class CUI
 
 		this.choixDebutPartie();
 		this.mettreIhmAJour();
-	 	Console.println(this.afficherMenuChoix());
 	}
 
 
@@ -45,15 +46,31 @@ public class CUI
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
-			Console.print(++cpt + "\t| ");
+			Console.print(++cpt + "\t|  ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
 			{
 				this.setCouleur(tabPlateau[i][j].getCoul());
 				Console.print(String.format("%-6.6s", tabPlateau[i][j].toString()));
 				Console.normal();
 				Console.print("  |  ");
+				/*Pion pTmp = tabPlateau[i][j];
+				if ( pTmp.getNom().equals("OUVRIER") )this.setCouleur(pTmp.getCoul());
+
+				Console.print(String.format("%-6.6s", pTmp	.toString()));
+				Console.print((!pTmp.getNom ().equals("OUVRIER") &&
+					           !pTmp.getCoul().equals("BLANC"))?"*":" ");
+				Console.normal();
+				Console.print("  |  ");*/
 			}
 			Console.println();
+
+			Console.print("+-------+");
+			for(int nbCol = 0; nbCol < 9; nbCol++)
+			{
+				Console.print("----------+");
+			}
+			Console.println();
+
 		}
 
 		Console.println();
@@ -63,11 +80,11 @@ public class CUI
 	{
 		switch( sCoul.toUpperCase() )
 		{
-			case "ROUGE"  : Console.couleurFont( CouleurConsole.ROUGE ); break;
-			case "VERT"   : Console.couleurFont( CouleurConsole.VERT  ); break;
-			case "BLEU"   : Console.couleurFont( CouleurConsole.BLEU  ); break;
-			case "JAUNE"  : Console.couleurFont( CouleurConsole.JAUNE ); break;
-			default       : Console.normal();
+			case "ROUGE"  : { Console.couleurFont( CouleurConsole.ROUGE ); break; }
+			case "VERT"   : { Console.couleurFont( CouleurConsole.VERT  ); break; }
+			case "BLEU"   : { Console.couleurFont( CouleurConsole.BLEU  ); break; }
+			case "JAUNE"  : { Console.couleurFont( CouleurConsole.JAUNE ); break; }
+			default       : { Console.normal(); break; }
 		}
 	}
 
@@ -113,23 +130,7 @@ public class CUI
 		return sRet;
 	}
 
-	public String afficherMenuNourriture()
-	{
-		String sRet = "";
-
-		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Espace nourriture " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "1. Choisir ressource") + "\n";
-		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
-		sRet += String.format("|%-36s|", "3. Valider") + "\n";
-		sRet += "======================================\n";
-
-		return sRet;
-	}
-
-
-	public String afficherMenuConstructionBatiment()
+	public void afficherMenuConstructionBatiment()
 	{
 		String sRet = "";
 
@@ -143,10 +144,10 @@ public class CUI
 		sRet += String.format("|%-36s|", "4. Quitter le menu de construction.") + "\n";
 		sRet += "======================================\n";
 
-		return sRet;
+		Console.println(sRet);
 	}
 
-	public String afficherMenuEchangePiece()
+	public void afficherMenuEchangePiece()
 	{
 		String sRet = "";
 
@@ -156,33 +157,30 @@ public class CUI
 		sRet += String.format("|%-36s|", "Veuillez entrer une ressource") + "\n";
 		sRet += "======================================\n";
 
-		return sRet;
+		Console.println(sRet);
 	}
 
-	public String afficherMenuSaisie(String sTypeSaisie)
+	public void afficherMenuSaisie(String sTypeSaisie)
 	{
 
 		String sRet = "";
 
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
+		sRet += "======================================\n";
+
+
 		if(sTypeSaisie.equals("Coord"))
 		{
-			sRet += "======================================\n";
-			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
-			sRet += "======================================\n";
 			sRet += String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
-			sRet += "======================================\n";
 		}
 
 		if(sTypeSaisie.equals("Type"))
 		{
-			sRet += "======================================\n";
-			sRet += String.format("|%-36s|", "Espace Saisie ") + "\n";
-			sRet += "======================================\n";
 			sRet += String.format("|%-36s|", "Veuillez entrer un type de batiment") + "\n";
-			sRet += "======================================\n";
 		}
 
-		return sRet;
+		Console.println(sRet);
 	}
 	
 	public String afficherRessource()
@@ -197,7 +195,7 @@ public class CUI
 		return sRet;
 	}
 
-	public String afficherMenuPlacementOuvrier()
+	public void afficherMenuPlacementOuvrier()
 	{
 		String sRet = "";
 
@@ -205,10 +203,38 @@ public class CUI
 		sRet += String.format("|%-36s|", "Espace Ouvrier " + this.ctrl.getCouleurJoueur()) + "\n";
 		sRet += this.afficherRessource();
 		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Veuillez entrer les coordonnées.") + "\n";
+		sRet += String.format("|%-36s|", "1. Saisir coordonnées.") + "\n";
+		sRet += String.format("|%-36s|", "2. Quitter."           ) + "\n";
 		sRet += "======================================\n";
 
-		return sRet;
+		Console.println(sRet);
+	}
+
+	public void afficherMenuActivation()
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "1. Afficher detail sur batiment." ) + "\n";
+		sRet += String.format("|%-36s|", "2. Saisir coordonnées.") + "\n";
+		sRet += String.format("|%-36s|", "3. Joueur suivant."    ) + "\n";
+		sRet += "======================================\n";
+
+		Console.println(sRet);
+	}
+
+	public void demanderBatiment(ArrayList<BatimentInfo> alBats)
+	{
+		String sRet = "";
+
+		sRet += "======================================\n";
+		sRet += String.format("|%-36s|", "Saisissez le numéro du batiment:" ) + "\n";
+		for( BatimentInfo bTmp : alBats )sRet += String.format("|%-36s|",
+		                                         String.format("%15s", bTmp.name())) + "\n";
+		sRet += "======================================\n";
+	
+
+		Console.println(sRet);		
 	}
 	
 	public void afficherInfo()

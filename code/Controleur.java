@@ -1,10 +1,14 @@
 package equipe_11;
 
 import equipe_11.ihm.CUI;
-import equipe_11.metier.*;
+import equipe_11.metier.BatimentInfo;
+import equipe_11.metier.Jeu;
+import equipe_11.metier.Pion;
+import equipe_11.metier.Joueur;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -18,8 +22,6 @@ public class Controleur
 	{
 		this.metier = new Jeu();
 		this.ihm    = new CUI(this);
-
-
 
 		this.bouclePrincipale();
 	}
@@ -84,6 +86,9 @@ public class Controleur
 		{
 			try
 			{
+				this.ihm.mettreIhmAJour();
+				Console.println(this.ihm.afficherMenuChoix());
+
 
 				int choix = Integer.parseInt(getSaisie());
 
@@ -98,10 +103,8 @@ public class Controleur
 
 				this.ihm.mettreIhmAJour();
 
-				this.isToutOuvriersPose();
-
-				Console.println(this.ihm.afficherMenuChoix());
-
+				if(!this.nourrirOuvrier())
+					continue;
 
 			}catch(NumberFormatException e){ System.out.println("Vous avez fait un mauvais choix"); }
 		}
@@ -114,12 +117,11 @@ public class Controleur
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
 		String sType = null;
-		String sTypeSaisie = null;
 
 		do
 		{
 
-			System.out.println(this.ihm.afficherMenuConstructionBatiment());
+			this.ihm.afficherMenuConstructionBatiment();
 
 			try
 			{
@@ -130,13 +132,13 @@ public class Controleur
 			{
 				case 1 -> { 
 					this.ihm.mettreIhmAJour();
-					System.out.println(this.ihm.afficherMenuSaisie("Coord"));
+					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie();
 				}
 
 				case 2 -> { 
 					this.ihm.mettreIhmAJour();
-					System.out.println(this.ihm.afficherMenuSaisie("Type"));
+					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie(); 
 				}
 
@@ -166,47 +168,68 @@ public class Controleur
 
 	public void ajouterOuvrier()
 	{
-
 		this.ihm.mettreIhmAJour();
+		this.ihm.afficherMenuPlacementOuvrier();
+		ArrayList<BatimentInfo> alBat;
+		String saisie;
 
-		System.out.println(this.ihm.afficherMenuPlacementOuvrier());
-
-		String coord = getSaisie();
-		coord = coord.toUpperCase();
-
-		this.metier.ajouterOuvrier(Character.getNumericValue(coord.charAt(1)), coord.charAt(0));
-	}
-
-	public void nourrirOuvrier()
-	{
-		int iEntreeUtilisateur = 0;
-
-		this.ihm.mettreIhmAJour();
-
-		System.out.println(this.ihm.afficherMenuNourriture());
-
-		try
+		do
 		{
-			iEntreeUtilisateur = Integer.parseInt(getSaisie());
-		}catch(NumberFormatException e){ System.out.println("Nombre invalide"); }
+			saisie = this.getSaisie();
+			if ( saisie.equals("2") )return;
+		}while ( !saisie.matches("^[12]$") );
 
-		switch(iEntreeUtilisateur)
+		do
 		{
+			this.ihm.mettreIhmAJour();
+			this.ihm.afficherMenuSaisie("Coord");
+			saisie = this.getSaisie().toUpperCase();
+		}while ( !saisie.matches("^[A-I][1-6]$"));
+
+		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
+		{
+			do
+			{
+				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuActivation();
+				alBat = this.metier.getLstBatimentAutourOuvrier  ();
+				if ( alBat.size() == 0 )
+				{
+					saisie = "3";
+				}
+				else
+				{
+					saisie = this.getSaisie();
+					switch ( saisie )
+					{
+						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat);}
+						case "2" ->
+						{
+							do
+							{
+								this.ihm.mettreIhmAJour();
+								this.ihm.afficherMenuSaisie("Coord");
+								{
+									saisie = this.getSaisie().toUpperCase();
+								}while ( !saisie.matches("^[A-I][1-6]$"));
+							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
+						}
+					}
+				}
+			}
+			while ( !saisie.equals("3") );
 		}
+		this.metier.changerJoueur();
 	}
 
 	public void echangerPiece()
 	{
-
-		this.ihm.mettreIhmAJour();
-
-		System.out.println(this.ihm.afficherMenuEchangePiece());
+		this.ihm.afficherMenuEchangePiece();
 
 		String sRessource = getSaisie();
 		sRessource = sRessource.toUpperCase();
 
 		this.metier.echangerPieceContreRessource( sRessource );
-
 	}
 	
 	public void obtenirInfo()
@@ -214,30 +237,94 @@ public class Controleur
 		this.ihm.afficherInfo();
 	}
 	
-	public ArrayList<BatimentInfo> getLstNomBat()
+	public ArrayList<String> getLstBat()
 	{
-		return this.metier.getLstNomBat();
+		return this.metier.getLstBat();
 	}
 
 	public int getNumManche(){ return this.metier.getNumManche(); }
 
-	public boolean isToutOuvriersPose()
+	public boolean nourrirOuvrier()
 	{
+
+		System.out.println(this.metier.isToutOuvriersPose());
+
 		if ( !this.metier.isToutOuvriersPose() )return false;
 		
-		for ( Joueur j : this.metier.getJoueurs() )
+		Stack<Integer> pileQuantite = new Stack<Integer>();
+		Stack<String> pileRessource = new Stack<String>();
+
+		int iQteRessource;
+		int iQuantiteBle;
+		int iQuantiteEau; 
+		int iQuantitePiece;
+
+		for(Joueur j : this.metier.getJoueurs())
 		{
-			if ( ! j.nourrirOuvrier().equals("Ouvriers nourris avec le peu de vos ressources.") )
+			iQteRessource = 0;
+			iQuantiteBle = 0;
+			iQuantiteEau = 0;
+			iQuantitePiece = 0;
+
+			while(iQteRessource < j.getNbOuvrier())
 			{
-				while( this.metier.verifierManche() )
+
+				this.ihm.mettreIhmAJour();
+				System.out.println(this.ihm.afficherMenuNourriture(j));
+
+
+				int iSaisie = Integer.parseInt(getSaisie());
+
+				switch(iSaisie)
 				{
-					this.ihm.afficherMenuNourriture();
+					case 1 -> { 
+						this.ihm.mettreIhmAJour();
+
+						this.ihm.afficherMenuSaisie("TypeR"); 
+
+						pileRessource.push(getSaisie());
+					}
+
+					case 2 -> { 
+						this.ihm.mettreIhmAJour();
+
+						this.ihm.afficherMenuSaisie("Qte"); 
+
+						pileQuantite.add(Integer.parseInt(getSaisie()));
+					}
+
+					case 3 -> {
 
 
+						String sRessource = pileRessource.pop();
+						sRessource = sRessource.toUpperCase();
+
+						if(sRessource.equals("BLE"))
+						{
+							iQuantiteBle += pileQuantite.pop();
+						}
+
+						if(sRessource.equals("EAU"))
+						{
+							iQuantiteEau += pileQuantite.pop();
+						}
+
+						if(sRessource.equals("PIECE"))
+						{
+							iQuantitePiece += pileQuantite.pop();
+						}
+
+						iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece;
+					}
 				}
 			}
-		}
 
+			this.ihm.mettreIhmAJour();
+			System.out.println(this.ihm.afficherMenuNourriture(j));
+			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
+			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
+		}
+	
 		return true;
 	}
 
