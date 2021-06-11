@@ -146,7 +146,7 @@ public class Controleur
 				}
 
 				case 3 : { 
-					if(verifierPossibleConstruire(sType, sCoord))
+					if(verifierParametereConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
@@ -163,10 +163,9 @@ public class Controleur
 		}while(iEntreeUtilisateur != 4);
 	}
 
-	public boolean verifierPossibleConstruire(String type, String coord)
+	public boolean verifierParametereConstruction(String type, String coord)
 	{
-		if(type == null || coord == null)
-			return false;
+		if(type == null || coord == null)return false;
 
 		return true;
 	}
@@ -230,8 +229,13 @@ public class Controleur
 				}
 			}
 			while ( !saisie.equals("3") );
+			this.metier.changerJoueur();
 		}
-		this.metier.changerJoueur();
+	}
+
+	public Joueur[] getJoueurs()
+	{
+		return this.metier.getJoueurs();
 	}
 
 	public void echangerPiece()

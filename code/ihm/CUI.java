@@ -38,9 +38,11 @@ public class CUI
 		Console.print("\t");
 
 		for(int i = 'A'; i < tabPlateau[0].length + 'A'; i++)
-		{
-			Console.print(String.format("    %-7s", (char)i));
-		}
+			Console.print(String.format("    %-8s", (char)i));
+		
+		Console.print("\n+-------+");
+		for(int nbCol = 0; nbCol < 9; nbCol++)
+				Console.print("-----------+");
 
 		Console.println();
 
@@ -49,31 +51,69 @@ public class CUI
 			Console.print(++cpt + "\t|  ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
 			{
-				this.setCouleur(tabPlateau[i][j].getCoul());
-				Console.print(String.format("%-6.6s", tabPlateau[i][j].toString()));
-				Console.normal();
-				Console.print("  |  ");
-				/*Pion pTmp = tabPlateau[i][j];
+				Pion pTmp = tabPlateau[i][j];
 				if ( pTmp.getNom().equals("OUVRIER") )this.setCouleur(pTmp.getCoul());
 
 				Console.print(String.format("%-6.6s", pTmp	.toString()));
+				this.setCouleur(tabPlateau[i][j].getCoul());
 				Console.print((!pTmp.getNom ().equals("OUVRIER") &&
 					           !pTmp.getCoul().equals("BLANC"))?"*":" ");
 				Console.normal();
-				Console.print("  |  ");*/
+				Console.print("  |  ");
 			}
 			Console.println();
 
 			Console.print("+-------+");
 			for(int nbCol = 0; nbCol < 9; nbCol++)
-			{
-				Console.print("----------+");
-			}
-			Console.println();
+				Console.print("-----------+");
 
+			Console.println();
 		}
 
-		Console.println();
+		this.plateauBas();
+	}
+
+	public void plateauBas()
+	{
+		String sRet = "";
+		Console.print("+------------+--------------+------------------------------------------" +
+		                 "---------------------------------------------+\n"                     +
+		                 "|Manche : " + this.ctrl.getNumManche() + "  |Joueur "                   );
+		this.setCouleur(this.ctrl.getCouleurJoueur());
+		Console.print(String.format("%-7s", "" + this.ctrl.getCouleurJoueur().toUpperCase()));
+		Console.normal();
+		Console.println(String.format("|%-87s|", "") );
+		Console.println("+------------+--------------+---------------------------------------------" +
+		                "------------------------------------------+\n"                     );
+			
+		Console.println(this.getRessourceAllJoueur());
+
+	}
+
+	public String getRessourceAllJoueur()
+	{
+		String sRet = "";
+		Joueur[] ensJoueurs = this.ctrl.getJoueurs();
+
+		for ( Joueur j : ensJoueurs )
+			sRet += this.afficherRessource(j);
+
+		String[] sRetSplit = sRet.split("\n");
+
+		sRet = "";
+		for (int i=0;i<9; i++)
+		{
+			sRet += sRetSplit[i  ];
+			sRet += sRetSplit[i+9];
+			if ( ensJoueurs.length >= 3 )sRet += sRetSplit[i+9*2];
+			if ( ensJoueurs.length == 4 )sRet += sRetSplit[i+9*3];
+
+			if ( i != 0 && i != 8 )sRet += "|";
+			if ( i == 0 || i == 8 )sRet += "+";
+			sRet += "\n";
+		}
+		
+		return sRet;
 	}
 
 	public void setCouleur(String sCoul)
@@ -113,19 +153,13 @@ public class CUI
 	{
 		String sRet = "";
 
-		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Manche : " + this.ctrl.getNumManche()) + "\n";
-		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Espace joueur " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += String.format("|%-36s|", "Score : " + this.ctrl.getScoreJoueur()) + "\n";
-		sRet += String.format("|%-36s|", "Piece : " + this.ctrl.getPieceJoueur()) + "\n";
-		sRet += "======================================\n";
+		sRet += "+====================================+\n";
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
 		sRet += String.format("|%-36s|", "2. Placer ouvrier")      + "\n";
 		sRet += String.format("|%-36s|", "3. Liste des batiments") + "\n";
 		sRet += String.format("|%-36s|", "4. Echanger trois pièces") + "\n";
 		sRet += String.format("|%-36s|", "5. Quitter le jeu")      + "\n";
-		sRet += "======================================\n";
+		sRet += "+====================================+\n";
 
 		Console.println(sRet);
 	}
@@ -152,7 +186,6 @@ public class CUI
 
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Espace Construction " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += this.afficherRessource();
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "1. Entrer les coordonnees") + "\n";
 		sRet += String.format("|%-36s|", "2. Entrer le type du batiment") + "\n";
@@ -206,20 +239,17 @@ public class CUI
 			sRet += String.format("|%-36s|", "Veuillez entrer une quantité") + "\n";
 		}
 
-
 		sRet += "======================================\n";
 
 		Console.println(sRet);
 	}
 	
-	public String afficherRessource()
+	public String afficherRessource(Joueur j)
 	{
 		String sRet = "";
-		sRet += String.format("|%-36s|", "Bois : "   + this.ctrl.getRessourceJoueur("BOIS")) + "\n";
-		sRet += String.format("|%-36s|", "Ble : "    + this.ctrl.getRessourceJoueur("BLE")) + "\n";
-		sRet += String.format("|%-36s|", "Eau : "    + this.ctrl.getRessourceJoueur("EAU")) + "\n";
-		sRet += String.format("|%-36s|", "Pierre : " + this.ctrl.getRessourceJoueur("PIERRE")) + "\n";
-		sRet += String.format("|%-36s|", "Piece : "  + this.ctrl.getPieceJoueur()) + "\n";
+		sRet += "+----------------------------\n";
+		sRet += j.toString();
+		sRet += "+----------------------------\n";
 		
 		return sRet;
 	}
@@ -230,7 +260,6 @@ public class CUI
 
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Espace Ouvrier " + this.ctrl.getCouleurJoueur()) + "\n";
-		sRet += this.afficherRessource();
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "1. Saisir coordonnées.") + "\n";
 		sRet += String.format("|%-36s|", "2. Quitter."           ) + "\n";
