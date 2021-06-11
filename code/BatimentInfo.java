@@ -1,4 +1,4 @@
-package equipe_11.metier;
+package equipe_11;
 
 import java.util.ArrayList;
 

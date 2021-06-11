@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Function;
 
-import equipe_11.metier.BatimentInfo;
+import equipe_11.BatimentInfo;
 import equipe_11.metier.Pion;
 
 public class Jeu 
@@ -94,6 +94,8 @@ public class Jeu
 		this.tabJoueurs[iNbJoueur-1].setNomJoueur(sNomJoueur);
 	}
 
+	public int getNbJoueur(){ return this.tabJoueurs.length; }
+
 	/**
 	 * Cette methode permet d'initialiser le plateau selon le numéro
 	 * @param iNumPlateau
@@ -108,6 +110,27 @@ public class Jeu
 		this.initPlateau(iNumPlateau);
 		return true;
 	}
+
+	public String getRessourceAllJoueur()
+	{
+		String sRet = "";
+		for ( Joueur j : this.getJoueurs() )
+			sRet += j.toString();
+
+		return sRet;
+	}
+
+	public boolean nourrirOuvrier(int iNumJoueur)
+	{
+		return this.tabJoueurs[iNumJoueur].nourrirOuvrier();
+	}
+
+	public String nourrirOuvrier(int iQteEau, int iQteBle, int iQtePiece, int iNumJoueur)
+	{
+		return this.tabJoueurs[iNumJoueur].nourrirOuvrier(iQteEau, iQteBle, iQtePiece);
+	}
+
+	public String getCouleurJoueurCourant(){ return this.jCourant.getCouleur();	}
 
 	/**
 	 * Créer le tableau de joueur avec lenombre de joueur donné en paramètre
@@ -129,7 +152,7 @@ public class Jeu
 		{
 			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
 			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
-			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; }
+			default -> { this.iNbOuvrierMax = 2; this.iNbBatimentMax = 7; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
@@ -138,6 +161,11 @@ public class Jeu
 		this.jCourant    = this.tabJoueurs[0];
 
 		return true;
+	}
+
+	public String getCouleurJoueur(int i)
+	{
+		return this.tabJoueurs[i].getCouleur().toLowerCase();
 	}
 
 	/**

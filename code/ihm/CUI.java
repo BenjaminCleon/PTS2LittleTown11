@@ -1,7 +1,8 @@
 package equipe_11.ihm;
 
-import equipe_11.Controleur;
-import equipe_11.metier.*;
+import equipe_11.Controleur  ;
+import equipe_11.BatimentInfo;
+import equipe_11.metier.Pion ;
 
 import java.util.ArrayList;
 
@@ -15,9 +16,13 @@ public class CUI
 	public CUI( Controleur ctrl )
 	{
 		this.ctrl = ctrl;
+	}
 
+	public void initCUI()
+	{
+		Console.effacerEcran ();
 		this.choixDebutPartie();
-		this.mettreIhmAJour();
+		this.mettreIhmAJour  ();
 	}
 
 
@@ -31,7 +36,7 @@ public class CUI
 
 	public void afficherPlateau()
 	{
-		Pion[][] tabPlateau = this.ctrl.getPlateau();
+		Pion[][] tabPlateau      = this.ctrl.getPlateau();
 		BatimentInfo[] tabPioche = this.ctrl.getLstBat().toArray(new BatimentInfo[this.ctrl.getLstBat().size()]);
 
 		int  cpt       = 0;
@@ -78,10 +83,9 @@ public class CUI
 		
 			Console.println();
 		}
-		this.plateauBas();
 	}
 
-	public void plateauBas()
+	public void plateauBas(String sMess)
 	{
 		String sRet = "";
 		Console.print("+------------+--------------+------------------------------------------" +
@@ -93,28 +97,31 @@ public class CUI
 		Console.println(String.format("|%-83s|", "") );
 		Console.println("+------------+--------------+---------------------------------------------" +
 		                "--------------------------------------+\n"                     );
-			
-		Console.println(this.getRessourceAllJoueur());
+		if ( !sMess.equals("") )
+			Console.println("+===========================================+\n"+
+				            String.format("|%-43s|", sMess) + "\n"    +
+			                "+===========================================+\n" );
 
+		Console.println(this.getRessourceAllJoueur());
 	}
 
 	public String getRessourceAllJoueur()
 	{
 		String sRet = "";
-		Joueur[] ensJoueurs = this.ctrl.getJoueurs();
+		String[] sRetSplit;
+		int    iNbJoueur = this.ctrl.getNbJoueur();
 
-		for ( Joueur j : ensJoueurs )
-			sRet += this.afficherRessource(j);
+		sRet = this.ctrl.getRessourceAllJoueur();
 
-		String[] sRetSplit = sRet.split("\n");
+		sRetSplit = sRet.split("\n");
 
 		sRet = "";
 		for (int i=0;i<9; i++)
 		{
 			sRet += sRetSplit[i  ];
 			sRet += sRetSplit[i+9];
-			if ( ensJoueurs.length >= 3 )sRet += sRetSplit[i+9*2];
-			if ( ensJoueurs.length == 4 )sRet += sRetSplit[i+9*3];
+			if ( iNbJoueur >= 3 )sRet += sRetSplit[i+9*2];
+			if ( iNbJoueur == 4 )sRet += sRetSplit[i+9*3];
 
 			if ( i != 0 && i != 8 )sRet += "|";
 			if ( i == 0 || i == 8 )sRet += "+";
@@ -176,20 +183,28 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public void afficherMenuNourriture(Joueur j, String sMes)
+	public void afficherMenuNourriture(String sCoul)
 	{
 		String sRet = "";
 
 		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "Espace nourriture " + j.getCouleur()) + "\n";
+		sRet += String.format("|%-36s|", "Espace nourriture " + sCoul) + "\n";
 		sRet += "======================================\n";
-		sRet += String.format("|%-36s|", "1. Choisir ressource") + "\n";
-		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
-		sRet += String.format("|%-36s|", "3. Valider") + "\n";
+		sRet += String.format("|%-36s|", "   Quantite à 0 par défaut"  ) + "\n";
+		sRet += String.format("|%-36s|", "1. Quantite d'eau"  ) + "\n";
+		sRet += String.format("|%-36s|", "2. Quantite de blé"  ) + "\n";
+		sRet += String.format("|%-36s|", "3. Quantité de pièce") + "\n";
+		sRet += String.format("|%-36s|", "4. Valider") + "\n";
 		sRet += "======================================\n";
-		sRet += sMes;
 
 		Console.println(sRet);
+	}
+
+	public void afficherDemandePourNourriture(String sType)
+	{
+		Console.println("======================================\n" +
+		                String.format("|%-36s|", "Saisir quantité de " + sType) + "\n" +
+		                "======================================\n");
 	}
 
 	public void afficherMenuConstructionBatiment()
@@ -261,16 +276,6 @@ public class CUI
 	{
 		return String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
 	}
-	
-	public String afficherRessource(Joueur j)
-	{
-		String sRet = "";
-		sRet += "+---------------------------\n";
-		sRet += j.toString();
-		sRet += "+---------------------------\n";
-		
-		return sRet;
-	}
 
 	public void afficherMenuPlacementOuvrier()
 	{
@@ -322,21 +327,23 @@ public class CUI
 		Console.println( sPrint );
 	}
 
-	public void mettreIhmAJour()
+	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }
+
+	public void mettreIhmAJour(String sMess)
 	{
 		Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
+		this.plateauBas(sMess);
 	}
 
 	public void afficherPreteurSurGage()
 	{
-		Console.println( "======================================\n" +
-			             "|Preteur sur Gage :                  |\n" +
-		                 "======================================\n" +
-		                 "|Quelle ressource,                    \n" +
-		                 "|souhaitez vous echanger              \n" +
-		                 "======================================"    );
+		Console.println( "=========================================\n" +
+			             "|Preteur sur Gage :                     |\n" +
+		                 "=========================================\n" +
+		                 "|Quelle ressource souhaitez vous echanger\n" +
+		                 "===========================================");
 		
 		Console.print( "|Ressource donner : " );
 		String sSaisie = ctrl.getSaisie().toUpperCase();

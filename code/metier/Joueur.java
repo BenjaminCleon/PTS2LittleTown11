@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import equipe_11.metier.BatimentInfo;
+import equipe_11.BatimentInfo;
 import equipe_11.metier.Jeu;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
@@ -354,7 +354,7 @@ public class Joueur
 		this.alOuvrier.add(pOuv);
 	}
 
-	public String nourrirOuvrier()
+	public boolean nourrirOuvrier()
 	{
 		int nbOuvrierNourri = 0;
 
@@ -371,31 +371,31 @@ public class Joueur
 				nbOuvrierNourri++;
 			}
 			this.bNourri = true;
-			return "Ouvriers nourris avec le peu de vos ressources.";
+			return true;
 		}
 
-		return "Vous pouvez nourrir vos ouvriers en choisissant vos ressources";
+		return false;
 	}
 
 	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
 	{
-		// int nbOuvrierNourri = 0;
 		String sRet = "";
 
 		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
-			sRet += "trop de ressources proposées\n";
+			sRet += "Vous proposé trop de ressources";
 
 		if ( nbEau + nbBle + nbPiece/3 < this.NB_OUVRIER )
-			sRet += "pas assez de ressources proposées\n";
+			sRet = nbEau + " " + nbBle + " " + nbPiece;
+			// sRet = "Vous ne proposé pas assez de ressources";
 
 		if ( nbBle > this.rBle.getQteRessource() )
-			sRet +=  "le joueur n'a pas assez de ressources de blé\n";
+			sRet =  "Vous n'avez pas assez de ressources de blé";
 		
 		if ( nbEau > this.rEau.getQteRessource() )
-			sRet += "le joueur n'a pas assez de ressources d'eau\n";
+			sRet = "Vous n'avez pas assez de ressources d'eau";
 
 		if ( nbPiece > this.iNbPiece )
-			sRet += "le joueur n'a pas assez de pièces\n";
+			sRet = "Vous n'avez pas assez de pièces";
 
 		if ( ! sRet.isEmpty() )return sRet;
 
@@ -406,7 +406,7 @@ public class Joueur
 
 		this.bNourri = true;
 
-		return "Ouvriers nourris avec succès";
+		return "Ouvrier nourri avec succès";
 	}
 
 	public void ajouterBatimentAListeTmp(BatimentInfo bTmp)
@@ -510,13 +510,15 @@ public class Joueur
 	{
 		String sRet = "";
 
-		sRet += String.format("|%-28s", "Espace joueur " + this.SCOULEUR    ) + "\n";
-		sRet += String.format("|%-28s", "Score : " + this.iScore                ) + "\n";
-		sRet += String.format("|%-28s", "Piece : " + this.iNbPiece              ) + "\n";
-		sRet += String.format("|%-28s", "Bois  : " + this.getQteRessource("BOIS"  )) + "\n";
-		sRet += String.format("|%-28s", "Ble   : " + this.getQteRessource("BLE"   )) + "\n";
-		sRet += String.format("|%-28s", "Eau   : " + this.getQteRessource("EAU"   )) + "\n";
-		sRet += String.format("|%-28s", "Pierre: " + this.getQteRessource("PIERRE")) + "\n";
+		sRet += "+---------------------------\n";
+		sRet += String.format("|%-27s", "Espace joueur " + this.SCOULEUR           ) + "\n";
+		sRet += String.format("|%-27s", "Score : " + this.iScore                   ) + "\n";
+		sRet += String.format("|%-27s", "Piece : " + this.iNbPiece                 ) + "\n";
+		sRet += String.format("|%-27s", "Bois  : " + this.getQteRessource("BOIS"  )) + "\n";
+		sRet += String.format("|%-27s", "Ble   : " + this.getQteRessource("BLE"   )) + "\n";
+		sRet += String.format("|%-27s", "Eau   : " + this.getQteRessource("EAU"   )) + "\n";
+		sRet += String.format("|%-27s", "Pierre: " + this.getQteRessource("PIERRE")) + "\n";
+		sRet += "+---------------------------\n";
 
 		return sRet;
 	}
