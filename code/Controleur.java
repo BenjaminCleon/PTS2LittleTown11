@@ -93,11 +93,11 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 -> { this.construire    (); }
-					case 2 -> { this.ajouterOuvrier(); }
-					case 3 -> { this.obtenirInfo   (); }
-					case 4 -> { this.echangerPiece();  }
-					case 5 -> { System.exit(0)       ; }
+					case 1 : { this.construire    (); break; }
+					case 2 : { this.ajouterOuvrier(); break; }
+					case 3 : { this.obtenirInfo   (); break; }
+					case 4 : { this.echangerPiece();  break; }
+					case 5 : { System.exit(0)       ; break; }
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -130,25 +130,28 @@ public class Controleur
 
 			switch(iEntreeUtilisateur)
 			{
-				case 1 -> { 
+				case 1 : { 
 					this.ihm.mettreIhmAJour();
 					System.out.println(this.ihm.afficherMenuSaisie("Coord"));
 					sCoord = getSaisie();
+					break;
 				}
 
-				case 2 -> { 
+				case 2 : { 
 					this.ihm.mettreIhmAJour();
 					System.out.println(this.ihm.afficherMenuSaisie("Type"));
-					sType = getSaisie(); 
+					sType = getSaisie();
+					break; 
 				}
 
-				case 3 -> { 
+				case 3 : { 
 					if(verifierPossibleConstruire(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
 
 						iEntreeUtilisateur = 4;
+						break;
 					}
 				}
 			}
@@ -237,23 +240,26 @@ public class Controleur
 
 				switch(iSaisie)
 				{
-					case 1 -> { 
+					case 1 : { 
 						this.ihm.mettreIhmAJour();
 
 						System.out.println(this.ihm.afficherMenuSaisie("TypeR")); 
 
 						pileRessource.push(getSaisie());
+
+						break;
 					}
 
-					case 2 -> { 
+					case 2 : { 
 						this.ihm.mettreIhmAJour();
 
 						System.out.println(this.ihm.afficherMenuSaisie("Qte")); 
 
 						pileQuantite.add(Integer.parseInt(getSaisie()));
+						break;
 					}
 
-					case 3 -> {
+					case 3 : {
 
 
 						String sRessource = pileRessource.pop();
@@ -275,6 +281,7 @@ public class Controleur
 						}
 
 						iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece;
+						break;
 					}
 				}
 			}
