@@ -276,10 +276,10 @@ public class Ressource
 
 		switch( sType )
 		{
-			case "BLE"    : { sRet += String.format( "%-6s", "Ble"   ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() ); break;}
-			case "BOIS"   : { sRet += String.format( "%-6s", "Bois"  ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() ); break;}
-			case "EAU"    : { sRet += String.format( "%-6s", "Eau"   ) + " : " + String.format( "%2d", Ressource.iQteEauStock   .getEntier() ); break;}
-			case "PIERRE" : { sRet += String.format( "%-6s", "Pierre") + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() ); break;}
+			case "BLE"    -> sRet += String.format( "%-6s", "Ble"   ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() );
+			case "BOIS"   -> sRet += String.format( "%-6s", "Bois"  ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() );
+			case "EAU"    -> sRet += String.format( "%-6s", "Eau"   ) + " : " + String.format( "%2d", Ressource.iQteEauStock   .getEntier() );
+			case "PIERRE" -> sRet += String.format( "%-6s", "Pierre") + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() );
 		}		
 
 		return sRet;
