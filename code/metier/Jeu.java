@@ -239,8 +239,12 @@ public class Jeu
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
-		if( bTmp == BatimentInfo.CHAMPSDEBLE && this.iNbChampsDeBle > 0)
+		if( bTmp == BatimentInfo.rechercherBatiment("CHAMPSDEBLE") && this.iNbChampsDeBle > 0)
+		{
 			this.iNbChampsDeBle--;
+			if( this.iNbChampsDeBle == 0 )
+				this.alBat.remove(bTmp);
+		}
 		else
 			this.alBat.remove(bTmp);
 
