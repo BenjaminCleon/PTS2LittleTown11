@@ -59,7 +59,7 @@ public class Jeu
 	/**
 	 * Le nombre de champs de blé dans le jeu
 	 */
-	private int nbChampsDeBle;
+	private int iNbChampsDeBle;
 
 	private boolean preteurSurGage;
 
@@ -69,9 +69,10 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.nbChampsDeBle = 5;
-		this.tabPion       = new Pion[6][9];
-		this.alBat         = BatimentInfo.getLstBat();
+		this.iNbChampsDeBle = 5;
+		this.iNumManche     = 1;
+		this.tabPion        = new Pion[6][9];
+		this.alBat          = BatimentInfo.getLstBat();
 
 		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
 		this.alBat.remove(BatimentInfo.PIERRE     );
@@ -129,7 +130,7 @@ public class Jeu
 		{
 			case 3  : { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; break; }
 			case 4  : { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; break; }
-			default : { this.iNbOuvrierMax = 1; this.iNbBatimentMax = 7; break; }
+			default : { this.iNbOuvrierMax = 2; this.iNbBatimentMax = 7; break; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
@@ -240,7 +241,6 @@ public class Jeu
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
-		this.verifierManche();
 		this.changerJoueur();
 
 		return true;
@@ -297,7 +297,6 @@ public class Jeu
 		this.tabPion[iLig-1][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.verifierManche();
 		return true;
 	}
 
@@ -411,25 +410,16 @@ public class Jeu
 	 * @return
 	 *        Si la macnhe est passé ou non
 	 */
-	public boolean verifierManche()
+	public boolean passerManche()
 	{
-		for ( Joueur j : this.tabJoueurs )
-		{
-			if ( ! j.estNourri() )return false;
-		}
-		
-
 		for( int i = 0; i < tabPion.length; i++)
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
-			{
-				Pion pTmp = this.tabPion[i][j];
-
-				if ( pTmp.getNom().equals("OUVRIER") ) pTmp = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
-			}
+				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
+						this.tabPion[i][j] = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
 		}
 
-		++this.iNumManche;
+		this.iNumManche++;
 
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();

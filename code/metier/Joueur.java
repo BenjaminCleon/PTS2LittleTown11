@@ -344,7 +344,7 @@ public class Joueur
 				if ( !this.setPiece(-3) )this.iScore -= 3;
 				nbOuvrierNourri++;
 			}
-			this.bNourri = false;
+			this.bNourri = true;
 			return "Ouvriers nourris avec le peu de vos ressources.";
 		}
 

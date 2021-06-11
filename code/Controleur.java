@@ -283,11 +283,11 @@ public class Controleur
 
 		for(Joueur j : this.metier.getJoueurs())
 		{
-			if( j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
+			if(!j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
 
-			iQteRessource = 0;
-			iQuantiteBle = 0;
-			iQuantiteEau = 0;
+			iQteRessource  = 0;
+			iQuantiteBle   = 0;
+			iQuantiteEau   = 0;
 			iQuantitePiece = 0;
 
 			while(iQteRessource < j.getNbOuvrier())
@@ -355,6 +355,7 @@ public class Controleur
 
 			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
 		}
+		this.metier.passerManche();
 	
 		return true;
 	}
