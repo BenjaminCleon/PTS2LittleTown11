@@ -219,6 +219,11 @@ public class Controleur
 								}while ( !saisie.matches("^[A-I][1-6]$"));
 							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
 
+							if( metier.getPreteurSurGage() )
+							{
+								this.ihm.afficherPreteurSurGage();
+							}
+
 							break;
 						}
 					}
@@ -344,6 +349,11 @@ public class Controleur
 		}
 	
 		return true;
+	}
+
+	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
+	{
+		metier.activerPreteurSurGage( ressourceSaisi1, ressourceSaisi2, ressourceVoulu1, ressourceVoulu2 );
 	}
 
 }

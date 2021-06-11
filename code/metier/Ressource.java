@@ -198,6 +198,16 @@ public class Ressource
 		return true;
 	}
 
+	public boolean ajouterRessourcePossible( int iQte )
+	{
+		return ( this.iQte + iQte ) < 15;
+	}
+
+	public boolean consommerRessourcePossible( int iQte )
+	{
+		return ( this.iQte - iQte ) >= 0;
+	}
+
 	/**
 	 * Retourne le nom de la ressource.
 	 */

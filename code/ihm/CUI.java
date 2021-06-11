@@ -281,4 +281,32 @@ public class CUI
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 	}
+
+	public void afficherPreteurSurGage()
+	{
+		Console.println( "======================================\n" +
+			             "|Preteur sur Gage :                  |\n" +
+		                 "======================================\n" +
+		                 "|Quelle ressource,                    \n" +
+		                 "|souhaitez vous echanger              \n" +
+		                 "======================================"    );
+		
+		Console.print( "|Ressource donner : " );
+		String sSaisie = ctrl.getSaisie().toUpperCase();
+
+		String[] tabSaisie = new String[2];
+		tabSaisie = sSaisie.split( " " );
+		
+		Console.print( "|Ressource voulu  : " );
+		String sVoulu = ctrl.getSaisie().toUpperCase();
+
+		Console.println( "======================================\n" );
+
+		String[] tabVoulu = new String[2];
+		tabVoulu = sVoulu.split( " " );;
+		
+		ctrl.activerPreteurSurGage( tabSaisie[0], tabSaisie[1], tabVoulu[0], tabVoulu[1] );
+	}
+
+
 }

@@ -293,7 +293,7 @@ public enum BatimentInfo
 	 * Dit si le batiment est un préteur sur gage ou non
 	 * @return true si le batiment correspond au préteur sur gage
 	 */
-	public boolean estPretSurGage(){ return this.sCategorie.equals("PRETSURGAGE"); }
+	public boolean estPreteurSurGage(){ return this.sCategorie.equals("PRETSURGAGE"); }
 
 	/**
 	 * 
