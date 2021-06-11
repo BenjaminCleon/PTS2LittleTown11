@@ -47,7 +47,7 @@ public class Joueur
 	 *
 	 * @see Joueur#ajouterBatiment()
 	 */
-	private ArrayList<Pion> lstOuvrier;
+	private ArrayList<Pion> alOuvrier;
 
 	/**
 	 * C'est une liste des batiments du joueur
@@ -56,7 +56,7 @@ public class Joueur
 	 * @see Joueur#getBatiments()
 	 * @see Joueur#ajouterBatiment()
 	 */
-	private ArrayList<Pion> lstBatiment;
+	private ArrayList<Pion> alBatiment;
 
 	/**
 	 * C'est le nombre de pieces du joueur
@@ -101,6 +101,11 @@ public class Joueur
 	 */
 	private Ressource        rPierre;
 
+	/**
+	 * Liste des batiments que le joueur peux activer après avoir jouer un ouvrier
+	 * Ne prend pas en compte les batiments ou l'activation n'engendre aucune perte
+	 */
+	private ArrayList<BatimentInfo> alBatimentListeTmp;
 
 	/**
 	 * Si tous les ouvriers sont nourris
@@ -130,8 +135,10 @@ public class Joueur
 
 		this.bNourri = false;
 	
-		this.lstOuvrier   = new ArrayList<Pion> ();
-		this.lstBatiment  = new ArrayList<Pion> ();
+		this.alOuvrier   = new ArrayList<Pion> ();
+		this.alBatiment  = new ArrayList<Pion> ();
+
+		this.alBatimentListeTmp = new ArrayList<BatimentInfo>();
 		
 		this.rBle         = new Ressource("ble",true); //est mangeable
 		this.rEau         = new Ressource("eau",true); //est mangeable
@@ -179,7 +186,7 @@ public class Joueur
 	 * @return 
 	 * le nombre de batiment possédé par le joueur
 	 */
-    	public int getNbBatiment() { return this.lstBatiment.size();}
+    	public int getNbBatiment() { return this.alBatiment.size();}
 	/**
 	 * retourne le nombre de ressource de la ressource en parametre
 	 * @param sType
@@ -244,7 +251,7 @@ public class Joueur
 	 */
 	public void setScore( int score )
 	{
-		this.iScore -= score;
+		this.iScore += score;
 	}
 
 	/**
@@ -288,8 +295,8 @@ public class Joueur
 	 */
 	public void ajouterBatiment(Pion pTmp, BatimentInfo bTmp)
 	{
-		this.lstBatiment.add(pTmp);
-		this.lstOuvrier .add(new Pion(pTmp.getLig(), pTmp.getCol(), pTmp.getCoul(), "OUVRIER"));
+		this.alBatiment.add(pTmp);
+		this.alOuvrier .add(new Pion(pTmp.getLig(), pTmp.getCol(), pTmp.getCoul(), "OUVRIER"));
 		
 		this.iScore += bTmp.getPtConstru();
 	}
@@ -301,7 +308,7 @@ public class Joueur
 	 */
 	public Pion[] getBatiments()
 	{
-		return this.lstBatiment.toArray(new Pion[this.lstBatiment.size()]);
+		return this.alBatiment.toArray(new Pion[this.alBatiment.size()]);
 	}
 
 	/**
@@ -309,14 +316,14 @@ public class Joueur
 	 * @return
 	 *      Le nombre d'ouvrier du joueur
 	 */
-	public int getNbOuvrier(){ return this.lstOuvrier.size(); }
+	public int getNbOuvrier(){ return this.alOuvrier.size(); }
 	
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
 	 */
 	public void ajouterOuvrier(Pion pOuv)
 	{
-		this.lstOuvrier.add(pOuv);
+		this.alOuvrier.add(pOuv);
 	}
 
 	public String nourrirOuvrier()
@@ -392,9 +399,29 @@ public class Joueur
 		return "Ouvriers nourris avec succès";
 	}
 
+	public void ajouterBatimentAListeTmp(BatimentInfo bTmp)
+	{
+		this.alBatimentListeTmp.add(bTmp);
+	}
+
+	public void retirerBatimentAListeTmp(BatimentInfo bTmp)
+	{
+		this.alBatimentListeTmp.remove(bTmp);
+	}
+
+	public ArrayList<BatimentInfo> getLstBatimentAutourOuvrier()
+	{
+		return this.alBatimentListeTmp;
+	}
+
+	public void clearLstBatimentAutourOuvrier()
+	{
+		this.alBatimentListeTmp.clear();
+	}
+
 	public void resetJoueur()
 	{
 		this.bNourri = false;
-		this.lstOuvrier.clear();
+		this.alOuvrier.clear();
 	}
 }
