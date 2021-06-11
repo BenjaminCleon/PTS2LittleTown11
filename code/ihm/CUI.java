@@ -120,11 +120,11 @@ public class CUI
 	{
 		switch( sCoul.toUpperCase() )
 		{
-			case "ROUGE"  : { Console.couleurFont( CouleurConsole.ROUGE ); break; }
-			case "VERT"   : { Console.couleurFont( CouleurConsole.VERT  ); break; }
-			case "BLEU"   : { Console.couleurFont( CouleurConsole.BLEU  ); break; }
-			case "JAUNE"  : { Console.couleurFont( CouleurConsole.JAUNE ); break; }
-			default       : { Console.normal(); break; }
+			case "ROUGE"  -> Console.couleurFont( CouleurConsole.ROUGE );
+			case "VERT"   -> Console.couleurFont( CouleurConsole.VERT  );
+			case "BLEU"   -> Console.couleurFont( CouleurConsole.BLEU  );
+			case "JAUNE"  -> Console.couleurFont( CouleurConsole.JAUNE );
+			default       -> Console.normal();
 		}
 	}
 

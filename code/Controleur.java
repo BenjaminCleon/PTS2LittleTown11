@@ -95,11 +95,11 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 : { this.construire    (); break; }
-					case 2 : { this.ajouterOuvrier(); break; }
-					case 3 : { this.obtenirInfo   (); break; }
-					case 4 : { this.echangerPiece();  break; }
-					case 5 : { System.exit(0)       ; break; }
+					case 1 -> this.construire    ();
+					case 2 -> this.ajouterOuvrier();
+					case 3 -> this.obtenirInfo   ();
+					case 4 -> this.echangerPiece ();
+					case 5 -> System.exit(0)       ;
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -130,23 +130,19 @@ public class Controleur
 
 			switch(iEntreeUtilisateur)
 			{
-				case 1 : { 
+				case 1 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie();
-
-					break;
 				}
 
-				case 2 : { 
+				case 2 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie(); 
-
-					break;
 				}
 
-				case 3 : { 
+				case 3 -> { 
 					if(verifierParametereConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
@@ -154,8 +150,6 @@ public class Controleur
 
 						iEntreeUtilisateur = 4;
 					}
-
-					break;
 				}
 			}
 
@@ -207,8 +201,8 @@ public class Controleur
 					saisie = this.getSaisie();
 					switch ( saisie )
 					{
-						case "1" : { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); break;}
-						case "2" :
+						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); }
+						case "2" ->
 						{
 							do
 							{
@@ -223,8 +217,6 @@ public class Controleur
 							{
 								this.ihm.afficherPreteurSurGage();
 							}
-
-							break;
 						}
 					}
 				}
