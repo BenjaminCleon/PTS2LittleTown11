@@ -201,8 +201,15 @@ public class Jeu
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType);
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
 		Pion     pTmp;
+		boolean bOk = false;
 
 		if ( bTmp == null )return false;
+
+		for ( BatimentInfo b : this.alBat )
+			if ( b == bTmp )bOk = true;
+
+		System.out.println(bOk);
+		if ( !bOk )return false;
 
 		int iPierre = bTmp.getPierreReq();
 		int iBle    = bTmp.getBleReq   ();
@@ -402,7 +409,6 @@ public class Jeu
 	{
 		for ( Joueur j : this.tabJoueurs )
 		{
-			System.out.println(!j.estNourri());
 			if ( ! j.estNourri() )return false;
 		}
 		
