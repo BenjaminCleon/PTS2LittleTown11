@@ -162,7 +162,8 @@ public class Joueur
 	
 	public void setNomJoueur(String sNomJoueur)
 	{
-		this.sNomJoueur = sNomJoueur;
+		if ( sNomJoueur == null || sNomJoueur.equals("") )this.sNomJoueur = this.SCOULEUR;
+		else                                              this.sNomJoueur = sNomJoueur   ;
 	}
 
 	/**
@@ -357,7 +358,7 @@ public class Joueur
 	{
 		int nbOuvrierNourri = 0;
 
-		if( this.rBle.getQteRessource() + this.rEau.getQteRessource() <= NB_OUVRIER )
+		if( this.rBle.getQteRessource() + this.rEau.getQteRessource() + this.iNbPiece/3 <= NB_OUVRIER )
 		{
 			nbOuvrierNourri = this.rBle.getQteRessource() + this.rEau.getQteRessource();
 			
@@ -398,28 +399,10 @@ public class Joueur
 
 		if ( ! sRet.isEmpty() )return sRet;
 
-		// if ( this.rBle.getQteRessource() == 0 && nbEau == this.NB_OUVRIER &&
-		// 		this.rEau.consommerRessource( this.NB_OUVRIER ) )
-		// 	nbOuvrierNourri = this.NB_OUVRIER;
-		
-		// if ( this.rEau.getQteRessource() == 0 && nbBle == this.NB_OUVRIER &&
-		// 		this.rBle.consommerRessource( NB_OUVRIER ) )
-		// 	nbOuvrierNourri = this.NB_OUVRIER;
-
-		// if ( nbOuvrierNourri < this.NB_OUVRIER)
-		// {
 			this.rEau.consommerRessource(nbEau);
 			this.rBle.consommerRessource(nbBle);
 			this.setPiece(-nbPiece);
 
-			//nbOuvrierNourri = nbPiece + nbBle + nbEau;
-		//}
-
-		// while ( nbOuvrierNourri < this.NB_OUVRIER)
-		// {
-		// 	this.iScore -= 3;
-		// 	nbOuvrierNourri++;
-		// }
 
 		this.bNourri = true;
 

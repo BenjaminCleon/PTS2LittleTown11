@@ -37,12 +37,15 @@ public class CUI
 		int  cpt       = 0;
 		int  cptPioche = 0;
 
-		Console.print("\t");
+		Console.print("\n+---+");
+		for(int nbCol = 0; nbCol < 9; nbCol++)
+				Console.print("-----------+");
 
+		Console.print("\n|   |");
 		for(int i = 'A'; i < tabPlateau[0].length + 'A'; i++)
-			Console.print(String.format("    %-8s", (char)i));
+			Console.print("     " + (char)i + "     |");
 		
-		Console.print("\n+-------+");
+		Console.print("\n+---+");
 		for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
@@ -50,22 +53,23 @@ public class CUI
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
-			Console.print(++cpt + "\t|  ");
+			Console.print("| " + ++cpt + " |  ");
 			for(int j = 0; j < tabPlateau[0].length; j++)
 			{
 				Pion pTmp = tabPlateau[i][j];
 				if ( pTmp.getNom().equals("OUVRIER") )this.setCouleur(pTmp.getCoul());
 
-				Console.print(String.format("%-6.6s", pTmp	.toString()));
+				Console.print(String.format("%-7.7s", pTmp	.toString()));
 				this.setCouleur(tabPlateau[i][j].getCoul());
 				Console.print((!pTmp.getNom ().equals("OUVRIER") &&
 					           !pTmp.getCoul().equals("BLANC"))?"*":" ");
 				Console.normal();
-				Console.print(j==tabPlateau[0].length-1?"  |":"  |  ");
+				Console.print(j==tabPlateau[0].length-1?" |":" |  ");
 			}
 			if ( cptPioche < tabPioche.length )Console.println(tabPioche[cptPioche++].name());
+			else                               Console.println();
 
-			Console.print("+-------+");
+			Console.print("+---+");
 			for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
@@ -81,14 +85,14 @@ public class CUI
 	{
 		String sRet = "";
 		Console.print("+------------+--------------+------------------------------------------" +
-		                 "---------------------------------------------+\n"                     +
+		                 "-----------------------------------------+\n"                     +
 		                 "|Manche : " + this.ctrl.getNumManche() + "  |Joueur "                   );
 		this.setCouleur(this.ctrl.getCouleurJoueur());
 		Console.print(String.format("%-7s", "" + this.ctrl.getCouleurJoueur().toUpperCase()));
 		Console.normal();
-		Console.println(String.format("|%-87s|", "") );
+		Console.println(String.format("|%-83s|", "") );
 		Console.println("+------------+--------------+---------------------------------------------" +
-		                "------------------------------------------+\n"                     );
+		                "--------------------------------------+\n"                     );
 			
 		Console.println(this.getRessourceAllJoueur());
 
@@ -153,6 +157,11 @@ public class CUI
 		}while(!this.ctrl.setNumPlateau());
 	}
 
+	public void demanderNom(int iVal)
+	{
+		Console.println("Nom du joueur n°" + iVal);
+	}
+
 	public void afficherMenuChoix()
 	{
 		String sRet = "";
@@ -160,15 +169,14 @@ public class CUI
 		sRet += "+====================================+\n";
 		sRet += String.format("|%-36s|", "1. Construire batiment") + "\n";
 		sRet += String.format("|%-36s|", "2. Placer ouvrier")      + "\n";
-		sRet += String.format("|%-36s|", "3. Liste des batiments") + "\n";
-		sRet += String.format("|%-36s|", "4. Echanger trois pièces") + "\n";
-		sRet += String.format("|%-36s|", "5. Quitter le jeu")      + "\n";
+		sRet += String.format("|%-36s|", "3. Echanger trois pièces") + "\n";
+		sRet += String.format("|%-36s|", "4. Quitter le jeu")      + "\n";
 		sRet += "+====================================+\n";
 
 		Console.println(sRet);
 	}
 
-	public void afficherMenuNourriture(Joueur j)
+	public void afficherMenuNourriture(Joueur j, String sMes)
 	{
 		String sRet = "";
 
@@ -179,10 +187,10 @@ public class CUI
 		sRet += String.format("|%-36s|", "2. Entrer valeur") + "\n";
 		sRet += String.format("|%-36s|", "3. Valider") + "\n";
 		sRet += "======================================\n";
+		sRet += sMes;
 
 		Console.println(sRet);
 	}
-
 
 	public void afficherMenuConstructionBatiment()
 	{
@@ -257,9 +265,9 @@ public class CUI
 	public String afficherRessource(Joueur j)
 	{
 		String sRet = "";
-		sRet += "+----------------------------\n";
+		sRet += "+---------------------------\n";
 		sRet += j.toString();
-		sRet += "+----------------------------\n";
+		sRet += "+---------------------------\n";
 		
 		return sRet;
 	}
