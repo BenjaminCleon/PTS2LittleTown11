@@ -344,7 +344,7 @@ public class Joueur
 				if ( !this.setPiece(-3) )this.iScore -= 3;
 				nbOuvrierNourri++;
 			}
-			this.bNourri = false;
+			this.bNourri = true;
 			return "Ouvriers nourris avec le peu de vos ressources.";
 		}
 
@@ -451,10 +451,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .ajouterRessource( iVal ); }
-			case "EAU"    -> { this.rEau   .ajouterRessource( iVal ); }
-			case "BOIS"   -> { this.rBois  .ajouterRessource( iVal ); }
-			case "PIERRE" -> { this.rPierre.ajouterRessource( iVal ); }
+			case "BLE"    : { this.rBle   .ajouterRessource( iVal ); break; }
+			case "EAU"    : { this.rEau   .ajouterRessource( iVal ); break; }
+			case "BOIS"   : { this.rBois  .ajouterRessource( iVal ); break; }
+			case "PIERRE" : { this.rPierre.ajouterRessource( iVal ); break; }
 		}
 	}
 
@@ -462,10 +462,10 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { this.rBle   .consommerRessource( iVal ); }
-			case "EAU"    -> { this.rEau   .consommerRessource( iVal ); }
-			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
-			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
+			case "BLE"    : { this.rBle   .consommerRessource( iVal ); }
+			case "EAU"    : { this.rEau   .consommerRessource( iVal ); }
+			case "BOIS"   : { this.rBois  .consommerRessource( iVal ); }
+			case "PIERRE" : { this.rPierre.consommerRessource( iVal ); }
 		}
 	}
 
@@ -473,10 +473,10 @@ public class Joueur
 	{
 		switch ( sRessource.toUpperCase() )
 		{
-			case "BLE"    -> { return this.rBle   .ajouterRessourcePossible( iQte ); }
-			case "EAU"    -> { return this.rEau   .ajouterRessourcePossible( iQte ); }
-			case "BOIS"   -> { return this.rBois  .ajouterRessourcePossible( iQte ); }
-			case "PIERRE" -> { return this.rPierre.ajouterRessourcePossible( iQte ); }
+			case "BLE"    : { return this.rBle   .ajouterRessourcePossible( iQte ); }
+			case "EAU"    : { return this.rEau   .ajouterRessourcePossible( iQte ); }
+			case "BOIS"   : { return this.rBois  .ajouterRessourcePossible( iQte ); }
+			case "PIERRE" : { return this.rPierre.ajouterRessourcePossible( iQte ); }
 		}
 		return false;
 	}
@@ -485,10 +485,10 @@ public class Joueur
 	{
 		switch ( sRessource.toUpperCase() )
 		{
-			case "BLE"    -> { return this.rBle   .consommerRessourcePossible( iQte ); }
-			case "EAU"    -> { return this.rEau   .consommerRessourcePossible( iQte ); }
-			case "BOIS"   -> { return this.rBois  .consommerRessourcePossible( iQte ); }
-			case "PIERRE" -> { return this.rPierre.consommerRessourcePossible( iQte ); }
+			case "BLE"    : { return this.rBle   .consommerRessourcePossible( iQte ); }
+			case "EAU"    : { return this.rEau   .consommerRessourcePossible( iQte ); }
+			case "BOIS"   : { return this.rBois  .consommerRessourcePossible( iQte ); }
+			case "PIERRE" : { return this.rPierre.consommerRessourcePossible( iQte ); }
 		}
 		return false;
 	}

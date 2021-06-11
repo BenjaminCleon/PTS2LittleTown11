@@ -2,7 +2,6 @@ package equipe_11.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.function.Function;
 
@@ -59,7 +58,7 @@ public class Jeu
 	/**
 	 * Le nombre de champs de blé dans le jeu
 	 */
-	private int nbChampsDeBle;
+	private int iNbChampsDeBle;
 
 	private boolean preteurSurGage;
 
@@ -69,9 +68,10 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.nbChampsDeBle = 5;
-		this.tabPion       = new Pion[6][9];
-		this.alBat         = BatimentInfo.getLstBat();
+		this.iNbChampsDeBle = 5;
+		this.iNumManche     = 1;
+		this.tabPion        = new Pion[6][9];
+		this.alBat          = BatimentInfo.getLstBat();
 
 		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
 		this.alBat.remove(BatimentInfo.PIERRE     );
@@ -136,7 +136,7 @@ public class Jeu
 			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
 		
 		this.jCourant    = this.tabJoueurs[0];
-		
+
 		return true;
 	}
 
@@ -240,7 +240,15 @@ public class Jeu
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
-		this.verifierManche();
+		if( bTmp == BatimentInfo.CHAMPSDEBLE && this.iNbChampsDeBle > 0)
+		{
+			this.iNbChampsDeBle--;
+			if( this.iNbChampsDeBle == 0 )
+				this.alBat.remove(bTmp);
+		}
+		else
+			this.alBat.remove(bTmp);
+
 		this.changerJoueur();
 
 		return true;
@@ -297,7 +305,6 @@ public class Jeu
 		this.tabPion[iLig-1][cCol - 'A'] = pTmp1; 
 		this.jCourant.ajouterOuvrier(pTmp1);
 
-		this.verifierManche();
 		return true;
 	}
 
@@ -409,27 +416,18 @@ public class Jeu
 	/**
 	 * Verifie si nous devons passer la manche
 	 * @return
-	 *        Si la macnhe est passé ou non
+	 *        Si la manche est passé ou non
 	 */
-	public boolean verifierManche()
+	public boolean passerManche()
 	{
-		for ( Joueur j : this.tabJoueurs )
-		{
-			if ( ! j.estNourri() )return false;
-		}
-		
-
 		for( int i = 0; i < tabPion.length; i++)
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
-			{
-				Pion pTmp = this.tabPion[i][j];
-
-				if ( pTmp.getNom().equals("OUVRIER") ) pTmp = new Pion(pTmp.getLig(), pTmp.getCol(), "BLANC", "");
-			}
+				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
+						this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
 		}
 
-		++this.iNumManche;
+		this.iNumManche++;
 
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();
@@ -448,7 +446,8 @@ public class Jeu
 		return true;
 	}
 
-	public int getNumManche(){ return this.iNumManche; }
+	public int getNbChampsDeble(){ return this.iNbChampsDeBle; }
+	public int getNumManche    (){ return this.iNumManche    ; }
 
 	public ArrayList<BatimentInfo> getLstBat()
 	{
@@ -489,6 +488,23 @@ public class Jeu
 		return this.tabJoueurs;
 	}
 
+	public Joueur detVainqueur()
+	{
+
+		ArrayList<Integer> alInt = new ArrayList<Integer>();
+
+		for ( int cpt = 0; cpt < this.tabJoueurs.length; cpt++)
+			alInt.add(this.getJoueurs()[cpt].getScore());
+
+		alInt.sort(null);
+
+		for ( Joueur j : this.tabJoueurs )
+			if ( j.getScore() == alInt.get(1) )
+				return j;
+
+		return null;
+	}
+	
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
