@@ -127,9 +127,9 @@ public class Jeu
 
 		switch ( this.iNbJoueur )
 		{
-			case 3  -> this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6;
-			case 4  -> this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6;
-			default -> this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7;
+			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
+			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
+			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
