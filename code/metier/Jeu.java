@@ -250,7 +250,6 @@ public class Jeu
 		else
 			this.alBat.remove(bTmp);
 
-		this.verifierManche();
 		this.changerJoueur();
 
 		return true;
@@ -418,7 +417,7 @@ public class Jeu
 	/**
 	 * Verifie si nous devons passer la manche
 	 * @return
-	 *        Si la macnhe est passé ou non
+	 *        Si la manche est passé ou non
 	 */
 	public boolean passerManche()
 	{

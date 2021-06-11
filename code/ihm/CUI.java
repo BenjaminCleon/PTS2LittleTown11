@@ -63,13 +63,16 @@ public class CUI
 				Console.normal();
 				Console.print(j==tabPlateau[0].length-1?"  |":"  |  ");
 			}
-			Console.println(tabPioche[cptPioche++].name());
+			if ( cptPioche < tabPioche.length )Console.println(tabPioche[cptPioche++].name());
 
 			Console.print("+-------+");
 			for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
-			Console.println(tabPioche[cptPioche++].name() + ((cptPioche==13)?" x" + this.ctrl.getNbChampsDeble():""));
+			if ( cptPioche < tabPioche.length )
+				Console.print(tabPioche[cptPioche++].name() + ((cptPioche==13)?" x" + this.ctrl.getNbChampsDeble():""));
+		
+			Console.println();
 		}
 		this.plateauBas();
 	}
