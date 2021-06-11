@@ -157,6 +157,11 @@ public class CUI
 		}while(!this.ctrl.setNumPlateau());
 	}
 
+	public void demanderNom(int iVal)
+	{
+		Console.println("Nom du joueur n°" + iVal);
+	}
+
 	public void afficherMenuChoix()
 	{
 		String sRet = "";

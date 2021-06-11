@@ -3,7 +3,7 @@ package equipe_11.metier;
 import equipe_11.metier.utilitaire.AltInt;
 
 /** Cette classe permet de donner les informations générales sur les différentes
-  * Resources disponibles.
+  * Resource disponible.
   *
   * @author Equipe 11
   */
@@ -14,7 +14,7 @@ public class Ressource
 	/*-----------*/
 
 	/**
-	 * C'est la quantité de blés disponibles dans le stock.
+	 * C'est la quantite de Ble disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteBle()
@@ -23,7 +23,7 @@ public class Ressource
 	private static AltInt iQteBleStock    = new AltInt( 15 );
 
 	/**
-	 * C'est la quantité de bois disponibles dans le stock.
+	 * C'est la quantite de Bois disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteBois()
@@ -32,7 +32,7 @@ public class Ressource
 	private static AltInt iQteBoisStock   = new AltInt( 15 );
 
 	/**
-	 * C'est la quantité d'eaux disponibles dans le stock.
+	 * C'est la quantite d'Eau disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteEau()
@@ -41,7 +41,7 @@ public class Ressource
 	private static AltInt iQteEauStock    = new AltInt( 15 );
 	
 	/**
-	 * C'est la quantité de pierres disponibles dans le stock.
+	 * C'est la quantite de Pierre disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQtePierre()
@@ -65,7 +65,7 @@ public class Ressource
 	private String  sType;
 
 	/**
-	 * C'est la quantité de ressources.
+	 * C'est la quantiter de ressource.
 	 *
 	 * @see Ressource#Ressource( String, boolean bEstMangeable )
 	 * @see Ressource#Ressource( String )
@@ -78,7 +78,7 @@ public class Ressource
 	private int iQte;
 	
 	/**
-	 * Est-ce que cette ressource peut être utilisée pour nourrir les ouvriers.
+	 * Esque cette ressource peut etre utiliser pour nourire les ouvriers.
 	 *
 	 * @see Ressource#getEstMangeable()
 	 */
@@ -89,12 +89,12 @@ public class Ressource
 	/*--------------*/
 
 	/**
-	 * Constructeur de Ressource.
+	 * Constructeur de Ressources.
 	 *
 	 * @param sType
 	 *          Nom de la nouvelle Ressource.
 	 * @param bEstMangeable
-	 *          Défini si cette ressource peut être utilisée pour nourrir les ouvriers.
+	 *          Definie si cette ressource peut etre utiliser pour nourire les ouvriers.
 	 */
 	public Ressource( String sType, boolean bEstMangeable )
 	{
@@ -104,8 +104,8 @@ public class Ressource
 	}
 
 	/**
-	 * Constructeur par recopie de Ressource
-	 * bEstMangeable est défini sur false par default
+	 * Constructeur par recopie de Ressources
+	 * bEstMangeable est defini sur false par default
 	 *
 	 * @param sType
 	 *          Nom de la nouvelle Ressource.
@@ -137,10 +137,10 @@ public class Ressource
 	}
 
 	/**
-	 * Consomme une quantité d'une ressource en stock passée en paramètre.
+	 * Consomme une quantiter d'une ressource en stock passer en parametre.
 	 *
 	 * @param iConso
-	 *          nombre de ressources à consommer
+	 *          nombre de ressource à consommer
 	 */
 	public boolean consommerRessourceStock( int iConso )
 	{
@@ -153,10 +153,10 @@ public class Ressource
 	}
 	
 	/**
-	 * Consomme une quantité de ressource passée en paramètre.
+	 * Consomme une quantiter d'une ressource passer en parametre.
 	 *
 	 * @param iConso
-	 *          nombre de ressources à consommer
+	 *          nombre de ressource à consommer
 	 */
 	public boolean consommerRessource( int iConso )
 	{
@@ -168,10 +168,10 @@ public class Ressource
 	}
 
 	/**
-	 * Ajoute à une ressource en stock une quantité passée en paramètre.
+	 * Ajoute une quantiter à une ressource en stock passer en parametre.
 	 *
 	 * @param iConso
-	 *          nombre de ressources à ajouter
+	 *          nombre de ressource à ajoute
 	 */
 	public boolean ajouterRessourceStock( int iConso )
 	{
@@ -184,10 +184,10 @@ public class Ressource
 	}
 	
 	/**
-	 * Ajoute à une ressource une quantité passée en paramètre.
+	 * Ajoute une quantiter à une ressource passer en parametre.
 	 *
 	 * @param iConso
-	 *          nombre de ressources à ajouter
+	 *          nombre de ressource à ajoute
 	 */
 	public boolean ajouterRessource( int iConso )
 	{
@@ -214,12 +214,12 @@ public class Ressource
 	public String  getType()        { return this.sType;         }
 	
 	/**
-	 * Retourne si la ressource peut être utilisé pour nourrir les ouvriers.
+	 * Retourne si la ressource peut etre utiliser pour nourire les ouvriers.
 	 */
 	public boolean getEstMangeable(){ return this.bEstMangeable; }
 	
 	/**
-	 * Retourne le nombre de blés dans le stock.
+	 * Retourne le nombre de ble dans le stock.
 	 *
 	 * @see Ressource#toString()
 	 */
@@ -233,28 +233,28 @@ public class Ressource
 	public static int getQteBois(){ return Ressource.iQteBoisStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre d'eaux dans le stock.
+	 * Retourne le nombre d'Eau dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
 	public static int getQteEau(){ return Ressource.iQteEauStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre de pierres dans le stock.
+	 * Retourne le nombre de Pierre dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
 	public static int getQtePierre(){ return Ressource.iQtePierreStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre de ressources disponibles dans le stock pour cette ressource.
+	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
 	 */
 	public int getQteRessource(){ return this.iQte; }
 
 	/**
-	 * Permet d'ajouter iNb ressources
+	 * Permet d'ajouter iNb ressource
 	 * @param
-	 *     Le nombre de ressources que l'on rajoute pour cette ressource
+	 *     Le nombre de ressource que l'on rajoute pour cette ressource
 	 */
 	public boolean setQteJoueur(int iNb )
 	{
@@ -268,7 +268,7 @@ public class Ressource
 	}
 
 	/**
-	 * Retourne en String le nom de la ressource et la quantité restante dans le stock.
+	 * Retourne en String le nom de la ressource et le quantiter restant dans le stock.
 	 */
 	public String toString()
 	{

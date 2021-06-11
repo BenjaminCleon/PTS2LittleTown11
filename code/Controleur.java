@@ -39,6 +39,7 @@ public class Controleur
 		if (!saisie.matches("^[2-4]$"))return false;
 
 		this.metier.setJoueur(Integer.parseInt(saisie));
+
 		return true;
 	}
 	

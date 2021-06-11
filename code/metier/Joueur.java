@@ -162,7 +162,8 @@ public class Joueur
 	
 	public void setNomJoueur(String sNomJoueur)
 	{
-		this.sNomJoueur = sNomJoueur;
+		if ( sNomJoueur == null || sNomJoueur.equals("") )this.sNomJoueur = this.SCOULEUR;
+		else                                              this.sNomJoueur = sNomJoueur   ;
 	}
 
 	/**
