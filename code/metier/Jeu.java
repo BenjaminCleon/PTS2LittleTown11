@@ -1,5 +1,6 @@
 package equipe_11.metier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -428,7 +429,7 @@ public class Jeu
 			}
 		}
 
-		this.iNumManche ++;
+		++this.iNumManche;
 
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();
