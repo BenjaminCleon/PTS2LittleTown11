@@ -445,4 +445,71 @@ public class Joueur
 
 		return 0;
 	}
+
+
+	public void ajouterRessource(int iVal, String sType)
+	{
+		switch ( sType.toUpperCase() )
+		{
+			case "BLE"    -> { this.rBle   .ajouterRessource( iVal ); }
+			case "EAU"    -> { this.rEau   .ajouterRessource( iVal ); }
+			case "BOIS"   -> { this.rBois  .ajouterRessource( iVal ); }
+			case "PIERRE" -> { this.rPierre.ajouterRessource( iVal ); }
+		}
+	}
+
+	public void consommerRessource(int iVal, String sType)
+	{
+		switch ( sType.toUpperCase() )
+		{
+			case "BLE"    -> { this.rBle   .consommerRessource( iVal ); }
+			case "EAU"    -> { this.rEau   .consommerRessource( iVal ); }
+			case "BOIS"   -> { this.rBois  .consommerRessource( iVal ); }
+			case "PIERRE" -> { this.rPierre.consommerRessource( iVal ); }
+		}
+	}
+
+	public boolean ajouterRessourcePossible( int iQte, String sRessource )
+	{
+		switch ( sRessource.toUpperCase() )
+		{
+			case "BLE"    -> { return this.rBle   .ajouterRessourcePossible( iQte ); }
+			case "EAU"    -> { return this.rEau   .ajouterRessourcePossible( iQte ); }
+			case "BOIS"   -> { return this.rBois  .ajouterRessourcePossible( iQte ); }
+			case "PIERRE" -> { return this.rPierre.ajouterRessourcePossible( iQte ); }
+		}
+		return false;
+	}
+
+	public boolean consommerRessourcePossible( int iQte, String sRessource )
+	{
+		switch ( sRessource.toUpperCase() )
+		{
+			case "BLE"    -> { return this.rBle   .consommerRessourcePossible( iQte ); }
+			case "EAU"    -> { return this.rEau   .consommerRessourcePossible( iQte ); }
+			case "BOIS"   -> { return this.rBois  .consommerRessourcePossible( iQte ); }
+			case "PIERRE" -> { return this.rPierre.consommerRessourcePossible( iQte ); }
+		}
+		return false;
+	}
+
+	/**
+	 * toString par défaut de la classe joueur
+	 * @return
+	 *      Toutes les données d'un joueur
+	 */
+	public String toString()
+	{
+		String sRet = "";
+
+		sRet += String.format("|%-28s", "Espace joueur " + this.SCOULEUR    ) + "\n";
+		sRet += String.format("|%-28s", "Score : " + this.iScore                ) + "\n";
+		sRet += String.format("|%-28s", "Piece : " + this.iNbPiece              ) + "\n";
+		sRet += String.format("|%-28s", "Bois  : " + this.getRessource("BOIS"  )) + "\n";
+		sRet += String.format("|%-28s", "Ble   : " + this.getRessource("BLE"   )) + "\n";
+		sRet += String.format("|%-28s", "Eau   : " + this.getRessource("EAU"   )) + "\n";
+		sRet += String.format("|%-28s", "Pierre: " + this.getRessource("PIERRE")) + "\n";
+
+		return sRet;
+	}
 }
