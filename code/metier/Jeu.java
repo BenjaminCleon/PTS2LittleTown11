@@ -127,7 +127,7 @@ public class Jeu
 		{
 			case 3  : { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; break; }
 			case 4  : { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; break; }
-			default : { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; break; }
+			default : { this.iNbOuvrierMax = 1; this.iNbBatimentMax = 7; break; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
@@ -418,7 +418,7 @@ public class Jeu
 			}
 		}
 
-		this.iNumManche ++;
+		++this.iNumManche;
 
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();

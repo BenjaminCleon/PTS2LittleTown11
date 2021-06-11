@@ -9,6 +9,7 @@ import equipe_11.metier.Joueur;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.EmptyStackException;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -273,6 +274,8 @@ public class Controleur
 
 		for(Joueur j : this.metier.getJoueurs())
 		{
+			if( j.nourrirOuvrier().equals("Vous pouvez nourrir vos ouvriers en choisissant vos ressources"))continue;
+
 			iQteRessource = 0;
 			iQuantiteBle = 0;
 			iQuantiteEau = 0;
@@ -310,8 +313,7 @@ public class Controleur
 					}
 
 					case 3 : {
-
-
+						
 						String sRessource = pileRessource.pop();
 						sRessource = sRessource.toUpperCase();
 
@@ -340,6 +342,8 @@ public class Controleur
 			this.ihm.mettreIhmAJour();
 			this.ihm.afficherMenuNourriture(j);
 			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
+
+
 			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
 		}
 	

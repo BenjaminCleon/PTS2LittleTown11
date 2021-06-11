@@ -211,6 +211,12 @@ public class CUI
 
 		Console.println(sRet);
 	}
+
+
+	public String afficherCoord()
+	{
+		return String.format("|%-36s|", "Veuillez entrer une coordonnée") + "\n";
+	}
 	
 	public String afficherRessource()
 	{
