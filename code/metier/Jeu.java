@@ -58,7 +58,7 @@ public class Jeu
 	/**
 	 * Le nombre de champs de blé dans le jeu
 	 */
-	private int nbChampsDeBle;
+	private int iNbChampsDeBle;
 
 	private boolean preteurSurGage;
 
@@ -68,7 +68,7 @@ public class Jeu
 	 */
 	public Jeu()
 	{
-		this.nbChampsDeBle = 5;
+		this.iNbChampsDeBle = 5;
 		this.tabPion       = new Pion[6][9];
 		this.alBat         = BatimentInfo.getLstBat();
 
@@ -135,12 +135,6 @@ public class Jeu
 			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
 		
 		this.jCourant    = this.tabJoueurs[0];
-		
-		System.out.println( this.detVainqueur().getCouleur() );
-		this.tabJoueurs[0].setScore(1);
-		System.out.println( this.detVainqueur().getCouleur() );
-		this.tabJoueurs[1].setScore(2);
-		System.out.println( this.detVainqueur().getCouleur() );
 
 		return true;
 	}
@@ -245,7 +239,10 @@ public class Jeu
 		jTmp.ajouterBatiment(pTmp, bTmp);
 		this.tabPion[iLig - 1][cCol-'A'] = pTmp;
 
-		this.alBat.remove(bTmp);
+		if( bTmp == BatimentInfo.CHAMPSDEBLE && this.iNbChampsDeBle > 0)
+			this.iNbChampsDeBle--;
+		else
+			this.alBat.remove(bTmp);
 
 		this.verifierManche();
 		this.changerJoueur();
