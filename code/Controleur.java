@@ -42,6 +42,13 @@ public class Controleur
 
 		return true;
 	}
+
+	public void setNomJoueur(int iNbJoueur)
+	{
+		String saisie = this.getSaisie();
+
+		this.metier.setNomJoueur(iNbJoueur, saisie);
+	}
 	
 	public boolean setNumPlateau()
 	{
@@ -69,7 +76,7 @@ public class Controleur
 
 	public int getPieceJoueur()
 	{
-		return this.metier.getJoueurCourant().getNbPiece();
+		return this.metier.getJoueurCourant().getQteRessource("PIECE");
 	}
 
 	public int getScoreJoueur()
@@ -85,6 +92,11 @@ public class Controleur
 	public String getCouleurJoueur(int i)
 	{
 		return this.metier.getCouleurJoueur(i);
+	}
+
+	public int getQteRessourceStock(String sType)
+	{
+		return this.metier.getQteRessourceStock(sType);
 	}
 
 	public void bouclePrincipale()
@@ -137,13 +149,13 @@ public class Controleur
 				case 1 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Coord");
-					sCoord = getSaisie();
+					sCoord = getSaisie().toUpperCase();
 				}
 
 				case 2 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
-					sType = getSaisie(); 
+					sType = getSaisie().toUpperCase(); 
 				}
 
 				case 3 -> { 
@@ -174,20 +186,27 @@ public class Controleur
 		this.ihm.mettreIhmAJour();
 		this.ihm.afficherMenuPlacementOuvrier();
 		ArrayList<BatimentInfo> alBat;
+		ArrayList<BatimentInfo> alBatPioche;
 		String saisie;
 
-		do
-		{
-			saisie = this.getSaisie();
-			if ( saisie.equals("2") )return;
-		}while ( !saisie.matches("^[12]$") );
+		alBatPioche = this.getLstBat();
 
 		do
 		{
+			do
+			{
+				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuPlacementOuvrier();
+				saisie = this.getSaisie();
+				if ( saisie.equals("2") )return;
+			}while ( !saisie.matches("^[12]$") );
+	
+			saisie = "";
 			this.ihm.mettreIhmAJour();
 			this.ihm.afficherMenuSaisie("Coord");
 			saisie = this.getSaisie().toUpperCase();
-		}while ( !saisie.matches("^([a-i]|[A-I])[1-6]$"));
+		}while( !saisie.matches("^[A-I][1-6]$"));
+		
 
 		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
 		{
@@ -205,18 +224,21 @@ public class Controleur
 					saisie = this.getSaisie();
 					switch ( saisie )
 					{
-						case "1" -> { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); }
+						case "1" ->
+						{
+							this.ihm.mettreIhmAJour();
+							this.ihm.demanderBatiment();
+							saisie = this.getSaisie().toUpperCase();
+							if ( !saisie.matches("^[1-" + alBatPioche.size() + "]$"))continue;
+							this.ihm.afficherInfo(alBatPioche.get(Integer.parseInt(saisie)));
+						}
 						case "2" ->
 						{
-							do
-							{
-								this.ihm.mettreIhmAJour();
-								this.ihm.afficherMenuSaisie("Coord");
-								{
-									saisie = this.getSaisie().toUpperCase();
-								}while ( !saisie.matches("^([a-i]|[A-I])[1-6]$"));
-
-							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherMenuSaisie("Coord");
+							saisie = this.getSaisie().toUpperCase();
+							if ( !saisie.matches("^([A-I])[1-6]$"))continue;
+							this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0));
 
 							if( metier.getPreteurSurGage() )
 							{
@@ -235,17 +257,11 @@ public class Controleur
 	{
 		this.ihm.afficherMenuEchangePiece();
 
-		String sRessource = getSaisie();
-		sRessource = sRessource.toUpperCase();
+		String sRessource = getSaisie().toUpperCase();
 
 		this.metier.echangerPieceContreRessource( sRessource );
 	}
-	
-	public void obtenirInfo()
-	{
-		this.ihm.afficherInfo();
-	}
-	
+
 	public ArrayList<BatimentInfo> getLstBat()
 	{
 		return this.metier.getLstBat();
@@ -267,12 +283,22 @@ public class Controleur
 
 	public int getNbJoueur(){ return this.metier.getNbJoueur(); }
 
+	public int getNbOuvrierRestantCourant()
+	{
+		return this.metier.getNbOuvrierRestantCourant();
+	}
+
+	public int getNbBatimentRestantCourant()
+	{
+		return this.metier.getNbBatimentRestantCourant();
+	}
+
 	public boolean nourrirOuvrier()
     {
 		String sRet = "";
 		String saisie = "";
         int iQuantiteBle;
-        int iQuantiteEau; 
+        int iQuantitePoisson; 
         int iQuantitePiece; 
 
         if ( !this.metier.isToutOuvriersPose() )return false;
@@ -281,9 +307,9 @@ public class Controleur
 		{
 			if ( !this.metier.nourrirOuvrier(i) )
 			{
-				iQuantiteBle   = 0;
-				iQuantiteEau   = 0;
-				iQuantitePiece = 0;
+				iQuantiteBle     = 0;
+				iQuantitePoisson = 0;
+				iQuantitePiece   = 0;
 				do
 				{
 					this.ihm.mettreIhmAJour(sRet);
@@ -293,9 +319,9 @@ public class Controleur
 						case "1" ->
 						{
 							this.ihm.mettreIhmAJour();
-							this.ihm.afficherDemandePourNourriture("eau"  );
+							this.ihm.afficherDemandePourNourriture("poisson"  );
 							saisie = this.getSaisie();
-							if(saisie.matches("^[0-5]$" )) iQuantiteEau   = Integer.parseInt(saisie);
+							if(saisie.matches("^[0-5]$" )) iQuantitePoisson = Integer.parseInt(saisie);
 							sRet = "";
 						} 
 						case "2" ->
@@ -316,15 +342,16 @@ public class Controleur
 						}
 						case "4" ->
 						{
-							sRet = this.metier.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece, i);
-							iQuantiteEau   = 0;
-							iQuantiteBle   = 0;
-							iQuantitePiece = 0;
+							sRet = this.metier.nourrirOuvrier(iQuantitePoisson, iQuantiteBle, iQuantitePiece, i);
+							iQuantitePoisson = 0;
+							iQuantiteBle     = 0;
+							iQuantitePiece   = 0;
 						}
 					}
 					Console.println(sRet);
 				}while( !sRet.equals("Ouvrier nourri avec succès") );
 			}
+			this.metier.changerJoueur();
 		}
 		
         this.metier.passerManche();

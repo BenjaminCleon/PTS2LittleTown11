@@ -6,6 +6,8 @@ import equipe_11.metier.Pion ;
 
 import java.util.ArrayList;
 
+import javax.lang.model.util.ElementScanner14;
+
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
 
@@ -45,16 +47,21 @@ public class CUI
 		Console.print("\n+---+");
 		for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
+			
+		Console.print("---------------------+");
 
 		Console.print("\n|   |");
 		for(int i = 'A'; i < tabPlateau[0].length + 'A'; i++)
 			Console.print("     " + (char)i + "     |");
 		
+		Console.print(String.format("  %-17s  |",tabPioche[cptPioche++]));
+		
 		Console.print("\n+---+");
 		for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
-		Console.println(tabPioche[cptPioche++]);
+		Console.println(String.format("  %-17s  |",tabPioche[cptPioche++]));
+
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
@@ -71,36 +78,54 @@ public class CUI
 				Console.normal();
 				Console.print(j==tabPlateau[0].length-1?" |":" |  ");
 			}
-			if ( cptPioche < tabPioche.length )Console.println(tabPioche[cptPioche++].name());
-			else                               Console.println();
 
+			if ( cptPioche < tabPioche.length )
+				Console.print(String.format("  %-17s  |",tabPioche[cptPioche++] + 
+				               ((cptPioche==tabPioche.length)?" x" + this.ctrl.getNbChampsDeble():"")));
+			else
+			     	Console.print(String.format("  %-17s  |", ""));
+
+			Console.println();
+			
 			Console.print("+---+");
 			for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
 			if ( cptPioche < tabPioche.length )
-				Console.print(tabPioche[cptPioche++].name() + ((cptPioche==13)?" x" + this.ctrl.getNbChampsDeble():""));
+				Console.print(String.format("  %-17s  |",tabPioche[cptPioche++] + 
+				                           ((cptPioche==tabPioche.length)?" x" + this.ctrl.getNbChampsDeble():"")));
+			else if ( i < tabPlateau.length - 1)
+					Console.print(String.format("  %-17s  |", ""));
 		
-			Console.println();
+			if ( i < tabPlateau.length - 1 )Console.println();
 		}
+		Console.println("---------------------+");
 	}
 
 	public void plateauBas(String sMess)
 	{
 		String sRet = "";
-		Console.print("+------------+--------------+------------------------------------------" +
-		                 "-----------------------------------------+\n"                     +
-		                 "|Manche : " + this.ctrl.getNumManche() + "  |Joueur "                   );
+		Console.print("+-----------+-------------+--------------------+----------------------+" +
+		              "----------+------------+---------+-------------+---------------+\n"                     +
+		                 "|Manche : " + this.ctrl.getNumManche() + " |Joueur "                   );
 		this.setCouleur(this.ctrl.getCouleurJoueur());
-		Console.print(String.format("%-7s", "" + this.ctrl.getCouleurJoueur().toUpperCase()));
+		Console.print(String.format("%-6s", "" + this.ctrl.getCouleurJoueur().toUpperCase()));
 		Console.normal();
-		Console.println(String.format("|%-83s|", "") );
-		Console.println("+------------+--------------+---------------------------------------------" +
-		                "--------------------------------------+\n"                     );
+		Console.println("|Ouvrier restants: "    + this.ctrl.getNbOuvrierRestantCourant ()
+		                + " " +
+		                "|Batiments restants: " + this.ctrl.getNbBatimentRestantCourant()
+						+ " |Bois : "   + String.format("%2d", this.ctrl.getQteRessourceStock("BOIS")) 
+						+ " |Pierre : " + String.format("%2d", this.ctrl.getQteRessourceStock("PIERRE"))
+						+ " |Blé : "    + String.format("%2d", this.ctrl.getQteRessourceStock("BLE"))
+						+ " |Poisson : "+ String.format("%2d", this.ctrl.getQteRessourceStock("POISSON"))
+						+ String.format("%-17s|"," |Piece : "  + 
+						                String.format("%2d", this.ctrl.getQteRessourceStock("PIECE"))));
+		Console.println("+-----------+-------------+--------------------+----------------------+" +
+		                "----------+------------+---------+-------------+---------------+\n"     );
 		if ( !sMess.equals("") )
-			Console.println("+===========================================+\n"+
-				            String.format("|%-43s|", sMess) + "\n"    +
-			                "+===========================================+\n" );
+			Console.println("+=========================================================+\n"+
+				            String.format("|%-57s|", sMess) + "\n"    +
+			                "+=========================================================+\n" );
 
 		Console.println(this.getRessourceAllJoueur());
 	}
@@ -153,8 +178,14 @@ public class CUI
 
 		do
 		{
-			Console.print("Combien de joueurs va participer ?");
+			Console.print("Combien de joueurs vont participer ?");
 		}while(!this.ctrl.setNbJoueur());
+
+		for (int i=0;i<this.ctrl.getNbJoueur();i++)
+		{
+			Console.print("Nom du joueur "+ (i+1) +" : ");
+			this.ctrl.setNomJoueur(i);
+		}
 
 		Console.println();
 
@@ -191,7 +222,7 @@ public class CUI
 		sRet += String.format("|%-36s|", "Espace nourriture " + sCoul) + "\n";
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "   Quantite à 0 par défaut"  ) + "\n";
-		sRet += String.format("|%-36s|", "1. Quantite d'eau"  ) + "\n";
+		sRet += String.format("|%-36s|", "1. Quantite de poisson"  ) + "\n";
 		sRet += String.format("|%-36s|", "2. Quantite de blé"  ) + "\n";
 		sRet += String.format("|%-36s|", "3. Quantité de pièce") + "\n";
 		sRet += String.format("|%-36s|", "4. Valider") + "\n";
@@ -304,27 +335,21 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public void demanderBatiment(ArrayList<BatimentInfo> alBats)
+	public void demanderBatiment()
 	{
 		String sRet = "";
 
 		sRet += "======================================\n";
 		sRet += String.format("|%-36s|", "Saisissez le numéro du batiment:" ) + "\n";
-		for( BatimentInfo bTmp : alBats )sRet += String.format("|%-36s|",
-		                                         String.format("%15s", bTmp.name())) + "\n";
 		sRet += "======================================\n";
 	
 
 		Console.println(sRet);		
 	}
 	
-	public void afficherInfo()
+	public void afficherInfo(BatimentInfo b)
 	{
-		String sPrint = "";
-		for( BatimentInfo b : ctrl.getLstBat() )
-			sPrint += b + "\n";
-		
-		Console.println( sPrint );
+		Console.println( b.toStringInfoActivation() );
 	}
 
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }

@@ -14,13 +14,32 @@ public class Ressource
 	/*-----------*/
 
 	/**
+	 * Nombre de piece maximale dans l'inventaire
+	 */
+	private static final int INB_PIECE_MAX     = 40;
+
+	/**
+	 * Nombre de ressource maximale dans l'inventaire par ressource
+	 */
+	private static final int INB_RESSOURCE_MAX = 15;
+
+	/**
+	 * C'est la quantité de Piece disponible dans le stock
+	 * 
+	 * @see Ressource#getRessourceByType( String)
+	 * @see Ressource#getQteBle()
+	 * @see Ressource#toString ()
+	 */
+	private static AltInt iQtePieceStock = new AltInt( Ressource.INB_PIECE_MAX );
+
+	/**
 	 * C'est la quantite de Ble disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteBle()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteBleStock    = new AltInt( 15 );
+	private static AltInt iQteBleStock    = new AltInt( Ressource.INB_RESSOURCE_MAX );
 
 	/**
 	 * C'est la quantite de Bois disponible dans le stock.
@@ -29,16 +48,16 @@ public class Ressource
 	 * @see Ressource#getQteBois()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteBoisStock   = new AltInt( 15 );
+	private static AltInt iQteBoisStock   = new AltInt( Ressource.INB_RESSOURCE_MAX );
 
 	/**
-	 * C'est la quantite d'Eau disponible dans le stock.
+	 * C'est la quantite de poisson disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
-	 * @see Ressource#getQteEau()
+	 * @see Ressource#getQtePoisson()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQteEauStock    = new AltInt( 15 );
+	private static AltInt iQtePoissonStock    = new AltInt( Ressource.INB_RESSOURCE_MAX );
 	
 	/**
 	 * C'est la quantite de Pierre disponible dans le stock.
@@ -47,7 +66,7 @@ public class Ressource
 	 * @see Ressource#getQtePierre()
 	 * @see Ressource#toString()
 	 */
-	private static AltInt iQtePierreStock = new AltInt( 15 );	
+	private static AltInt iQtePierreStock = new AltInt( Ressource.INB_RESSOURCE_MAX );	
 
 	/**
 	 * C'est le nom de la ressource.
@@ -76,13 +95,6 @@ public class Ressource
 	 * @see Ressource#setQte(int iNb )
 	 */
 	private int iQte;
-	
-	/**
-	 * Est-ce que cette ressource peut être utilisé pour nourrir les ouvriers.
-	 *
-	 * @see Ressource#getEstMangeable()
-	 */
-	private boolean bEstMangeable;
 
 	/*--------------*/
 	/* Constructeur */
@@ -93,26 +105,11 @@ public class Ressource
 	 *
 	 * @param sType
 	 *          Nom de la nouvelle Ressource.
-	 * @param bEstMangeable
-	 *          Définie si cette ressource peut etre utilisé pour nourire les ouvriers.
-	 */
-	public Ressource( String sType, boolean bEstMangeable )
-	{
-		this.sType         = sType.toUpperCase();
-		this.bEstMangeable = bEstMangeable;
-		this.iQte          = 0;
-	}
-
-	/**
-	 * Constructeur par recopie de Ressources
-	 * bEstMangeable est defini sur false par default
-	 *
-	 * @param sType
-	 *          Nom de la nouvelle Ressource.
 	 */
 	public Ressource( String sType )
 	{
-		this( sType, false );
+		this.sType         = sType.toUpperCase();
+		this.iQte          = 0;
 	}
 
 	/**
@@ -128,11 +125,11 @@ public class Ressource
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    : { return Ressource.iQteBleStock;    }
-			case "BOIS"   : { return Ressource.iQteBoisStock;   }
-			case "EAU"    : { return Ressource.iQteEauStock;    }
-			case "PIERRE" : { return Ressource.iQtePierreStock; }
-			default : { return null; }		
+			case "BLE"    -> { return Ressource.iQteBleStock    ; }
+			case "BOIS"   -> { return Ressource.iQteBoisStock   ; }
+			case "POISSON"-> { return Ressource.iQtePoissonStock; }
+			case "PIERRE" -> { return Ressource.iQtePierreStock ; }
+			default       -> { return Ressource.iQtePieceStock  ; }		
 		}
 	}
 
@@ -151,21 +148,6 @@ public class Ressource
 		tmp.setEntier( tmp.getEntier() - iConso );
 		return true;	
 	}
-	
-	/**
-	 * Consomme une quantiter d'une ressource passer en parametre.
-	 *
-	 * @param iConso
-	 *          nombre de ressource à consommer
-	 */
-	public boolean consommerRessource( int iConso )
-	{
-		if( iConso < 1 || iConso > getQteRessource() )
-			return false;
-		
-		this.iQte -= iConso;
-		return true;
-	}
 
 	/**
 	 * Ajoute une quantiter à une ressource en stock passer en parametre.
@@ -182,7 +164,23 @@ public class Ressource
 		iTmp.setEntier( iTmp.getEntier() + iConso );
 		return true;	
 	}
-	
+
+	/**
+	 * Consomme une quantiter d'une ressource passer en parametre.
+	 *
+	 * @param iConso
+	 *          nombre de ressource à consommer
+	 */
+	public boolean consommerRessource( int iConso )
+	{
+		if( iConso < 1 || iConso > this.getQteRessource() )
+			return false;
+		
+		this.iQte -= iConso;
+		Ressource.ajouterRessourceStock(iConso, this.sType);
+		return true;
+	}
+
 	/**
 	 * Ajoute une quantiter à une ressource passer en parametre.
 	 *
@@ -195,6 +193,8 @@ public class Ressource
 			return false;
 		
 		this.iQte += iConso;
+		Ressource.consommerRessourceStock(iConso, this.sType);
+		
 		return true;
 	}
 
@@ -214,11 +214,6 @@ public class Ressource
 	public String  getType()        { return this.sType;         }
 	
 	/**
-	 * Retourne si la ressource peut etre utiliser pour nourire les ouvriers.
-	 */
-	public boolean getEstMangeable(){ return this.bEstMangeable; }
-	
-	/**
 	 * Retourne le nombre de ble dans le stock.
 	 *
 	 * @see Ressource#toString()
@@ -233,11 +228,11 @@ public class Ressource
 	public static int getQteBois(){ return Ressource.iQteBoisStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre d'Eau dans le stock.
+	 * Retourne le nombre de poisson dans le stock.
 	 *
 	 * @see  Ressource#toString()
 	 */
-	public static int getQteEau(){ return Ressource.iQteEauStock.getEntier(); }
+	public static int getQtePoisson(){ return Ressource.iQtePoissonStock.getEntier(); }
 	
 	/**
 	 * Retourne le nombre de Pierre dans le stock.
@@ -246,6 +241,8 @@ public class Ressource
 	 */
 	public static int getQtePierre(){ return Ressource.iQtePierreStock.getEntier(); }
 	
+	public static int getQtePiece (){ return Ressource.iQtePieceStock .getEntier(); }
+
 	/**
 	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
 	 */
@@ -259,7 +256,11 @@ public class Ressource
 	public boolean setQteJoueur(int iNb )
 	{
 		AltInt aTmp = Ressource.getRessourceByType(this.sType);
-		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > 15 )return false;
+		int iLimite;
+		if ( this.sType.equals("PIECE") )iLimite = Ressource.INB_PIECE_MAX;
+		else                             iLimite = Ressource.INB_RESSOURCE_MAX;
+
+		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > iLimite )return false;
 
 		this.iQte += iNb;
 		aTmp.setEntier(aTmp.getEntier()-iNb);
@@ -276,11 +277,11 @@ public class Ressource
 
 		switch( sType )
 		{
-			case "BLE"    -> sRet += String.format( "%-6s", "Ble"   ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() );
-			case "BOIS"   -> sRet += String.format( "%-6s", "Bois"  ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() );
-			case "EAU"    -> sRet += String.format( "%-6s", "Eau"   ) + " : " + String.format( "%2d", Ressource.iQteEauStock   .getEntier() );
-			case "PIERRE" -> sRet += String.format( "%-6s", "Pierre") + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() );
-		}		
+			case "BLE"    -> sRet += String.format( "%-6s", "Ble"    ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() );
+			case "BOIS"   -> sRet += String.format( "%-6s", "Bois"   ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() );
+			case "POISSON"-> sRet += String.format( "%-6s", "Poisson") + " : " + String.format( "%2d", Ressource.iQtePoissonStock   .getEntier() );
+			case "PIERRE" -> sRet += String.format( "%-6s", "Pierre" ) + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() );
+		}
 
 		return sRet;
 	}

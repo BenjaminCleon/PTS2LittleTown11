@@ -60,16 +60,6 @@ public class Joueur
 	 */
 	private ArrayList<Pion> alBatiment;
 
-	/**
-	 * C'est le nombre de pieces du joueur
-	 *
-	 * @see Joueur#getNbPiece()
-	 * @see Joueur#ajouterPiece()
-	 *
-	 * @see Joueur#payerJoueur()
-	 * @see Joueur#consommerPiece()
-	 */
-	private int iNbPiece;
 
 	/**
 	 * C'est le score du joueur
@@ -79,15 +69,15 @@ public class Joueur
 
 	private Ressource rBle;
 	/**
-	 * C'est les ressource de bois du joueur
+	 * Ce sont les ressource de bois du joueur
 	 *
 	 * @see getQteRessource()
 	 * @see ajouterRessource()
 	 * @see consommerRessource()
 	 */
-	private Ressource        rEau;
+	private Ressource        rPoisson;
 	/**
-	 * C'est les ressources de bois du joueur
+	 * Ce sont les ressources de bois du joueur
 	 *
 	 * @see getQteRessource()
 	 * @see ajouterRessource()
@@ -95,13 +85,21 @@ public class Joueur
 	 */
 	private Ressource        rBois;
 	/**
-	 * C'est les ressources de pierre du joueur
+	 * Ce sont les ressources de pierre du joueur
 	 *
 	 * @see getQteRessource()
 	 * @see ajouterRessource()
 	 * @see consommerRessource()
 	 */
 	private Ressource        rPierre;
+
+	/**
+	 * Ce sont les ressources de pièces du joueur
+	 * @see getQteRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
+	private Ressource        rPiece ;
 
 	/**
 	 * Liste des batiments que le joueur peux activer après avoir jouer un ouvrier
@@ -132,7 +130,6 @@ public class Joueur
 		this.NB_OBJECTIF  = nbObjectif;
 		this.SCOULEUR     = sCouleur;
 
-		this.iNbPiece     = 3;
 		this.iScore       = 0;
 
 		this.bNourri = false;
@@ -142,19 +139,21 @@ public class Joueur
 
 		this.alBatimentListeTmp = new ArrayList<BatimentInfo>();
 		
-		this.rBle         = new Ressource("ble",true); //est mangeable
-		this.rEau         = new Ressource("eau",true); //est mangeable
+		this.rBle         = new Ressource("ble"     );
+		this.rPoisson     = new Ressource("poisson" );
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
+		this.rPiece       = new Ressource("piece"   );
+		this.rPiece.setQteJoueur(3);
 	}
+
+	public void initPiece(){ this.rPiece.setQteJoueur(3); }
 	
 	public void setNourri( boolean estNourri )
 	{
 		this.bNourri = estNourri;
 	}
 
-	
-	
 	public void setNumJoueur(int iNumJoueur)
 	{
 		this.sNumJoueur = iNumJoueur;
@@ -165,13 +164,6 @@ public class Joueur
 		if ( sNomJoueur == null || sNomJoueur.equals("") )this.sNomJoueur = this.SCOULEUR;
 		else                                              this.sNomJoueur = sNomJoueur   ;
 	}
-
-	/**
-	 * retourne le nombre de piece du joueur
-	 * @return 
-	 *	le nombre de piece du joueur
-	 */
-	public int    getNbPiece () { return this.iNbPiece; }
 	
 	/**
 	 * retourne la couleur du joueur
@@ -206,10 +198,11 @@ public class Joueur
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> { return this.rBle   .getQteRessource(); }
-			case "EAU"    -> { return this.rEau   .getQteRessource(); }
-			case "BOIS"   -> { return this.rBois  .getQteRessource(); }
-			case "PIERRE" -> { return this.rPierre.getQteRessource(); }
+			case "BLE"    -> { return this.rBle    .getQteRessource(); }
+			case "POISSON"-> { return this.rPoisson.getQteRessource(); }
+			case "BOIS"   -> { return this.rBois   .getQteRessource(); }
+			case "PIERRE" -> { return this.rPierre .getQteRessource(); }
+			case "PIECE"  -> { return this.rPiece  .getQteRessource(); }
 		}
 		
 		return 0;
@@ -228,9 +221,10 @@ public class Joueur
 		switch ( sType.toUpperCase() )
 		{
 			case "BLE"    -> { return this.rBle;    }
-			case "EAU"    -> { return this.rEau;    }
+			case "POISSON"-> { return this.rPoisson;}
 			case "BOIS"   -> { return this.rBois;   }
 			case "PIERRE" -> { return this.rPierre; }
+			case "PIECE"  -> { return this.rPiece ; }
 		}
 		
 		return null;
@@ -244,33 +238,19 @@ public class Joueur
 	 * @param sType
 	 * 	nom de la ressource a incrementer
 	 */
-	public void gererRessource(int iVal, String sType)
+	public boolean gererRessource(int iVal, String sType)
 	{
 		switch ( sType.toUpperCase() )
 		{
-			case "BLE"    -> this.rBle   .setQteJoueur( iVal );
-			case "EAU"    -> this.rEau   .setQteJoueur( iVal );
-			case "BOIS"   -> this.rBois  .setQteJoueur( iVal );
-			case "PIERRE" -> this.rPierre.setQteJoueur( iVal );
+			case "BLE"    -> { return this.rBle    .setQteJoueur( iVal ); }
+			case "POISSON"-> { return this.rPoisson.setQteJoueur( iVal ); }
+			case "BOIS"   -> { return this.rBois   .setQteJoueur( iVal ); }
+			case "PIERRE" -> { return this.rPierre .setQteJoueur( iVal ); }
+			case "PIECE"  -> { return this.rPiece  .setQteJoueur( iVal ); }
+			default       -> { return false; }
 		}
 	}
 
-	/**
-	 * Augmente ou Diminue le nombre de piece en fonction de la quantité
-	 * passée en parametre
-	 * @param nbPiece
-	 *	nombre de piece a utiliser
-	 */
-	public boolean setPiece( int nbPiece )
-	{
-		if(this.iNbPiece + nbPiece >= 0)
-		{
-			this.iNbPiece += nbPiece;
-			return true;
-		}
-		return false;
-	}
-	
 	/**
 	 * Augmente ou diminue le score en fonction de la quantite
 	 * passée en parametre
@@ -289,10 +269,10 @@ public class Joueur
 	 */
 	public void payerJoueur( Joueur joueur )
 	{
-		if ( this.iNbPiece > 0 )
+		if ( this.getQteRessource("PIECE") > 0 )
 		{
-			joueur.setPiece( 1);
-			this  .setPiece(-1);
+			joueur.gererRessource(1, "PIECE");
+			this  .gererRessource(-1, "PIECE");
 		}
 	}
 	
@@ -358,16 +338,16 @@ public class Joueur
 	{
 		int nbOuvrierNourri = 0;
 
-		if( this.rBle.getQteRessource() + this.rEau.getQteRessource() + this.iNbPiece/3 <= NB_OUVRIER )
+		if( this.rBle.getQteRessource() + this.rPoisson.getQteRessource() + this.rPiece.getQteRessource()/3 <= NB_OUVRIER )
 		{
-			nbOuvrierNourri = this.rBle.getQteRessource() + this.rEau.getQteRessource();
+			nbOuvrierNourri = this.rBle.getQteRessource() + this.rPoisson.getQteRessource();
 			
 			this.rBle.consommerRessource( this.rBle.getQteRessource() );
-			this.rEau.consommerRessource( this.rEau.getQteRessource() );
+			this.rPoisson.consommerRessource( this.rPoisson.getQteRessource() );
 
 			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if ( !this.setPiece(-3) )this.iScore -= 3;
+				if ( !this.gererRessource(-3, "String") )this.iScore -= 3;
 				nbOuvrierNourri++;
 			}
 			this.bNourri = true;
@@ -377,32 +357,33 @@ public class Joueur
 		return false;
 	}
 
-	public String nourrirOuvrier ( int nbEau, int nbBle, int nbPiece )
+	public String nourrirOuvrier ( int iNbPoisson, int iNbBle, int iNbPiece )
 	{
 		String sRet = "";
 
-		if ( nbEau + nbBle + nbPiece/3 > this.NB_OUVRIER )
-			sRet += "Vous proposé trop de ressources";
+		if ( iNbPoisson + iNbBle + iNbPiece/3 > this.NB_OUVRIER )
+			sRet = "Vous proposé trop de ressources";
 
-		if ( nbEau + nbBle + nbPiece/3 < this.NB_OUVRIER )
-			sRet = nbEau + " " + nbBle + " " + nbPiece;
-			// sRet = "Vous ne proposé pas assez de ressources";
+		if ( iNbPoisson + iNbBle + iNbPiece/3 < this.NB_OUVRIER )
+			sRet = "Vous ne proposé pas assez de ressources";
 
-		if ( nbBle > this.rBle.getQteRessource() )
+		if ( iNbBle > this.rBle.getQteRessource() )
 			sRet =  "Vous n'avez pas assez de ressources de blé";
 		
-		if ( nbEau > this.rEau.getQteRessource() )
-			sRet = "Vous n'avez pas assez de ressources d'eau";
+		if ( iNbPoisson > this.rPoisson.getQteRessource() )
+			sRet = "Vous n'avez pas assez de ressources de poisson";
 
-		if ( nbPiece > this.iNbPiece )
+		if ( iNbPiece > this.rPiece.getQteRessource() )
 			sRet = "Vous n'avez pas assez de pièces";
+		
+		if ( iNbPiece/3 > Ressource.getQteBle() + Ressource.getQtePoisson());
+			sRet = "Plus assez de ressource dans l'inventaire pour vos pièces";
 
 		if ( ! sRet.isEmpty() )return sRet;
 
-			this.rEau.consommerRessource(nbEau);
-			this.rBle.consommerRessource(nbBle);
-			this.setPiece(-nbPiece);
-
+		this.rPoisson.consommerRessource(iNbPoisson);
+		this.rBle.consommerRessource(iNbBle);
+		this.gererRessource(-iNbPiece, "PIECE");
 
 		this.bNourri = true;
 
@@ -454,37 +435,14 @@ public class Joueur
 		return 0;
 	}
 
-
-	/*public void ajouterRessource(int iVal, String sType)
-	{
-		switch ( sType.toUpperCase() )
-		{
-			case "BLE"    : { this.rBle   .ajouterRessource( iVal ); break; }
-			case "EAU"    : { this.rEau   .ajouterRessource( iVal ); break; }
-			case "BOIS"   : { this.rBois  .ajouterRessource( iVal ); break; }
-			case "PIERRE" : { this.rPierre.ajouterRessource( iVal ); break; }
-		}
-	}*/
-
-	/*public void consommerRessource(int iVal, String sType)
-	{
-		switch ( sType.toUpperCase() )
-		{
-			case "BLE"    : { this.rBle   .consommerRessource( iVal ); }
-			case "EAU"    : { this.rEau   .consommerRessource( iVal ); }
-			case "BOIS"   : { this.rBois  .consommerRessource( iVal ); }
-			case "PIERRE" : { this.rPierre.consommerRessource( iVal ); }
-		}
-	}*/
-
 	public boolean ajouterRessourcePossible( int iQte, String sRessource )
 	{
 		switch ( sRessource.toUpperCase() )
 		{
-			case "BLE"    : { return this.rBle   .ajouterRessourcePossible( iQte ); }
-			case "EAU"    : { return this.rEau   .ajouterRessourcePossible( iQte ); }
-			case "BOIS"   : { return this.rBois  .ajouterRessourcePossible( iQte ); }
-			case "PIERRE" : { return this.rPierre.ajouterRessourcePossible( iQte ); }
+			case "BLE"    : { return this.rBle    .ajouterRessourcePossible( iQte ); }
+			case "POISSON": { return this.rPoisson.ajouterRessourcePossible( iQte ); }
+			case "BOIS"   : { return this.rBois   .ajouterRessourcePossible( iQte ); }
+			case "PIERRE" : { return this.rPierre .ajouterRessourcePossible( iQte ); }
 		}
 		return false;
 	}
@@ -493,10 +451,10 @@ public class Joueur
 	{
 		switch ( sRessource.toUpperCase() )
 		{
-			case "BLE"    : { return this.rBle   .consommerRessourcePossible( iQte ); }
-			case "EAU"    : { return this.rEau   .consommerRessourcePossible( iQte ); }
-			case "BOIS"   : { return this.rBois  .consommerRessourcePossible( iQte ); }
-			case "PIERRE" : { return this.rPierre.consommerRessourcePossible( iQte ); }
+			case "BLE"    -> { return this.rBle    .consommerRessourcePossible( iQte ); }
+			case "POISSON"-> { return this.rPoisson.consommerRessourcePossible( iQte ); }
+			case "BOIS"   -> { return this.rBois   .consommerRessourcePossible( iQte ); }
+			case "PIERRE" -> { return this.rPierre .consommerRessourcePossible( iQte ); }
 		}
 		return false;
 	}
@@ -509,15 +467,15 @@ public class Joueur
 	public String toString()
 	{
 		String sRet = "";
-
 		sRet += "+---------------------------\n";
-		sRet += String.format("|%-27s", "Espace joueur " + this.SCOULEUR           ) + "\n";
-		sRet += String.format("|%-27s", "Score : " + this.iScore                   ) + "\n";
-		sRet += String.format("|%-27s", "Piece : " + this.iNbPiece                 ) + "\n";
-		sRet += String.format("|%-27s", "Bois  : " + this.getQteRessource("BOIS"  )) + "\n";
-		sRet += String.format("|%-27s", "Ble   : " + this.getQteRessource("BLE"   )) + "\n";
-		sRet += String.format("|%-27s", "Eau   : " + this.getQteRessource("EAU"   )) + "\n";
-		sRet += String.format("|%-27s", "Pierre: " + this.getQteRessource("PIERRE")) + "\n";
+		sRet += String.format("|%-27s", "Espace " + this.SCOULEUR + "("+
+		        String.format("%-13.13s",this.sNomJoueur)+")") + "\n";
+		sRet += String.format("|%-27s", "Score  : " + this.iScore                   ) + "\n";
+		sRet += String.format("|%-27s", "Piece  : " + this.rPiece  .getQteRessource()                 ) + "\n";
+		sRet += String.format("|%-27s", "Bois   : " + this.rBois   .getQteRessource()) + "\n";
+		sRet += String.format("|%-27s", "Ble    : " + this.rBle    .getQteRessource()) + "\n";
+		sRet += String.format("|%-27s", "Poisson: " + this.rPoisson.getQteRessource()) + "\n";
+		sRet += String.format("|%-27s", "Pierre : " + this.rPierre .getQteRessource()) + "\n";
 		sRet += "+---------------------------\n";
 
 		return sRet;

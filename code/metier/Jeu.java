@@ -76,7 +76,7 @@ public class Jeu
 		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
 		this.alBat.remove(BatimentInfo.PIERRE     );
 		this.alBat.remove(BatimentInfo.BOIS       );
-		this.alBat.remove(BatimentInfo.EAU        );
+		this.alBat.remove(BatimentInfo.POISSON    );
 
 		Collections.shuffle(this.alBat);
 
@@ -84,16 +84,23 @@ public class Jeu
 		this.alBat.add(BatimentInfo.CHAMPSDEBLE);
 	}
 	
-	public void setNumJoueur(int iNbJoueur)
-	{
-		this.tabJoueurs[iNbJoueur-1].setNumJoueur(iNbJoueur+1);
-	}
-	
+	/**
+	 * Permet d'affecter un nom au joueur
+	 * @param iNbJoueur
+	 *       Le numéro du joueur dans le tableau de joueur du jeu
+	 * @param sNomJoueur
+	 *       Le nom du joueur
+	 */
 	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
 	{
-		this.tabJoueurs[iNbJoueur-1].setNomJoueur(sNomJoueur);
+		this.tabJoueurs[iNbJoueur].setNomJoueur(sNomJoueur);
 	}
 
+	/**
+	 * Retourne le nombre de joueurs
+	 * @return
+	 *    Le nombre de joueurs
+	 */
 	public int getNbJoueur(){ return this.tabJoueurs.length; }
 
 	/**
@@ -111,6 +118,11 @@ public class Jeu
 		return true;
 	}
 
+	/**
+	 * Permet d'obtenir toutes les toString de chaque joueur dans une seule String
+	 * @return
+	 *        Une String contenant la toString de chaque joueur
+	 */
 	public String getRessourceAllJoueur()
 	{
 		String sRet = "";
@@ -120,14 +132,21 @@ public class Jeu
 		return sRet;
 	}
 
+	/**
+	 * Appel la méthode nourrir ouvrier simple du joueur en paramètre
+	 * La méthode appeler nourri les ouvriers d'un joeur avec des réglages par défaut s'il n'a pas assez de ressources
+	 * ou exactement le compte
+	 * @param iNumJoueur
+	 * @return
+	 */
 	public boolean nourrirOuvrier(int iNumJoueur)
 	{
 		return this.tabJoueurs[iNumJoueur].nourrirOuvrier();
 	}
 
-	public String nourrirOuvrier(int iQteEau, int iQteBle, int iQtePiece, int iNumJoueur)
+	public String nourrirOuvrier(int iQtePoisson, int iQteBle, int iQtePiece, int iNumJoueur)
 	{
-		return this.tabJoueurs[iNumJoueur].nourrirOuvrier(iQteEau, iQteBle, iQtePiece);
+		return this.tabJoueurs[iNumJoueur].nourrirOuvrier(iQtePoisson, iQteBle, iQtePiece);
 	}
 
 	public String getCouleurJoueurCourant(){ return this.jCourant.getCouleur();	}
@@ -185,23 +204,23 @@ public class Jeu
 
 		if ( iNumPlateau == 1 )
 		{
-			String[][] tabCase = {{"PIERRE",     "", "BOIS", "PIERRE",    "", "EAU",     "", "PIERRE", "PIERRE"},
-								  {      "",     "",     "",       "",    "",    "",     "",       "",       ""},
-								  {   "EAU",     "",     "",       "",    "",    "",     "",       "",       ""},
-								  {  "BOIS",     "",     "",       "",    "",    "",     "",       "",    "EAU"},
-								  {      "",     "",     "",       "",    "",    "", "BOIS",       "",       ""},
-								  {      "", "BOIS", "BOIS",       "", "EAU", "EAU",     "",       "",   "BOIS"}};
+			String[][] tabCase = {{    "PIERRE",     "", "BOIS", "PIERRE",        "", "POISSON",     "", "PIERRE", "PIERRE"},
+								  {          "",     "",     "",       "",        "",        "",     "",       "",       ""},
+								  {   "POISSON",     "",     "",       "",        "",        "",     "",       "",       ""},
+								  {      "BOIS",     "",     "",       "",        "",        "",     "",       "","POISSON"},
+								  {          "",     "",     "",       "",        "",        "", "BOIS",       "",       ""},
+								  {          "", "BOIS", "BOIS",       "", "POISSON", "POISSON",     "",       "",   "BOIS"}};
 			ensCase = tabCase;
 		}
 
 		if ( iNumPlateau == 2 )
 		{
-			String[][] tabCase = {{"BOIS", "",     "", "PIERRE", "PIERRE",    "", "EAU", "",   "BOIS"},
-								  {    "", "", "BOIS",       "",       "",    "",    "", "",       ""},
-								  {"BOIS", "",     "",       "",       "",    "",    "", "",    "EAU"},
-								  {    "", "",     "",       "",       "",    "",    "", "",   "BOIS"},
-								  { "EAU", "",     "",       "",   "BOIS",    "",    "", "",       ""},
-								  { "EAU", "",     "", "PIERRE",       "",    "", "EAU", "", "PIERRE"}};
+			String[][] tabCase = {{    "BOIS", "",     "", "PIERRE", "PIERRE",    "", "POISSON", "",   "BOIS"},
+								  {        "", "", "BOIS",       "",       "",    "",        "", "",       ""},
+								  {    "BOIS", "",     "",       "",       "",    "",        "", "","POISSON"},
+								  {        "", "",     "",       "",       "",    "",        "", "",   "BOIS"},
+								  { "POISSON", "",     "",       "",   "BOIS",    "",        "", "",       ""},
+								  { "POISSON", "",     "", "PIERRE",       "",    "", "POISSON", "", "PIERRE"}};
 			ensCase = tabCase;
 		}
 
@@ -227,7 +246,6 @@ public class Jeu
 	{
 		if ( iLig >       this.tabPion   .length    || iLig < 0 ||
 		     cCol > 'A' + this.tabPion[0].length -1 || cCol < 'A' ) return false;
-		sType = sType.toUpperCase();
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType);
 		Joueur   jTmp = this.tabJoueurs[iNumJoueur-1];
@@ -242,10 +260,10 @@ public class Jeu
 		System.out.println(bOk);
 		if ( !bOk )return false;
 
-		int iPierre = bTmp.getPierreReq();
-		int iBle    = bTmp.getBleReq   ();
-		int iBois   = bTmp.getBoisReq  ();
-		int iEau    = bTmp.getEauReq   ();
+		int iPierre  = bTmp.getPierreReq ();
+		int iBle     = bTmp.getBleReq    ();
+		int iBois    = bTmp.getBoisReq   ();
+		int iPoisson = bTmp.getPoissonReq();
 
 		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
 
@@ -258,8 +276,8 @@ public class Jeu
 		if ( !this.tabPion[iLig - 1][cCol-'A'].getNom().isEmpty() )return false;
 
 		if ( bTmp.estRessource() || 
-		     jTmp.getQteRessource("EAU") < iEau || jTmp.getQteRessource("PIERRE") < iPierre ||
-		     jTmp.getQteRessource("BLE") < iBle || jTmp.getQteRessource("BOIS"  ) < iBois   )
+		     jTmp.getQteRessource("POISSON") < iPoisson || jTmp.getQteRessource("PIERRE") < iPierre ||
+		     jTmp.getQteRessource("BLE")     < iBle     || jTmp.getQteRessource("BOIS"  ) < iBois   )
 			 return false;
 
 		this.gererRessource(bTmp::getReq, -1);
@@ -364,11 +382,11 @@ public class Jeu
 		return this.jCourant.getLstBatimentAutourOuvrier();
 	}
 
-	public boolean verifierEchange( int iBle, int iPierre, int iEau, int iBois, int iPiece )
+	public boolean verifierEchange( int iBle, int iPierre, int iPoisson, int iBois, int iPiece )
 	{
-		if ( this.jCourant.getQteRessource("BLE") < iBle || this.jCourant.getQteRessource("BOIS")   < iBois   ||
-		     this.jCourant.getQteRessource("EAU") < iEau || this.jCourant.getQteRessource("PIERRE") < iPierre ||
-			 this.jCourant.getNbPiece() < iPiece )return false;
+		if ( this.jCourant.getQteRessource("BLE")     < iBle     || this.jCourant.getQteRessource("BOIS")   < iBois   ||
+		     this.jCourant.getQteRessource("POISSON") < iPoisson || this.jCourant.getQteRessource("PIERRE") < iPierre ||
+			 this.jCourant.getQteRessource("PIECE")   < iPiece )return false;
 
 		return true;
 	}
@@ -381,11 +399,11 @@ public class Jeu
 	 */
 	public void gererRessource( Function<String, Integer> function, int signe )
 	{
-		this.jCourant.gererRessource(signe*function.apply("BLE"   ), "BLE"   );
-		this.jCourant.gererRessource(signe*function.apply("EAU"   ), "EAU"   );
-		this.jCourant.gererRessource(signe*function.apply("BOIS"  ), "BOIS"  );
-		this.jCourant.gererRessource(signe*function.apply("PIERRE"), "PIERRE");
-		this.jCourant.gererRessource(signe*function.apply("PIECE" ), "PIECE" );
+		this.jCourant.gererRessource(signe*function.apply("BLE"    ), "BLE"    );
+		this.jCourant.gererRessource(signe*function.apply("POISSON"), "POISSON");
+		this.jCourant.gererRessource(signe*function.apply("BOIS"   ), "BOIS"   );
+		this.jCourant.gererRessource(signe*function.apply("PIERRE" ), "PIERRE" );
+		this.jCourant.gererRessource(signe*function.apply("PIECE"  ), "PIECE"  );
 	}
 
 	public void changerJoueur()
@@ -409,12 +427,12 @@ public class Jeu
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
-			if ( this.jCourant.getNbPiece() == 0 )return false;
+			if ( this.jCourant.getQteRessource("PIECE") == 0 )return false;
 			for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(pTmp.getCoul()) )
 				{
-					j.setPiece(1);
-					this.jCourant.setPiece(-1);
+					j.gererRessource(1, "PIECE");
+					this.jCourant.gererRessource(-1, "PIECE");
 				}
 		}
 
@@ -423,8 +441,8 @@ public class Jeu
 		if( bTmp.estPreteurSurGage() )
 			this.preteurSurGage = true;
 
-		if ( bTmp.estEchange() && this.verifierEchange(bTmp.getBleReA (), bTmp.getPierreReA(),
-		                                               bTmp.getEauReA (), bTmp.getBoisReA  (),
+		if ( bTmp.estEchange() && this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
+		                                               bTmp.getPoissonReA (), bTmp.getBoisReA  (),
 													   bTmp.getPcReq()))
 			this.gererRessource(bTmp::getRea, -1);
 
@@ -462,7 +480,31 @@ public class Jeu
 		for( Joueur j : this.tabJoueurs)
 			j.resetJoueur();
 
+		this.changerJoueur();
+
 		return true;
+	}
+
+	public int getQteRessourceStock(String sType)
+	{
+		switch( sType )
+		{
+			case "BOIS"   -> { return Ressource.getQteBois   (); }
+			case "PIERRE" -> { return Ressource.getQtePierre (); }
+			case "POISSON"-> { return Ressource.getQtePoisson(); }
+			case "BLE"    -> { return Ressource.getQtePierre (); }
+			default       -> { return Ressource.getQtePiece  (); }
+		}
+	}
+
+	public int getNbOuvrierRestantCourant()
+	{
+		return this.iNbOuvrierMax - this.jCourant.getNbOuvrier();
+	}
+
+	public int getNbBatimentRestantCourant()
+	{
+		return this.iNbBatimentMax - this.jCourant.getNbBatiment();
 	}
 
 	/**
@@ -487,7 +529,7 @@ public class Jeu
 
 		if ( this.jCourant.getLstBatimentAutourOuvrier().size() == 0 ) return false;
 
-		if ( this.jCourant.getNbPiece() == 0 )
+		if ( this.jCourant.getQteRessource("PIECE") == 0 )
 		{
 			bOk = false;
 			for ( BatimentInfo b : this.jCourant.getLstBatimentAutourOuvrier() )
@@ -514,13 +556,13 @@ public class Jeu
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
 
-		if(!sTypeRes.matches("^(BLE|BOIS|PIERRE|EAU)$"))
+		if(!sTypeRes.matches("^(BLE|BOIS|PIERRE|POISSON)$"))
 			return false;
 
-		if(this.jCourant.getNbPiece() >= 3)
+		if(this.jCourant.getQteRessource("PIECE") >= 3)
 		{
 			this.jCourant.gererRessource( 1, sTypeRes );
-			this.jCourant.setPiece(-3);
+			this.jCourant.gererRessource(-3, "PIECE");
 			return true;
 		}
 		
@@ -576,18 +618,10 @@ public class Jeu
 		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu2 )
 		  )
 		{
-			//this.jCourant.consommerRessource  (  1, ressourceSaisi1 );
 			this.jCourant.getRessource(ressourceSaisi1).consommerRessource(1);
-			Ressource.ajouterRessourceStock   (  1, ressourceSaisi1 );
-			//this.jCourant.consommerRessource  (  1, ressourceSaisi2 );
 			this.jCourant.getRessource(ressourceSaisi2).consommerRessource(1);
-			Ressource.ajouterRessourceStock   (  1, ressourceSaisi2 );
-			//this.jCourant.ajouterRessource    (  1, ressourceVoulu1 );
 			this.jCourant.getRessource(ressourceVoulu1).ajouterRessource(1);
-			Ressource.consommerRessourceStock (  1, ressourceVoulu1 );
-			//this.jCourant.ajouterRessource    (  1, ressourceVoulu2 );
 			this.jCourant.getRessource(ressourceVoulu2).ajouterRessource(1);
-			Ressource.consommerRessourceStock (  1, ressourceVoulu2 );
 		}
 
 		this.preteurSurGage = false;
