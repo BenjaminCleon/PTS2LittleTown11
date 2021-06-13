@@ -342,12 +342,12 @@ public class Joueur
 		{
 			nbOuvrierNourri = this.rBle.getQteRessource() + this.rPoisson.getQteRessource();
 			
-			this.rBle.consommerRessource( this.rBle.getQteRessource() );
+			this.rBle    .consommerRessource( this.rBle.getQteRessource() );
 			this.rPoisson.consommerRessource( this.rPoisson.getQteRessource() );
 
 			while ( nbOuvrierNourri < this.NB_OUVRIER )
 			{
-				if ( !this.gererRessource(-3, "String") )this.iScore -= 3;
+				if ( !this.gererRessource(-3, "PIECE") )this.iScore -= 3;
 				nbOuvrierNourri++;
 			}
 			this.bNourri = true;

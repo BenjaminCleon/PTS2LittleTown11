@@ -278,24 +278,22 @@ public class CUI
 
 
 		if(sTypeSaisie.equals("Coord"))
-		{
 			sRet += String.format("|%-37s|", "Veuillez entrer une coordonnée") + "\n";
-		}
 
 		if(sTypeSaisie.equals("Type"))
-		{
 			sRet += String.format("|%-37s|", "Veuillez entrer un numéro de batiment") + "\n";
-		}
 
 		if(sTypeSaisie.equals("TypeR"))
-		{
 			sRet += String.format("|%-37s|", "Veuillez entrer un type de ressource") + "\n";
-		}
 
 		if(sTypeSaisie.equals("Qte"))
-		{
 			sRet += String.format("|%-37s|", "Veuillez entrer une quantité") + "\n";
-		}
+
+		if (sTypeSaisie.equals("Donner"))
+			sRet += String.format("|%-37s|", "Ressources à donner : ") + "\n";
+
+		if (sTypeSaisie.equals("Obtenir"))
+			sRet += String.format("|%-37s|", "Ressources à obtenir : ") + "\n"; 
 
 		sRet += "=======================================\n";
 
@@ -364,27 +362,13 @@ public class CUI
 
 	public void afficherPreteurSurGage()
 	{
-		Console.println( "==========================================\n" +
-			             "|Preteur sur Gage :                     |\n" +
-		                 "==========================================\n" +
-		                 "|Quelle ressource souhaitez vous echanger\n" +
-		                 "============================================");
-		
-		Console.print( "|Ressource donner : " );
-		String sSaisie = ctrl.getSaisie().toUpperCase();
-
-		String[] tabSaisie = new String[2];
-		tabSaisie = sSaisie.split( " " );
-		
-		Console.print( "|Ressource voulu  : " );
-		String sVoulu = ctrl.getSaisie().toUpperCase();
-
-		Console.println( "=======================================\n" );
-
-		String[] tabVoulu = new String[2];
-		tabVoulu = sVoulu.split( " " );;
-		
-		ctrl.activerPreteurSurGage( tabSaisie[0], tabSaisie[1], tabVoulu[0], tabVoulu[1] );
+		Console.println( "+==========================================+\n" +
+			             "|Preteur sur Gage :                        |\n" +
+		                 "+==========================================+\n" +
+		                 "|Quelles ressources souhaitez vous echanger|\n" +
+						 "|Au format(ressource1 ressource2)          |\n" +
+						 "|Exemple : \"BOIS BLE\"                      |\n" +  
+		                 "+==========================================+");
 	}
 
 

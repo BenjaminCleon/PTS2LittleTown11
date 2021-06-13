@@ -200,7 +200,7 @@ public class Ressource
 
 	public boolean ajouterRessourcePossible( int iQte )
 	{
-		return ( Ressource.getRessourceByType(this.sType).getEntier() - iQte ) > 0;
+		return ( Ressource.getRessourceByType(this.sType).getEntier() - iQte ) >= 0;
 	}
 
 	public boolean consommerRessourcePossible( int iQte )
@@ -260,7 +260,7 @@ public class Ressource
 		if ( this.sType.equals("PIECE") )iLimite = Ressource.INB_PIECE_MAX;
 		else                             iLimite = Ressource.INB_RESSOURCE_MAX;
 
-		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > iLimite )return false;
+		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > iLimite || this.iQte + iNb < 0)return false;
 
 		this.iQte += iNb;
 		aTmp.setEntier(aTmp.getEntier()-iNb);

@@ -162,7 +162,7 @@ public class Controleur
 				}
 
 				case 3 -> { 
-					if(verifierParametereConstruction(sType, sCoord))
+					if(verifierParametreConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
@@ -177,7 +177,7 @@ public class Controleur
 		}while(iEntreeUtilisateur != 4);
 	}
 
-	public boolean verifierParametereConstruction(String type, String coord)
+	public boolean verifierParametreConstruction(String type, String coord)
 	{
 		if(type == null || coord == null)return false;
 
@@ -191,6 +191,8 @@ public class Controleur
 		ArrayList<BatimentInfo> alBat;
 		ArrayList<BatimentInfo> alBatPioche;
 		String saisie;
+		String[] sEnsRessourceADonner;
+		String[] sEnsRessourceAObtenir;
 		BatimentInfo b = null;
 
 		alBatPioche = this.getLstBat();
@@ -249,9 +251,23 @@ public class Controleur
 							if ( !saisie.matches("^([A-I])[1-6]$"))continue;
 							this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0));
 
-							if( metier.getPreteurSurGage() )
+							if( this.metier.getPreteurSurGage() )
 							{
+								this.ihm.mettreIhmAJour();
 								this.ihm.afficherPreteurSurGage();
+								this.ihm.afficherMenuSaisie("Donner");
+								saisie = this.getSaisie();
+								sEnsRessourceADonner = saisie.split(" ");
+								this.ihm.mettreIhmAJour();
+								this.ihm.afficherPreteurSurGage();
+								this.ihm.afficherMenuSaisie("Obtenir");
+								saisie = this.getSaisie();
+								sEnsRessourceAObtenir = saisie.split(" ");
+								if ( sEnsRessourceADonner.length == 2 && sEnsRessourceAObtenir.length == 2 )
+									this.metier.activerPreteurSurGage(sEnsRessourceADonner [0],
+									                                  sEnsRessourceADonner [1],
+																	  sEnsRessourceAObtenir[0],
+																	  sEnsRessourceAObtenir[1]);
 							}
 						}
 					}
@@ -370,11 +386,4 @@ public class Controleur
 
         return true;
     }
-
-
-	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
-	{
-		metier.activerPreteurSurGage( ressourceSaisi1, ressourceSaisi2, ressourceVoulu1, ressourceVoulu2 );
-	}
-
 }

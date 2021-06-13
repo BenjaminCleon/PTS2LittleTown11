@@ -429,21 +429,11 @@ public class Jeu
                                                         bTmp.getPoissonReA (), bTmp.getBoisReA  (),
 			                                            bTmp.getPcReq      ()))return false;
 
-		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
-		{
-			if ( this.jCourant.getQteRessource("PIECE") == 0 )return false;
-			for ( Joueur j : this.tabJoueurs )
-				if ( j.getCouleur().equals(pTmp.getCoul()) )
-				{
-					j.gererRessource(1, "PIECE");
-					this.jCourant.gererRessource(-1, "PIECE");
-				}
-		}
+		if( bTmp.estPreteurSurGage() ){this.preteurSurGage = true; return false;}
+
+		this.gererPiecePendantActivation(iLig, cCol);
 
 		if ( bTmp.estSpecial() || bTmp.estRessource() )return false;
-
-		if( bTmp.estPreteurSurGage() )
-			this.preteurSurGage = true;
 
 		if (bTmp.estEchange() ) this.gererRessource(bTmp::getRea, -1);
 
@@ -453,6 +443,23 @@ public class Jeu
 		this.jCourant.retirerBatimentAListeTmp(bTmp);
 
 		return true;
+	}
+
+	private void gererPiecePendantActivation(int iLig, char cCol)
+	{
+		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
+		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
+
+		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
+		{
+			if ( this.jCourant.getQteRessource("PIECE") == 0 )return;
+			for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(pTmp.getCoul()) )
+				{
+					j.gererRessource(1, "PIECE");
+					this.jCourant.gererRessource(-1, "PIECE");
+				}
+		}
 	}
 
 	public BatimentInfo getBatimentDansPlateau(int iLig, int iCol)
@@ -609,31 +616,34 @@ public class Jeu
 	
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
+		BatimentInfo bTmp = BatimentInfo.rechercherBatiment("PRETEURSURGAGE");
+		int  iLig = 0;
+		char cCol = 0;
 
-		int iQteC = 1;
-		if( ressourceSaisi1.equals( ressourceSaisi2 ) )
-			iQteC = 2;
-
-		int iQteV = 1;
-		if( ressourceVoulu1.equals( ressourceVoulu2 ) )
-			iQteV = 2;
+		for ( Pion[] subTabPion : this.tabPion )
+			for ( Pion p2 : subTabPion )
+				if ( p2.getNom().equals("PRETEURSURGAGE") )
+				{
+					iLig = p2.getLig()+1;
+					cCol = p2.getCol();
+					break;
+				}
 
 		if(
-		    this.jCourant.consommerRessourcePossible( iQteC, ressourceSaisi1 ) &&
-		    this.jCourant.consommerRessourcePossible( iQteC, ressourceSaisi2 ) &&
-		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu1 ) &&
-		    this.jCourant.ajouterRessourcePossible  ( iQteV, ressourceVoulu2 )
+		    this.jCourant.consommerRessourcePossible(  1, ressourceSaisi1 ) &&
+		    this.jCourant.consommerRessourcePossible(  1, ressourceSaisi2 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( -1, ressourceVoulu1 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( -1, ressourceVoulu2 )
 		  )
 		{
-			this.jCourant.getRessource(ressourceSaisi1).consommerRessource(1);
-			this.jCourant.getRessource(ressourceSaisi2).consommerRessource(1);
-			this.jCourant.getRessource(ressourceVoulu1).ajouterRessource(1);
-			this.jCourant.getRessource(ressourceVoulu2).ajouterRessource(1);
+			this.gererPiecePendantActivation(iLig, cCol);
+			this.jCourant.gererRessource(-1, ressourceSaisi1);
+			this.jCourant.gererRessource(-1, ressourceSaisi2);
+			this.jCourant.gererRessource( 1, ressourceVoulu1);
+			this.jCourant.gererRessource( 1, ressourceVoulu2);
+			this.preteurSurGage = false;
+			this.jCourant.retirerBatimentAListeTmp(bTmp);
 		}
-
-		this.preteurSurGage = false;
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
 	}
 
 	public boolean getPreteurSurGage()
