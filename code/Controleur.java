@@ -101,7 +101,7 @@ public class Controleur
 
 	public void bouclePrincipale()
 	{
-		while(this.metier.getNumManche() != 4)
+		while(this.metier.getNumManche() != 5)
 		{
 			try
 			{
@@ -188,11 +188,8 @@ public class Controleur
 	{
 		this.ihm.mettreIhmAJour();
 		this.ihm.afficherMenuPlacementOuvrier();
-		ArrayList<BatimentInfo> alBat;
 		ArrayList<BatimentInfo> alBatPioche;
 		String saisie;
-		String[] sEnsRessourceADonner;
-		String[] sEnsRessourceAObtenir;
 		BatimentInfo b = null;
 
 		alBatPioche = this.getLstBat();
@@ -216,66 +213,78 @@ public class Controleur
 
 		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
 		{
-			alBat = this.metier.getLstBatimentAutourOuvrier();
 			do
 			{
-				this.ihm.mettreIhmAJour();
-				this.ihm.afficherMenuActivation();
-				this.ihm.afficherInfo(b);
-				b = null;
-				if ( !this.metier.verifierConstruction() )
+				if ( !this.metier.verifierActivation() )
 				{
 					saisie = "3";
 				}
 				else
 				{
+					this.ihm.mettreIhmAJour();
+					this.ihm.afficherMenuActivation();
+					this.ihm.afficherInfo(b);
+					b = null;
 					saisie = this.getSaisie();
-					switch ( saisie )
-					{
-						case "1" ->
-						{
-							this.ihm.mettreIhmAJour();
-							this.ihm.afficherMenuSaisie("Coord");
-							saisie = this.getSaisie().toUpperCase();
-							if ( saisie.matches("^[A-I][1-6]$"))
-								b = this.metier.getBatimentDansPlateau(
-									saisie.charAt(1) - '1', saisie.charAt(0) - 'A');
-							
-							if ( !alBat.contains(b) )b = null;
-						}
-						case "2" ->
-						{
-							this.ihm.mettreIhmAJour();
-							this.ihm.afficherMenuSaisie("Coord");
-							saisie = this.getSaisie().toUpperCase();
-							if ( !saisie.matches("^([A-I])[1-6]$"))continue;
-							this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0));
-
-							if( this.metier.getPreteurSurGage() )
-							{
-								this.ihm.mettreIhmAJour();
-								this.ihm.afficherPreteurSurGage();
-								this.ihm.afficherMenuSaisie("Donner");
-								saisie = this.getSaisie();
-								sEnsRessourceADonner = saisie.split(" ");
-								this.ihm.mettreIhmAJour();
-								this.ihm.afficherPreteurSurGage();
-								this.ihm.afficherMenuSaisie("Obtenir");
-								saisie = this.getSaisie();
-								sEnsRessourceAObtenir = saisie.split(" ");
-								if ( sEnsRessourceADonner.length == 2 && sEnsRessourceAObtenir.length == 2 )
-									this.metier.activerPreteurSurGage(sEnsRessourceADonner [0],
-									                                  sEnsRessourceADonner [1],
-																	  sEnsRessourceAObtenir[0],
-																	  sEnsRessourceAObtenir[1]);
-							}
-						}
-					}
+					b = this.activationCas(saisie);
 				}
 			}
 			while ( !saisie.equals("3") );
 			this.metier.changerJoueur();
 		}
+	}
+
+	public BatimentInfo activationCas(String saisie){ return this.activationCas(saisie, null); }
+
+	public BatimentInfo activationCas(String saisie, ArrayList<BatimentInfo> alBat)
+	{
+		BatimentInfo b= null;
+		String[] sEnsRessourceADonner;
+		String[] sEnsRessourceAObtenir;
+
+		if ( alBat == null )alBat = this.metier.getLstBatimentAutourOuvrier();
+
+		switch ( saisie )
+		{
+			case "1" ->
+			{
+				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuSaisie("Coord");
+				saisie = this.getSaisie().toUpperCase();
+				if ( saisie.matches("^[A-I][1-6]$"))
+					b = this.metier.getBatimentDansPlateau(
+						saisie.charAt(1) - '1', saisie.charAt(0) - 'A');
+			}
+			case "2" ->
+			{
+				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuSaisie("Coord");
+				saisie = this.getSaisie().toUpperCase();
+				if ( !saisie.matches("^([A-I])[1-6]$"))return null;
+				if ( this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)))
+					alBat.remove(this.metier.getBatimentDansPlateau(saisie.charAt(1) - '1', saisie.charAt(0) - 'A'));
+
+				if( this.metier.getPreteurSurGage() )
+				{
+					this.ihm.mettreIhmAJour();
+					this.ihm.afficherPreteurSurGage();
+					this.ihm.afficherMenuSaisie("Donner");
+					saisie = this.getSaisie();
+					sEnsRessourceADonner = saisie.split(" ");
+					this.ihm.mettreIhmAJour();
+					this.ihm.afficherPreteurSurGage();
+					this.ihm.afficherMenuSaisie("Obtenir");
+					saisie = this.getSaisie();
+					sEnsRessourceAObtenir = saisie.split(" ");
+					if ( sEnsRessourceADonner.length == 2 && sEnsRessourceAObtenir.length == 2 )
+						this.metier.activerPreteurSurGage(sEnsRessourceADonner [0],
+															sEnsRessourceADonner [1],
+															sEnsRessourceAObtenir[0],
+															sEnsRessourceAObtenir[1]);
+				}
+			}
+		}
+		return b;
 	}
 
 	public void echangerPiece()
@@ -381,9 +390,36 @@ public class Controleur
 			}
 			this.metier.changerJoueur();
 		}
+		
+		this.gererResidence();
 		this.metier.mettreJoueurA(iNumFuturJoueur);
         this.metier.passerManche();
 
         return true;
     }
+
+	public void gererResidence()
+	{
+		String  saisie = ""  ;
+		BatimentInfo b = null;
+		int iNumJoueur;
+		ArrayList<BatimentInfo> alBat;
+
+		if ( !this.metier.contientResidence() )return;
+
+
+		iNumJoueur = this.metier.getNumJoueurResidence();
+		this.metier.mettreJoueurA(iNumJoueur);
+		this.metier.remplirPourResidence();
+		alBat = this.metier.getLstBatimentAutourOuvrier();
+
+		do
+		{
+			this.ihm.mettreIhmAJour();
+			this.ihm.afficherMenuActivation(true);
+			this.ihm.afficherInfo(b);
+			saisie = this.getSaisie();
+			b = this.activationCas (saisie, alBat);
+		}while ( !saisie.equals("3") );
+	}
 }

@@ -24,7 +24,6 @@ public class CUI
 	{
 		Console.effacerEcran ();
 		this.choixDebutPartie();
-		this.mettreIhmAJour  ();
 	}
 
 
@@ -320,14 +319,21 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public void afficherMenuActivation()
+	public void afficherMenuActivation(){ this.afficherMenuActivation(false);}
+
+	public void afficherMenuActivation(boolean bOk)
 	{
 		String sRet = "";
-
+		if (bOk)
+		{
+			sRet += "=======================================\n";
+			sRet += String.format("|%-37s|", "Espace Residence") + "\n";
+		}
 		sRet += "=======================================\n";
 		sRet += String.format("|%-37s|", "1. Afficher detail sur batiment." ) + "\n";
 		sRet += String.format("|%-37s|", "2. Saisir coordonnées.") + "\n";
-		sRet += String.format("|%-37s|", "3. Joueur suivant."    ) + "\n";
+		if ( !bOk ) sRet += String.format("|%-37s|", "3. Joueur suivant."    ) + "\n";
+		else        sRet += String.format("|%-37s|", "3. Quitter")             + "\n";
 		sRet += "=======================================\n";
 
 		Console.println(sRet);
@@ -354,7 +360,7 @@ public class CUI
 
 	public void mettreIhmAJour(String sMess)
 	{
-		Console.effacerEcran();
+		// Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);

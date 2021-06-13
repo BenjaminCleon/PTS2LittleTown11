@@ -135,7 +135,7 @@ public enum BatimentInfo
 		     int iBoisReq   , int iBoisReA   , int iBoisRec   ,
 	         int iPoissonReq, int iPoissonReA, int iPoissonRec,
 	         int iPierreReq , int iPierreReA , int iPierreRec ,
-	         int iPceReA    , int iPceReq    , int iPceRec    ,
+	         int iPceReq    , int iPceReA    , int iPceRec    ,
 	         int iPtConstru , int iPtRec     , String sCategorie
 	        )
 	{

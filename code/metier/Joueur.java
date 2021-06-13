@@ -144,7 +144,7 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 		this.rPiece       = new Ressource("piece"   );
-		this.rPiece.setQteJoueur(3);
+		this.rPiece.setQteJoueur(6);
 	}
 
 	public void initPiece(){ this.rPiece.setQteJoueur(3); }

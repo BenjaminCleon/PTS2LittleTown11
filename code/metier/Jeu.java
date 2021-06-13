@@ -257,13 +257,13 @@ public class Jeu
 		for ( BatimentInfo b : this.alBat )
 			if ( b == bTmp )bOk = true;
 
-		System.out.println(bOk);
 		if ( !bOk )return false;
 
 		int iPierre  = bTmp.getPierreReq ();
 		int iBle     = bTmp.getBleReq    ();
 		int iBois    = bTmp.getBoisReq   ();
 		int iPoisson = bTmp.getPoissonReq();
+		int iPiece   = bTmp.getPcReq     ();
 
 		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
 
@@ -277,7 +277,8 @@ public class Jeu
 
 		if ( bTmp.estRessource() || 
 		     jTmp.getQteRessource("POISSON") < iPoisson || jTmp.getQteRessource("PIERRE") < iPierre ||
-		     jTmp.getQteRessource("BLE")     < iBle     || jTmp.getQteRessource("BOIS"  ) < iBois   )
+		     jTmp.getQteRessource("BLE")     < iBle     || jTmp.getQteRessource("BOIS"  ) < iBois   ||
+			 jTmp.getQteRessource("PIECE")   < iPiece )
 			 return false;
 
 		this.gererRessource(bTmp::getReq, -1);
@@ -423,6 +424,7 @@ public class Jeu
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
+		System.out.println(this.jCourant.getLstBatimentAutourOuvrier());
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
 
 		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
@@ -431,7 +433,7 @@ public class Jeu
 
 		if( bTmp.estPreteurSurGage() ){this.preteurSurGage = true; return false;}
 
-		this.gererPiecePendantActivation(iLig, cCol);
+		if ( !this.gererPiecePendantActivation(iLig, cCol)) return false;
 
 		if ( bTmp.estSpecial() || bTmp.estRessource() )return false;
 
@@ -445,14 +447,14 @@ public class Jeu
 		return true;
 	}
 
-	private void gererPiecePendantActivation(int iLig, char cCol)
+	private boolean gererPiecePendantActivation(int iLig, char cCol)
 	{
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
-			if ( this.jCourant.getQteRessource("PIECE") == 0 )return;
+			if ( this.jCourant.getQteRessource("PIECE") == 0 )return false;
 			for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(pTmp.getCoul()) )
 				{
@@ -460,6 +462,8 @@ public class Jeu
 					this.jCourant.gererRessource(-1, "PIECE");
 				}
 		}
+
+		return true;
 	}
 
 	public BatimentInfo getBatimentDansPlateau(int iLig, int iCol)
@@ -516,6 +520,49 @@ public class Jeu
 		return true;
 	}
 
+	/**
+	 * Renvoie s'il ya une résidence de placé dans le jeu
+	 * @return
+	 * 	   true si la résidence est placé
+	 */
+	public boolean contientResidence()
+	{
+		for ( Pion[] sousTabPion: this.tabPion )
+			for ( Pion p : sousTabPion )
+				if ( p.getNom().equals("RESIDENCE"))return true;
+
+		return false;
+	}
+
+	public int getNumJoueurResidence()
+	{
+		for ( int i=0;i<this.tabJoueurs.length; i++ )
+			for ( Pion p : this.tabJoueurs[i].getBatiments() )
+				if ( p.getNom().equals("RESIDENCE") )return i;
+		
+		return 0;
+	}
+
+	public void remplirPourResidence()
+	{
+		int[] iCoordonees = new int[4];
+
+		for (int i=0;i<this.tabPion.length;i++)
+			for (int j=0; j<this.tabPion[i].length; j++)
+				if ( this.tabPion[i][j].getNom().equals("RESIDENCE") )iCoordonees = this.gererCoordonneeAutourDuJoueur(i+1, (char)(j+'A'));
+
+		for ( int i=iCoordonees[0]; i<=iCoordonees[1]; i++)
+			for ( int j=iCoordonees[2]; j<=iCoordonees[3]; j++)
+				if ( !this.tabPion[i][j].getNom().equals("OUVRIER") &&
+				     !this.tabPion[i][j].getNom().equals("POISSON") &&
+					 !this.tabPion[i][j].getNom().equals("PIERRE" ) &&
+					 !this.tabPion[i][j].getNom().equals("BOIS"   ))
+				{
+					this.jCourant.ajouterBatimentAListeTmp(BatimentInfo.rechercherBatiment(
+						this.tabPion[i][j].getNom()));
+				}
+	}
+
 	public int getQteRessourceStock(String sType)
 	{
 		switch( sType )
@@ -554,7 +601,7 @@ public class Jeu
 		return true;
 	}
 
-	public boolean verifierConstruction()
+	public boolean verifierActivation()
 	{
 		boolean bOk = true;
 
