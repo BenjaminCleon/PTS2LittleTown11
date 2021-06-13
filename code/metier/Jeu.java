@@ -455,6 +455,11 @@ public class Jeu
 		return true;
 	}
 
+	public BatimentInfo getBatimentDansPlateau(int iLig, int iCol)
+	{
+		return  BatimentInfo.rechercherBatiment(this.tabPion[iLig][iCol].getNom());
+	}
+
 	/**
 	 * Retourne le joueur en train de jouer
 	 * @return 

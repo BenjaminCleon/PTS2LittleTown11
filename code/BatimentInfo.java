@@ -394,21 +394,24 @@ public enum BatimentInfo
 		String sRet = "";
 
 		sRet += this.name() + " :\n";
-		sRet += "             PIERRE | POISSON | BOIS | BLÉ | PIECE | SCORE |\n";
-		sRet += " Requis     :" +
-		        String.format("%7.7d", this.iPierreReA) + "|" + 
-				String.format("%9.9d", this.iPoissonReA   ) + "|" +
-				String.format("%6.6d", this.iBoisReA  ) + "|" +
-				String.format("%5.5d", this.iBleReA   ) + "|" +
-				String.format("%7.7d", this.iPceReA   ) + "|   0   |\n";
-		sRet += "-----------------------------------------------\n";
-		sRet += " Recompense :" +
-		        String.format("%7.7d", this.iPierreRec) + "|" + 
-		        String.format("%9.9d", this.iPoissonRec   ) + "|" +
-		        String.format("%6.6d", this.iBoisRec  ) + "|" +
-		        String.format("%5.5d", this.iBleRec   ) + "|" +
-		        String.format("%7.7d", this.iPceRec   ) + "|" +
-				String.format("%7.7d", this.iPtRec    ) +  "\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|            PIERRE | POISSON | BOIS | BLÉ | PIECE | SCORE |\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|Requis     :" +
+		        String.format("%7d", this.iPierreReA) + "|" + 
+				String.format("%9d", this.iPoissonReA   ) + "|" +
+				String.format("%6d", this.iBoisReA  ) + "|" +
+				String.format("%5d", this.iBleReA   ) + "|" +
+				String.format("%7d", this.iPceReA   ) + "|      0|\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|Recompense :" +
+		        String.format("%7d", this.iPierreRec) + "|" + 
+		        String.format("%9d", this.iPoissonRec   ) + "|" +
+		        String.format("%6d", this.iBoisRec  ) + "|" +
+		        String.format("%5d", this.iBleRec   ) + "|" +
+		        String.format("%7d", this.iPceRec   ) + "|" +
+				String.format("%7d", this.iPtRec    ) + "|\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
 		
 		return sRet;
 	}

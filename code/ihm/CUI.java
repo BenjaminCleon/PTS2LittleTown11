@@ -349,7 +349,7 @@ public class CUI
 	
 	public void afficherInfo(BatimentInfo b)
 	{
-		Console.println( b.toStringInfoActivation() );
+		if ( b != null )Console.println( b.toStringInfoActivation() );
 	}
 
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }

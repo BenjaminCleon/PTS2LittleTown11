@@ -191,6 +191,7 @@ public class Controleur
 		ArrayList<BatimentInfo> alBat;
 		ArrayList<BatimentInfo> alBatPioche;
 		String saisie;
+		BatimentInfo b = null;
 
 		alBatPioche = this.getLstBat();
 
@@ -213,10 +214,13 @@ public class Controleur
 
 		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
 		{
+			alBat = this.metier.getLstBatimentAutourOuvrier();
 			do
 			{
 				this.ihm.mettreIhmAJour();
 				this.ihm.afficherMenuActivation();
+				this.ihm.afficherInfo(b);
+				b = null;
 				if ( !this.metier.verifierConstruction() )
 				{
 					saisie = "3";
@@ -229,10 +233,13 @@ public class Controleur
 						case "1" ->
 						{
 							this.ihm.mettreIhmAJour();
-							this.ihm.demanderBatiment();
+							this.ihm.afficherMenuSaisie("Coord");
 							saisie = this.getSaisie().toUpperCase();
-							if ( !saisie.matches("^[1-" + alBatPioche.size() + "]$"))continue;
-							this.ihm.afficherInfo(alBatPioche.get(Integer.parseInt(saisie)));
+							if ( saisie.matches("^[A-I][1-6]$"))
+								b = this.metier.getBatimentDansPlateau(
+									saisie.charAt(1) - '1', saisie.charAt(0) - 'A');
+							
+							if ( !alBat.contains(b) )b = null;
 						}
 						case "2" ->
 						{
