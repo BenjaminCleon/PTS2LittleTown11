@@ -376,7 +376,7 @@ public class Joueur
 		if ( iNbPiece > this.rPiece.getQteRessource() )
 			sRet = "Vous n'avez pas assez de pièces";
 		
-		if ( iNbPiece/3 > Ressource.getQteBle() + Ressource.getQtePoisson());
+		if ( iNbPiece/3 > Ressource.getQteBle() + Ressource.getQtePoisson())
 			sRet = "Plus assez de ressource dans l'inventaire pour vos pièces";
 
 		if ( ! sRet.isEmpty() )return sRet;

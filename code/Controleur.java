@@ -134,6 +134,7 @@ public class Controleur
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
 		String sType = null;
+		ArrayList<BatimentInfo> alBat = this.getLstBat();
 
 		do
 		{
@@ -155,7 +156,9 @@ public class Controleur
 				case 2 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
-					sType = getSaisie().toUpperCase(); 
+					sType = getSaisie().toUpperCase();
+					if ( sType.matches("^([1-9]|1[0-3])$") && alBat.size() >= (Integer.parseInt(sType)))
+						sType = alBat.get(Integer.parseInt(sType)-1).name();
 				}
 
 				case 3 -> { 
@@ -214,7 +217,6 @@ public class Controleur
 			{
 				this.ihm.mettreIhmAJour();
 				this.ihm.afficherMenuActivation();
-				alBat = this.metier.getLstBatimentAutourOuvrier  ();
 				if ( !this.metier.verifierConstruction() )
 				{
 					saisie = "3";
@@ -299,10 +301,13 @@ public class Controleur
 		String saisie = "";
         int iQuantiteBle;
         int iQuantitePoisson; 
-        int iQuantitePiece; 
+        int iQuantitePiece  ; 
+		int iNumFuturJoueur ;
 
         if ( !this.metier.isToutOuvriersPose() )return false;
 
+		iNumFuturJoueur = (this.metier.getNumeroJoueurCourant()+1)%this.metier.getNbJoueur();
+		this.metier.mettreJoueurA(0);
 		for ( int i=0; i<this.getNbJoueur();i++)
 		{
 			if ( !this.metier.nourrirOuvrier(i) )
@@ -353,7 +358,7 @@ public class Controleur
 			}
 			this.metier.changerJoueur();
 		}
-		
+		this.metier.mettreJoueurA(iNumFuturJoueur);
         this.metier.passerManche();
 
         return true;

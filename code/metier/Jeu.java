@@ -408,7 +408,7 @@ public class Jeu
 
 	public void changerJoueur()
 	{
-		this.jCourant = this.tabJoueurs[++this.iNumJCourant%2];
+		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 	}
 
 	/**
@@ -424,6 +424,10 @@ public class Jeu
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
+
+		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
+                                                        bTmp.getPoissonReA (), bTmp.getBoisReA  (),
+			                                            bTmp.getPcReq      ()))return false;
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
@@ -441,12 +445,9 @@ public class Jeu
 		if( bTmp.estPreteurSurGage() )
 			this.preteurSurGage = true;
 
-		if ( bTmp.estEchange() && this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
-		                                               bTmp.getPoissonReA (), bTmp.getBoisReA  (),
-													   bTmp.getPcReq()))
-			this.gererRessource(bTmp::getRea, -1);
+		if (bTmp.estEchange() ) this.gererRessource(bTmp::getRea, -1);
 
-		this.gererRessource(bTmp::getRec, 1);
+		this.gererRessource(bTmp::getRec, 1 );
 
 		this.jCourant.setScore(bTmp.getPtRec());
 		this.jCourant.retirerBatimentAListeTmp(bTmp);
@@ -492,7 +493,7 @@ public class Jeu
 			case "BOIS"   -> { return Ressource.getQteBois   (); }
 			case "PIERRE" -> { return Ressource.getQtePierre (); }
 			case "POISSON"-> { return Ressource.getQtePoisson(); }
-			case "BLE"    -> { return Ressource.getQtePierre (); }
+			case "BLE"    -> { return Ressource.getQteBle    (); }
 			default       -> { return Ressource.getQtePiece  (); }
 		}
 	}
@@ -576,6 +577,8 @@ public class Jeu
 
 		return 0;
 	}
+
+	public void mettreJoueurA(int iNum){ this.jCourant = this.tabJoueurs[iNum]; }
 
 	public Joueur[] getJoueurs()
 	{

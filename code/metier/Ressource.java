@@ -277,10 +277,11 @@ public class Ressource
 
 		switch( sType )
 		{
-			case "BLE"    -> sRet += String.format( "%-6s", "Ble"    ) + " : " + String.format( "%2d", Ressource.iQteBleStock   .getEntier() );
-			case "BOIS"   -> sRet += String.format( "%-6s", "Bois"   ) + " : " + String.format( "%2d", Ressource.iQteBoisStock  .getEntier() );
-			case "POISSON"-> sRet += String.format( "%-6s", "Poisson") + " : " + String.format( "%2d", Ressource.iQtePoissonStock   .getEntier() );
-			case "PIERRE" -> sRet += String.format( "%-6s", "Pierre" ) + " : " + String.format( "%2d", Ressource.iQtePierreStock.getEntier() );
+			case "BLE"    -> sRet += String.format( "%-6s", "Ble"    ) + " : " + String.format( "%2d", Ressource.iQteBleStock    .getEntier() );
+			case "BOIS"   -> sRet += String.format( "%-6s", "Bois"   ) + " : " + String.format( "%2d", Ressource.iQteBoisStock   .getEntier() );
+			case "POISSON"-> sRet += String.format( "%-6s", "Poisson") + " : " + String.format( "%2d", Ressource.iQtePoissonStock.getEntier() );
+			case "PIERRE" -> sRet += String.format( "%-6s", "Pierre" ) + " : " + String.format( "%2d", Ressource.iQtePierreStock .getEntier() );
+			case "PIECE"  -> sRet += String.format( "%-6s", "Piece"  ) + " : " + String.format( "%2d", Ressource.iQtePieceStock  .getEntier() );
 		}
 
 		return sRet;
