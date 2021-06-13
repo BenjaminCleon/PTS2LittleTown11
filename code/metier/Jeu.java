@@ -481,12 +481,30 @@ public class Jeu
 	 */
 	public boolean passerManche()
 	{
+		String sCoulCathedrale = "";
+
+		int iNbOuvrierJCathedrale = 0;
+
+		for( int i = 0; i < tabPion.length; i++)
+			for( int j = 0; j < tabPion[0].length; j++)
+				if ( this.tabPion[i][j].getNom().equals("CATHEDRALE"))
+				{
+					sCoulCathedrale = this.tabPion[i][j].getCoul();
+					break;
+				}
+
 		for( int i = 0; i < tabPion.length; i++)
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
 				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
-						this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
+				{
+					if ( this.tabPion[i][j].getCoul().equals(sCoulCathedrale))iNbOuvrierJCathedrale++;
+					this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
+				}
 		}
+
+		for ( Joueur j : this.tabJoueurs )
+			if ( j.getCouleur().equals(sCoulCathedrale) )j.setScore(iNbOuvrierJCathedrale);
 
 		this.iNumManche++;
 
