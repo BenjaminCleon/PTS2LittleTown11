@@ -248,7 +248,8 @@ public class CUI
 		sRet += String.format("|%-37s|", "1. Entrer les coordonnees") + "\n";
 		sRet += String.format("|%-37s|", "2. Entrer le numéro du batiment") + "\n";
 		sRet += String.format("|%-37s|", "3. Construire le batiment") + "\n";
-		sRet += String.format("|%-37s|", "4. Quitter le menu de construction.") + "\n";
+		sRet += String.format("|%-37s|", "4. Afficher Objectifs.") + "\n";
+        sRet += String.format("|%-37s|", "5. Quitter le menu de construction.") + "\n";
 		sRet += "=======================================\n";
 
 		Console.println(sRet);
@@ -354,11 +355,18 @@ public class CUI
 
 	public void mettreIhmAJour(String sMess)
 	{
-		Console.effacerEcran();
+		//Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);
 	}
+
+    public void afficherObj()
+    {
+        Console.println( ctrl.getObj1() );
+
+        Console.println( ctrl.getObj2() );
+    }
 
 	public void afficherPreteurSurGage()
 	{
