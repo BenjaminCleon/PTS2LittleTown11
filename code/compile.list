@@ -6,7 +6,6 @@
 ./ihm/CUI.java
 
 ./metier/utilitaire/AltInt.java
-./metier/PiocheDeCartesObjectifs.java
 ./metier/CartesObjectifs.java
 ./metier/Joueur.java
 ./metier/Pion.java

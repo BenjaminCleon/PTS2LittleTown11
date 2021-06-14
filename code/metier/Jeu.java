@@ -175,7 +175,7 @@ public class Jeu
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
-			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4, this);
+			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
 		
 		this.jCourant    = this.tabJoueurs[0];
 
@@ -263,6 +263,7 @@ public class Jeu
 		int iBle     = bTmp.getBleReq    ();
 		int iBois    = bTmp.getBoisReq   ();
 		int iPoisson = bTmp.getPoissonReq();
+		int iPiece   = bTmp.getPcReq     ();
 
 		if ( this.jCourant.getNbBatiment() == this.iNbBatimentMax )return false;
 
@@ -276,7 +277,8 @@ public class Jeu
 
 		if ( bTmp.estRessource() || 
 		     jTmp.getQteRessource("POISSON") < iPoisson || jTmp.getQteRessource("PIERRE") < iPierre ||
-		     jTmp.getQteRessource("BLE")     < iBle     || jTmp.getQteRessource("BOIS"  ) < iBois   )
+		     jTmp.getQteRessource("BLE")     < iBle     || jTmp.getQteRessource("BOIS"  ) < iBois   ||
+			 jTmp.getQteRessource("PIECE")   < iPiece )
 			 return false;
 
 		this.gererRessource(bTmp::getReq, -1);
@@ -422,6 +424,7 @@ public class Jeu
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
+		System.out.println(this.jCourant.getLstBatimentAutourOuvrier());
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
 
 		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
@@ -430,7 +433,7 @@ public class Jeu
 
 		if( bTmp.estPreteurSurGage() ){this.preteurSurGage = true; return false;}
 
-		this.gererPiecePendantActivation(iLig, cCol);
+		if ( !this.gererPiecePendantActivation(iLig, cCol)) return false;
 
 		if ( bTmp.estSpecial() || bTmp.estRessource() )return false;
 
@@ -444,14 +447,14 @@ public class Jeu
 		return true;
 	}
 
-	private void gererPiecePendantActivation(int iLig, char cCol)
+	private boolean gererPiecePendantActivation(int iLig, char cCol)
 	{
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
 		if ( !pTmp.getCoul().equals(jCourant.getCouleur()) )
 		{
-			if ( this.jCourant.getQteRessource("PIECE") == 0 )return;
+			if ( this.jCourant.getQteRessource("PIECE") == 0 )return false;
 			for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(pTmp.getCoul()) )
 				{
@@ -459,6 +462,8 @@ public class Jeu
 					this.jCourant.gererRessource(-1, "PIECE");
 				}
 		}
+
+		return true;
 	}
 
 	public BatimentInfo getBatimentDansPlateau(int iLig, int iCol)
@@ -515,6 +520,49 @@ public class Jeu
 		return true;
 	}
 
+	/**
+	 * Renvoie s'il ya une résidence de placé dans le jeu
+	 * @return
+	 * 	   true si la résidence est placé
+	 */
+	public boolean contientResidence()
+	{
+		for ( Pion[] sousTabPion: this.tabPion )
+			for ( Pion p : sousTabPion )
+				if ( p.getNom().equals("RESIDENCE"))return true;
+
+		return false;
+	}
+
+	public int getNumJoueurResidence()
+	{
+		for ( int i=0;i<this.tabJoueurs.length; i++ )
+			for ( Pion p : this.tabJoueurs[i].getBatiments() )
+				if ( p.getNom().equals("RESIDENCE") )return i;
+		
+		return 0;
+	}
+
+	public void remplirPourResidence()
+	{
+		int[] iCoordonees = new int[4];
+
+		for (int i=0;i<this.tabPion.length;i++)
+			for (int j=0; j<this.tabPion[i].length; j++)
+				if ( this.tabPion[i][j].getNom().equals("RESIDENCE") )iCoordonees = this.gererCoordonneeAutourDuJoueur(i+1, (char)(j+'A'));
+
+		for ( int i=iCoordonees[0]; i<=iCoordonees[1]; i++)
+			for ( int j=iCoordonees[2]; j<=iCoordonees[3]; j++)
+				if ( !this.tabPion[i][j].getNom().equals("OUVRIER") &&
+				     !this.tabPion[i][j].getNom().equals("POISSON") &&
+					 !this.tabPion[i][j].getNom().equals("PIERRE" ) &&
+					 !this.tabPion[i][j].getNom().equals("BOIS"   ))
+				{
+					this.jCourant.ajouterBatimentAListeTmp(BatimentInfo.rechercherBatiment(
+						this.tabPion[i][j].getNom()));
+				}
+	}
+
 	public int getQteRessourceStock(String sType)
 	{
 		switch( sType )
@@ -525,6 +573,66 @@ public class Jeu
 			case "BLE"    -> { return Ressource.getQteBle    (); }
 			default       -> { return Ressource.getQtePiece  (); }
 		}
+	}
+
+	public void gererChateau()
+	{
+		String sCoulChateau = "";
+		int iLig  = 0;
+		char cCol = 0;
+		int[] iCoordonees = new int[4];
+		int iScoreARajouter = 0;
+
+		for ( int i=0;i<this.tabPion.length; i++)
+			for ( int j=0; j<this.tabPion[i].length;j++)
+				if ( this.tabPion[i][j].getNom().equals("CHATEAU") )
+				{
+					sCoulChateau = this.tabPion[i][j].getCoul();
+					iLig = i+1;
+					cCol = (char)(j + 'A');
+					break;
+				}
+		
+		if ( sCoulChateau.equals("") )return;
+
+		iCoordonees = this.gererCoordonneeAutourDuJoueur(iLig, cCol);
+		for (int i=iCoordonees[0]; i<= iCoordonees[1]; i++)
+			for (int j=iCoordonees[2]; j<= iCoordonees[3]; j++)
+				if ( this.tabPion[i][j].getCoul().equals(sCoulChateau))
+					iScoreARajouter += 4;
+
+		for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(sCoulChateau) )j.setScore(iScoreARajouter);
+	}
+
+	public void gererTourDeGarde()
+	{
+		String sCoulTdg = "";
+		int iLig  = 0;
+		char cCol = 0;
+		int[] iCoordonees = new int[4];
+		int iScoreARajouter = 0;
+
+		for ( int i=0;i<this.tabPion.length; i++)
+			for ( int j=0; j<this.tabPion[i].length;j++)
+				if ( this.tabPion[i][j].getNom().equals("TOURDEGARDE") )
+				{
+					sCoulTdg = this.tabPion[i][j].getCoul();
+					iLig = i+1;
+					cCol = (char)(j + 'A');
+					break;
+				}
+		
+		if ( sCoulTdg.equals("") )return;
+
+		iCoordonees = this.gererCoordonneeAutourDuJoueur(iLig, cCol);
+		for (int i=iCoordonees[0]; i<= iCoordonees[1]; i++)
+			for (int j=iCoordonees[2]; j<= iCoordonees[3]; j++)
+				if ( this.tabPion[i][j].getNom().equals(""))
+					iScoreARajouter += 2;
+
+		for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(sCoulTdg))j.setScore(iScoreARajouter);
 	}
 
 	public int getNbOuvrierRestantCourant()
@@ -553,7 +661,7 @@ public class Jeu
 		return true;
 	}
 
-	public boolean verifierConstruction()
+	public boolean verifierActivation()
 	{
 		boolean bOk = true;
 
@@ -578,10 +686,6 @@ public class Jeu
 		return this.alBat;
 	}
 
-	public ArrayList<String> getLstNomBat()
-	{
-		return BatimentInfo.getLstNomBat();
-	}
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
@@ -614,33 +718,6 @@ public class Jeu
 		return this.tabJoueurs;
 	}
 
-	public Joueur detVainqueur()
-	{
-
-		ArrayList<Integer> alInt = new ArrayList<Integer>();
-
-		for ( int cpt = 0; cpt < this.tabJoueurs.length; cpt++)
-			alInt.add(this.getJoueurs()[cpt].getScore());
-
-		alInt.sort(null);
-
-		for ( Joueur j : this.tabJoueurs )
-			if ( j.getScore() == alInt.get(1) )
-				return j;
-
-		return null;
-	}
-
-    public CartesObjectifs getObj1()
-    {
-        return this.jCourant.getObj1();
-    }
-
-    public CartesObjectifs getObj2()
-    {
-        return this.jCourant.getObj2();
-    }
-	
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment("PRETEURSURGAGE");
@@ -676,5 +753,36 @@ public class Jeu
 	public boolean getPreteurSurGage()
 	{
 		return this.preteurSurGage;
+	}
+
+	public String[][] getClassemenentJoueur()
+	{
+		int iCpt = 0;
+
+		String[][] sDataJoueurs = new String[this.getNbJoueur()][2];
+		ArrayList<Joueur> alJoueur = new ArrayList<Joueur>();
+
+		for ( Joueur j : this.getJoueurs() )
+			alJoueur.add(j);
+
+		Collections.sort(alJoueur, (j1, j2) -> j1.getScore() - j2.getScore());
+
+		for ( Joueur j : this.getJoueurs() )
+		{
+			sDataJoueurs[iCpt]  [0] = j.getNom    ();
+			sDataJoueurs[iCpt++][1] = j.getCouleur();
+		}
+
+		return sDataJoueurs;
+	}
+
+	public void gererFinDePartie()
+	{
+		int iScoreBonus = 0;
+
+		for ( Joueur j : this.tabJoueurs )
+		{
+			j.gererFinDePartie();
+		}
 	}
 }
