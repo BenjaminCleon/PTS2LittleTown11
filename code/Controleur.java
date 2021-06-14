@@ -1,14 +1,14 @@
 package equipe_11;
 
 import equipe_11.ihm.CUI;
-import equipe_11.metier.BatimentInfo;
+import equipe_11.BatimentInfo;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
-import equipe_11.metier.Joueur;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.EmptyStackException;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -23,6 +23,7 @@ public class Controleur
 		this.metier = new Jeu();
 		this.ihm    = new CUI(this);
 
+		this.ihm.initCUI();
 		this.bouclePrincipale();
 	}
 
@@ -38,7 +39,15 @@ public class Controleur
 		if (!saisie.matches("^[2-4]$"))return false;
 
 		this.metier.setJoueur(Integer.parseInt(saisie));
+
 		return true;
+	}
+
+	public void setNomJoueur(int iNbJoueur)
+	{
+		String saisie = this.getSaisie();
+
+		this.metier.setNomJoueur(iNbJoueur, saisie);
 	}
 	
 	public boolean setNumPlateau()
@@ -60,14 +69,14 @@ public class Controleur
 
 	public Pion[][] getPlateau(){ return this.metier.getPlateau();}
 
-	public int getRessourceJoueur( String sType )
+	public int getQteRessourceJoueur( String sType )
 	{
-		return this.metier.getJoueurCourant().getRessource(sType);
+		return this.metier.getJoueurCourant().getQteRessource(sType);
 	}
 
 	public int getPieceJoueur()
 	{
-		return this.metier.getJoueurCourant().getNbPiece();
+		return this.metier.getJoueurCourant().getQteRessource("PIECE");
 	}
 
 	public int getScoreJoueur()
@@ -78,6 +87,16 @@ public class Controleur
 	public String getCouleurJoueur()
 	{
 		return this.metier.getJoueurCourant().getCouleur();
+	}
+
+	public String getCouleurJoueur(int i)
+	{
+		return this.metier.getCouleurJoueur(i);
+	}
+
+	public int getQteRessourceStock(String sType)
+	{
+		return this.metier.getQteRessourceStock(sType);
 	}
 
 	public void bouclePrincipale()
@@ -94,11 +113,10 @@ public class Controleur
 
 				switch(choix)
 				{
-					case 1 : { this.construire    (); break; }
-					case 2 : { this.ajouterOuvrier(); break; }
-					case 3 : { this.obtenirInfo   (); break; }
-					case 4 : { this.echangerPiece();  break; }
-					case 5 : { System.exit(0)       ; break; }
+					case 1 -> this.construire    ();
+					case 2 -> this.ajouterOuvrier();
+					case 3 -> this.echangerPiece ();
+					case 4 -> System.exit(0)       ;
 				}
 
 				this.ihm.mettreIhmAJour();
@@ -116,10 +134,10 @@ public class Controleur
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
 		String sType = null;
+		ArrayList<BatimentInfo> alBat = this.getLstBat();
 
 		do
 		{
-
 			this.ihm.afficherMenuConstructionBatiment();
 
 			try
@@ -129,32 +147,28 @@ public class Controleur
 
 			switch(iEntreeUtilisateur)
 			{
-				case 1 : { 
+				case 1 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Coord");
-					sCoord = getSaisie();
-
-					break;
+					sCoord = getSaisie().toUpperCase();
 				}
 
-				case 2 : { 
+				case 2 -> { 
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherMenuSaisie("Type");
-					sType = getSaisie(); 
-
-					break;
+					sType = getSaisie().toUpperCase();
+					if ( sType.matches("^([1-9]|1[0-3])$") && alBat.size() >= (Integer.parseInt(sType)))
+						sType = alBat.get(Integer.parseInt(sType)-1).name();
 				}
 
-				case 3 : { 
-					if(verifierParametereConstruction(sType, sCoord))
+				case 3 -> { 
+					if(verifierParametreConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
 
 						iEntreeUtilisateur = 4;
 					}
-
-					break;
 				}
 			}
 
@@ -163,7 +177,7 @@ public class Controleur
 		}while(iEntreeUtilisateur != 4);
 	}
 
-	public boolean verifierParametereConstruction(String type, String coord)
+	public boolean verifierParametreConstruction(String type, String coord)
 	{
 		if(type == null || coord == null)return false;
 
@@ -175,29 +189,41 @@ public class Controleur
 		this.ihm.mettreIhmAJour();
 		this.ihm.afficherMenuPlacementOuvrier();
 		ArrayList<BatimentInfo> alBat;
+		ArrayList<BatimentInfo> alBatPioche;
 		String saisie;
+		String[] sEnsRessourceADonner;
+		String[] sEnsRessourceAObtenir;
+		BatimentInfo b = null;
+
+		alBatPioche = this.getLstBat();
 
 		do
-		{
-			saisie = this.getSaisie();
-			if ( saisie.equals("2") )return;
-		}while ( !saisie.matches("^[12]$") );
-
-		do
-		{
-			this.ihm.mettreIhmAJour();
-			this.ihm.afficherMenuSaisie("Coord");
-			saisie = this.getSaisie().toUpperCase();
-		}while ( !saisie.matches("^[A-I][1-6]$"));
-
-		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
 		{
 			do
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherMenuPlacementOuvrier();
+				saisie = this.getSaisie();
+				if ( saisie.equals("2") )return;
+			}while ( !saisie.matches("^[12]$") );
+	
+			saisie = "";
+			this.ihm.mettreIhmAJour();
+			this.ihm.afficherMenuSaisie("Coord");
+			saisie = this.getSaisie().toUpperCase();
+		}while( !saisie.matches("^[A-I][1-6]$"));
+		
+
+		if ( this.metier.ajouterOuvrier(Character.getNumericValue(saisie.charAt(1)), saisie.charAt(0)))
+		{
+			alBat = this.metier.getLstBatimentAutourOuvrier();
+			do
+			{
+				this.ihm.mettreIhmAJour();
 				this.ihm.afficherMenuActivation();
-				alBat = this.metier.getLstBatimentAutourOuvrier  ();
-				if ( alBat.size() == 0 )
+				this.ihm.afficherInfo(b);
+				b = null;
+				if ( !this.metier.verifierConstruction() )
 				{
 					saisie = "3";
 				}
@@ -206,24 +232,43 @@ public class Controleur
 					saisie = this.getSaisie();
 					switch ( saisie )
 					{
-						case "1" : { this.ihm.mettreIhmAJour(); this.ihm.demanderBatiment(alBat); break;}
-						case "2" :
+						case "1" ->
 						{
-							do
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherMenuSaisie("Coord");
+							saisie = this.getSaisie().toUpperCase();
+							if ( saisie.matches("^[A-I][1-6]$"))
+								b = this.metier.getBatimentDansPlateau(
+									saisie.charAt(1) - '1', saisie.charAt(0) - 'A');
+							
+							if ( !alBat.contains(b) )b = null;
+						}
+						case "2" ->
+						{
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherMenuSaisie("Coord");
+							saisie = this.getSaisie().toUpperCase();
+							if ( !saisie.matches("^([A-I])[1-6]$"))continue;
+							this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0));
+
+							if( this.metier.getPreteurSurGage() )
 							{
 								this.ihm.mettreIhmAJour();
-								this.ihm.afficherMenuSaisie("Coord");
-								{
-									saisie = this.getSaisie().toUpperCase();
-								}while ( !saisie.matches("^[A-I][1-6]$"));
-							}while(!this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)));
-
-							if( metier.getPreteurSurGage() )
-							{
 								this.ihm.afficherPreteurSurGage();
+								this.ihm.afficherMenuSaisie("Donner");
+								saisie = this.getSaisie();
+								sEnsRessourceADonner = saisie.split(" ");
+								this.ihm.mettreIhmAJour();
+								this.ihm.afficherPreteurSurGage();
+								this.ihm.afficherMenuSaisie("Obtenir");
+								saisie = this.getSaisie();
+								sEnsRessourceAObtenir = saisie.split(" ");
+								if ( sEnsRessourceADonner.length == 2 && sEnsRessourceAObtenir.length == 2 )
+									this.metier.activerPreteurSurGage(sEnsRessourceADonner [0],
+									                                  sEnsRessourceADonner [1],
+																	  sEnsRessourceAObtenir[0],
+																	  sEnsRessourceAObtenir[1]);
 							}
-
-							break;
 						}
 					}
 				}
@@ -233,26 +278,15 @@ public class Controleur
 		}
 	}
 
-	public Joueur[] getJoueurs()
-	{
-		return this.metier.getJoueurs();
-	}
-
 	public void echangerPiece()
 	{
 		this.ihm.afficherMenuEchangePiece();
 
-		String sRessource = getSaisie();
-		sRessource = sRessource.toUpperCase();
+		String sRessource = getSaisie().toUpperCase();
 
 		this.metier.echangerPieceContreRessource( sRessource );
 	}
-	
-	public void obtenirInfo()
-	{
-		this.ihm.afficherInfo();
-	}
-	
+
 	public ArrayList<BatimentInfo> getLstBat()
 	{
 		return this.metier.getLstBat();
@@ -263,101 +297,93 @@ public class Controleur
 		return this.metier.getLstNomBat();
 	}
 
+	public int getNbChampsDeble(){ return this.metier.getNbChampsDeble(); }
+
 	public int getNumManche(){ return this.metier.getNumManche(); }
 
+	public String getRessourceAllJoueur()
+	{
+		return this.metier.getRessourceAllJoueur();
+	}
+
+	public int getNbJoueur(){ return this.metier.getNbJoueur(); }
+
+	public int getNbOuvrierRestantCourant()
+	{
+		return this.metier.getNbOuvrierRestantCourant();
+	}
+
+	public int getNbBatimentRestantCourant()
+	{
+		return this.metier.getNbBatimentRestantCourant();
+	}
+
 	public boolean nourrirOuvrier()
-	{
+    {
+		String sRet = "";
+		String saisie = "";
+        int iQuantiteBle;
+        int iQuantitePoisson; 
+        int iQuantitePiece  ; 
+		int iNumFuturJoueur ;
 
-		System.out.println(this.metier.isToutOuvriersPose());
+        if ( !this.metier.isToutOuvriersPose() )return false;
 
-		if ( !this.metier.isToutOuvriersPose() )return false;
-		
-		Stack<Integer> pileQuantite = new Stack<Integer>();
-		Stack<String> pileRessource = new Stack<String>();
-
-		int iQteRessource;
-		int iQuantiteBle;
-		int iQuantiteEau; 
-		int iQuantitePiece;
-
-		for(Joueur j : this.metier.getJoueurs())
+		iNumFuturJoueur = (this.metier.getNumeroJoueurCourant()+1)%this.metier.getNbJoueur();
+		this.metier.mettreJoueurA(0);
+		for ( int i=0; i<this.getNbJoueur();i++)
 		{
-			iQteRessource = 0;
-			iQuantiteBle = 0;
-			iQuantiteEau = 0;
-			iQuantitePiece = 0;
-
-			while(iQteRessource < j.getNbOuvrier())
+			if ( !this.metier.nourrirOuvrier(i) )
 			{
-
-				this.ihm.mettreIhmAJour();
-				this.ihm.afficherMenuNourriture(j);
-
-
-				int iSaisie = Integer.parseInt(getSaisie());
-
-				switch(iSaisie)
+				iQuantiteBle     = 0;
+				iQuantitePoisson = 0;
+				iQuantitePiece   = 0;
+				do
 				{
-					case 1 : { 
-						this.ihm.mettreIhmAJour();
-
-						this.ihm.afficherMenuSaisie("TypeR"); 
-
-						pileRessource.push(getSaisie());
-
-						break;
-					}
-
-					case 2 : { 
-						this.ihm.mettreIhmAJour();
-
-						this.ihm.afficherMenuSaisie("Qte"); 
-
-						pileQuantite.add(Integer.parseInt(getSaisie()));
-
-						break;
-					}
-
-					case 3 : {
-
-
-						String sRessource = pileRessource.pop();
-						sRessource = sRessource.toUpperCase();
-
-						if(sRessource.equals("BLE"))
+					this.ihm.mettreIhmAJour(sRet);
+					this.ihm.afficherMenuNourriture(this.metier.getCouleurJoueur(i));
+					switch(this.getSaisie())
+					{
+						case "1" ->
 						{
-							iQuantiteBle += pileQuantite.pop();
-						}
-
-						if(sRessource.equals("EAU"))
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherDemandePourNourriture("poisson"  );
+							saisie = this.getSaisie();
+							if(saisie.matches("^[0-5]$" )) iQuantitePoisson = Integer.parseInt(saisie);
+							sRet = "";
+						} 
+						case "2" ->
 						{
-							iQuantiteEau += pileQuantite.pop();
-						}
-
-						if(sRessource.equals("PIECE"))
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherDemandePourNourriture("blé"  );
+							saisie = this.getSaisie();
+							if(saisie.matches("^[0-5]$" )) iQuantiteBle   = Integer.parseInt(saisie);
+							sRet = "";
+						} 
+						case "3" ->
 						{
-							iQuantitePiece += pileQuantite.pop();
+							this.ihm.mettreIhmAJour();
+							this.ihm.afficherDemandePourNourriture("pièce");
+							saisie = this.getSaisie();
+							if(saisie.matches("^([0-9]|1[0-5])$")) iQuantitePiece = Integer.parseInt(saisie);
+							sRet = "";
 						}
-
-						iQteRessource = iQuantiteEau + iQuantiteBle + iQuantitePiece;
-
-						break;
+						case "4" ->
+						{
+							sRet = this.metier.nourrirOuvrier(iQuantitePoisson, iQuantiteBle, iQuantitePiece, i);
+							iQuantitePoisson = 0;
+							iQuantiteBle     = 0;
+							iQuantitePiece   = 0;
+						}
 					}
-				}
+					Console.println(sRet);
+				}while( !sRet.equals("Ouvrier nourri avec succès") );
 			}
-
-			this.ihm.mettreIhmAJour();
-			this.ihm.afficherMenuNourriture(j);
-			System.out.println(iQteRessource + "/" + j.getNbOuvrier());
-			System.out.println(j.nourrirOuvrier(iQuantiteEau, iQuantiteBle, iQuantitePiece));
+			this.metier.changerJoueur();
 		}
-	
-		return true;
-	}
+		this.metier.mettreJoueurA(iNumFuturJoueur);
+        this.metier.passerManche();
 
-	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
-	{
-		metier.activerPreteurSurGage( ressourceSaisi1, ressourceSaisi2, ressourceVoulu1, ressourceVoulu2 );
-	}
-
+        return true;
+    }
 }

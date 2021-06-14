@@ -471,10 +471,6 @@ public class Joueur
 		}
 		return false;
 	}
-	
-	public CartesObjectifs getObj1(){ return cartesObjectifs[0]; }
-
-	public CartesObjectifs getObj2(){ return cartesObjectifs[1]; }
 
 	/**
 	 * toString par défaut de la classe joueur

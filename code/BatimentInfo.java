@@ -1,4 +1,4 @@
-package equipe_11.metier;
+package equipe_11;
 
 import java.util.ArrayList;
 
@@ -12,28 +12,28 @@ public enum BatimentInfo
 {
 	/**
 	 * // Ble
-	 * blRqC : ble requi         à la construction
-	 * blRqA : ble requi         à l'activation
+	 * blRqC : ble requis         à la construction
+	 * blRqA : ble requis         à l'activation
 	 * blRc  : ble en recompense à l'activation
 	 * 
 	 * // Bois
-	 * boRqC : bois requi         à la construction
-	 * boRqA : bois requi         à l'activation
+	 * boRqC : bois requis         à la construction
+	 * boRqA : bois requis         à l'activation
 	 * boRc  : bois en recompense à l'activation
 	 * 
-	 * // Eau
-	 * eRqC  : eau requi         à la construction
-	 * eRqA  : eau requi         à l'activation
-	 * eRc   : eau en recompense à l'activation
+	 * // Poisson
+	 * poRqC  : poisson requis         à la construction
+	 * poRqA  : poisson requis         à l'activation
+	 * poRc   : poisson en recompense à l'activation
 	 * 
 	 * // Pierre
-	 * pRqC  : pierre requi         à la construction
-	 * pRqA  : pierre requi         à l'activation
+	 * pRqC  : pierre requis        à la construction
+	 * pRqA  : pierre requis        à l'activation
 	 * pRc   : pierre en recompense à l'activation
 	 * 
 	 * // Piece
-	 * pcRqC : piece  requi         à la construction
-	 * pcRqA : piece  requi         à l'activation
+	 * pcRqC : piece  requis        à la construction
+	 * pcRqA : piece  requis        à l'activation
 	 * pcRc  : piece  en recompense à l'activation	
 	 * 
 	 * // Point
@@ -44,13 +44,13 @@ public enum BatimentInfo
 	 * Catégorie du batiment, précise si il y a gain ou échange ou 
 	 *           si c'est des ressources.
 	 */
-	//                  Ble        Bois         Eau        Pierre      Piece      Point   Catégorie
+	//                  Ble        Bois       Poisson      Pierre      Piece      Point   Catégorie
 	//                R  R  R     R  R  R     R  R  R     R  R  R     R  R  R     P  P
 	//                q  q  c     q  q  c     q  q  c     q  q  c     q  q  c     t  t
 	//                C  A        C  A        C  A        C  A        C  A        C  A
 	PIERRE          ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	BOIS            ( 0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
-	EAU             ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
+	POISSON         ( 0, 0, 0,    0, 0, 0,    0, 0, 1,    0, 0, 0,    0, 0, 0,    0, 0,   "RESSOURCE"   ),
 	BAR             ( 2, 0, 0,    0, 0, 0,    0, 0, 0,    2, 0, 0,    0, 0, 0,    7, 3,   "GAIN"        ),
 	CHAMPSDEBLE     ( 0, 0, 1,    1, 0, 0,    0, 0, 0,    0, 0, 0,    0, 0, 0,    3, 0,   "GAIN"        ),
 	LIBRAIRIE       ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    4, 0, 0,    0, 0, 3,    8, 0,   "GAIN"        ),
@@ -77,9 +77,9 @@ public enum BatimentInfo
 	CHATEAU         ( 0, 0, 0,    0, 0, 0,    0, 0, 0,    6, 0, 0,    0, 0, 0,    0, 0,   "SPECIAL"     ),
 	TOURDEGARDE     ( 0, 0, 0,    3, 0, 0,    0, 0, 0,    3, 0, 0,    0, 0, 0,    0, 0,   "SPECIAL"     );
 
-	private int iEauReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
-	private int iEauReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
-	private int iEauRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
+	private int iPoissonReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
+	private int iPoissonReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
+	private int iPoissonRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
 
 	private int iPtConstru, iPtRec;
 	private String sCategorie;
@@ -87,12 +87,12 @@ public enum BatimentInfo
 	/**
 	 * Constructeur d'un batiment prenant en paramètre des entiers
 	 *
-	 * @param iEauReq
-	 *           Quantite d'eau requise pour la construction.
-	 * @param iEauReA
-	 *           Quantite d'eau nécessaire pour activation.
-	 * @param iEauRec
-	 *           Quantite d'eau en récompense après activation.
+	 * @param iPoissonReq
+	 *           Quantite de poisson requise pour la construction.
+	 * @param iPoissonReA
+	 *           Quantite de poisson nécessaire pour activation.
+	 * @param iPoissonRec
+	 *           Quantite de poisson en récompense après activation.
 	 *
 	 * @param iBleReq
 	 *           Quantite de ble requise pour la construction.
@@ -131,17 +131,17 @@ public enum BatimentInfo
 	 *           si c'est des ressources.
 	 */
 	BatimentInfo(
-		     int iBleReq   , int iBleReA   , int iBleRec   ,
-		     int iBoisReq  , int iBoisReA  , int iBoisRec  ,
-	         int iEauReq   , int iEauReA   , int iEauRec   ,
-	         int iPierreReq, int iPierreReA, int iPierreRec,
-	         int iPceReA   , int iPceReq   , int iPceRec   ,
-	         int iPtConstru, int iPtRec    , String sCategorie
+		     int iBleReq    , int iBleReA    , int iBleRec    ,
+		     int iBoisReq   , int iBoisReA   , int iBoisRec   ,
+	         int iPoissonReq, int iPoissonReA, int iPoissonRec,
+	         int iPierreReq , int iPierreReA , int iPierreRec ,
+	         int iPceReA    , int iPceReq    , int iPceRec    ,
+	         int iPtConstru , int iPtRec     , String sCategorie
 	        )
 	{
-		this.iEauReq    = iEauReq;
-		this.iEauReA    = iEauReA;
-		this.iEauRec    = iEauRec;
+		this.iPoissonReq    = iPoissonReq;
+		this.iPoissonReA    = iPoissonReA;
+		this.iPoissonRec    = iPoissonRec;
 
 		this.iBleReq    = iBleReq;
 		this.iBleReA    = iBleReA;
@@ -172,10 +172,10 @@ public enum BatimentInfo
 	public int getPierreRec(){ return this.iPierreRec; }
 
 	/**
-	 * Accesseur sur l'eau en récompense pour l'activation
-	 * @return un entier correspond à la quantité d'eau
+	 * Accesseur sur le poisson en récompense pour l'activation
+	 * @return un entier correspond à la quantité de poisson
 	 */
-	public int getEauRec   (){ return this.iEauRec   ; }
+	public int getPoissonRec   (){ return this.iPoissonRec   ; }
 
 	/**
 	 * Accesseur sur le ble en récompense pour l'activation
@@ -196,10 +196,11 @@ public enum BatimentInfo
 	public int getPierreReq(){ return this.iPierreReq; }
 
 	/**
-	 * Accesseur sur l'eau requise pour la construction
-	 * @return un entier correspond à la quantité d'eau
+	 * Accesseur sur le poisson requis pour la construction
+	 * @return un entier correspond à la quantité de poisson
+	 * 
 	 */
-	public int getEauReq   (){ return this.iEauReq   ; }
+	public int getPoissonReq(){ return this.iPoissonReq   ; }
 
 	/**
 	 * Accesseur sur le ble requise pour la construction
@@ -229,31 +230,31 @@ public enum BatimentInfo
 	 * Accesseur sur les pièces requises pour activation
 	 * @return un entier correspond aux pièces requises
 	 */
-	public int getPcReq    (){ return this.iPceReq   ; }
+	public int getPcReq     (){ return this.iPceReq   ; }
 
 	/**
 	 * Accesseur sur les pièces obtenues en récompenses après activation
 	 * @return un entier correspond aux pièces obtenues
 	 */
-	public int getPcRec    (){ return this.iPceRec   ; }
+	public int getPcRec     (){ return this.iPceRec   ; }
 	
 	/**
 	 * Accesseur sur le ble nécessaire pour activation.
 	 * @return un entier correspond à la quantité de ble
 	 */
-	public int getBleReA  (){ return this.iBleReA  ; }
+	public int getBleReA    (){ return this.iBleReA  ; }
 	
 	/**
 	 * Accesseur sur le bois nécessaire pour activation.
 	 * @return un entier correspond à la quantité de bois
 	 */
-	public int getBoisReA  (){ return this.iBoisReA  ; }
+	public int getBoisReA   (){ return this.iBoisReA  ; }
 	
 	/**
-	 * Accesseur sur l'eau nécessaire pour activation.
-	 * @return un entier correspond à la quantité d'eau
+	 * Accesseur sur le poisson nécessaire pour activation.
+	 * @return un entier correspond à la quantité de poisson
 	 */
-	public int getEauReA  (){ return this.iEauReA  ; }
+	public int getPoissonReA(){ return this.iPoissonReA  ; }
 	
 	/**
 	 * Accesseur sur la pierre nécessaire pour activation.
@@ -308,11 +309,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleReA   (); break; }
-			case "PIERRE" : { iVal = this.getPierreReA(); break; }
-			case "BOIS"   : { iVal = this.getBoisReA  (); break; }
-			case "EAU"    : { iVal = this.getEauReA   (); break; }
-			case "PIECE"  : { iVal = this.getPcReA    (); break; }
+			case "BLE"    -> iVal = this.getBleReA    ();
+			case "PIERRE" -> iVal = this.getPierreReA ();
+			case "BOIS"   -> iVal = this.getBoisReA   ();
+			case "POISSON"-> iVal = this.getPoissonReA();
+			case "PIECE"  -> iVal = this.getPcReA     ();
 		}
 
 		return iVal;
@@ -324,11 +325,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleRec   (); break; } 
-			case "PIERRE" : { iVal = this.getPierreRec(); break; } 
-			case "BOIS"   : { iVal = this.getBoisRec  (); break; } 
-			case "EAU"    : { iVal = this.getEauRec   (); break; }
-			case "PIECE"  : { iVal = this.getPcRec    (); break; }
+			case "BLE"    -> iVal = this.getBleRec    (); 
+			case "PIERRE" -> iVal = this.getPierreRec (); 
+			case "BOIS"   -> iVal = this.getBoisRec   (); 
+			case "POISSON"-> iVal = this.getPoissonRec();
+			case "PIECE"  -> iVal = this.getPcRec     ();
 		}
 
 		return iVal;
@@ -340,11 +341,11 @@ public enum BatimentInfo
 
 		switch ( sType )
 		{
-			case "BLE"    : { iVal = this.getBleReq   (); break; }
-			case "PIERRE" : { iVal = this.getPierreReq(); break; }
-			case "BOIS"   : { iVal = this.getBoisReq  (); break; }
-			case "EAU"    : { iVal = this.getEauReq   (); break; }
-			case "PIECE"  : { iVal = this.getPcReq    (); break; }
+			case "BLE"    -> iVal = this.getBleReq    ();
+			case "PIERRE" -> iVal = this.getPierreReq ();
+			case "BOIS"   -> iVal = this.getBoisReq   ();
+			case "POISSON"-> iVal = this.getPoissonReq();
+			case "PIECE"  -> iVal = this.getPcReq     ();
 		}
 
 		return iVal;
@@ -393,20 +394,24 @@ public enum BatimentInfo
 		String sRet = "";
 
 		sRet += this.name() + " :\n";
-		sRet += "             PIERRE | EAU | BOIS | BLÉ | PIECE \n";
-		sRet += " Requis     :" +
-		        String.format("%7.7d", this.iPierreReA) + "|" + 
-				String.format("%5.5d", this.iEauReA   ) + "|" +
-				String.format("%6.6d", this.iBoisReA  ) + "|" +
-				String.format("%5.5d", this.iBleReA   ) + "|" +
-				String.format("%7.7d", this.iPceReA   ) + "\n";
-		sRet += "-----------------------------------------------\n";
-		sRet += " Recompense :" +
-		        String.format("%7.7d", this.iPierreRec) + "|" + 
-		        String.format("%5.5d", this.iEauRec   ) + "|" +
-		        String.format("%6.6d", this.iBoisRec  ) + "|" +
-		        String.format("%5.5d", this.iBleRec   ) + "|" +
-		        String.format("%7.7d", this.iPceRec   ) + "\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|            PIERRE | POISSON | BOIS | BLÉ | PIECE | SCORE |\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|Requis     :" +
+		        String.format("%7d", this.iPierreReA) + "|" + 
+				String.format("%9d", this.iPoissonReA   ) + "|" +
+				String.format("%6d", this.iBoisReA  ) + "|" +
+				String.format("%5d", this.iBleReA   ) + "|" +
+				String.format("%7d", this.iPceReA   ) + "|      0|\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
+		sRet += "|Recompense :" +
+		        String.format("%7d", this.iPierreRec) + "|" + 
+		        String.format("%9d", this.iPoissonRec   ) + "|" +
+		        String.format("%6d", this.iBoisRec  ) + "|" +
+		        String.format("%5d", this.iBleRec   ) + "|" +
+		        String.format("%7d", this.iPceRec   ) + "|" +
+				String.format("%7d", this.iPtRec    ) + "|\n";
+		sRet += "+-------------------+---------+------+-----+-------+-------+\n";
 		
 		return sRet;
 	}

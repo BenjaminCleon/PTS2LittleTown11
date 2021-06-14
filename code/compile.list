@@ -1,13 +1,11 @@
 -encoding utf-8
 
 ./Controleur.java
+./BatimentInfo.java
 
 ./ihm/CUI.java
 
 ./metier/utilitaire/AltInt.java
-
-
-./metier/BatimentInfo.java
 ./metier/CartesObjectifs.java
 ./metier/Joueur.java
 ./metier/Pion.java
