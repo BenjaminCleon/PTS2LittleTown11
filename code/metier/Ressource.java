@@ -244,7 +244,7 @@ public class Ressource
 	public static int getQtePiece (){ return Ressource.iQtePieceStock .getEntier(); }
 
 	/**
-	 * Retourne le nombre de ressource disponible du joueur pour cette ressource.
+	 * Retourne le nombre de ressource disponible dans le stock pour cette ressource.
 	 */
 	public int getQteRessource(){ return this.iQte; }
 
