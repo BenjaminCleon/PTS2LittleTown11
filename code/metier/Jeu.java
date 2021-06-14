@@ -775,4 +775,14 @@ public class Jeu
 
 		return sDataJoueurs;
 	}
+
+	public void gererFinDePartie()
+	{
+		int iScoreBonus = 0;
+
+		for ( Joueur j : this.tabJoueurs )
+		{
+			j.gererFinDePartie();
+		}
+	}
 }

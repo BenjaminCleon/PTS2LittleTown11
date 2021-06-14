@@ -107,6 +107,7 @@ public class Controleur
 		}
 		this.metier.gererChateau();
 		this.metier.gererTourDeGarde();
+		this.metier.gererFinDePartie();
 
 		this.ihm.afficherFinDePartie();
 	}

@@ -460,4 +460,9 @@ public class Joueur
 
 		return sRet;
 	}
+
+	public void gererFinDePartie()
+	{
+		this.setScore(this.getQteRessource("PIECE")/3);
+	}
 }
