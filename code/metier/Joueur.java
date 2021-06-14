@@ -6,6 +6,8 @@ import java.util.Collections;
 
 import equipe_11.BatimentInfo;
 import equipe_11.metier.Jeu;
+import equipe_11.metier.PiocheDeCartesObjectifs;
+import equipe_11.metier.CartesObjectifs;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
   * liées aux joueurs
@@ -112,6 +114,10 @@ public class Joueur
 	 */
 	private boolean bNourri;
 
+	private static PiocheDeCartesObjectifs piocheDeCartesObjectifs;
+	private        CartesObjectifs[] cartesObjectifs = new CartesObjectifs[ 2 ];
+
+
 	/**
 	 * Constructeur de joueur
 	 * @param sCouleur
@@ -123,7 +129,7 @@ public class Joueur
 	 * @param nbObjectif 
 	 *       Nombre de cartes objectifs pour le joueur
 	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, Jeu j)
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -145,6 +151,25 @@ public class Joueur
 		this.rPierre      = new Ressource("pierre"  );
 		this.rPiece       = new Ressource("piece"   );
 		this.rPiece.setQteJoueur(3);
+
+		this.jeu = j;
+
+		Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
+		Joueur.piocheDeCartesObjectifs.melangerPioche();
+		this.cartesObjectifs[0] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
+		this.cartesObjectifs[1] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
+	}
+
+	public void initPiece(){ this.rPiece.setQteJoueur(3); }
+	
+	public void setNourri( boolean estNourri )
+	{
+		this.bNourri = estNourri;
+	}
+
+	public void setNumJoueur(int iNumJoueur)
+	{
+		this.sNumJoueur = iNumJoueur;
 	}
 	
 	public void setNomJoueur(String sNomJoueur)
@@ -167,13 +192,6 @@ public class Joueur
 	 */
     public int    getScore   () { return this.iScore  ; }
 	
-	/**
-	 * retourne le nom du joueur
-	 * @return 
-	 *	le nom du joueur
-	 */
-    public String  getNom   () { return this.sNomJoueur  ; }
-
 	/**
 	 * retourne le nombre de Batiment possédé par le joueur
 	 * @return 
@@ -258,6 +276,20 @@ public class Joueur
 	}
 
 	/**
+	 * Paye un joueur passé en parametre de 1 piece
+	 * @param Joueur
+	 *	joueurs a payer
+	 */
+	public void payerJoueur( Joueur joueur )
+	{
+		if ( this.getQteRessource("PIECE") > 0 )
+		{
+			joueur.gererRessource(1, "PIECE");
+			this  .gererRessource(-1, "PIECE");
+		}
+	}
+	
+	/**
 	 * Regarde si l'objectif passé en paramètre est complété
 	 * @param oObjectif
 	 *	objectif a vérifier
@@ -306,6 +338,8 @@ public class Joueur
 	 *      Le nombre d'ouvrier du joueur
 	 */
 	public int getNbOuvrier(){ return this.alOuvrier.size(); }
+
+	public Jeu getJeu(){ return this.jeu; }
 	
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
@@ -399,6 +433,7 @@ public class Joueur
 
 	public int classementJoueurs()
 	{
+		
 		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
 
 		ArrayList<Integer> alInt = new ArrayList<Integer>();
@@ -438,6 +473,10 @@ public class Joueur
 		}
 		return false;
 	}
+	
+	public CartesObjectifs getObj1(){ return cartesObjectifs[0]; }
+
+	public CartesObjectifs getObj2(){ return cartesObjectifs[1]; }
 
 	/**
 	 * toString par défaut de la classe joueur
@@ -459,10 +498,5 @@ public class Joueur
 		sRet += "+---------------------------\n";
 
 		return sRet;
-	}
-
-	public void gererFinDePartie()
-	{
-		this.setScore(this.getQteRessource("PIECE")/3);
 	}
 }

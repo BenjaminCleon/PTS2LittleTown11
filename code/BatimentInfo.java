@@ -135,7 +135,7 @@ public enum BatimentInfo
 		     int iBoisReq   , int iBoisReA   , int iBoisRec   ,
 	         int iPoissonReq, int iPoissonReA, int iPoissonRec,
 	         int iPierreReq , int iPierreReA , int iPierreRec ,
-	         int iPceReq    , int iPceReA    , int iPceRec    ,
+	         int iPceReA    , int iPceReq    , int iPceRec    ,
 	         int iPtConstru , int iPtRec     , String sCategorie
 	        )
 	{
@@ -349,6 +349,23 @@ public enum BatimentInfo
 		}
 
 		return iVal;
+	}
+
+	public static ArrayList<String> getLstNomBat()
+	{
+		ArrayList<String> alNomBat = new ArrayList<String>();
+		
+		
+		for ( BatimentInfo bt : BatimentInfo.values() )
+		{
+			if(bt != null && alNomBat != null)
+			{
+				if( !bt.estRessource() )
+				alNomBat.add( bt.name() );
+			}
+		}
+		
+		return alNomBat;
 	}
 
 	public static ArrayList<BatimentInfo> getLstBat()

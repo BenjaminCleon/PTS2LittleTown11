@@ -3,7 +3,6 @@ package equipe_11.ihm;
 import equipe_11.Controleur  ;
 import equipe_11.BatimentInfo;
 import equipe_11.metier.Pion ;
-import equipe_11.metier.Joueur ;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ public class CUI
 	{
 		Console.effacerEcran ();
 		this.choixDebutPartie();
+		this.mettreIhmAJour  ();
 	}
 
 
@@ -248,7 +248,8 @@ public class CUI
 		sRet += String.format("|%-37s|", "1. Entrer les coordonnees") + "\n";
 		sRet += String.format("|%-37s|", "2. Entrer le numéro du batiment") + "\n";
 		sRet += String.format("|%-37s|", "3. Construire le batiment") + "\n";
-		sRet += String.format("|%-37s|", "4. Quitter le menu de construction.") + "\n";
+		sRet += String.format("|%-37s|", "4. Afficher Objectifs.") + "\n";
+        sRet += String.format("|%-37s|", "5. Quitter le menu de construction.") + "\n";
 		sRet += "=======================================\n";
 
 		Console.println(sRet);
@@ -320,21 +321,14 @@ public class CUI
 		Console.println(sRet);
 	}
 
-	public void afficherMenuActivation(){ this.afficherMenuActivation(false);}
-
-	public void afficherMenuActivation(boolean bOk)
+	public void afficherMenuActivation()
 	{
 		String sRet = "";
-		if (bOk)
-		{
-			sRet += "=======================================\n";
-			sRet += String.format("|%-37s|", "Espace Residence") + "\n";
-		}
+
 		sRet += "=======================================\n";
 		sRet += String.format("|%-37s|", "1. Afficher detail sur batiment." ) + "\n";
 		sRet += String.format("|%-37s|", "2. Saisir coordonnées.") + "\n";
-		if ( !bOk ) sRet += String.format("|%-37s|", "3. Joueur suivant."    ) + "\n";
-		else        sRet += String.format("|%-37s|", "3. Quitter")             + "\n";
+		sRet += String.format("|%-37s|", "3. Joueur suivant."    ) + "\n";
 		sRet += "=======================================\n";
 
 		Console.println(sRet);
@@ -361,11 +355,18 @@ public class CUI
 
 	public void mettreIhmAJour(String sMess)
 	{
-		Console.effacerEcran();
+		//Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);
 	}
+
+    public void afficherObj()
+    {
+        Console.println( ctrl.getObj1() );
+
+        Console.println( ctrl.getObj2() );
+    }
 
 	public void afficherPreteurSurGage()
 	{
@@ -378,20 +379,5 @@ public class CUI
 		                 "+==========================================+");
 	}
 
-	public void afficherFinDePartie()
-	{
-		String[][] sDataJoueurs = this.ctrl.getClassemenentJoueur();
-
-		String mess = "+==========================================+\n" +
-			          "|Classement :                              |\n" +
-		              "+==========================================+\n";
-		
-		for ( int i=0; i<sDataJoueurs.length; i++)
-				mess += "|" + sDataJoueurs[i][0] + " : " + sDataJoueurs[i][1] + "|\n"; 
-		
-		mess += "+==========================================+";
-		
-		Console.println( mess );
-	}
 
 }
