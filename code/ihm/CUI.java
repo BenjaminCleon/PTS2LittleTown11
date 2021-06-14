@@ -377,5 +377,18 @@ public class CUI
 		                 "+==========================================+");
 	}
 
+	public void afficherFinDePartie( ArrayList<Joueur> classement )
+	{
+		String mess = "+==========================================+\n" +
+			          "|Classement :                              |\n" +
+		              "+==========================================+\n";
+		
+		for ( Joueur j : classement )
+			mess += "|" + j.getNom() + " : " + j.getScore() + "|\n"; 
+		
+		mess += "+==========================================+";
+		
+		Console.println( mess );
+	}
 
 }

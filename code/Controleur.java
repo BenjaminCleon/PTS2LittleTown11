@@ -125,6 +125,7 @@ public class Controleur
 
 			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
+		this.ihm.afficherFinDePartie( this.metier.classement() );
 	}
 
 	public void construire()

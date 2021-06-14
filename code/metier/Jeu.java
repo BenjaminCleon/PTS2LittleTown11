@@ -662,21 +662,14 @@ public class Jeu
 		return this.tabJoueurs;
 	}
 
-	public Joueur detVainqueur()
+	public ArrayList<Joueur> classement()
 	{
-
-		ArrayList<Integer> alInt = new ArrayList<Integer>();
-
-		for ( int cpt = 0; cpt < this.tabJoueurs.length; cpt++)
-			alInt.add(this.getJoueurs()[cpt].getScore());
-
-		alInt.sort(null);
+		ArrayList<Joueur>  classementJoueur = new ArrayList<Joueur> ();
 
 		for ( Joueur j : this.tabJoueurs )
-			if ( j.getScore() == alInt.get(1) )
-				return j;
+			classementJoueur.add( j.classementJoueur(), j );
 
-		return null;
+		return classementJoueur;
 	}
 	
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )

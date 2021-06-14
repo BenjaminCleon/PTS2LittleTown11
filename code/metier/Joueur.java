@@ -180,6 +180,13 @@ public class Joueur
     public int    getScore   () { return this.iScore  ; }
 	
 	/**
+	 * retourne le nom du joueur
+	 * @return 
+	 *	le nom du joueur
+	 */
+    public String  getNom   () { return this.sNomJoueur  ; }
+
+	/**
 	 * retourne le nombre de Batiment possédé par le joueur
 	 * @return 
 	 * le nombre de batiment possédé par le joueur
