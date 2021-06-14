@@ -18,18 +18,32 @@ public class Controleur
 	private CUI ihm;
 	private Jeu metier;
 
-	public Controleur()
+	public Controleur( String fic )
 	{
-		this.metier = new Jeu();
-		this.ihm    = new CUI(this);
-
-		this.ihm.initCUI();
-		this.bouclePrincipale();
+		if ( fic != null )
+			switch( fic )
+			{
+				case "Scenario1" -> new Scenario1( this );
+				case "Scenario2" -> new Scenario2( this );
+				case "Scenario3" -> new Scenario3( this );
+			}
+		else
+		{
+			this.metier    = new Jeu();
+			this.bouclePrincipale();
+			this.ihm.initCUI();
+		}
+		this.ihm = new CUI(this);
 	}
 
 	public static void main(String[] args)
 	{
-		new Controleur();
+		String fic = null;
+
+		if ( args.length > 0 )
+			fic = args[0];
+			
+		new Controleur( fic );
 	}
 	
 	public boolean setNbJoueur()
