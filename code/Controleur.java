@@ -4,6 +4,7 @@ import equipe_11.ihm.CUI;
 import equipe_11.BatimentInfo;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
+import equipe_11.metier.CartesObjectifs;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -106,6 +107,7 @@ public class Controleur
 			try
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherObj   ();
 				this.ihm.afficherMenuChoix();
 
 
@@ -120,6 +122,16 @@ public class Controleur
 				}
 
 				this.ihm.mettreIhmAJour();
+
+				System.out.println(this.metier.getJoueurCourant().getObj1().objAccompli());
+				System.out.println(this.metier.getJoueurCourant().getObj2().objAccompli());
+				
+				if( this.metier.getJoueurCourant().getObj1().objAccompli() )
+					this.metier.getJoueurCourant().setScore( this.metier.getJoueurCourant().getObj1().getScore() );
+
+				if( this.metier.getJoueurCourant().getObj2().objAccompli() )
+					this.metier.getJoueurCourant().setScore( this.metier.getJoueurCourant().getObj2().getScore() );
+
 
 				this.nourrirOuvrier();
 
@@ -165,7 +177,7 @@ public class Controleur
 					if(verifierParametreConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
-					        sCoord.charAt(0));
+							sCoord.charAt(0));
 
 						iEntreeUtilisateur = 4;
 					}
@@ -265,7 +277,7 @@ public class Controleur
 								sEnsRessourceAObtenir = saisie.split(" ");
 								if ( sEnsRessourceADonner.length == 2 && sEnsRessourceAObtenir.length == 2 )
 									this.metier.activerPreteurSurGage(sEnsRessourceADonner [0],
-									                                  sEnsRessourceADonner [1],
+																	  sEnsRessourceADonner [1],
 																	  sEnsRessourceAObtenir[0],
 																	  sEnsRessourceAObtenir[1]);
 							}
@@ -318,16 +330,25 @@ public class Controleur
 		return this.metier.getNbBatimentRestantCourant();
 	}
 
+	public CartesObjectifs getObj1()
+	{
+		return this.metier.getObj1();
+	}
+
+	public CartesObjectifs getObj2()
+	{
+		return this.metier.getObj2();
+	}
 	public boolean nourrirOuvrier()
-    {
+	{
 		String sRet = "";
 		String saisie = "";
-        int iQuantiteBle;
-        int iQuantitePoisson; 
-        int iQuantitePiece  ; 
+		int iQuantiteBle;
+		int iQuantitePoisson; 
+		int iQuantitePiece  ; 
 		int iNumFuturJoueur ;
 
-        if ( !this.metier.isToutOuvriersPose() )return false;
+		if ( !this.metier.isToutOuvriersPose() )return false;
 
 		iNumFuturJoueur = (this.metier.getNumeroJoueurCourant()+1)%this.metier.getNbJoueur();
 		this.metier.mettreJoueurA(0);
@@ -382,8 +403,8 @@ public class Controleur
 			this.metier.changerJoueur();
 		}
 		this.metier.mettreJoueurA(iNumFuturJoueur);
-        this.metier.passerManche();
+		this.metier.passerManche();
 
-        return true;
-    }
+		return true;
+	}
 }
