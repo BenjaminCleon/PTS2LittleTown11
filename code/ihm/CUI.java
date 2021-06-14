@@ -247,8 +247,9 @@ public class CUI
 		sRet += "=======================================\n";
 		sRet += String.format("|%-37s|", "1. Entrer les coordonnees") + "\n";
 		sRet += String.format("|%-37s|", "2. Entrer le numéro du batiment") + "\n";
-		sRet += String.format("|%-37s|", "3. Construire le batiment") + "\n";
-		sRet += String.format("|%-37s|", "4. Quitter le menu de construction.") + "\n";
+		sRet += String.format("|%-37s|", "3. Information sur batiment") + "\n";
+		sRet += String.format("|%-37s|", "4. Construire le batiment") + "\n";
+		sRet += String.format("|%-37s|", "5. Quitter le menu de construction.") + "\n";
 		sRet += "=======================================\n";
 
 		Console.println(sRet);
@@ -361,7 +362,7 @@ public class CUI
 
 	public void mettreIhmAJour(String sMess)
 	{
-		Console.effacerEcran();
+		// Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);
@@ -376,6 +377,14 @@ public class CUI
 						 "|Au format(ressource1 ressource2)          |\n" +
 						 "|Exemple : \"BOIS BLE\"                      |\n" +  
 		                 "+==========================================+");
+	}
+
+	public void afficherObj()
+    {
+		Console.println("+====================================================================================================+==========+");
+		for ( int i=0; i<this.ctrl.getNbCartesObjectif(); i++)
+        	Console.println( ctrl.getObj(i) );
+		Console.println("+====================================================================================================+==========+");
 	}
 
 	public void afficherFinDePartie()

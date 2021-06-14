@@ -162,20 +162,21 @@ public class Jeu
 	 */
 	public boolean setJoueur( int iNbJoueur )
 	{
-		String[] ensCouleur = { "Rouge", "Bleu", "Jaune", "Vert" };
+		String[] ensCouleur  = { "Rouge", "Bleu", "Jaune", "Vert" };
+		int iNbCarteObjectif = 0;
 
 		this.iNbJoueur = iNbJoueur;
 		this.tabJoueurs  = new Joueur[this.iNbJoueur];
 
 		switch ( this.iNbJoueur )
 		{
-			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; }
-			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; }
-			default -> { this.iNbOuvrierMax = 2; this.iNbBatimentMax = 7; }
+			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; iNbCarteObjectif = 3; }
+			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; iNbCarteObjectif = 2; }
+			default -> { this.iNbOuvrierMax = 1; this.iNbBatimentMax = 7; iNbCarteObjectif = 4; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
-			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4);
+			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4, this, iNbCarteObjectif);
 		
 		this.jCourant    = this.tabJoueurs[0];
 
@@ -227,6 +228,19 @@ public class Jeu
 		for ( int lig=0;lig<this.tabPion.length;lig++)
 			for ( int col=0;col<this.tabPion[0].length;col++)
 				this.tabPion[lig][col] = new Pion(lig, (char)('A' + col), "BLANC", ensCase[lig][col]);
+	}
+
+	public void verifierObjectif()
+	{
+		for ( Joueur j : this.tabJoueurs )
+		{
+			for ( int i=0; i< j.getNbObjectif(); i++)
+				if ( j.getObj(i).objAccompli() )
+				{
+					System.out.print(j.getObj(i));
+					j.setScore( j.getObj(i).getScore() );
+				}
+		}
 	}
 
 	/**
@@ -387,7 +401,7 @@ public class Jeu
 	{
 		if ( this.jCourant.getQteRessource("BLE")     < iBle     || this.jCourant.getQteRessource("BOIS")   < iBois   ||
 		     this.jCourant.getQteRessource("POISSON") < iPoisson || this.jCourant.getQteRessource("PIERRE") < iPierre ||
-			 this.jCourant.getQteRessource("PIECE")   < iPiece )return false;
+			 this.jCourant.getQteRessource("PIECE")   < iPiece   )return false;
 
 		return true;
 	}
@@ -432,6 +446,10 @@ public class Jeu
 			                                            bTmp.getPcReq      ()))return false;
 
 		if( bTmp.estPreteurSurGage() ){this.preteurSurGage = true; return false;}
+
+		if ( bTmp.getBleRec   () > Ressource.getQteBle   () || bTmp.getPcRec     () > Ressource.getQtePiece  () ||
+		     bTmp.getBoisRec  () > Ressource.getQteBois  () || bTmp.getPoissonRec() > Ressource.getQtePoisson() ||
+			 bTmp.getPierreRec() > Ressource.getQtePierre() )return false;
 
 		if ( !this.gererPiecePendantActivation(iLig, cCol)) return false;
 
@@ -778,8 +796,6 @@ public class Jeu
 
 	public void gererFinDePartie()
 	{
-		int iScoreBonus = 0;
-
 		for ( Joueur j : this.tabJoueurs )
 		{
 			j.gererFinDePartie();

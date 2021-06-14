@@ -253,14 +253,15 @@ public class Ressource
 	 * @param
 	 *     Le nombre de ressource que l'on rajoute pour cette ressource
 	 */
-	public boolean setQteJoueur(int iNb )
+	public boolean setQteJoueur(int iNb)
 	{
 		AltInt aTmp = Ressource.getRessourceByType(this.sType);
 		int iLimite;
 		if ( this.sType.equals("PIECE") )iLimite = Ressource.INB_PIECE_MAX;
 		else                             iLimite = Ressource.INB_RESSOURCE_MAX;
 
-		if ( aTmp.getEntier() + iNb < 0 || aTmp.getEntier() - iNb > iLimite || this.iQte + iNb < 0)return false;
+		if ( iNb > 0 &&  aTmp.getEntier() - iNb < 0       ||
+		     iNb < 0 && (aTmp.getEntier() - iNb > iLimite || this.iQte + iNb < 0 ))return false;
 
 		this.iQte += iNb;
 		aTmp.setEntier(aTmp.getEntier()-iNb);
