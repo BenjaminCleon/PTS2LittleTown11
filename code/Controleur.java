@@ -2,6 +2,7 @@ package equipe_11;
 
 import equipe_11.ihm.CUI;
 import equipe_11.BatimentInfo;
+import equipe_11.metier.CartesObjectifs;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
 
@@ -86,8 +87,8 @@ public class Controleur
 			try
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherObj   ();
 				this.ihm.afficherMenuChoix();
-
 
 				int choix = Integer.parseInt(getSaisie());
 
@@ -102,6 +103,7 @@ public class Controleur
 				this.ihm.mettreIhmAJour();
 
 				this.nourrirOuvrier();
+				this.metier.verifierObjectif();
 
 			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
@@ -112,19 +114,36 @@ public class Controleur
 		this.ihm.afficherFinDePartie();
 	}
 
+	public CartesObjectifs getObj(int i){ return  this.metier.getJoueurCourant().getObj(i); }
+
+	public int getNbCartesObjectif()
+	{
+		switch ( this.getNbJoueur() )
+		{
+			case 2  -> { return 4; }
+			case 3  -> { return 3; }
+			default -> { return 2; }
+		}
+	}
+
 	public void construire()
 	{
 		this.ihm.mettreIhmAJour();
 
+
 		int iEntreeUtilisateur = 0;
 		String sCoord = null;
-		String sType = null;
+		String sType  = null;
+		String saisie = null;
 		ArrayList<BatimentInfo> alBat = this.getLstBat();
+		BatimentInfo b = null;
 
 		do
 		{
+			this.ihm.afficherObj   ();
 			this.ihm.afficherMenuConstructionBatiment();
-
+			this.ihm.afficherInfo(b);
+			b = null;
 			try
 			{
 				iEntreeUtilisateur = Integer.parseInt(getSaisie());
@@ -134,32 +153,42 @@ public class Controleur
 			{
 				case 1 -> { 
 					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
 					this.ihm.afficherMenuSaisie("Coord");
 					sCoord = getSaisie().toUpperCase();
 				}
 
 				case 2 -> { 
 					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
 					this.ihm.afficherMenuSaisie("Type");
 					sType = getSaisie().toUpperCase();
 					if ( sType.matches("^([1-9]|1[0-3])$") && alBat.size() >= (Integer.parseInt(sType)))
 						sType = alBat.get(Integer.parseInt(sType)-1).name();
 				}
+				case 3 -> {
+					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
+					this.ihm.afficherMenuSaisie("Type");
+					saisie = this.getSaisie().toUpperCase();
+					if ( saisie.matches("^([1-9]|1[0-3])$") && alBat.size() >= (Integer.parseInt(saisie)))
+						b = this.metier.getLstBat().get(Integer.parseInt(saisie)-1);
+				}
 
-				case 3 -> { 
+				case 4 -> { 
 					if(verifierParametreConstruction(sType, sCoord))
 					{
 						this.metier.construireBatiment(this.metier.getNumeroJoueurCourant() + 1, sType, Character.getNumericValue(sCoord.charAt(1)),
 					        sCoord.charAt(0));
 
-						iEntreeUtilisateur = 4;
+						iEntreeUtilisateur = 5;
 					}
 				}
 			}
 
 			this.ihm.mettreIhmAJour();
 
-		}while(iEntreeUtilisateur != 4);
+		}while(iEntreeUtilisateur != 5);
 	}
 
 	public boolean verifierParametreConstruction(String type, String coord)
@@ -184,6 +213,7 @@ public class Controleur
 			do
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherObj   ();
 				this.ihm.afficherMenuPlacementOuvrier();
 				saisie = this.getSaisie();
 				if ( saisie.equals("2") )return;
@@ -191,6 +221,7 @@ public class Controleur
 	
 			saisie = "";
 			this.ihm.mettreIhmAJour();
+			this.ihm.afficherObj   ();
 			this.ihm.afficherMenuSaisie("Coord");
 			saisie = this.getSaisie().toUpperCase();
 		}while( !saisie.matches("^[A-I][1-6]$"));
@@ -207,6 +238,7 @@ public class Controleur
 				else
 				{
 					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
 					this.ihm.afficherMenuActivation();
 					this.ihm.afficherInfo(b);
 					b = null;
@@ -234,6 +266,7 @@ public class Controleur
 			case "1" ->
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherObj   ();
 				this.ihm.afficherMenuSaisie("Coord");
 				saisie = this.getSaisie().toUpperCase();
 				if ( saisie.matches("^[A-I][1-6]$"))
@@ -243,6 +276,7 @@ public class Controleur
 			case "2" ->
 			{
 				this.ihm.mettreIhmAJour();
+				this.ihm.afficherObj   ();
 				this.ihm.afficherMenuSaisie("Coord");
 				saisie = this.getSaisie().toUpperCase();
 				if ( !saisie.matches("^([A-I])[1-6]$"))return null;
@@ -252,11 +286,13 @@ public class Controleur
 				if( this.metier.getPreteurSurGage() )
 				{
 					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
 					this.ihm.afficherPreteurSurGage();
 					this.ihm.afficherMenuSaisie("Donner");
 					saisie = this.getSaisie();
 					sEnsRessourceADonner = saisie.split(" ");
 					this.ihm.mettreIhmAJour();
+					this.ihm.afficherObj   ();
 					this.ihm.afficherPreteurSurGage();
 					this.ihm.afficherMenuSaisie("Obtenir");
 					saisie = this.getSaisie();
@@ -331,12 +367,14 @@ public class Controleur
 				do
 				{
 					this.ihm.mettreIhmAJour(sRet);
+					this.ihm.afficherObj   ();
 					this.ihm.afficherMenuNourriture(this.metier.getCouleurJoueur(i));
 					switch(this.getSaisie())
 					{
 						case "1" ->
 						{
 							this.ihm.mettreIhmAJour();
+							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("poisson"  );
 							saisie = this.getSaisie();
 							if(saisie.matches("^[0-5]$" )) iQuantitePoisson = Integer.parseInt(saisie);
@@ -345,6 +383,7 @@ public class Controleur
 						case "2" ->
 						{
 							this.ihm.mettreIhmAJour();
+							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("blé"  );
 							saisie = this.getSaisie();
 							if(saisie.matches("^[0-5]$" )) iQuantiteBle   = Integer.parseInt(saisie);
@@ -353,6 +392,7 @@ public class Controleur
 						case "3" ->
 						{
 							this.ihm.mettreIhmAJour();
+							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("pièce");
 							saisie = this.getSaisie();
 							if(saisie.matches("^([0-9]|1[0-5])$")) iQuantitePiece = Integer.parseInt(saisie);
@@ -396,6 +436,7 @@ public class Controleur
 		do
 		{
 			this.ihm.mettreIhmAJour();
+			this.ihm.afficherObj   ();
 			this.ihm.afficherMenuActivation(true);
 			this.ihm.afficherInfo(b);
 			saisie = this.getSaisie();

@@ -1,5 +1,6 @@
 package equipe_11.metier;
 
+import java.io.ObjectInputFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -112,6 +113,9 @@ public class Joueur
 	 */
 	private boolean bNourri;
 
+	private static PiocheDeCartesObjectifs piocheDeCartesObjectifs;
+	private        CartesObjectifs[]       cartesObjectifs        ;
+
 	/**
 	 * Constructeur de joueur
 	 * @param sCouleur
@@ -123,7 +127,7 @@ public class Joueur
 	 * @param nbObjectif 
 	 *       Nombre de cartes objectifs pour le joueur
 	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, Jeu j, int iNbCarteObjectif)
 	{
 		this.NB_OUVRIER   = nbOuvrier;
 		this.NB_BATIMENT  = nbBatiment;
@@ -138,6 +142,10 @@ public class Joueur
 		this.alBatiment  = new ArrayList<Pion> ();
 
 		this.alBatimentListeTmp = new ArrayList<BatimentInfo>();
+
+		this.jeu = j;
+
+		this.cartesObjectifs = new CartesObjectifs[iNbCarteObjectif];
 		
 		this.rBle         = new Ressource("ble"     );
 		this.rPoisson     = new Ressource("poisson" );
@@ -145,7 +153,17 @@ public class Joueur
 		this.rPierre      = new Ressource("pierre"  );
 		this.rPiece       = new Ressource("piece"   );
 		this.rPiece.setQteJoueur(3);
+
+		if ( Joueur.piocheDeCartesObjectifs == null )
+			Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
+		
+		Joueur.piocheDeCartesObjectifs.melangerPioche();
+
+		for ( int i=0; i<iNbCarteObjectif; i++)
+			this.cartesObjectifs[i] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
 	}
+
+	public CartesObjectifs getObj(int i){ return this.cartesObjectifs[i]; }
 	
 	public void setNomJoueur(String sNomJoueur)
 	{
