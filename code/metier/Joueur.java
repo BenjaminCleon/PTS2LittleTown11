@@ -129,10 +129,10 @@ public class Joueur
 	 */
 	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, Jeu j, int iNbCarteObjectif)
 	{
-		this.NB_OUVRIER   = nbOuvrier;
+		this.NB_OUVRIER   = nbOuvrier ;
 		this.NB_BATIMENT  = nbBatiment;
 		this.NB_OBJECTIF  = nbObjectif;
-		this.SCOULEUR     = sCouleur;
+		this.SCOULEUR     = sCouleur  ;
 
 		this.iScore       = 0;
 
@@ -276,16 +276,6 @@ public class Joueur
 	}
 
 	/**
-	 * Regarde si l'objectif passé en paramètre est complété
-	 * @param oObjectif
-	 *	objectif a vérifier
-	 */
-	public boolean verifierObjectif( CartesObjectifs oObjectif )
-	{
-		return false;
-	}
-
-	/**
 	 * Précise si les ouvriers du joueur sont nourris
 	 * @return
 	 *     True si tous les ouvriers sont nourris
@@ -308,6 +298,11 @@ public class Joueur
 		this.iScore += bTmp.getPtConstru();
 	}
 
+	public int getNbObjectif()
+	{
+		return this.cartesObjectifs.length;
+	}
+
 	/**
 	 * Retourne l'ensemble des batiments
 	 * @return
@@ -325,6 +320,8 @@ public class Joueur
 	 */
 	public int getNbOuvrier(){ return this.alOuvrier.size(); }
 	
+	public int getNbOuvrierMax(){ return this.NB_OUVRIER; }
+
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
 	 */

@@ -172,7 +172,7 @@ public class Jeu
 		{
 			case 3  -> { this.iNbOuvrierMax = 4; this.iNbBatimentMax = 6; iNbCarteObjectif = 3; }
 			case 4  -> { this.iNbOuvrierMax = 3; this.iNbBatimentMax = 6; iNbCarteObjectif = 2; }
-			default -> { this.iNbOuvrierMax = 5; this.iNbBatimentMax = 7; iNbCarteObjectif = 4; }
+			default -> { this.iNbOuvrierMax = 1; this.iNbBatimentMax = 7; iNbCarteObjectif = 4; }
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
@@ -234,8 +234,12 @@ public class Jeu
 	{
 		for ( Joueur j : this.tabJoueurs )
 		{
-			for ( int i=0; i< this.iNbJoueur; i++)
-				if ( j.getObj(i).objAccompli() )j.setScore( j.getObj(i).getScore() );
+			for ( int i=0; i< j.getNbObjectif(); i++)
+				if ( j.getObj(i).objAccompli() )
+				{
+					System.out.print(j.getObj(i));
+					j.setScore( j.getObj(i).getScore() );
+				}
 		}
 	}
 

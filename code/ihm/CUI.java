@@ -381,9 +381,11 @@ public class CUI
 
 	public void afficherObj()
     {
+		Console.println("+====================================================================================================+==========+");
 		for ( int i=0; i<this.ctrl.getNbCartesObjectif(); i++)
         	Console.println( ctrl.getObj(i) );
-    }
+		Console.println("+====================================================================================================+==========+");
+	}
 
 	public void afficherFinDePartie()
 	{

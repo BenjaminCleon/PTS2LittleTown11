@@ -33,15 +33,15 @@ public class CartesObjectifs
 		{
 			switch( this.iIdentifiant )
 			{
-				case  1 ->{ bOk = this.verifierConditionCarte1();System.out.println(bOk); return bOk; }
-				case  2 ->{ bOk = this.verifierConditionCarte2();System.out.println(bOk); return bOk; }
-				case  3 ->{ bOk = this.verifierConditionCarte3();System.out.println(bOk); return bOk; }
-				case  4 ->{ bOk = this.verifierConditionCarte4();System.out.println(bOk); return bOk; }
-				case  5 ->{ bOk = this.verifierConditionCarte5();System.out.println(bOk); return bOk; }
-				case  6 ->{ bOk = this.verifierConditionCarte6();System.out.println(bOk); return bOk; }
-				case  7 ->{ bOk = this.verifierConditionCarte7();System.out.println(bOk); return bOk; }
-				case  8 ->{ bOk = this.verifierConditionCarte8();System.out.println(bOk); return bOk; }
-				case  9 ->{ bOk = this.verifierConditionCarte9();System.out.println(bOk); return bOk; }
+				case  1 ->{ return this.verifierConditionCarte1(); }
+				case  2 ->{ return this.verifierConditionCarte2(); }
+				case  3 ->{ return this.verifierConditionCarte3(); }
+				case  4 ->{ return this.verifierConditionCarte4(); }
+				case  5 ->{ return this.verifierConditionCarte5(); }
+				case  6 ->{ return this.verifierConditionCarte6(); }
+				case  7 ->{ return this.verifierConditionCarte7(); }
+				case  8 ->{ return this.verifierConditionCarte8(); }
+				case  9 ->{ return this.verifierConditionCarte9(); }
 			}
 		}
 
@@ -55,7 +55,7 @@ public class CartesObjectifs
 	private boolean verifierConditionCarte1()
 	{
 		// Avoir plus de Batiments que d'Ouvriers.
-		if( this.joueur.getBatiments().length > this.joueur.getNbOuvrier() )
+		if( this.joueur.getBatiments().length > this.joueur.getNbOuvrierMax() )
 		{
 			this.bEstAccompli = true;
 			return true;
@@ -67,8 +67,8 @@ public class CartesObjectifs
 	private boolean verifierConditionCarte2()
 	{
 		// Avoir au moins 2 fois plus de cubes Nourriture que d'Ouvriers.
-		int blePlusEau = this.joueur.getQteRessource("BLE") + this.joueur.getQteRessource("EAU");
-		if( blePlusEau >= ( this.joueur.getNbOuvrier()*2 ) )
+		int blePlusPoisson = this.joueur.getQteRessource("BLE") + this.joueur.getQteRessource("POISSON");
+		if( blePlusPoisson >= ( this.joueur.getNbOuvrierMax()*2 ) )
 		{
 			this.bEstAccompli = true;
 			return true;
@@ -78,7 +78,7 @@ public class CartesObjectifs
 
 	private boolean verifierConditionCarte3()
 	{
-		// Construire 1 Batiment qui produit et/ou consomme de l'eau.
+		// Construire 1 Batiment qui produit et/ou consomme de l'Poisson.
 		ArrayList<BatimentInfo> batInfo      = BatimentInfo.getLstBat();
 		Pion[]                  tabBatJoueur = this.joueur.getBatiments();
 
@@ -179,7 +179,7 @@ public class CartesObjectifs
 
 	private boolean verifierConditionCarte9()
 	{
-		// Construire un Batiment dont le cout est d'au moins 3 pierres.
+		// Construire un Batiment dont le cout est d'au moins 3 bois.
 		ArrayList<BatimentInfo> batInfo      = BatimentInfo.getLstBat();
 		Pion[]                  tabBatJoueur = this.joueur.getBatiments();
 
@@ -200,8 +200,11 @@ public class CartesObjectifs
 	public String toString()
 	{
 		String sRet = "";
+		String sValide = "";
 
-		sRet += String.format("|%-100.100s|", "Objectif : " + this.sObjectif) + "Score : " + this.iScore + " |";
+		if ( this.bEstAccompli )sValide = "VALIDER";
+
+		sRet += String.format("|%-100.100s|", "Objectif : " + this.sObjectif ) + "Score : " + this.iScore + " |";
 
 		return sRet;
 	}
