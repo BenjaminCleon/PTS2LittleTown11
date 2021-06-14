@@ -3,6 +3,7 @@ package equipe_11.ihm;
 import equipe_11.Controleur  ;
 import equipe_11.BatimentInfo;
 import equipe_11.metier.Pion ;
+import equipe_11.metier.Joueur ;
 
 import java.util.ArrayList;
 
@@ -377,5 +378,20 @@ public class CUI
 		                 "+==========================================+");
 	}
 
+	public void afficherFinDePartie()
+	{
+		String[][] sDataJoueurs = this.ctrl.getClassemenentJoueur();
+
+		String mess = "+==========================================+\n" +
+			          "|Classement :                              |\n" +
+		              "+==========================================+\n";
+		
+		for ( int i=0; i<sDataJoueurs.length; i++)
+				mess += "|" + sDataJoueurs[i][0] + " : " + sDataJoueurs[i][1] + "|\n"; 
+		
+		mess += "+==========================================+";
+		
+		Console.println( mess );
+	}
 
 }

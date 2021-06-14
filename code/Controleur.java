@@ -107,6 +107,8 @@ public class Controleur
 		}
 		this.metier.gererChateau();
 		this.metier.gererTourDeGarde();
+
+		this.ihm.afficherFinDePartie();
 	}
 
 	public void construire()
@@ -398,5 +400,10 @@ public class Controleur
 			saisie = this.getSaisie();
 			b = this.activationCas (saisie, alBat);
 		}while ( !saisie.equals("3") );
+	}
+
+	public String[][] getClassemenentJoueur()
+	{
+		return this.metier.getClassemenentJoueur();
 	}
 }
