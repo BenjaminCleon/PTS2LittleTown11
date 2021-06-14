@@ -662,16 +662,6 @@ public class Jeu
 		return this.tabJoueurs;
 	}
 
-	public ArrayList<Joueur> classement()
-	{
-		ArrayList<Joueur>  classementJoueur = new ArrayList<Joueur> ();
-
-		for ( Joueur j : this.tabJoueurs )
-			classementJoueur.add( j.classementJoueur(), j );
-
-		return classementJoueur;
-	}
-	
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment("PRETEURSURGAGE");
@@ -707,5 +697,26 @@ public class Jeu
 	public boolean getPreteurSurGage()
 	{
 		return this.preteurSurGage;
+	}
+
+	public String[][] getClassemenentJoueur()
+	{
+		int iCpt = 0;
+
+		String[][] sDataJoueurs = new String[this.getNbJoueur()][2];
+		ArrayList<Joueur> alJoueur = new ArrayList<Joueur>();
+
+		for ( Joueur j : this.getJoueurs() )
+			alJoueur.add(j);
+
+		Collections.sort(alJoueur, (j1, j2) -> j1.getScore() - j2.getScore());
+
+		for ( Joueur j : this.getJoueurs() )
+		{
+			sDataJoueurs[iCpt]  [0] = j.getNom    ();
+			sDataJoueurs[iCpt++][1] = j.getCouleur();
+		}
+
+		return sDataJoueurs;
 	}
 }

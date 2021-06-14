@@ -125,7 +125,7 @@ public class Controleur
 
 			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
-		this.ihm.afficherFinDePartie( this.metier.classement() );
+		this.ihm.afficherFinDePartie();
 	}
 
 	public void construire()
@@ -422,5 +422,10 @@ public class Controleur
 			saisie = this.getSaisie();
 			b = this.activationCas (saisie, alBat);
 		}while ( !saisie.equals("3") );
+	}
+
+	public String[][] getClassemenentJoueur()
+	{
+		return this.metier.getClassemenentJoueur();
 	}
 }
