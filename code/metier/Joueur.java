@@ -144,19 +144,7 @@ public class Joueur
 		this.rBois        = new Ressource("bois"    ); 
 		this.rPierre      = new Ressource("pierre"  );
 		this.rPiece       = new Ressource("piece"   );
-		this.rPiece.setQteJoueur(6);
-	}
-
-	public void initPiece(){ this.rPiece.setQteJoueur(3); }
-	
-	public void setNourri( boolean estNourri )
-	{
-		this.bNourri = estNourri;
-	}
-
-	public void setNumJoueur(int iNumJoueur)
-	{
-		this.sNumJoueur = iNumJoueur;
+		this.rPiece.setQteJoueur(3);
 	}
 	
 	public void setNomJoueur(String sNomJoueur)
@@ -262,20 +250,6 @@ public class Joueur
 		this.iScore += score;
 	}
 
-	/**
-	 * Paye un joueur passé en parametre de 1 piece
-	 * @param Joueur
-	 *	joueurs a payer
-	 */
-	public void payerJoueur( Joueur joueur )
-	{
-		if ( this.getQteRessource("PIECE") > 0 )
-		{
-			joueur.gererRessource(1, "PIECE");
-			this  .gererRessource(-1, "PIECE");
-		}
-	}
-	
 	/**
 	 * Regarde si l'objectif passé en paramètre est complété
 	 * @param oObjectif
@@ -418,7 +392,6 @@ public class Joueur
 
 	public int classementJoueurs()
 	{
-		
 		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
 
 		ArrayList<Integer> alInt = new ArrayList<Integer>();

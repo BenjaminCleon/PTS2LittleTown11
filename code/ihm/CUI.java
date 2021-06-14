@@ -360,7 +360,7 @@ public class CUI
 
 	public void mettreIhmAJour(String sMess)
 	{
-		// Console.effacerEcran();
+		Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);

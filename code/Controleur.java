@@ -69,29 +69,9 @@ public class Controleur
 
 	public Pion[][] getPlateau(){ return this.metier.getPlateau();}
 
-	public int getQteRessourceJoueur( String sType )
-	{
-		return this.metier.getJoueurCourant().getQteRessource(sType);
-	}
-
-	public int getPieceJoueur()
-	{
-		return this.metier.getJoueurCourant().getQteRessource("PIECE");
-	}
-
-	public int getScoreJoueur()
-	{
-		return this.metier.getJoueurCourant().getScore();
-	}
-
 	public String getCouleurJoueur()
 	{
 		return this.metier.getJoueurCourant().getCouleur();
-	}
-
-	public String getCouleurJoueur(int i)
-	{
-		return this.metier.getCouleurJoueur(i);
 	}
 
 	public int getQteRessourceStock(String sType)
@@ -125,6 +105,8 @@ public class Controleur
 
 			}catch(NumberFormatException e){ Console.println("Vous avez fait un mauvais choix"); }
 		}
+		this.metier.gererChateau();
+		this.metier.gererTourDeGarde();
 	}
 
 	public void construire()
@@ -301,11 +283,6 @@ public class Controleur
 		return this.metier.getLstBat();
 	}
 
-	public ArrayList<String> getLstNomBat()
-	{
-		return this.metier.getLstNomBat();
-	}
-
 	public int getNbChampsDeble(){ return this.metier.getNbChampsDeble(); }
 
 	public int getNumManche(){ return this.metier.getNumManche(); }
@@ -337,6 +314,7 @@ public class Controleur
 		int iNumFuturJoueur ;
 
         if ( !this.metier.isToutOuvriersPose() )return false;
+		this.gererResidence();
 
 		iNumFuturJoueur = (this.metier.getNumeroJoueurCourant()+1)%this.metier.getNbJoueur();
 		this.metier.mettreJoueurA(0);
@@ -391,7 +369,6 @@ public class Controleur
 			this.metier.changerJoueur();
 		}
 		
-		this.gererResidence();
 		this.metier.mettreJoueurA(iNumFuturJoueur);
         this.metier.passerManche();
 

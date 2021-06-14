@@ -575,6 +575,66 @@ public class Jeu
 		}
 	}
 
+	public void gererChateau()
+	{
+		String sCoulChateau = "";
+		int iLig  = 0;
+		char cCol = 0;
+		int[] iCoordonees = new int[4];
+		int iScoreARajouter = 0;
+
+		for ( int i=0;i<this.tabPion.length; i++)
+			for ( int j=0; j<this.tabPion[i].length;j++)
+				if ( this.tabPion[i][j].getNom().equals("CHATEAU") )
+				{
+					sCoulChateau = this.tabPion[i][j].getCoul();
+					iLig = i+1;
+					cCol = (char)(j + 'A');
+					break;
+				}
+		
+		if ( sCoulChateau.equals("") )return;
+
+		iCoordonees = this.gererCoordonneeAutourDuJoueur(iLig, cCol);
+		for (int i=iCoordonees[0]; i<= iCoordonees[1]; i++)
+			for (int j=iCoordonees[2]; j<= iCoordonees[3]; j++)
+				if ( this.tabPion[i][j].getCoul().equals(sCoulChateau))
+					iScoreARajouter += 4;
+
+		for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(sCoulChateau) )j.setScore(iScoreARajouter);
+	}
+
+	public void gererTourDeGarde()
+	{
+		String sCoulTdg = "";
+		int iLig  = 0;
+		char cCol = 0;
+		int[] iCoordonees = new int[4];
+		int iScoreARajouter = 0;
+
+		for ( int i=0;i<this.tabPion.length; i++)
+			for ( int j=0; j<this.tabPion[i].length;j++)
+				if ( this.tabPion[i][j].getNom().equals("TOURDEGARDE") )
+				{
+					sCoulTdg = this.tabPion[i][j].getCoul();
+					iLig = i+1;
+					cCol = (char)(j + 'A');
+					break;
+				}
+		
+		if ( sCoulTdg.equals("") )return;
+
+		iCoordonees = this.gererCoordonneeAutourDuJoueur(iLig, cCol);
+		for (int i=iCoordonees[0]; i<= iCoordonees[1]; i++)
+			for (int j=iCoordonees[2]; j<= iCoordonees[3]; j++)
+				if ( this.tabPion[i][j].getNom().equals(""))
+					iScoreARajouter += 2;
+
+		for ( Joueur j : this.tabJoueurs )
+				if ( j.getCouleur().equals(sCoulTdg))j.setScore(iScoreARajouter);
+	}
+
 	public int getNbOuvrierRestantCourant()
 	{
 		return this.iNbOuvrierMax - this.jCourant.getNbOuvrier();
@@ -626,10 +686,6 @@ public class Jeu
 		return this.alBat;
 	}
 
-	public ArrayList<String> getLstNomBat()
-	{
-		return BatimentInfo.getLstNomBat();
-	}
 
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{

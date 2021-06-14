@@ -351,23 +351,6 @@ public enum BatimentInfo
 		return iVal;
 	}
 
-	public static ArrayList<String> getLstNomBat()
-	{
-		ArrayList<String> alNomBat = new ArrayList<String>();
-		
-		
-		for ( BatimentInfo bt : BatimentInfo.values() )
-		{
-			if(bt != null && alNomBat != null)
-			{
-				if( !bt.estRessource() )
-				alNomBat.add( bt.name() );
-			}
-		}
-		
-		return alNomBat;
-	}
-
 	public static ArrayList<BatimentInfo> getLstBat()
 	{
 		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
