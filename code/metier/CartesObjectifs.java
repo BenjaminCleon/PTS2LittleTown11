@@ -204,7 +204,7 @@ public class CartesObjectifs
 
 		if ( this.bEstAccompli )sValide = "VALIDER";
 
-		sRet += String.format("|%-100.100s|", "Objectif : " + this.sObjectif ) + "Score : " + this.iScore + " |";
+		sRet += String.format("|%-100.100s", "Objectif : " + this.sObjectif ) + String.format("%7s|", sValide) + "Score : " + this.iScore + " |";
 
 		return sRet;
 	}

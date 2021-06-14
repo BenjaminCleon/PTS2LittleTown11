@@ -6,6 +6,8 @@ import equipe_11.metier.CartesObjectifs;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.Pion;
 
+import equipe_11.scenario.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -19,20 +21,27 @@ public class Controleur
 	private CUI ihm;
 	private Jeu metier;
 
-	public Controleur()
+	public Controleur(String fic)
 	{
 		this.metier = new Jeu();
 		this.ihm    = new CUI(this);
 
-		this.ihm.initCUI();
-		this.bouclePrincipale();
+		if ( fic != null )
+		{
+			switch ( fic.toUpperCase() )
+			{
+				case "SCENARIO1" -> new Scenario1(this);
+				case "SCENARIO2" -> new Scenario2(this);
+				case "SCENARIO3" -> new Scenario3(this);
+			}
+		}
+		else
+		{
+			this.ihm.initCUI();
+			this.bouclePrincipale();
+		}
 	}
 
-	public static void main(String[] args)
-	{
-		new Controleur();
-	}
-	
 	public boolean setNbJoueur()
 	{
 		String saisie = this.getSaisie();
@@ -447,5 +456,11 @@ public class Controleur
 	public String[][] getClassemenentJoueur()
 	{
 		return this.metier.getClassemenentJoueur();
+	}
+
+	public static void main(String[] args)
+	{
+		if ( args.length == 1 )new Controleur(args[0]);
+		else                   new Controleur(  null );
 	}
 }
