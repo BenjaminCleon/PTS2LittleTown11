@@ -835,6 +835,7 @@ public class Jeu
 		this.tabJoueurs[1] = j2; 
 		this.tabJoueurs[2] = j3;
 
-		this.jCourant = this.tabJoueurs[0];
+		this.iNbJoueur = 3;
+		this.jCourant  = this.tabJoueurs[0];
 	}
 }

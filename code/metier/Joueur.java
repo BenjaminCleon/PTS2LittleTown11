@@ -129,7 +129,7 @@ public class Joueur
 	 * @param iNbCarteObjectif 
 	 *       Nombre de cartes objectifs pour le joueur
 	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j, ArrayList<CartesObjectifs> alCart)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j, ArrayList<CartesObjectifs> alCart, PiocheDeCartesObjectifs pco)
 	{
 		this.NB_OUVRIER   = nbOuvrier ;
 		this.NB_BATIMENT  = nbBatiment;
@@ -157,7 +157,10 @@ public class Joueur
 		this.rPiece.setQteJoueur(3);
 		
 		if ( Joueur.piocheDeCartesObjectifs == null )
-			Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
+		{
+			if ( pco == null )Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
+			else              Joueur.piocheDeCartesObjectifs = pco;
+		}
 		
 		if ( alCart == null )
 		{
@@ -175,7 +178,7 @@ public class Joueur
 
 	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j)
 	{
-		this ( sCouleur, nbOuvrier, nbBatiment, iNbCarteObjectif, j, null );
+		this ( sCouleur, nbOuvrier, nbBatiment, iNbCarteObjectif, j, null, null );
 	}
 
 	public CartesObjectifs getObj(int i){ return this.cartesObjectifs[i]; }

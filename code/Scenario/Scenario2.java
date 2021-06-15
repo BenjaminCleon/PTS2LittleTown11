@@ -1,6 +1,8 @@
 package equipe_11.scenario;
 
 import equipe_11.metier.*;
+import equipe_11.BatimentInfo;
+import equipe_11.scenario.*;
 
 import java.util.ArrayList;
 
@@ -8,15 +10,15 @@ public class Scenario2 extends Jeu
 {
     public Scenario2()
     {
-        super();
+        super(EnsemblePioche.getPioche2());
 
 		// Vérifie le nombre de joueur et créer les joueurs
 		Joueur j1, j2, j3;
-		new PiocheDeCartesObjectifs();
+		PiocheDeCartesObjectifs pco =  new PiocheDeCartesObjectifs();
 
-		j1 = new Joueur("Rouge", 4, 5, 3, this, this.getPioche1());
-		j2 = new Joueur("Bleu" , 4, 5, 3, this, this.getPioche2());
-		j3 = new Joueur("Jaune", 4, 5, 3, this, this.getPioche3());
+		j1 = new Joueur("Rouge", 4, 5, 3, this, this.getPioche1(), pco);
+		j2 = new Joueur("Bleu" , 4, 5, 3, this, this.getPioche2(), pco);
+		j3 = new Joueur("Jaune", 4, 5, 3, this, this.getPioche3(), pco);
 
 		super.setJoueur(j1, j2, j3);
 
