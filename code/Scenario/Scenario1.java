@@ -118,17 +118,17 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 2                  */ /* Bois    : 1                  */
+		/* Bois    : 1                  */ /* Bois    : 0                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 2                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/
 
-		super.ajouterOuvrier (2, 'C'); // Fonctionne (récupère pierre/poisson)
+		super.ajouterOuvrier (2, 'C'); // Fonctionne (récupère pierre/bois)
 		super.activerBatiment(1, 'B'); // Ne fonctionne pas(pas assez de pièce)
 		super.activerBatiment(1, 'G'); // Ne fonctionne pas(pas de batiment)
-		super.activerBatiment(3, 'B'); // Fonctionne (pas besoin de pièce)
 		super.activerBatiment(1, 'A'); // Ne fonctionne pas (c'est une ressource)
+		super.activerBatiment(3, 'B'); // Fonctionne (pas besoin de pièce)
 		super.changerJoueur();
 		
 		// Ouvrier/Batiment restant: 2/6            2/6
@@ -136,10 +136,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 0                  */
 		/* Ble     : 0                  */ /* Ble     : 1                  */
-		/* Poisson : 2                  */ /* Poisson : 3                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		super.construireBatiment(1, "CHAMPSDEBLE", 3, 'D'); // Fonctionne
@@ -148,10 +148,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 2                  */ /* Bois    : 0                  */
+		/* Bois    : 0                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 1                  */
-		/* Poisson : 2                  */ /* Poisson : 3                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 		super.ajouterOuvrier (4, 'B'); // On récupère du bois et du poisson
 		super.activerBatiment(3, 'B');
@@ -162,10 +162,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 2                  */ /* Bois    : 0                  */
+		/* Bois    : 0                  */ /* Bois    : 2                  */
 		/* Ble     : 0                  */ /* Ble     : 2                  */
-		/* Poisson : 2                  */ /* Poisson : 4                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 3                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		super.ajouterOuvrier (2, 'B');
