@@ -1,17 +1,11 @@
 package equipe_11.scenario;
 
-import equipe_11.Controleur;
+import equipe_11.metier.Jeu;
 
-import java.io.PrintWriter;
-import java.io.IOException;
-
-public class Scenario1
+public class Scenario1 extends Jeu
 {
-    public Scenario1(Controleur ctrl)
+    public Scenario1()
     {
-        // try
-        // {
-
-        // }catch(IOException e){ e.printStackTrace(); }
+        
     }    
 }

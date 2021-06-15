@@ -10,6 +10,7 @@
 
 ./metier/utilitaire/AltInt.java
 ./metier/CartesObjectifs.java
+./metier/PiocheDeCartesObjectifs.java
 ./metier/Joueur.java
 ./metier/Pion.java
 ./metier/Ressource.java

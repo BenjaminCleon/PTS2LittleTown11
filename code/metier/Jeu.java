@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.function.Function;
 
 import equipe_11.BatimentInfo;
-import equipe_11.metier.Pion;
 
 public class Jeu 
 {
@@ -93,6 +92,8 @@ public class Jeu
 	 */
 	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
 	{
+		if ( iNbJoueur >= this.tabJoueurs.length || iNbJoueur < 0 )return;
+		
 		this.tabJoueurs[iNbJoueur].setNomJoueur(sNomJoueur);
 	}
 
@@ -164,6 +165,8 @@ public class Jeu
 	{
 		String[] ensCouleur  = { "Rouge", "Bleu", "Jaune", "Vert" };
 		int iNbCarteObjectif = 0;
+
+		if ( iNbJoueur > 4 || iNbJoueur < 2 ) return false;
 
 		this.iNbJoueur = iNbJoueur;
 		this.tabJoueurs  = new Joueur[this.iNbJoueur];

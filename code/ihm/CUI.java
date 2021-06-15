@@ -23,7 +23,7 @@ public class CUI
 
 	public void initCUI()
 	{
-		Console.effacerEcran ();
+		// Console.effacerEcran ();
 		this.choixDebutPartie();
 	}
 
