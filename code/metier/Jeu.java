@@ -783,12 +783,12 @@ public class Jeu
 		for ( Joueur j : this.getJoueurs() )
 			alJoueur.add(j);
 
-		Collections.sort(alJoueur, (j1, j2) -> j1.getScore() - j2.getScore());
+		Collections.sort(alJoueur, (j1, j2) -> j2.getScore() - j1.getScore());
 
-		for ( Joueur j : this.getJoueurs() )
+		for ( Joueur j : alJoueur )
 		{
-			sDataJoueurs[iCpt]  [0] = j.getNom    ();
-			sDataJoueurs[iCpt++][1] = j.getCouleur();
+			sDataJoueurs[iCpt]  [0] = j.getCouleur();
+			sDataJoueurs[iCpt++][1] = j.getScore  () + "";
 		}
 
 		return sDataJoueurs;

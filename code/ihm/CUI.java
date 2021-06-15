@@ -396,7 +396,7 @@ public class CUI
 		              "+==========================================+\n";
 		
 		for ( int i=0; i<sDataJoueurs.length; i++)
-				mess += "|" + sDataJoueurs[i][0] + " : " + sDataJoueurs[i][1] + "|\n"; 
+				mess += "|" + String.format("%-6s", sDataJoueurs[i][0] ) + " : " + String.format( "%-33.33s", sDataJoueurs[i][1] ) + "|\n"; 
 		
 		mess += "+==========================================+";
 		
