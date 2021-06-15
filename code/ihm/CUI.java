@@ -124,7 +124,7 @@ public class CUI
 		                "----------+------------+---------+-------------+----------------+\n"     );
 		if ( !sMess.equals("") )
 			Console.println("+==========================================================+\n"+
-				            String.format("|%-57s|", sMess) + "\n"    +
+				            String.format("|%-58.58s|", sMess) + "\n"    +
 			                "+==========================================================+\n" );
 
 		Console.println(this.getRessourceAllJoueur());

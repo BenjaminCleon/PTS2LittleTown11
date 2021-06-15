@@ -239,10 +239,7 @@ public class Jeu
 		{
 			for ( int i=0; i< j.getNbObjectif(); i++)
 				if ( j.getObj(i).objAccompli() )
-				{
-					System.out.print(j.getObj(i));
 					j.setScore( j.getObj(i).getScore() );
-				}
 		}
 	}
 
@@ -261,7 +258,7 @@ public class Jeu
 	 */
 	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig >       this.tabPion   .length    || iLig < 0 ||
+		if ( iLig >       this.tabPion   .length    || iLig <= 0 ||
 		     cCol > 'A' + this.tabPion[0].length -1 || cCol < 'A' ) return false;
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType);
@@ -344,6 +341,8 @@ public class Jeu
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
 		this.jCourant.clearLstBatimentAutourOuvrier();
+		if ( iLig < 1 || iLig > 6 || cCol < 'A' || cCol > 'I')return false;
+
 		if ( !this.tabPion[iLig-1][cCol - 'A'].getNom().isEmpty() )return false;
 		
 		Pion pTmp1, pTmp2;
@@ -441,7 +440,6 @@ public class Jeu
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
-		System.out.println(this.jCourant.getLstBatimentAutourOuvrier());
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
 
 		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
@@ -786,9 +784,9 @@ public class Jeu
 		for ( Joueur j : this.getJoueurs() )
 			alJoueur.add(j);
 
-		Collections.sort(alJoueur, (j1, j2) -> j1.getScore() - j2.getScore());
+		Collections.sort(alJoueur, (j1, j2) -> j2.getScore() - j1.getScore());
 
-		for ( Joueur j : this.getJoueurs() )
+		for ( Joueur j : alJoueur )
 		{
 			sDataJoueurs[iCpt]  [0] = j.getNom    ();
 			sDataJoueurs[iCpt++][1] = j.getCouleur();

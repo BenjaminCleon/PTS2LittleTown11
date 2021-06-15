@@ -388,7 +388,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("poisson"  );
 							saisie = this.getSaisie();
-							if(saisie.matches("^[0-5]$" )) iQuantitePoisson = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$" )) iQuantitePoisson = Integer.parseInt(saisie);
 							sRet = "";
 						} 
 						case "2" ->
@@ -397,7 +397,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("blé"  );
 							saisie = this.getSaisie();
-							if(saisie.matches("^[0-5]$" )) iQuantiteBle   = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$" )) iQuantiteBle   = Integer.parseInt(saisie);
 							sRet = "";
 						} 
 						case "3" ->
@@ -406,7 +406,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("pièce");
 							saisie = this.getSaisie();
-							if(saisie.matches("^([0-9]|1[0-5])$")) iQuantitePiece = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$")) iQuantitePiece = Integer.parseInt(saisie);
 							sRet = "";
 						}
 						case "4" ->
