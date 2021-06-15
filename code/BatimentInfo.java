@@ -429,11 +429,17 @@ public enum BatimentInfo
 		
 		return sRet;
 	}
-	
+
+	/**
+	 * Retourne une string avec toute les informations sur la construction des batiments
+	 *
+	 * @return
+	 *		une string avec toute les informations sur la construction des batiments
+	 */
 	public String toStringInfoConstruction()
 	{
 		String sRet = "";
-
+	
 		sRet += this.name() + " :\n";
 		sRet += "+--------+---------+------+-----+-------+-------+\n";
 		sRet += "| PIERRE | POISSON | BOIS | BLÉ | PIECE | SCORE |\n";

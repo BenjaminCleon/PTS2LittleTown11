@@ -153,7 +153,7 @@ public class Controleur
 		{
 			this.ihm.afficherObj   ();
 			this.ihm.afficherMenuConstructionBatiment();
-			this.ihm.afficherInfo(b);
+			this.ihm.afficherInfoConstruction(b);
 			b = null;
 			try
 			{
@@ -251,7 +251,7 @@ public class Controleur
 					this.ihm.mettreIhmAJour();
 					this.ihm.afficherObj   ();
 					this.ihm.afficherMenuActivation();
-					this.ihm.afficherInfo(b);
+					this.ihm.afficherInfoActivation(b);
 					b = null;
 					saisie = this.getSaisie();
 					b = this.activationCas(saisie);
@@ -449,7 +449,7 @@ public class Controleur
 			this.ihm.mettreIhmAJour();
 			this.ihm.afficherObj   ();
 			this.ihm.afficherMenuActivation(true);
-			this.ihm.afficherInfo(b);
+			this.ihm.afficherInfoActivation(b);
 			saisie = this.getSaisie();
 			b = this.activationCas (saisie, alBat);
 		}while ( !saisie.equals("3") );

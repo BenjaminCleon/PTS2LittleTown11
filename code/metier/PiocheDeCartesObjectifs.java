@@ -4,6 +4,9 @@ package equipe_11.metier;
 import java.util.Collections;
 
 import java.util.List;
+
+import equipe_11.metier.CartesObjectifs;
+
 import java.util.ArrayList;
 /**
  * Cette classe est une pioche de carte objectif, elle créer les objectifs
@@ -46,6 +49,13 @@ public class PiocheDeCartesObjectifs
 		PiocheDeCartesObjectifs.lstCartesObjectifs.remove(0);
 		return cTmp;
 	}
+
+
+	public static CartesObjectifs piocheCartesObjectifs(int i)
+	{
+		return PiocheDeCartesObjectifs.lstCartesObjectifs.get(i);
+	}
+
 	/**
 	 * Permet de mélanger les cartes objectifs
 	 */

@@ -413,19 +413,29 @@ public class CUI
 
 		Console.println(sRet);		
 	}
+	
 	/**
 	 * Affiche toute les informations sur l'activation des batiments
 	 *
 	 * @param b
 	 *		BatimentInfo
 	 */
-	public void afficherInfo(BatimentInfo b)
+	public void afficherInfoActivation(BatimentInfo b)
 	{
 		if ( b != null )Console.println( b.toStringInfoActivation() );
 	}
+
 	/**
-	 *Met à jour l'IHM
+	 * Affiche toute les informations sur la construction des batiments
+	 *
+	 * @param b
+	 *		BatimentInfo
 	 */
+	public void afficherInfoConstruction(BatimentInfo b)
+	{
+		if ( b != null )Console.println(b.toStringInfoConstruction() );
+	}
+
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }
 	/**
 	 *Met à jour l'IHM
