@@ -3,18 +3,77 @@ package equipe_11.metier;
 import java.util.ArrayList;
 
 import equipe_11.BatimentInfo;
-
+/** Cette classe regroupe les différents objectifs et
+  * donne les diverses informations
+  *
+  * @author Equipe 11
+  */
 public class CartesObjectifs
 {
+	/**
+	 * Nombre de cartes objectifs, s'incrémente automatiquement
+	 */
 	private static int nbCarteObjectif;
+	/**
+	 * Identifiant de la carte objectif
+	 *
+	 * @see CartesObjectifs#objAccompli()
+	 */
 	private        int iIdentifiant;
-
+	/**
+	 * le nombre de point que rapporte l'objectif
+	 *
+	 * @see CartesObjectifs#getScore()
+	 * @see CartesObjectifs#toString()
+	 */
 	private int    iScore;
+	/**
+	 * les conditions de validation de la carte objectif
+	 *
+	 * @see CartesObjectifs#getObjectif()
+	 * @see CartesObjectifs#toString()
+	 */
 	private String sObjectif;
+	/**
+	 * le joueur possédant l'objectif 
+	 *
+	 * @see CartesObjectifs#getJoueur()
+	 * @see CartesObjectifs#verifierConditionCarte1()
+	 * @see CartesObjectifs#verifierConditionCarte2()
+	 * @see CartesObjectifs#verifierConditionCarte3()
+	 * @see CartesObjectifs#verifierConditionCarte4()
+	 * @see CartesObjectifs#verifierConditionCarte5()
+	 * @see CartesObjectifs#verifierConditionCarte6()
+	 * @see CartesObjectifs#verifierConditionCarte7()
+	 * @see CartesObjectifs#verifierConditionCarte8()
+	 * @see CartesObjectifs#verifierConditionCarte9()
+	 * @see CartesObjectifs#setJoueur(Joueur)
+	 */
 	private Joueur joueur;
-
+	/**
+	 * si l'objectif est accompli ou non
+	 *
+	 * @see CartesObjectifs#objAccompli()
+	 * @see CartesObjectifs#verifierConditionCarte1()
+	 * @see CartesObjectifs#verifierConditionCarte2()
+	 * @see CartesObjectifs#verifierConditionCarte3()
+	 * @see CartesObjectifs#verifierConditionCarte4()
+	 * @see CartesObjectifs#verifierConditionCarte5()
+	 * @see CartesObjectifs#verifierConditionCarte6()
+	 * @see CartesObjectifs#verifierConditionCarte7()
+	 * @see CartesObjectifs#verifierConditionCarte8()
+	 * @see CartesObjectifs#verifierConditionCarte9()
+	 * @see CartesObjectifs#setJoueur(Joueur)
+	 */
 	private boolean bEstAccompli;
-
+	/**
+	 * Constructeur de CartesObjectifs.
+	 *
+	 * @param iScore
+	 *		Nombre de points que donne les cartes objectifs
+	 * @param sObjectif
+	 *		Conditon à remplir pour valider l'objectif
+	 */
 	public CartesObjectifs ( int iScore, String sObjectif )
 	{
 		this.iIdentifiant = ++CartesObjectifs.nbCarteObjectif;
@@ -25,7 +84,12 @@ public class CartesObjectifs
 
 		this.bEstAccompli = false;
 	}
-
+	/**
+	 * Retourne si l'objectif a été complété
+	 *
+	 * @return
+	 *		si l'objectif a été complété
+	 */
 	public boolean objAccompli()
 	{
 		boolean bOk;
@@ -47,11 +111,33 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne le nombre de point que rapporte l'objectif
+	 *
+	 * @return
+	 *		le nombre de point que rapporte l'objectif
+	 */
 	public int    getScore   (){ return this.iScore;    }
+	/**
+	 * Retourne les conditions à remplir afin de valider les objectifs
+	 *
+	 * @return
+	 *		les conditions à remplir afin de valider les objectifs
+	 */
 	public String getObjectif(){ return this.sObjectif; }
+	/**
+	 * Retourne le joueur possédant l'objectif
+	 *
+	 * @return
+	 *		le joueur possédant l'objectif
+	 */
 	public Joueur getJoueur  (){ return this.joueur;    }
-
+	/**
+	 * Retourne si la carte objectif1 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif1 à déjà été complété
+	 */
 	private boolean verifierConditionCarte1()
 	{
 		// Avoir plus de Batiments que d'Ouvriers.
@@ -63,7 +149,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif2 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif2 à déjà été complété
+	 */
 	private boolean verifierConditionCarte2()
 	{
 		// Avoir au moins 2 fois plus de cubes Nourriture que d'Ouvriers.
@@ -75,7 +166,12 @@ public class CartesObjectifs
 		}
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif3 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif3 à déjà été complété
+	 */
 	private boolean verifierConditionCarte3()
 	{
 		// Construire 1 Batiment qui produit et/ou consomme de l'Poisson.
@@ -93,7 +189,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif4 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif4 à déjà été complété
+	 */
 	private boolean verifierConditionCarte4()
 	{
 		// Construire 2 Batiments qui produisent et/ou consomment des pieces.
@@ -116,7 +217,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif5 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif5 à déjà été complété
+	 */
 	private boolean verifierConditionCarte5()
 	{
 		// Construire 1 Batiment qui produit et/ou consomme du bois ou de la pierre.
@@ -134,7 +240,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif6 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif6 à déjà été complété
+	 */
 	private boolean verifierConditionCarte6()
 	{
 		// Construire un Batiment dont le cout est d'au moins 3 pierres.
@@ -152,7 +263,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif7 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif7 à déjà été complété
+	 */
 	private boolean verifierConditionCarte7()
 	{
 		// Avoir 0 pieces.
@@ -164,7 +280,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif8 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif8 à déjà été complété
+	 */
 	private boolean verifierConditionCarte8()
 	{
 		// Avoir au moins 6 pieces.
@@ -176,7 +297,12 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Retourne si la carte objectif9 à déjà été complété
+	 *
+	 * @return
+	 *		si la carte objectif9 à déjà été complété
+	 */
 	private boolean verifierConditionCarte9()
 	{
 		// Construire un Batiment dont le cout est d'au moins 3 bois.
@@ -194,9 +320,18 @@ public class CartesObjectifs
 
 		return false;
 	}
-
+	/**
+	 * Initialise le joueur possédant la carte objectif
+	 *
+	 * @param j
+	 *		le joueur
+	 */
 	public void setJoueur( Joueur j ){ this.joueur = j; }
-
+	/**
+	 * Retourne sous forme de chaine de caractère si l'objectif à été validé
+	 * @return
+	 *		sous forme de chaine de caractère si l'objectif à été validé
+	 */
 	public String toString()
 	{
 		String sRet = "";

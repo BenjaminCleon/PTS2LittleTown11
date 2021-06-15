@@ -117,6 +117,8 @@ public class Ressource
 	 *
 	 * @param sType
 	 *          Nom de la ressource à rechercher.
+	 * @return
+	 *		le quantité de la ressource dans le stock
 	 * 
 	 * @see Ressource#consommerRessource
 	 * @see Ressource#ajouterRessource
@@ -134,10 +136,12 @@ public class Ressource
 	}
 
 	/**
-	 * Consomme une quantiter d'une ressource en stock passer en parametre.
+	 * Consomme une quantité d'une ressource en stock passé en paramètre.
 	 *
 	 * @param iConso
 	 *          nombre de ressource à consommer
+	 * @return
+	 *		true si la ressource a été consommé
 	 */
 	public static boolean consommerRessourceStock( int iConso, String sType )
 	{
@@ -150,10 +154,12 @@ public class Ressource
 	}
 
 	/**
-	 * Ajoute une quantiter à une ressource en stock passer en parametre.
+	 * Ajoute une quantité à une ressource en stock passé en paramètre.
 	 *
 	 * @param iConso
 	 *          nombre de ressource à ajoute
+	 * @return
+	 *		true si la ressource a été augmenté
 	 */
 	public static boolean ajouterRessourceStock( int iConso, String sType )
 	{
@@ -166,10 +172,10 @@ public class Ressource
 	}
 
 	/**
-	 * Consomme une quantiter d'une ressource passer en parametre.
+	 * Consomme à la ressource une quantité passé en paramètre.
 	 *
 	 * @param iConso
-	 *          nombre de ressource à consommer
+	 *		nombre de ressource à consommer
 	 */
 	public boolean consommerRessource( int iConso )
 	{
@@ -182,10 +188,12 @@ public class Ressource
 	}
 
 	/**
-	 * Ajoute une quantiter à une ressource passer en parametre.
+	 * Ajoute à une ressource une quantité passé en paramètre.
 	 *
 	 * @param iConso
-	 *          nombre de ressource à ajoute
+	 *		nombre de ressource à ajoute
+	 * @return
+	 *		true si la ressource a été ajouté
 	 */
 	public boolean ajouterRessource( int iConso )
 	{
@@ -197,12 +205,22 @@ public class Ressource
 		
 		return true;
 	}
-
+	/**
+	 * Ajoute à une ressource du stock une quantité en paramètre
+	 *
+	 * @return
+	 *		true si une quantité à été ajouté
+	 */
 	public boolean ajouterRessourcePossible( int iQte )
 	{
 		return ( Ressource.getRessourceByType(this.sType).getEntier() - iQte ) >= 0;
 	}
-
+	/**
+	 * Supprime à une ressource du stock une quantité en paramètre
+	 *
+	 * @return
+	 *		true si une quantité à été supprimé
+	 */
 	public boolean consommerRessourcePossible( int iQte )
 	{
 		return ( this.iQte - iQte ) >= 0;
@@ -210,12 +228,17 @@ public class Ressource
 
 	/**
 	 * Retourne le nom de la ressource.
+	 *
+	 * @return 
+	 *		le nom de la ressource
 	 */
 	public String  getType()        { return this.sType;         }
 	
 	/**
-	 * Retourne le nombre de ble dans le stock.
+	 * Retourne le nombre de blés dans le stock.
 	 *
+	 * @return
+	 *		le nombre de blés dans le stock
 	 * @see Ressource#toString()
 	 */
 	public static int getQteBle(){ return Ressource.iQteBleStock.getEntier(); }
@@ -223,35 +246,52 @@ public class Ressource
 	/**
 	 * Retourne le nombre de bois dans le stock.
 	 *
+	 * @return
+	 *		le nombre de bois dans le stock
 	 * @see  Ressource#toString()
 	 */
 	public static int getQteBois(){ return Ressource.iQteBoisStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre de poisson dans le stock.
+	 * Retourne le nombre de poissons dans le stock.
 	 *
+	 * @return
+	 *		le nombre de poissons dans le stock
 	 * @see  Ressource#toString()
 	 */
 	public static int getQtePoisson(){ return Ressource.iQtePoissonStock.getEntier(); }
 	
 	/**
-	 * Retourne le nombre de Pierre dans le stock.
+	 * Retourne le nombre de pierres dans le stock.
 	 *
+	 * @return
+	 *		le nombre de pierres dans le stock
 	 * @see  Ressource#toString()
 	 */
 	public static int getQtePierre(){ return Ressource.iQtePierreStock.getEntier(); }
-	
+	/**
+	 * Retourne le nombre de pièces dans le stock.
+	 *
+	 * @return
+	 *		le nombre de pièces dans le stock
+	 */
 	public static int getQtePiece (){ return Ressource.iQtePieceStock .getEntier(); }
 
 	/**
-	 * Retourne le nombre de ressource disponible du joueur pour cette ressource.
+	 * Retourne le nombre de ressources disponible du joueur pour cette ressource.
+	 *
+	 * @return
+	 *		le nombre de ressources appartenant au joueur
 	 */
 	public int getQteRessource(){ return this.iQte; }
 
 	/**
 	 * Permet d'ajouter iNb ressource
 	 * @param
-	 *     Le nombre de ressource que l'on rajoute pour cette ressource
+	 *     Le nombre de ressources que l'on rajoute pour cette ressource
+	 *
+	 * @return
+	 *		true si des ressources ont été ajouté
 	 */
 	public boolean setQteJoueur(int iNb)
 	{
@@ -270,7 +310,10 @@ public class Ressource
 	}
 
 	/**
-	 * Retourne en String le nom de la ressource et le quantiter restant dans le stock.
+	 * Retourne en String le nom de la ressource et la quantité restant dans le stock.
+	 *
+	 * @return
+	 *		le nom de la ressource et la quantité restant dans le stock
 	 */
 	public String toString()
 	{

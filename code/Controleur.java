@@ -17,11 +17,19 @@ import java.awt.Point;
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
 
+/**
+ * Permet de gerer l'ihm et le metier
+ */
 public class Controleur
 {
 	private CUI ihm;
 	private Jeu metier;
-
+	/**
+	 * Constructeur de Controleur
+	 * 
+	 * @param fic
+	 * 		Permet de choisir un scénario
+	 */
 	public Controleur(String fic)
 	{
 
@@ -43,7 +51,12 @@ public class Controleur
 
 		this.bouclePrincipale();
 	}
-
+	/**
+	 * Permet de choisir le nombre de joueur durant la partie
+	 * 
+	 * @return
+	 * 		true si le nombre de joueur saisi est compris entre 2 et 4
+	 */
 	public boolean setNbJoueur()
 	{
 		String saisie = this.getSaisie();
@@ -55,6 +68,12 @@ public class Controleur
 		return true;
 	}
 
+	/**
+	 * Permet de mettre un nom au joueur
+	 * 
+	 * @param iNbJoueur
+	 * 		numero du joueur
+	 */
 	public void setNomJoueur(int iNbJoueur)
 	{
 		String saisie = this.getSaisie();
@@ -62,6 +81,12 @@ public class Controleur
 		this.metier.setNomJoueur(iNbJoueur, saisie);
 	}
 	
+	/**
+	 * Permet de choisir un plateau
+	 * 
+	 * @return
+	 * 		true si la valeur saisie est 1 ou 2
+	 */
 	public boolean setNumPlateau()
 	{
 		String saisie = this.getSaisie();
@@ -72,25 +97,49 @@ public class Controleur
 		return true;
 	}
 
+	/**
+	 * Permet la saisie par l'utilisateur
+	 * 
+	 * @return
+	 * 		la String saisie par l'utilisateur
+	 */
 	public String getSaisie()
 	{
 		Scanner in = new Scanner(System.in);
 
 		return in.nextLine();
 	}
-
+	/**
+	 * Permet d'obtenir le plateau du jeu
+	 * @return
+	 *		le plateau du jeu
+	 */
 	public Pion[][] getPlateau(){ return this.metier.getPlateau();}
 
+	/**
+	 * Retourne la couleur du joueur
+	 * 
+	 * @return
+	 * 		la couleur du joueur
+	 */
 	public String getCouleurJoueur()
 	{
 		return this.metier.getJoueurCourant().getCouleur();
 	}
-
+	/**
+	 * Retourne la quantité en stock de la ressource passé en paramètre
+	 * @param sType
+	 * 		ressource
+	 * @return
+	 * 		la quantité en stock de la ressource
+	 */
 	public int getQteRessourceStock(String sType)
 	{
 		return this.metier.getQteRessourceStock(sType);
 	}
-
+	/**
+	 * Gère les différents affichages et action durant la parite
+	 */
 	public void bouclePrincipale()
 	{
 		while(this.metier.getNumManche() != 5)
@@ -124,9 +173,18 @@ public class Controleur
 
 		this.ihm.afficherFinDePartie();
 	}
-
+	/**
+	 * Retourne la carte objectif dont l'indice est passé en paramètre
+	 * @param i
+	 * 		indice de la carte objectif
+	 * @return
+	 * 		la carte objectif
+	 */
 	public CartesObjectifs getObj(int i){ return  this.metier.getJoueurCourant().getObj(i); }
 
+	/**
+	 * Retourne le nombre de cartes objectifs en fonctions du nombre de joueurs
+	 */
 	public int getNbCartesObjectif()
 	{
 		switch ( this.getNbJoueur() )
@@ -136,7 +194,9 @@ public class Controleur
 			default -> { return 2; }
 		}
 	}
-
+	/**
+	 * Permet de construire un batiment
+	 */
 	public void construire()
 	{
 		this.ihm.mettreIhmAJour();
@@ -201,14 +261,23 @@ public class Controleur
 
 		}while(iEntreeUtilisateur != 5);
 	}
-
+	/**
+	 * Verifie que les paramètres constructions en entré ne sont pas à null
+	 * @param type
+	 * 		type du batiment
+	 * @param coord
+	 * 		coodonnées du batiment
+	 * @return
+	 */
 	public boolean verifierParametreConstruction(String type, String coord)
 	{
 		if(type == null || coord == null)return false;
 
 		return true;
 	}
-
+	/**
+	 * Permet de déclancher les instructions pour poser un ouvrier
+	 */
 	public void ajouterOuvrier()
 	{
 		this.ihm.mettreIhmAJour();
@@ -261,9 +330,23 @@ public class Controleur
 			this.metier.changerJoueur();
 		}
 	}
-
+	/**
+	 * Permet d'activer les batiments autour de l'ouvrier
+	 * @param saisie
+	 * 		choix lors de la saisie
+	 * @return
+	 * 		les informations du batiment à activer
+	 */
 	public BatimentInfo activationCas(String saisie){ return this.activationCas(saisie, null); }
-
+	/**
+	 * Permet d'activer les batiments autour de l'ouvrier
+	 * @param saisie
+	 * 		choix lors de la saisie
+	 * @param alBat
+	 * 		listes de tous
+	 * @return
+	 * 		les informations du batiment à activer
+	 */
 	public BatimentInfo activationCas(String saisie, ArrayList<BatimentInfo> alBat)
 	{
 		System.out.println("cc");
@@ -318,7 +401,9 @@ public class Controleur
 		}
 		return b;
 	}
-
+	/**
+	 * permet d'échanger des pièces contre une ressource
+	 */
 	public void echangerPiece()
 	{
 		this.ihm.afficherMenuEchangePiece();
@@ -327,33 +412,65 @@ public class Controleur
 
 		this.metier.echangerPieceContreRessource( sRessource );
 	}
-
+	/**
+	 * Retourne les informations de tous les batiments
+	 * @return
+	 * 		les informations de tous les batiments
+	 */
 	public ArrayList<BatimentInfo> getLstBat()
 	{
 		return this.metier.getLstBat();
 	}
-
+	/**
+	 * Retourne le nombre de champs de blé dans la pioche de batiments
+	 * @return
+	 * 		
+	 */
 	public int getNbChampsDeble(){ return this.metier.getNbChampsDeble(); }
-
+	/**
+	 * retourne le numéro de la manche en cour
+	 * @return
+	 * 		le numéro de la manche en cour
+	 */
 	public int getNumManche(){ return this.metier.getNumManche(); }
-
+	/**
+	 * Permet d'obtenir toutes les toString de chaque joueur dans une seule String
+	 * @return
+	 * 		Une String contenant la toString de chaque joueur
+	 */
 	public String getRessourceAllJoueur()
 	{
 		return this.metier.getRessourceAllJoueur();
 	}
-
+	/**
+	 * Retourne le nombre de joueur dans la partie
+	 * @return
+	 * 		le nombre de joueur dans la partie
+	 */
 	public int getNbJoueur(){ return this.metier.getNbJoueur(); }
-
+	/**
+	 * Retourne le nombre d'ouvrier restant au joueur courant
+	 * @return
+	 * 		le nombre d'ouvrier restant au joueur courant
+	 */
 	public int getNbOuvrierRestantCourant()
 	{
 		return this.metier.getNbOuvrierRestantCourant();
 	}
-
+	/**
+	 * Retourne le nombre de batiment restant au joueur courant
+	 * @return
+	 * 		le nombre de batiment restant au joueur courant
+	 */
 	public int getNbBatimentRestantCourant()
 	{
 		return this.metier.getNbBatimentRestantCourant();
 	}
-
+	/**
+	 * Permet de nourrir les ouvriers des joueurs
+	 * @return
+	 * 		true si les ouvriers ont été nourri
+	 */
 	public boolean nourrirOuvrier()
     {
 		String sRet = "";
@@ -428,7 +545,9 @@ public class Controleur
 
         return true;
     }
-
+	/**
+	 * Permet d'utiliser le batiment résidence
+	 */
 	public void gererResidence()
 	{
 		String  saisie = ""  ;
@@ -454,12 +573,15 @@ public class Controleur
 			b = this.activationCas (saisie, alBat);
 		}while ( !saisie.equals("3") );
 	}
-
+	/**
+	 * Permet d'obtenir un tableau avec le classement des joueurs
+	 * @return
+	 * 		le tableau avec le classement des joueurs
+	 */
 	public String[][] getClassemenentJoueur()
 	{
 		return this.metier.getClassemenentJoueur();
 	}
-
 	public static void main(String[] args)
 	{
 		if ( args.length == 1 )new Controleur(args[0]);
