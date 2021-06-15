@@ -12,22 +12,45 @@ import javax.lang.model.util.ElementScanner14;
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
 
+/**
+ * Cette class est l'IHM CUI, elle gère l'affichage
+ * 
+ * @author Equipe 11
+ */
+ 
 public class CUI
 {
+	/**
+	 * Controleur 
+	 */
 	Controleur ctrl;
 
+	/**
+	 * Constructeur de CUI
+	 *
+	 * @param ctrl
+	 *		Controleur
+	 */
 	public CUI( Controleur ctrl )
 	{
 		this.ctrl = ctrl;
 	}
 
+	/**
+	 * Affiche les choix de l'initialisation du plateau
+	 */
 	public void initCUI()
 	{
 		// Console.effacerEcran ();
 		this.choixDebutPartie();
 	}
 
-
+	/**
+	 * Retourne l'entête du jeu
+	 *
+	 * @return
+	 *		l'entête du jeu
+	 */
 	public String getHeader()
 	{
 		String sRet = "";
@@ -35,7 +58,9 @@ public class CUI
 
 		return sRet;
 	}
-
+	/**
+	 * Affiche le Plateau
+	 */
 	public void afficherPlateau()
 	{
 		Pion[][] tabPlateau      = this.ctrl.getPlateau();
@@ -101,7 +126,9 @@ public class CUI
 		}
 		Console.println("----------------------+");
 	}
-
+	/**
+	 * Affiche les information sur le déroulement du tour et sur le stock
+	 */
 	public void plateauBas(String sMess)
 	{
 		String sRet = "";
@@ -130,6 +157,9 @@ public class CUI
 		Console.println(this.getRessourceAllJoueur());
 	}
 
+	/**
+	 * Retourne les toString de chaque joueur en une seule String
+	 */
 	public String getRessourceAllJoueur()
 	{
 		String sRet = "";
@@ -155,7 +185,9 @@ public class CUI
 		
 		return sRet;
 	}
-
+	/**
+	 * change la couleur en fonction du joueur
+	 */
 	public void setCouleur(String sCoul)
 	{
 		switch( sCoul.toUpperCase() )
@@ -167,7 +199,9 @@ public class CUI
 			default       -> Console.normal();
 		}
 	}
-
+	/**
+	 * Affichage de saisi des informations du début de partie
+	 */
 	public void choixDebutPartie()
 	{
 		int iNbJoueur;
@@ -194,12 +228,16 @@ public class CUI
 			Console.print("Choisissez le numéro du plateau ?");
 		}while(!this.ctrl.setNumPlateau());
 	}
-
+	/**
+	 * Affichage pour demmander au joueur son nom
+	 */
 	public void demanderNom(int iVal)
 	{
 		Console.println("Nom du joueur n°" + iVal);
 	}
-
+	/**
+	 * Affichage du menu des différents choix au début de son tour
+	 */
 	public void afficherMenuChoix()
 	{
 		String sRet = "";
@@ -213,7 +251,9 @@ public class CUI
 
 		Console.println(sRet);
 	}
-
+	/**
+	 * Affichage pour nourrir les ouvriers
+	 */
 	public void afficherMenuNourriture(String sCoul)
 	{
 		String sRet = "";
@@ -230,14 +270,19 @@ public class CUI
 
 		Console.println(sRet);
 	}
-
+	/**
+	 * Affichage pour saisir la quantité de nourriture à donner
+	 */
 	public void afficherDemandePourNourriture(String sType)
 	{
 		Console.println("=======================================\n" +
 		                String.format("|%-37s|", "Saisir quantité de " + sType) + "\n" +
 		                "=======================================\n");
 	}
-
+	/**
+	 * Affichage pour saisir les différentes informations à saisir lors de la construction d'un
+	 * batiment
+	 */
 	public void afficherMenuConstructionBatiment()
 	{
 		String sRet = "";
@@ -254,7 +299,9 @@ public class CUI
 
 		Console.println(sRet);
 	}
-
+	/**
+	 * Affichage pour saisir la ressource à échanger
+	 */
 	public void afficherMenuEchangePiece()
 	{
 		String sRet = "";
@@ -268,6 +315,9 @@ public class CUI
 		Console.println(sRet);
 	}
 
+	/**
+	 * Affichage de saisi en fonction de l'action souhaité
+	 */
 	public void afficherMenuSaisie(String sTypeSaisie)
 	{
 
@@ -301,12 +351,19 @@ public class CUI
 		Console.println(sRet);
 	}
 
-
+	/**
+	 * Retourne l'affichage de saisie de coordonnées
+	 *
+	 * @return 
+	 *		l'affichage de saisie de coordonnées
+	 */
 	public String afficherCoord()
 	{
 		return String.format("|%-37s|", "Veuillez entrer une coordonnée") + "\n";
 	}
-
+	/**
+	 * Affichage de saisi pour le placement des ouvriers
+	 */
 	public void afficherMenuPlacementOuvrier()
 	{
 		String sRet = "";
@@ -320,7 +377,9 @@ public class CUI
 
 		Console.println(sRet);
 	}
-
+	/**
+	 * Affichage de saisi pour l'activation des divers batiments
+	 */
 	public void afficherMenuActivation(){ this.afficherMenuActivation(false);}
 
 	public void afficherMenuActivation(boolean bOk)
@@ -340,7 +399,9 @@ public class CUI
 
 		Console.println(sRet);
 	}
-
+	/**
+	 * Affichage pour demande le numéro du batiment
+	 */
 	public void demanderBatiment()
 	{
 		String sRet = "";
@@ -353,18 +414,35 @@ public class CUI
 		Console.println(sRet);		
 	}
 	
+	/**
+	 * Affiche toute les informations sur l'activation des batiments
+	 *
+	 * @param b
+	 *		BatimentInfo
+	 */
 	public void afficherInfoActivation(BatimentInfo b)
 	{
 		if ( b != null )Console.println( b.toStringInfoActivation() );
 	}
 
+	/**
+	 * Affiche toute les informations sur la construction des batiments
+	 *
+	 * @param b
+	 *		BatimentInfo
+	 */
 	public void afficherInfoConstruction(BatimentInfo b)
 	{
 		if ( b != null )Console.println(b.toStringInfoConstruction() );
 	}
 
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }
-
+	/**
+	 *Met à jour l'IHM
+	 *
+	 * @param sMess
+	 *		
+	 */
 	public void mettreIhmAJour(String sMess)
 	{
 		// Console.effacerEcran();
@@ -372,7 +450,9 @@ public class CUI
 		this.afficherPlateau();
 		this.plateauBas(sMess);
 	}
-
+	/**
+	 *Affiche la demande d'information pour preteur sur gage
+	 */
 	public void afficherPreteurSurGage()
 	{
 		Console.println( "+==========================================+\n" +
@@ -383,7 +463,9 @@ public class CUI
 						 "|Exemple : \"BOIS BLE\"                      |\n" +  
 		                 "+==========================================+");
 	}
-
+	/**
+	 *Affichage des différents objectifs
+	 */
 	public void afficherObj()
     {
 		Console.println("+===========================================================================================================+==========+");
@@ -391,7 +473,9 @@ public class CUI
         	Console.println( ctrl.getObj(i) );
 		Console.println("+===========================================================================================================+==========+");
 	}
-
+	/**
+	 *Affichage de fin de partie avec le classement des joueurs
+	 */
 	public void afficherFinDePartie()
 	{
 		String[][] sDataJoueurs = this.ctrl.getClassemenentJoueur();

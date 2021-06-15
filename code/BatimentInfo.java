@@ -80,7 +80,6 @@ public enum BatimentInfo
 	private int iPoissonReq, iBleReq, iBoisReq, iPierreReq, iPceReq;
 	private int iPoissonReA, iBleReA, iBoisReA, iPierreReA, iPceReA;
 	private int iPoissonRec, iBleRec, iBoisRec, iPierreRec, iPceRec;
-
 	private int iPtConstru, iPtRec;
 	private String sCategorie;
 
@@ -303,6 +302,12 @@ public enum BatimentInfo
 	 */
 	public boolean estSpecial(){ return this.sCategorie.equals("SPECIAL"); }
 
+	/**
+	 * Retourne la quantité de ressource nécéssaire à l'activation dont le nom est passé en paramètre
+	 *
+	 * @return
+	 *		la quantité ressource reçu après activation
+	 */
 	public int getRea(String sType)
 	{
 		int iVal = 0;
@@ -318,7 +323,14 @@ public enum BatimentInfo
 
 		return iVal;
 	}
-
+	
+	/**
+	 * Retourne la quantité de ressource reçu à l'activation dont le nom est passé en
+	 * paramètre
+	 *
+	 * @return
+	 *		la quantité ressource reçu après activation
+	 */
 	public int getRec(String sType)
 	{
 		int iVal = 0;
@@ -335,6 +347,13 @@ public enum BatimentInfo
 		return iVal;
 	}
 
+	/**
+	 * Retourne la quantité de ressource nécéssaire à la construction dont le nom est passé en
+	 * paramètre
+	 *
+	 * @return
+	 *		la quantité de ressource nécéssaire à la construction
+	 */
 	public int getReq(String sType)
 	{
 		int iVal = 0;
@@ -350,7 +369,12 @@ public enum BatimentInfo
 
 		return iVal;
 	}
-
+	/**
+	 * Retourne la liste des informations des batiments
+	 *
+	 * @return
+	 *		la liste des informations des batiments
+	 */
 	public static ArrayList<BatimentInfo> getLstBat()
 	{
 		ArrayList<BatimentInfo> alBat = new ArrayList<BatimentInfo>();
@@ -363,6 +387,8 @@ public enum BatimentInfo
 	 * Permet de chercher un batiment depuis une chaine
 	 * @param
 	 *       Le type du batiment
+	 * @return
+	 *		les informations sur le batiment recherché
 	 */
 	public static BatimentInfo rechercherBatiment(String sBat)
 	{
@@ -371,7 +397,12 @@ public enum BatimentInfo
 
 		return null;
 	}
-
+	/**
+	 * Retourne une string avec toute les informations sur l'activation des batiments
+	 *
+	 * @return
+	 *		une string avec toute les informations sur l'activation des batiments
+	 */
 	public String toStringInfoActivation()
 	{
 		String sRet = "";
@@ -399,6 +430,12 @@ public enum BatimentInfo
 		return sRet;
 	}
 
+	/**
+	 * Retourne une string avec toute les informations sur la construction des batiments
+	 *
+	 * @return
+	 *		une string avec toute les informations sur la construction des batiments
+	 */
 	public String toStringInfoConstruction()
 	{
 		String sRet = "";
