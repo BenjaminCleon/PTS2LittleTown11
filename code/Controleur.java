@@ -266,6 +266,7 @@ public class Controleur
 
 	public BatimentInfo activationCas(String saisie, ArrayList<BatimentInfo> alBat)
 	{
+		System.out.println("cc");
 		BatimentInfo b= null;
 		String[] sEnsRessourceADonner;
 		String[] sEnsRessourceAObtenir;
@@ -291,8 +292,7 @@ public class Controleur
 				this.ihm.afficherMenuSaisie("Coord");
 				saisie = this.getSaisie().toUpperCase();
 				if ( !saisie.matches("^([A-I])[1-6]$"))return null;
-				if ( this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0)))
-					alBat.remove(this.metier.getBatimentDansPlateau(saisie.charAt(1) - '1', saisie.charAt(0) - 'A'));
+				this.metier.activerBatiment(saisie.charAt(1)-'0', saisie.charAt(0));
 
 				if( this.metier.getPreteurSurGage() )
 				{

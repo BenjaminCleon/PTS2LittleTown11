@@ -15,6 +15,8 @@ public class Jeu
 	 */
 	private int iNbBatimentMax;
 
+	private String[][] coordCoulChampsDeBle;
+
 	/**
 	 * Nombre d'ouvrier max
 	 */
@@ -72,6 +74,8 @@ public class Jeu
 		this.iNbChampsDeBle = 5;
 		this.iNumManche     = 1;
 		this.tabPion        = new Pion[6][9];
+
+		this.coordCoulChampsDeBle = new String[5][3];
 
 		if ( alBat == null )
 		{
@@ -399,9 +403,7 @@ public class Jeu
 		{
 			if ( bTmp.estRessource() )this.gererRessource(bTmp::getRec, 1);
 			else if ( ! bTmp.estSpecial() )
-			{
 				this.jCourant.ajouterBatimentAListeTmp(bTmp);
-			}
 		}
 	}
 
@@ -441,6 +443,7 @@ public class Jeu
 
 	public void changerJoueur()
 	{
+		this.coordCoulChampsDeBle = new String[5][3];
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
 	}
 
@@ -457,6 +460,15 @@ public class Jeu
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
+
+		for ( int i=0; i<this.coordCoulChampsDeBle.length; i++ )
+		{
+			if ( this.coordCoulChampsDeBle[i][0] == null  )continue;
+
+			if (this.coordCoulChampsDeBle[i][0].equals(pTmp.getCoul()) &&
+			    this.coordCoulChampsDeBle[i][1].equals(iLig + "" ) &&
+				this.coordCoulChampsDeBle[i][2].equals(cCol + "") )return false;
+		}
 
 		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
                                                         bTmp.getPoissonReA (), bTmp.getBoisReA  (),
@@ -478,6 +490,16 @@ public class Jeu
 
 		this.jCourant.setScore(bTmp.getPtRec());
 		this.jCourant.retirerBatimentAListeTmp(bTmp);
+		
+		if ( bTmp.name().equals("CHAMPSDEBLE"))
+			for (int i=0; i<this.coordCoulChampsDeBle.length; i++)
+				if (this.coordCoulChampsDeBle[i][0] == null)
+				{
+					this.coordCoulChampsDeBle[i][0] = pTmp.getCoul();
+					this.coordCoulChampsDeBle[i][1] = iLig + "";
+					this.coordCoulChampsDeBle[i][2] = cCol + "";
+					break;
+				}
 
 		return true;
 	}
@@ -699,7 +721,7 @@ public class Jeu
 	public boolean verifierActivation()
 	{
 		boolean bOk = true;
-
+		System.out.println(this.jCourant.getLstBatimentAutourOuvrier().size());
 		if ( this.jCourant.getLstBatimentAutourOuvrier().size() == 0 ) return false;
 
 		if ( this.jCourant.getQteRessource("PIECE") == 0 )

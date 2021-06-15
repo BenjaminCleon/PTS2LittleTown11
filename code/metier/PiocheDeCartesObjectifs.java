@@ -34,8 +34,9 @@ public class PiocheDeCartesObjectifs
 		return cTmp;
 	}
 
-	public static CartesObjectifs piocheCartesObjectifs(int i)
+	public static CartesObjectifs piocheCartesObjectifs(int i, Joueur j)
 	{
+		PiocheDeCartesObjectifs.lstCartesObjectifs.get(i).setJoueur(j);
 		return PiocheDeCartesObjectifs.lstCartesObjectifs.get(i);
 	}
 
