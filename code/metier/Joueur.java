@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import equipe_11.BatimentInfo;
 import equipe_11.metier.Jeu;
+import equipe_11.metier.PiocheDeCartesObjectifs;
 
 /** Cette classe permet de modifier et d'obtenir les diverses informations
   * liées aux joueurs
