@@ -24,14 +24,22 @@ public class Joueur
 	 * @see Joueur#getCouleur()
 	 */
 	private final String SCOULEUR;
+	/**
+	 * C'est le nombre d'ouvriers maximum par joueur
+	 */
 	private final int    NB_OUVRIER;
+	/**
+	 * C'est le nombre de batiments maximum par joueur
+	 */
 	private final int    NB_BATIMENT;
 	/**
 	 * C'est le nombre d'objectif du joueur
 	 *
 	 */
 	private final int NB_OBJECTIF;
-	
+	/**
+	 *Jeu auquel appartient le joueur
+	 */
 	private Jeu jeu;
 	
 	/**
@@ -68,7 +76,13 @@ public class Joueur
 	 * @see Joueur#getScore
 	 */
 	private int iScore;
-
+	/**
+	 * Ce sont les ressources de blés du joueur
+	 *
+	 * @see getQteRessource()
+	 * @see ajouterRessource()
+	 * @see consommerRessource()
+	 */
 	private Ressource rBle;
 	/**
 	 * Ce sont les ressource de bois du joueur
@@ -163,9 +177,17 @@ public class Joueur
 		for ( int i=0; i<iNbCarteObjectif; i++)
 			this.cartesObjectifs[i] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
 	}
-
+	/**
+	 * retourne l'objectif du tableau dont l'indice est passé en paramètre
+	 */
 	public CartesObjectifs getObj(int i){ return this.cartesObjectifs[i]; }
 	
+	/**
+	 * Met un nom passé en paramètre au joueur
+	 *
+	 * @param sNomJoueur
+	 *		Nom du joueur
+	 */
 	public void setNomJoueur(String sNomJoueur)
 	{
 		if ( sNomJoueur == null || sNomJoueur.equals("") )this.sNomJoueur = this.SCOULEUR;
@@ -175,37 +197,37 @@ public class Joueur
 	/**
 	 * retourne la couleur du joueur
 	 * @return 
-	 *	la couleur du joueur
+	 *		la couleur du joueur
 	 */
 	public String getCouleur () { return this.SCOULEUR; }
 	
 	/**
 	 * retourne le nombre de point du joueur
 	 * @return 
-	 *	le nombre de point du joueur
+	 *		le nombre de point du joueur
 	 */
     public int    getScore   () { return this.iScore  ; }
 	
 	/**
 	 * retourne le nom du joueur
 	 * @return 
-	 *	le nom du joueur
+	 *		le nom du joueur
 	 */
     public String  getNom   () { return this.sNomJoueur  ; }
 
 	/**
 	 * retourne le nombre de Batiment possédé par le joueur
 	 * @return 
-	 * le nombre de batiment possédé par le joueur
+	 *		le nombre de batiment possédé par le joueur
 	 */
     public int getNbBatiment() { return this.alBatiment.size();}
 	
 	/**
 	 * retourne le nombre de ressource de la ressource en parametre
 	 * @param sType
-	 *	nom de la ressource
+	 *		nom de la ressource
 	 * @return 
-	 *	le nombre de ressource de la ressource en parametre
+	 *		le nombre de ressource de la ressource en parametre
 	 */
 	
 	public int getQteRessource(String sType)
@@ -225,9 +247,9 @@ public class Joueur
 	/**
 	 * retourne la ressource en parametre
 	 * @param sType
-	 *	nom de la ressource
+	 *		nom de la ressource
 	 * @return 
-	 *	la ressource en parametre
+	 *		la ressource en parametre
 	 */
 	
 	public Ressource getRessource(String sType)
@@ -248,9 +270,9 @@ public class Joueur
 	 * Augmente le nombre de ressource du joueur dont la somme et
 	 * le nom sont passés en parametre
 	 * @param iVal
-	 *	nombre de ressource a ajouter
+	 *		nombre de ressource a ajouter
 	 * @param sType
-	 * 	nom de la ressource a incrementer
+	 *		nom de la ressource a incrementer
 	 */
 	public boolean gererRessource(int iVal, String sType)
 	{
@@ -266,10 +288,10 @@ public class Joueur
 	}
 
 	/**
-	 * Augmente ou diminue le score en fonction de la quantite
+	 * Augmente ou diminue le score en fonction de la quantité
 	 * passée en parametre
 	 * @param score
-	 *	nombre de points a utiliser
+	 *		nombre de points a utiliser
 	 */
 	public void setScore( int score )
 	{
@@ -279,7 +301,7 @@ public class Joueur
 	/**
 	 * Précise si les ouvriers du joueur sont nourris
 	 * @return
-	 *     True si tous les ouvriers sont nourris
+	 *		True si tous les ouvriers sont nourris
 	 */
 	public boolean estNourri(){ return this.bNourri; }
 
@@ -287,9 +309,9 @@ public class Joueur
 	/**
 	 * Permet d'associer un batiment à un joueur
 	 * @param bTmp
-	 *        Batiment à ajouter dans la liste pour le joueur
+	 *		Batiment à ajouter dans la liste pour le joueur
 	 * @param pTmp
-	 *        Pion à ajouter dans la liste des batiments
+	 *		Pion à ajouter dans la liste des batiments
 	 */
 	public void ajouterBatiment(Pion pTmp, BatimentInfo bTmp)
 	{
@@ -298,7 +320,12 @@ public class Joueur
 		
 		this.iScore += bTmp.getPtConstru();
 	}
-
+	/**
+	 * Retourne le nombre d'objectifs
+	 *
+	 * @return 
+	 * 		le nombre d'objectifs
+	 */
 	public int getNbObjectif()
 	{
 		return this.cartesObjectifs.length;
@@ -307,7 +334,7 @@ public class Joueur
 	/**
 	 * Retourne l'ensemble des batiments
 	 * @return
-	 *     L'ensemble des batiments du Joueur
+	 *		L'ensemble des batiments du Joueur
 	 */
 	public Pion[] getBatiments()
 	{
@@ -315,22 +342,34 @@ public class Joueur
 	}
 
 	/**
-	 * Retourne le nombre d'ouvrier du joueur
+	 * Retourne le nombre d'ouvrier posé du joueur
 	 * @return
-	 *      Le nombre d'ouvrier du joueur
+	 *		Le nombre d'ouvrier posé du joueur
 	 */
 	public int getNbOuvrier(){ return this.alOuvrier.size(); }
-	
+	/**
+	 * Retourne le nombre d'ouvrier maximum du joueur
+	 * @return
+	 *		Le nombre d'ouvrier maximum du joueur
+	 */
 	public int getNbOuvrierMax(){ return this.NB_OUVRIER; }
 
 	/**
 	 * Permet d'ajouter un ouvrier au joueur
+	 *
+	 * @param pOuv
+	 *		l'ouvrier à ajouter
 	 */
 	public void ajouterOuvrier(Pion pOuv)
 	{
 		this.alOuvrier.add(pOuv);
 	}
-
+	/**
+	 * Permet de nourrir les ouvriers
+	 *
+	 * @return
+	 *		true si les ouvriers ont été nourri
+	 */
 	public boolean nourrirOuvrier()
 	{
 		int nbOuvrierNourri = 0;
@@ -353,7 +392,18 @@ public class Joueur
 
 		return false;
 	}
-
+	/**
+	 * Permet de nourrir les ouvriers
+	 *
+	 * @param iNbPoisson
+	 *		le nombre de poissons
+	 * @param iNbBle
+	 *		le nombre de blés
+	 * @param iNbPiece
+	 *		le nombre de pièces
+	 * @return
+	 *		true si les ouvriers ont été nourri
+	 */
 	public String nourrirOuvrier ( int iNbPoisson, int iNbBle, int iNbPiece )
 	{
 		String sRet = "";
@@ -386,33 +436,58 @@ public class Joueur
 
 		return "Ouvrier nourri avec succès";
 	}
-
+	/**
+	 * Permet d'ajouter des batiments à la liste des abtiments que l'ouvrier peut peut activer
+	 *
+	 * @param bTmp
+	 *		le batiment à ajouter
+	 */
 	public void ajouterBatimentAListeTmp(BatimentInfo bTmp)
 	{
 		this.alBatimentListeTmp.add(bTmp);
 	}
-
+	/**
+	 * Permet de retirer des batiments à la liste des abtiments que l'ouvrier peut peut activer
+	 *
+	 * @param bTmp
+	 *		le batiment à retirer
+	 */
 	public void retirerBatimentAListeTmp(BatimentInfo bTmp)
 	{
 		this.alBatimentListeTmp.remove(bTmp);
 	}
-
+	/**
+	 * Retourne la liste des batiments que l'ouvrier peut activé
+	 *
+	 * @retourn
+	 *		la liste des batiments que l'ouvrier peut activé
+	 */
 	public ArrayList<BatimentInfo> getLstBatimentAutourOuvrier()
 	{
 		return this.alBatimentListeTmp;
 	}
-
+	/**
+	 * Efface la liste de batiment que l'ouvrier peut activer
+	 */
 	public void clearLstBatimentAutourOuvrier()
 	{
 		this.alBatimentListeTmp.clear();
 	}
-
+	/**
+	 * Met les ouvriers nourri à false, vide la liste des ouvriers posé
+	 */
 	public void resetJoueur()
 	{
 		this.bNourri = false;
 		this.alOuvrier.clear();
 	}
 
+	/**
+	 * Retourne le numéro du joueur vainqueur
+	 *
+	 * @return
+	 *		le numéro du joueur vainqueur
+	 */
 	public int classementJoueurs()
 	{
 		Joueur[] classement = new Joueur[jeu.getJoueurs().length];
@@ -430,7 +505,12 @@ public class Joueur
 
 		return 0;
 	}
-
+	/**
+	 * Ajoute une quantité passée en paramètre à la ressource dont le nom est passé en paramètre
+	 * 
+	 * @return
+	 *		true si la quantité a été modifé 
+	 */
 	public boolean ajouterRessourcePossible( int iQte, String sRessource )
 	{
 		switch ( sRessource.toUpperCase() )
@@ -442,7 +522,12 @@ public class Joueur
 		}
 		return false;
 	}
-
+	/**
+	 * Retire une quantité passée en paramètre à la ressource dont le nom est passé en paramètre
+	 * 
+	 * @return
+	 *		true si la quantité a été modifé 
+	 */
 	public boolean consommerRessourcePossible( int iQte, String sRessource )
 	{
 		switch ( sRessource.toUpperCase() )
@@ -476,7 +561,9 @@ public class Joueur
 
 		return sRet;
 	}
-
+	/**
+	 * Transforme les pièces en point
+	 */
 	public void gererFinDePartie()
 	{
 		this.setScore(this.getQteRessource("PIECE")/3);

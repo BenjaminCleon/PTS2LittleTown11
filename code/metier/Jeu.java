@@ -7,58 +7,149 @@ import java.util.function.Function;
 
 import equipe_11.BatimentInfo;
 
+/**
+ * Cette classe regroupe les différents information lié à la partie
+ *
+ * @author Equipe 11
+ */
 public class Jeu 
 {
 	/**
 	 * Nombre de batiment max
+	 *
+	 * @see Jeu#setJoueur(int)
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#getNbBatimentRestantCourant()
 	 */
 	private int iNbBatimentMax;
 
 	/**
 	 * Nombre d'ouvrier max
+	 *
+	 * @see Jeu#setJoueur(int)
+	 * @see Jeu#getNbOuvrierRestantCourant()activerPreteurSurGage
+	 * @see Jeu#isToutOuvriersPose()
 	 */
 	private int iNbOuvrierMax;
 
 	/**
 	 * Joueur en train de jouer
+	 *
+	 * @see Jeu#getCouleurJoueurCourant()
+	 * @see Jeu#setJoueur(int)
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#ajouterOuvrier(int, char)
+	 * @see Jeu#gererActivation(BatimentInfo)
+	 * @see Jeu#getLstBatimentAutourOuvrier()
+	 * @see Jeu#verifierEchange()
+	 * @see Jeu#gererRessource( Function<String, Integer>, int )
+	 * @see Jeu#changerJoueur()
+	 * @see Jeu#activerBatiment(int, char)
+	 * @see Jeu#gererPiecePendantActivation(int,char)
+	 * @see Jeu#getJoueurCourant()
+	 * @see Jeu#remplirPourResidence()
+	 * @see Jeu#getNbOuvrierRestantCourant()
+	 * @see Jeu#getNbBatimentRestantCourant()
+	 * @see Jeu#verifierActivation()
+	 * @see Jeu#echangerPieceContreRessource(String)
+	 * @see Jeu#getNumeroJoueurCourant()
+	 * @see Jeu#mettreJoueurA(int)
+	 * @see Jeu#activerPreteurSurGage(String,String,String,String)
 	 */
 	private Joueur jCourant;
 
 	/**
 	 * Numero du joueur courant
+	 *
+	 * @see Jeu#changerJoueur()
 	 */
 	private int iNumJCourant;
 
 	/**
 	 * Le nombre de joueurs de la partie
+	 *
+	 * @see Jeu#setNomJoueur(int, String)
+	 * @see Jeu#setJoueur(int)
+	 * @see Jeu#changerJoueur()
 	 */
 	private int iNbJoueur;
 
 	/**
 	 * ensemble des cases sur le plateau
+	 *
+	 * @see Jeu#getPlateau()
+	 * @see Jeu#initPlateau(int)
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#gererCoordonneeAutourDuJoueur(int, char)
+	 * @see Jeu#ajouterOuvrier(int, char)
+	 * @see Jeu#activerBatiment(int, char)
+	 * @see Jeu#gererPiecePendantActivation(int, char)
+	 * @see Jeu#getBatimentDansPlateau(int, char)
+	 * @see Jeu#passerManche()
+	 * @see Jeu#contientResidence()
+	 * @see Jeu#remplirPourResidence()
+	 * @see Jeu#gererChateau()
+	 * @see Jeu#gererTourDeGarde()
+	 * @see Jeu#activerPreteurSurGage(String,String,String,String)
 	 */
 	private Pion[][] tabPion ;
 
 	/**
 	 * ensemble des joueurs qui composeront la partie
+	 *
+	 * @see Jeu#setNomJoueur(int, String)
+	 * @see Jeu#getNbJoueur()
+	 * @see Jeu#nourrirOuvrier(int)
+	 * @see Jeu#nourrirOuvrier(int, int, int, int)
+	 * @see Jeu#setJoueur(int)
+	 * @see Jeu#getCouleurJoueur(int)
+	 * @see Jeu#verifierObjectif()
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#changerJoueur()
+	 * @see Jeu#gererPiecePendantActivation(int, char)
+	 * @see Jeu#passerManche()
+	 * @see Jeu#getNumJoueurResidence()
+	 * @see Jeu#gererChateau()
+	 * @see Jeu#gererTourDeGarde()
+	 * @see Jeu#isToutOuvriersPose()
+	 * @see Jeu#getNumeroJoueurCourant()
+	 * @see Jeu#mettreJoueurA(int)
+	 * @see Jeu#getJoueurs()
+	 * @see Jeu#gererFinDePartie()
 	 */
 	private Joueur[]  tabJoueurs;
 
 	/**
 	 * ensemble des batiment sur le marché
+	 *
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#getLstBat()
 	 */
 	private ArrayList<BatimentInfo> alBat;
 
 	/**
 	 * le numéro de la manche courante
+	 *
+	 * @see Jeu#passerManche()
+	 * @see Jeu#getNumManche()
 	 */
 	private int iNumManche;
 
 	/**
 	 * Le nombre de champs de blé dans le jeu
+	 *
+	 * @see Jeu#construireBatiment(int,String,int,char)
+	 * @see Jeu#getNbChampsDeble()
 	 */
 	private int iNbChampsDeBle;
-
+	/**
+	 * Si est preteur sur gage
+	 *
+	 * @see Jeu#activerBatiment(int, String)
+	 * @see Jeu#activerPreteurSurGage(String,String,String,String)
+	 * @see Jeu#getPreteurSurGage()
+	 *
+	 */
 	private boolean preteurSurGage;
 
 	/**
@@ -144,7 +235,21 @@ public class Jeu
 	{
 		return this.tabJoueurs[iNumJoueur].nourrirOuvrier();
 	}
-
+	/**
+	 * Appel la méthode nourrir ouvrier simple du joueur en paramètre et envoi une quantité de
+	 * poissons, de blés et pièces
+	 *
+	 * @param 
+	 *		iQtePoisson
+	 * @param 
+	 *		iQteBle
+	 * @param 
+	 *		iQtePiece
+	 * @param 
+	 *		iNumJoueur
+	 * @return
+	 *		true si les ouvriers ont été nourri
+	 */
 	public String nourrirOuvrier(int iQtePoisson, int iQteBle, int iQtePiece, int iNumJoueur)
 	{
 		return this.tabJoueurs[iNumJoueur].nourrirOuvrier(iQtePoisson, iQteBle, iQtePiece);
@@ -185,7 +290,14 @@ public class Jeu
 
 		return true;
 	}
-
+	/**
+	 * Retourne la couleur du joueur
+	 *
+	 * @param i
+	 *		le numéro du joueur voulu
+	 * @return
+	 *		la couleur du joueur
+	 */
 	public String getCouleurJoueur(int i)
 	{
 		return this.tabJoueurs[i].getCouleur().toLowerCase();
@@ -232,7 +344,9 @@ public class Jeu
 			for ( int col=0;col<this.tabPion[0].length;col++)
 				this.tabPion[lig][col] = new Pion(lig, (char)('A' + col), "BLANC", ensCase[lig][col]);
 	}
-
+	/**
+	 * Verifie si les objectifs du joueur ont été complété
+	 */
 	public void verifierObjectif()
 	{
 		for ( Joueur j : this.tabJoueurs )
@@ -314,7 +428,14 @@ public class Jeu
 
 		return true;
 	}
-
+	/**
+	 * Retourne les coordonnées autour du pion du joueur
+	 *
+	 * @param iLig
+	 *     Position de la ligne de l'ouvrier
+	 * @param cCol
+	 *     Position de la colonne de l'ouvrier
+	 */
 	public int[] gererCoordonneeAutourDuJoueur(int iLig, char cCol)
 	{
 		//                 ligDeb, ligFin, colDeb, colFin
@@ -334,9 +455,11 @@ public class Jeu
 	 * Permet d'ajouter des ouvriers au joueur courant
 	 * Active les batiments qui n'engendre aucune perte au joueur
 	 * @param iLig
-	 *     Position de la ligne de l'ouvrier
+	 *		Position de la ligne de l'ouvrier
 	 * @param cCol
-	 *     Position de la colonne de l'ouvrier
+	 *		Position de la colonne de l'ouvrier
+	 * @return
+	 *		true si des ouvriers ont été ajouté au joueur courant
 	 */
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
@@ -398,7 +521,22 @@ public class Jeu
 	{
 		return this.jCourant.getLstBatimentAutourOuvrier();
 	}
-
+	/**
+	 * Retourne si le joueur peut echanger des ressources avec le stock
+	 *
+	 * @param iBle
+	 *		quantité de blés à échanger
+	 * @param iPierre
+	 *		quantité de pierres à échanger
+	 * @param iPoisson
+	 *		quantité de poissons à échanger
+	 * @param iBois
+	 *		quantité de bois à échanger
+	 * @param iPiece
+	 *		quantité de pièces à échanger
+	 * @return
+	 *		true si le joueur peut echanger des ressources avec le stock
+	 */
 	public boolean verifierEchange( int iBle, int iPierre, int iPoisson, int iBois, int iPiece )
 	{
 		if ( this.jCourant.getQteRessource("BLE")     < iBle     || this.jCourant.getQteRessource("BOIS")   < iBois   ||
@@ -413,6 +551,8 @@ public class Jeu
 	 * @param function
 	 * 		Une référence sur méthode pour la gestion des ressource
 	 * 		(getRea, getRec, getReq)
+	 * @param signe
+	 *		pour retirer ou ajouter des ressources
 	 */
 	public void gererRessource( Function<String, Integer> function, int signe )
 	{
@@ -422,7 +562,9 @@ public class Jeu
 		this.jCourant.gererRessource(signe*function.apply("PIERRE" ), "PIERRE" );
 		this.jCourant.gererRessource(signe*function.apply("PIECE"  ), "PIECE"  );
 	}
-
+	/**
+	 * Passe au joueur suivant
+	 */
 	public void changerJoueur()
 	{
 		this.jCourant = this.tabJoueurs[++this.iNumJCourant%this.iNbJoueur];
@@ -434,6 +576,8 @@ public class Jeu
 	 *      Le numéro de la ligne pour le joueur
 	 * @param
 	 *      Le caractère de la colonne correspondante
+	 * @return 
+	 *		si un batiment a été activer
 	 */
 	public boolean activerBatiment(int iLig, char cCol)
 	{
@@ -465,7 +609,18 @@ public class Jeu
 
 		return true;
 	}
-
+	/**
+	 * Retourne si le joueur peut activer un batiment dont les coordonnées sont entrés en paramètre
+	 * en fonction du nombre de pièces et de la couleur du batiment, agit sur le nombre de pièces si
+	 * true
+	 *
+	 * @param iLig
+	 *      Le numéro de la ligne 
+	 * @param cCol
+	 *      Le caractère de la colonne
+	 * @return
+	 *		true si le batiment peut être activé
+	 */
 	private boolean gererPiecePendantActivation(int iLig, char cCol)
 	{
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
@@ -484,7 +639,16 @@ public class Jeu
 
 		return true;
 	}
-
+	/**
+	 * Retourne les informations du batiment dont les coordonnées sont entrées en paramètre
+	 *
+	 * @param iLig
+	 *		la ligne sur laquelle se trouve le batiment
+	 * @param iCol
+	 *		la collone sur laquelle se trouve le batiment
+	 * @return
+	 *		les informations du batiment dont les coordonnées sont entrées en paramètre
+	 */
 	public BatimentInfo getBatimentDansPlateau(int iLig, int iCol)
 	{
 		return  BatimentInfo.rechercherBatiment(this.tabPion[iLig][iCol].getNom());
@@ -552,7 +716,12 @@ public class Jeu
 
 		return false;
 	}
-
+	/**
+	 * Retourne le numero du joueur possédant la résidance
+	 *
+	 * @return
+	 *		le numero du joueur possédant la résidance
+	 */
 	public int getNumJoueurResidence()
 	{
 		for ( int i=0;i<this.tabJoueurs.length; i++ )
@@ -561,7 +730,9 @@ public class Jeu
 		
 		return 0;
 	}
-
+	/**
+	 *  Permet de connaitre les batiments autour de la résidence 
+	 */
 	public void remplirPourResidence()
 	{
 		int[] iCoordonees = new int[4];
@@ -581,7 +752,14 @@ public class Jeu
 						this.tabPion[i][j].getNom()));
 				}
 	}
-
+	/**
+	 *  Permet de connaitre la quantité de ressources disponnible dans le stock
+	 *
+	 * @param sType
+	 *		Nom de la ressource
+	 * @return
+	 *		la quantité de la ressources passé en paramètre disponnible dans le stock
+	 */
 	public int getQteRessourceStock(String sType)
 	{
 		switch( sType )
@@ -593,7 +771,10 @@ public class Jeu
 			default       -> { return Ressource.getQtePiece  (); }
 		}
 	}
-
+	/**
+	 * Permet d'activer la tuile chateau en fin de partie, vérifie si le chateau est possédé par
+	 * un joueur
+	 */
 	public void gererChateau()
 	{
 		String sCoulChateau = "";
@@ -623,7 +804,10 @@ public class Jeu
 		for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(sCoulChateau) )j.setScore(iScoreARajouter);
 	}
-
+	/**
+	 * Permet d'activer la tuile tour de garde en fin de partie, vérifie si le chateau est possédé
+	 * par un joueur
+	 */
 	public void gererTourDeGarde()
 	{
 		String sCoulTdg = "";
@@ -653,12 +837,22 @@ public class Jeu
 		for ( Joueur j : this.tabJoueurs )
 				if ( j.getCouleur().equals(sCoulTdg))j.setScore(iScoreARajouter);
 	}
-
+	/**
+	 * retourne le nombre d'ouvrier qui reste au joueur
+	 *
+	 * @return
+	 *		le nombre d'ouvrier qui reste au joueur
+	 */
 	public int getNbOuvrierRestantCourant()
 	{
 		return this.iNbOuvrierMax - this.jCourant.getNbOuvrier();
 	}
-
+	/**
+	 * Vérifie si tous les ouvriers de tous les joueurs sont posés
+	 *
+	 * @return
+	 *    true si tous les ouvriers sont posés
+	 */
 	public int getNbBatimentRestantCourant()
 	{
 		return this.iNbBatimentMax - this.jCourant.getNbBatiment();
@@ -679,7 +873,12 @@ public class Jeu
 		}
 		return true;
 	}
-
+	/**
+	 * retourne si un ouvrier peut faire une action
+	 *
+	 * @return
+	 * 		true si un ouvrier peut faire une action
+	 */
 	public boolean verifierActivation()
 	{
 		boolean bOk = true;
@@ -696,16 +895,39 @@ public class Jeu
 		
 		return bOk;
 	}
-
+	/**
+	 * retourne le nombre de champs de blé dans la pioche de batiments
+	 *
+	 * @return
+	 * 		le nombre de champs de blé dans la pioche de batiments
+	 */
 	public int getNbChampsDeble(){ return this.iNbChampsDeBle; }
+	/**
+	 * retourne le numéro de la manche en cours
+	 *
+	 * @return
+	 * 		le numéro de la manche en cour
+	 */
 	public int getNumManche    (){ return this.iNumManche    ; }
-
+	/**
+	 * retourne la liste des batiments disponible dans la pioche
+	 *
+	 * @return
+	 * 		la liste des batiments disponible dans la pioche
+	 */
 	public ArrayList<BatimentInfo> getLstBat()
 	{
 		return this.alBat;
 	}
 
-
+	/**
+	 * retourne si trois pièces ont été échangé contre une ressource
+	 *
+	 * @param sTypeRes
+	 *		Nom de la ressource a obtenir
+	 * @return
+	 * 		si trois pièces ont été échangé contre une ressource
+	 */
 	public boolean echangerPieceContreRessource( String sTypeRes )
 	{
 
@@ -721,7 +943,12 @@ public class Jeu
 		
 		return false;
 	}
-
+	/**
+	 * retourne le numéro je joueur dont c'est le tour
+	 *
+	 * @return
+	 * 		le numéro je joueur dont c'est le tour
+	 */
 	public int getNumeroJoueurCourant()
 	{
 		for (int i=0;i<this.tabJoueurs.length;i++)
@@ -729,14 +956,36 @@ public class Jeu
 
 		return 0;
 	}
-
+	/**
+	 * Initialise le joueur dont c'est le tour en fonction du tour et du numéro du joueur passé 
+	 * en paramètre 
+	 *
+	 * @param iNum
+	 *		Numéro du joueur et du tour
+	 */
 	public void mettreJoueurA(int iNum){ this.jCourant = this.tabJoueurs[iNum]; }
-
+	/**
+	 * retourn un tableau des joueurs de la partie
+	 *
+	 * @return
+	 *		un tableau des joueurs de la partie
+	 */
 	public Joueur[] getJoueurs()
 	{
 		return this.tabJoueurs;
 	}
-
+	/**
+	 * permet d'activer le preteur sur gage
+	 *
+	 * @param ressourceSaisi1
+	 *		1ère ressource à échanger
+	 * @param ressourceSaisi2
+	 *		2ème ressource à échanger
+	 * @param ressourceVoulu1
+	 *		1ère ressource à gagner
+	 * @param ressourceVoulu2
+	 *		2ème ressource à gagner
+	 */
 	public void activerPreteurSurGage( String ressourceSaisi1, String ressourceSaisi2, String ressourceVoulu1, String ressourceVoulu2 )
 	{
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment("PRETEURSURGAGE");
@@ -768,12 +1017,22 @@ public class Jeu
 			this.jCourant.retirerBatimentAListeTmp(bTmp);
 		}
 	}
-
+	/**
+	 * retourne si le préteur sur gage est présent dans la partie
+	 *
+	 * @return
+	 *		true si le préteur sur gage est présent dans la partie
+	 */
 	public boolean getPreteurSurGage()
 	{
 		return this.preteurSurGage;
 	}
-
+	/**
+	 * retourne le classment des joueurs en fonction des points
+	 *
+	 * @return
+	 *		un tableau avec le classment des joueurs en fonction des points
+	 */
 	public String[][] getClassemenentJoueur()
 	{
 		int iCpt = 0;
@@ -794,7 +1053,9 @@ public class Jeu
 
 		return sDataJoueurs;
 	}
-
+	/**
+	 * transforme les pièces en point
+	 */
 	public void gererFinDePartie()
 	{
 		for ( Joueur j : this.tabJoueurs )

@@ -5,11 +5,20 @@ import java.util.Collections;
 
 import java.util.List;
 import java.util.ArrayList;
-
+/**
+ * Cette classe est une pioche de carte objectif, elle créer les objectifs
+ *
+ * @author Equipe 11
+ */
 public class PiocheDeCartesObjectifs
 {
+	/**
+	 * liste des différentes cartes objectifs
+	 */
 	private static ArrayList<CartesObjectifs> lstCartesObjectifs = new ArrayList<CartesObjectifs>();
-
+	/**
+	 *Constructeur de PiocheDeCartesObjectifs
+	 */
 	public PiocheDeCartesObjectifs()
 	{
 		PiocheDeCartesObjectifs.lstCartesObjectifs.add( new CartesObjectifs( 3, "Avoir plus de Batiments que d'Ouvriers." ) );                                    // 1
@@ -22,7 +31,14 @@ public class PiocheDeCartesObjectifs
 		PiocheDeCartesObjectifs.lstCartesObjectifs.add( new CartesObjectifs( 3, "Avoir au moins 6 pieces" ) );                                                    // 8
 		PiocheDeCartesObjectifs.lstCartesObjectifs.add( new CartesObjectifs( 2, "Construire 1 Batiment dont le cout est d'au moins 3 bois a la constuction." ) ); // 9
 	}
-
+	/**
+	 * Permet de piocher une carte pour le joueur passé en paramètre
+	 * 
+	 * @param j
+	 *		joueur qui pioche une carte
+	 * @return
+	 *		la carte objectif pioché
+	 */
 	public CartesObjectifs piocherCarteObjectif( Joueur j )
 	{
 		CartesObjectifs cTmp = PiocheDeCartesObjectifs.lstCartesObjectifs.get( 0 );
@@ -30,7 +46,9 @@ public class PiocheDeCartesObjectifs
 		PiocheDeCartesObjectifs.lstCartesObjectifs.remove(0);
 		return cTmp;
 	}
-
+	/**
+	 * Permet de mélanger les cartes objectifs
+	 */
 	public void melangerPioche()
 	{
 		Collections.shuffle( PiocheDeCartesObjectifs.lstCartesObjectifs );
