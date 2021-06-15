@@ -72,8 +72,6 @@ public class Scenario1 extends Jeu
 
 		// Nombre de champs de blé: 5 
 		super.construireBatiment(1, "CHAMPSDEBLE", 1, 'B' ); // Fonctionne
-		// Nombre de champs de blé: 4 
-		super.construireBatiment(1, "CHAMPSDEBLE", 1, 'B' ); // Ne fonctionne pas ( il y a déjà un batiment )
 		// Nombre de champs de blé: 4
 
 		// Changement de joueur automatique car on a construit un batiment
@@ -112,7 +110,7 @@ public class Scenario1 extends Jeu
 		/* Pierre  : 0                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/
 
-		super.ajouterOuvrier(5, 'B');   // Fonctionne
+		super.ajouterOuvrier(2, 'D');   // Fonctionne
 		super.changerJoueur();
 
 		// Ouvrier/Batiment restant: 2/6            3/6
@@ -120,13 +118,13 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 2                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 2                  */ /* Poisson : 2                  */
-		/* Pierre  : 0                  */ /* Pierre  : 0                  */
+		/* Pierre  : 1                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/
 
-		super.ajouterOuvrier (2, 'A'); // Fonctionne (récupère pierre/poisson)
+		super.ajouterOuvrier (2, 'C'); // Fonctionne (récupère pierre/poisson)
 		super.activerBatiment(1, 'B'); // Ne fonctionne pas(pas assez de pièce)
 		super.activerBatiment(1, 'G'); // Ne fonctionne pas(pas de batiment)
 		super.activerBatiment(3, 'B'); // Fonctionne (pas besoin de pièce)
