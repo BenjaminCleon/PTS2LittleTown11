@@ -1,0 +1,74 @@
+Début de partie:
+
+1) Entrer une saisie incorrect de nombre de joueurs.
+
+2) Entrer un nom de joueur vraiment trop long.
+
+3) Ne pas entrer de nom de joueur( nom par défaut = couleur du joueur ).
+
+4) Entrer une saisie incorrect de plateau.
+
+Lancement:
+    - Génération aléatoire de la pioche des batiments
+    - Génération aléatoire des cartes objetctifs
+
+    - Nous créérons un scénario avec pioche de batiments déjà préparée en amont
+    - Nous créérons un scénario avec pioche de cartes objectifs déjà préparée en amont
+
+    - Adaptation du nombre d'ouvrier/batiments/cartesObjectifs selon le nombre de joueurs
+
+En cours de partie:
+
+1) placer un ouvrier:
+    -en dehors du plateau
+    -de la couleur du joueur posé
+    -sur une case pleine(ressource, batiment, ouvrier)
+    -sur une case vide
+    - récupération automatique des ressources basiques ( bois/pierre/poisson [les champs de blé ne compte pas])
+    - obtenir les informations sur un batiment
+
+2) Activer un batiment:
+    - Sur une case qui n'est pas autour de l'ouvrier
+    -              qui ne contient pas de batiment
+    -              sans les ressources requises
+    -              si l'inventaire ne dispose pas des ressources en récompense
+    -              du batiment d'un autre ouvrier ( fonctionnel )
+    -                                             ( non fonctionnel, la pièce ne doit donc pas être échangée )
+    -              du joueur correspondant et ou adverse ( avec juste un gain )
+    -              du joueur correspondant et ou adverse ( avec un échange de ressource )
+    -              du joueur correspondant et ou adverse ( preteur sur gage )
+    - Vérification de la dé/incrémentation des ressources du joueur et de l'inventaire
+
+3) construire un batiment:
+    -sur une case pleine(ouvrier/batiment/ressource)
+    -             en dehors du plateau
+    -             vide
+    - sans matériaux
+    - qui à déjà était construit
+    - qui n'est pas dans la pioche 
+    - Récupération du score
+    - Vérification de la dé/incrémentation des ressources du joueur et de l'inventaire
+    
+4) Validation:
+   - Des cartes objectifs( Tous ? )
+
+En fin de manche:
+    - Cathédrale
+    - Résidence
+        - Perte de pièce si batiment d'un autre propriétaire
+        - Non perte de pièce, cas écheant
+        - Tentative d'activation d'un batiment qui n'est pas autour
+    - Nourrir les ouvriers
+        - Si pas assez de ressources retire le score automatique
+        - Si le nombre exact alors retrait automatique
+        - Tentative de nourrir avec des ressources en particulier( blé/poisson/piece )
+            - Si nombre de ressource pas assez élevées
+            - Si                     trop élevées
+            - Si                     usage de pièces, mais qu'il n'y a plus de ressources en inventaire
+            - Si                     nombre correct
+    - Changement du premier joueur
+
+En fin de partie
+    - Chateau
+    - Tour de garde
+    - Affichage du classement
