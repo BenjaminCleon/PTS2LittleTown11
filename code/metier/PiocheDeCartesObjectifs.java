@@ -4,6 +4,9 @@ package equipe_11.metier;
 import java.util.Collections;
 
 import java.util.List;
+
+import equipe_11.metier.CartesObjectifs;
+
 import java.util.ArrayList;
 
 public class PiocheDeCartesObjectifs
@@ -29,6 +32,11 @@ public class PiocheDeCartesObjectifs
 		cTmp.setJoueur( j );
 		PiocheDeCartesObjectifs.lstCartesObjectifs.remove(0);
 		return cTmp;
+	}
+
+	public static CartesObjectifs piocheCartesObjectifs(int i)
+	{
+		return PiocheDeCartesObjectifs.lstCartesObjectifs.get(i);
 	}
 
 	public void melangerPioche()

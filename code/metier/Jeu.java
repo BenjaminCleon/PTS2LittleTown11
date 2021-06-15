@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.function.Function;
 
 import equipe_11.BatimentInfo;
+import equipe_11.metier.Joueur;
 
 public class Jeu 
 {
@@ -65,22 +66,37 @@ public class Jeu
 	 * Constructeur de la classe Jeu
 	 * Initialise uniquement tabPion
 	 */
-	public Jeu()
+	public Jeu(ArrayList<BatimentInfo> alBat)
 	{
+		this.iNumJCourant   = 0;
 		this.iNbChampsDeBle = 5;
 		this.iNumManche     = 1;
 		this.tabPion        = new Pion[6][9];
-		this.alBat          = BatimentInfo.getLstBat();
 
-		this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
-		this.alBat.remove(BatimentInfo.PIERRE     );
-		this.alBat.remove(BatimentInfo.BOIS       );
-		this.alBat.remove(BatimentInfo.POISSON    );
+		if ( alBat == null )
+		{
+			this.alBat          = BatimentInfo.getLstBat();
 
-		Collections.shuffle(this.alBat);
+			this.alBat.remove(BatimentInfo.CHAMPSDEBLE);
+			this.alBat.remove(BatimentInfo.PIERRE     );
+			this.alBat.remove(BatimentInfo.BOIS       );
+			this.alBat.remove(BatimentInfo.POISSON    );
+	
+			Collections.shuffle(this.alBat);
+	
+			for ( int i=0;this.alBat.size()>12;i++)this.alBat.remove(i);
+			this.alBat.add(BatimentInfo.CHAMPSDEBLE);
+		}
+		else
+		{
+			this.alBat = alBat;
+		}
 
-		for ( int i=0;this.alBat.size()>12;i++)this.alBat.remove(i);
-		this.alBat.add(BatimentInfo.CHAMPSDEBLE);
+	}
+
+	public Jeu()
+	{
+		this(null);
 	}
 	
 	/**
@@ -179,7 +195,7 @@ public class Jeu
 		}
 
 		for ( int i=0;i<this.iNbJoueur;i++)
-			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, 4, this, iNbCarteObjectif);
+			this.tabJoueurs[i] = new Joueur(ensCouleur[i], this.iNbOuvrierMax, this.iNbBatimentMax, iNbCarteObjectif, this);
 		
 		this.jCourant    = this.tabJoueurs[0];
 
@@ -801,5 +817,25 @@ public class Jeu
 		{
 			j.gererFinDePartie();
 		}
+	}
+
+	/**
+	 * Méthode uniquement utile pour le scénario 3, définit l'ensemble des joueurs
+	 * @param j1
+	 *     Le premier joueur
+	 * @param j2
+	 *     Le second joueur
+	 * @param j3
+	 *     Le troisième joueur
+	 */
+	protected void setJoueur(Joueur j1, Joueur j2, Joueur j3)
+	{
+		this.tabJoueurs = new Joueur[3];
+		this.tabJoueurs[0] = j1; 
+		this.tabJoueurs[1] = j2; 
+		this.tabJoueurs[2] = j3;
+
+		this.iNbJoueur = 3;
+		this.jCourant  = this.tabJoueurs[0];
 	}
 }

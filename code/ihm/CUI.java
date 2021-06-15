@@ -353,9 +353,14 @@ public class CUI
 		Console.println(sRet);		
 	}
 	
-	public void afficherInfo(BatimentInfo b)
+	public void afficherInfoActivation(BatimentInfo b)
 	{
 		if ( b != null )Console.println( b.toStringInfoActivation() );
+	}
+
+	public void afficherInfoConstruction(BatimentInfo b)
+	{
+		if ( b != null )Console.println(b.toStringInfoConstruction() );
 	}
 
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }

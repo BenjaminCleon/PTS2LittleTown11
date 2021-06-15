@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import equipe_11.BatimentInfo;
+import equipe_11.metier.CartesObjectifs;
 import equipe_11.metier.Jeu;
 import equipe_11.metier.PiocheDeCartesObjectifs;
 
@@ -125,14 +126,14 @@ public class Joueur
 	 *       Nombre d'ouvrier pour le joueur
 	 * @param nbBatiment
 	 *       Nombre de batiment pour le joueur
-	 * @param nbObjectif 
+	 * @param iNbCarteObjectif 
 	 *       Nombre de cartes objectifs pour le joueur
 	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int nbObjectif, Jeu j, int iNbCarteObjectif)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j, ArrayList<CartesObjectifs> alCart, PiocheDeCartesObjectifs pco)
 	{
 		this.NB_OUVRIER   = nbOuvrier ;
 		this.NB_BATIMENT  = nbBatiment;
-		this.NB_OBJECTIF  = nbObjectif;
+		this.NB_OBJECTIF  = iNbCarteObjectif;
 		this.SCOULEUR     = sCouleur  ;
 
 		this.iScore       = 0;
@@ -154,14 +155,30 @@ public class Joueur
 		this.rPierre      = new Ressource("pierre"  );
 		this.rPiece       = new Ressource("piece"   );
 		this.rPiece.setQteJoueur(3);
-
-		if ( Joueur.piocheDeCartesObjectifs == null )
-			Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
 		
-		Joueur.piocheDeCartesObjectifs.melangerPioche();
+		if ( Joueur.piocheDeCartesObjectifs == null )
+		{
+			if ( pco == null )Joueur.piocheDeCartesObjectifs = new PiocheDeCartesObjectifs();
+			else              Joueur.piocheDeCartesObjectifs = pco;
+		}
+		
+		if ( alCart == null )
+		{
+			Joueur.piocheDeCartesObjectifs.melangerPioche();
 
-		for ( int i=0; i<iNbCarteObjectif; i++)
-			this.cartesObjectifs[i] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
+			for ( int i=0; i<iNbCarteObjectif; i++)
+				this.cartesObjectifs[i] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
+		}
+		else
+		{
+			this.cartesObjectifs = alCart.toArray(new CartesObjectifs[alCart.size()]);
+		}
+
+	}
+
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j)
+	{
+		this ( sCouleur, nbOuvrier, nbBatiment, iNbCarteObjectif, j, null, null );
 	}
 
 	public CartesObjectifs getObj(int i){ return this.cartesObjectifs[i]; }
@@ -481,4 +498,5 @@ public class Joueur
 	{
 		this.setScore(this.getQteRessource("PIECE")/3);
 	}
+
 }
