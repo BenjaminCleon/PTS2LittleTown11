@@ -1,17 +1,28 @@
 package equipe_11.scenario;
 
-import equipe_11.Controleur;
+import equipe_11.metier.*;
 
 import java.io.PrintWriter;
 import java.io.IOException;
 
-public class Scenario2
+public class Scenario2 extends Jeu
 {
-    public Scenario2(Controleur ctrl)
+    public Scenario2()
     {
-        // try
-        // {
+        super();
+        
+		/*---------------------------*/
+		/*  Tests du début de partie */
+		/*---------------------------*/
+		
+		// Vérifie le nombre de joueur
+		super.setJoueur(2);
 
-        // }catch(IOException e){ e.printStackTrace(); }
+		// Vérifie le nom des joueurs
+		super.setNomJoueur(0, "Manon");
+		super.setNomJoueur(1, null);
+
+		// Le plateau 2 est fonctionnel
+		super.setNumPlateau(2);
     }    
 }

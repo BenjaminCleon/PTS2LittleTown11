@@ -10,8 +10,9 @@ import equipe_11.scenario.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Stack;
-import java.util.EmptyStackException;
+
+import java.io.*;
+import java.awt.Point;
 
 import iut.algo.CouleurConsole;
 import iut.algo.Console;
@@ -23,23 +24,24 @@ public class Controleur
 
 	public Controleur(String fic)
 	{
-		this.metier = new Jeu();
-		this.ihm    = new CUI(this);
 
-		if ( fic != null )
+		this.ihm    = new CUI(this);
+		if ( fic == null )
 		{
-			switch ( fic.toUpperCase() )
-			{
-				case "SCENARIO1" -> new Scenario1(this);
-				case "SCENARIO2" -> new Scenario2(this);
-				case "SCENARIO3" -> new Scenario3(this);
-			}
+			this.metier       = new Jeu ();
+			this.ihm.initCUI();
 		}
 		else
 		{
-			this.ihm.initCUI();
-			this.bouclePrincipale();
+			switch ( fic.toUpperCase() )
+			{
+				case "SCENARIO1" -> this.metier = new Scenario1();
+				case "SCENARIO2" -> this.metier = new Scenario2();
+				case "SCENARIO3" -> this.metier = new Scenario3();
+			}
 		}
+
+		this.bouclePrincipale();
 	}
 
 	public boolean setNbJoueur()
@@ -386,7 +388,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("poisson"  );
 							saisie = this.getSaisie();
-							if(saisie.matches("^[0-5]$" )) iQuantitePoisson = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$" )) iQuantitePoisson = Integer.parseInt(saisie);
 							sRet = "";
 						} 
 						case "2" ->
@@ -395,7 +397,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("blé"  );
 							saisie = this.getSaisie();
-							if(saisie.matches("^[0-5]$" )) iQuantiteBle   = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$" )) iQuantiteBle   = Integer.parseInt(saisie);
 							sRet = "";
 						} 
 						case "3" ->
@@ -404,7 +406,7 @@ public class Controleur
 							this.ihm.afficherObj   ();
 							this.ihm.afficherDemandePourNourriture("pièce");
 							saisie = this.getSaisie();
-							if(saisie.matches("^([0-9]|1[0-5])$")) iQuantitePiece = Integer.parseInt(saisie);
+							if(saisie.matches("^\\d$")) iQuantitePiece = Integer.parseInt(saisie);
 							sRet = "";
 						}
 						case "4" ->

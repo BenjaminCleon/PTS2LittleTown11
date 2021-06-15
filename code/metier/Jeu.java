@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.function.Function;
 
 import equipe_11.BatimentInfo;
-import equipe_11.metier.Pion;
 
 public class Jeu 
 {
@@ -93,6 +92,8 @@ public class Jeu
 	 */
 	public void setNomJoueur(int iNbJoueur, String sNomJoueur)
 	{
+		if ( iNbJoueur >= this.tabJoueurs.length || iNbJoueur < 0 )return;
+		
 		this.tabJoueurs[iNbJoueur].setNomJoueur(sNomJoueur);
 	}
 
@@ -165,6 +166,8 @@ public class Jeu
 		String[] ensCouleur  = { "Rouge", "Bleu", "Jaune", "Vert" };
 		int iNbCarteObjectif = 0;
 
+		if ( iNbJoueur > 4 || iNbJoueur < 2 ) return false;
+
 		this.iNbJoueur = iNbJoueur;
 		this.tabJoueurs  = new Joueur[this.iNbJoueur];
 
@@ -236,10 +239,7 @@ public class Jeu
 		{
 			for ( int i=0; i< j.getNbObjectif(); i++)
 				if ( j.getObj(i).objAccompli() )
-				{
-					System.out.print(j.getObj(i));
 					j.setScore( j.getObj(i).getScore() );
-				}
 		}
 	}
 
@@ -258,7 +258,7 @@ public class Jeu
 	 */
 	public boolean construireBatiment(int iNumJoueur, String sType, int iLig, char cCol)
 	{
-		if ( iLig >       this.tabPion   .length    || iLig < 0 ||
+		if ( iLig >       this.tabPion   .length    || iLig <= 0 ||
 		     cCol > 'A' + this.tabPion[0].length -1 || cCol < 'A' ) return false;
 
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(sType);
@@ -341,6 +341,8 @@ public class Jeu
 	public boolean ajouterOuvrier(int iLig, char cCol)
 	{
 		this.jCourant.clearLstBatimentAutourOuvrier();
+		if ( iLig < 1 || iLig > 6 || cCol < 'A' || cCol > 'I')return false;
+
 		if ( !this.tabPion[iLig-1][cCol - 'A'].getNom().isEmpty() )return false;
 		
 		Pion pTmp1, pTmp2;
@@ -438,7 +440,6 @@ public class Jeu
 		Pion         pTmp = this.tabPion[iLig-1][cCol-'A'];
 		BatimentInfo bTmp = BatimentInfo.rechercherBatiment(pTmp.getNom());
 
-		System.out.println(this.jCourant.getLstBatimentAutourOuvrier());
 		if ( !this.jCourant.getLstBatimentAutourOuvrier().contains(bTmp) )return false;
 
 		if ( bTmp.estEchange() && !this.verifierEchange(bTmp.getBleReA     (), bTmp.getPierreReA(),
