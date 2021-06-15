@@ -398,4 +398,23 @@ public enum BatimentInfo
 		
 		return sRet;
 	}
+
+	public String toStringInfoConstruction()
+	{
+		String sRet = "";
+	
+		sRet += this.name() + " :\n";
+		sRet += "+--------+---------+------+-----+-------+-------+\n";
+		sRet += "| PIERRE | POISSON | BOIS | BLÉ | PIECE | SCORE |\n";
+		sRet += "+--------+---------+------+-----+-------+-------+\n";
+		sRet += String.format("| %7d", this.iPierreReq) + "|" + 
+				String.format("%9d", this.iPoissonReq   ) + "|" +
+				String.format("%6d", this.iBoisReq  ) + "|" +
+				String.format("%5d", this.iBleReq   ) + "|" +
+				String.format("%7d", this.iPceReq   ) + "|" +
+				String.format("%7d", this.iPtConstru) + "|\n";
+		sRet += "+--------+---------+------+-----+-------+-------+\n";
+
+		return sRet;
+	}
 }
