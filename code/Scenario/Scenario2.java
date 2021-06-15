@@ -16,9 +16,29 @@ public class Scenario2 extends Jeu
 		Joueur j1, j2, j3;
 		PiocheDeCartesObjectifs pco =  new PiocheDeCartesObjectifs();
 
-		j1 = new Joueur("Rouge", 4, 5, 3, this, this.getPioche1(), pco);
-		j2 = new Joueur("Bleu" , 4, 5, 3, this, this.getPioche2(), pco);
-		j3 = new Joueur("Jaune", 4, 5, 3, this, this.getPioche3(), pco);
+		ArrayList<CartesObjectifs> alCart1 = new ArrayList<CartesObjectifs>();
+		ArrayList<CartesObjectifs> alCart2 = new ArrayList<CartesObjectifs>();
+		ArrayList<CartesObjectifs> alCart3 = new ArrayList<CartesObjectifs>();
+
+		j1 = new Joueur("Rouge", 4, 5, 3, this, pco);
+		j2 = new Joueur("Bleu" , 4, 5, 3, this, pco);
+		j3 = new Joueur("Jaune", 4, 5, 3, this, pco);
+
+		alCart1.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(4, j1));
+		alCart1.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(6, j1));
+		alCart1.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(7, j1));
+
+		alCart2.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(3, j2));
+		alCart2.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(8, j2));
+		alCart2.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(9, j2));
+
+		alCart3.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(1, j3));
+		alCart3.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(2, j3));
+		alCart3.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(5, j3));
+
+		j1.setCartesObjectif(alCart1);
+		j2.setCartesObjectif(alCart2);
+		j3.setCartesObjectif(alCart3);
 
 		super.setJoueur(j1, j2, j3);
 
@@ -31,31 +51,4 @@ public class Scenario2 extends Jeu
 
 
     }
-
-	private ArrayList<CartesObjectifs> getPioche1()
-	{
-		ArrayList<CartesObjectifs> alCart = new ArrayList<CartesObjectifs>();
-
-		for (int i=0;i<3;i++)alCart.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(i));
-
-		return alCart;
-	}
-
-	private ArrayList<CartesObjectifs> getPioche2()
-	{
-		ArrayList<CartesObjectifs> alCart = new ArrayList<CartesObjectifs>();
-	
-		for (int i=3;i<6;i++)alCart.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(i));
-
-		return alCart;
-	}
-	
-	private ArrayList<CartesObjectifs> getPioche3()
-	{
-		ArrayList<CartesObjectifs> alCart = new ArrayList<CartesObjectifs>();
-
-		for (int i=6;i<9;i++)alCart.add(PiocheDeCartesObjectifs.piocheCartesObjectifs(i));
-
-		return alCart;
-	}
 }

@@ -143,7 +143,7 @@ public class Joueur
 	 * @param iNbCarteObjectif 
 	 *       Nombre de cartes objectifs pour le joueur
 	 */
-	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j, ArrayList<CartesObjectifs> alCart, PiocheDeCartesObjectifs pco)
+	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j, PiocheDeCartesObjectifs pco)
 	{
 		this.NB_OUVRIER   = nbOuvrier ;
 		this.NB_BATIMENT  = nbBatiment;
@@ -176,23 +176,18 @@ public class Joueur
 			else              Joueur.piocheDeCartesObjectifs = pco;
 		}
 		
-		if ( alCart == null )
+		if ( pco == null )
 		{
 			Joueur.piocheDeCartesObjectifs.melangerPioche();
 
 			for ( int i=0; i<iNbCarteObjectif; i++)
 				this.cartesObjectifs[i] = Joueur.piocheDeCartesObjectifs.piocherCarteObjectif( this );
 		}
-		else
-		{
-			this.cartesObjectifs = alCart.toArray(new CartesObjectifs[alCart.size()]);
-		}
-
 	}
 
 	public Joueur( String sCouleur, int nbOuvrier, int nbBatiment, int iNbCarteObjectif, Jeu j)
 	{
-		this ( sCouleur, nbOuvrier, nbBatiment, iNbCarteObjectif, j, null, null );
+		this ( sCouleur, nbOuvrier, nbBatiment, iNbCarteObjectif, j, null );
 	}
 	/**
 	 * retourne l'objectif du tableau dont l'indice est passé en paramètre
@@ -584,6 +579,11 @@ public class Joueur
 	public void gererFinDePartie()
 	{
 		this.setScore(this.getQteRessource("PIECE")/3);
+	}
+
+	public void setCartesObjectif(ArrayList<CartesObjectifs> alCart)
+	{
+		this.cartesObjectifs = alCart.toArray(new CartesObjectifs[alCart.size()]);
 	}
 
 }
