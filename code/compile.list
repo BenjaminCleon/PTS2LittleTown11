@@ -3,6 +3,9 @@
 ./Controleur.java
 ./BatimentInfo.java
 
+./Scenario/Scenario1.java
+./Scenario/Scenario2.java
+./Scenario/Scenario3.java
 ./ihm/CUI.java
 
 ./metier/utilitaire/AltInt.java
