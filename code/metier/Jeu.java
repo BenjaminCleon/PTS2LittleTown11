@@ -719,23 +719,26 @@ public class Jeu
 		String sCoulCathedrale = "";
 
 		int iNbOuvrierJCathedrale = 0;
+		int[] iCoordonees = new int[4];
 
 		for( int i = 0; i < tabPion.length; i++)
 			for( int j = 0; j < tabPion[0].length; j++)
 				if ( this.tabPion[i][j].getNom().equals("CATHEDRALE"))
 				{
 					sCoulCathedrale = this.tabPion[i][j].getCoul();
+					iCoordonees     = this.gererCoordonneeAutourDuJoueur(i+1, (char)(j+'A'));
 					break;
 				}
+
+		for ( int i=iCoordonees[0]; i<=iCoordonees[1]; i++)
+			for ( int j=iCoordonees[2]; j<=iCoordonees[3]; j++)
+				if ( tabPion[i][j].getNom().equals("OUVRIER"))iNbOuvrierJCathedrale++;
 
 		for( int i = 0; i < tabPion.length; i++)
 		{
 			for( int j = 0; j < tabPion[0].length; j++)
 				if ( this.tabPion[i][j].getNom().equals("OUVRIER") )
-				{
-					if ( this.tabPion[i][j].getCoul().equals(sCoulCathedrale))iNbOuvrierJCathedrale++;
 					this.tabPion[i][j] = new Pion(i, (char)(j + 'A'), "BLANC", "");
-				}
 		}
 
 		for ( Joueur j : this.tabJoueurs )

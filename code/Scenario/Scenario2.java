@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class Scenario2 extends Jeu
 {
-    public Scenario2()
-    {
-        super(EnsemblePioche.getPioche2());
+	public Scenario2()
+	{
+		super(EnsemblePioche.getPioche2());
 
 		// Vérifie le nombre de joueur et créer les joueurs
 		Joueur j1, j2, j3;
@@ -72,7 +72,7 @@ public class Scenario2 extends Jeu
 		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 0                  */
 		/* Pierre  : 0                  */ /* Pierre  : 0                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
-    
+	
 		// A ce moment nous avons construit 2 batiments normalement,
 		// nous avons passé 1 joueur et sommes donc sur le joueur jaune
 		// On se replace sur le joueur bleu
@@ -160,7 +160,7 @@ public class Scenario2 extends Jeu
 		// Ouvrier/Batiment restant: 4/6            0/4                            4/6
 		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
-		/* Score   : 20                 */ /* Score   : 10                 */ /* Score   : 6                  */
+		/* Score   : 8                  */ /* Score   : 10                 */ /* Score   : 6                  */
 		/* Piece   : 0                  */ /* Piece   : 7                  */ /* Piece   : 0                  */
 		/* Bois    : 2                  */ /* Bois    : 9                  */ /* Bois    : 0                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 5                  */
@@ -182,7 +182,7 @@ public class Scenario2 extends Jeu
 		// Ouvrier/Batiment restant: 4/6            0/4                            0/2
 		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
-		/* Score   : 20                 */ /* Score   : 10                 */ /* Score   : 15                 */
+		/* Score   : 8                  */ /* Score   : 10                 */ /* Score   : 15                 */
 		/* Piece   : 0                  */ /* Piece   : 7                  */ /* Piece   : 0                  */
 		/* Bois    : 2                  */ /* Bois    : 9                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 1                  */
@@ -204,8 +204,8 @@ public class Scenario2 extends Jeu
 		// Ouvrier/Batiment restant: 4/3            4/4                            4/2
 		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
-		/* Score   : 19                 */ /* Score   : 10                 */ /* Score   : 15                 */
-		/* Piece   : 4                  */ /* Piece   : 8                  */ /* Piece   : 0                  */
+		/* Score   : 11                 */ /* Score   : 4                  */ /* Score   : 9                  */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
 		/* Bois    : 1                  */ /* Bois    : 9                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 1                  */
 		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 1                  */
@@ -214,15 +214,124 @@ public class Scenario2 extends Jeu
 
 		super.passerManche(); // Nous fait récupéter au passage le score obtenue grâce à la cathédrale
 
-
 		super.construireBatiment(3, "CHAMPSDEBLE", 3, 'G');
 		super.changerJoueur();
 		super.changerJoueur();
 		super.ajouterOuvrier(2, 'A');
-		super.verifierObjectif();  // Active l'objectfi 1 du joueur jaune
-		super.changerJoueur();
-		super.construireBatiment(1, "CHARPENTIER", 6, 'F');
-		super.verifierObjectif();
+		super.verifierObjectif();     // Active l'objectif 1 du joueur jaune, 3 score
+		super.ajouterOuvrier(2, 'H'); // Récupère 2 poissons, 1 bois
+		
+		// Récupère 4 blés
+		super.activerBatiment(1, 'H');
+		super.activerBatiment(2, 'I');
+		super.activerBatiment(3, 'H');
+		super.activerBatiment(3, 'G');
 
+		super.construireBatiment(3, "CHARPENTIER", 6, 'F');
+		super.verifierObjectif();  // Active le dernier objectif du joueur jaune, 2 de score
+
+		// Ouvrier/Batiment restant: 4/3            4/4                            0/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 11                 */ /* Score   : 4                  */ /* Score   : 21                 */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 9                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 4                  */
+		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 0                  */ /* Pierre  : 0                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.ajouterOuvrier (2, 'B'); // Récupère 3 bois
+		super.activerBatiment(1, 'B'); // Active la librairie, récupère trois pièce
+		super.ajouterOuvrier (1, 'C'); // Récupère 1 bois, 2 pierres
+		super.activerBatiment(1, 'B'); // Active la librairie, récupère trois pièce
+		super.ajouterOuvrier (5, 'B'); // Récupère 2 poissons
+
+		super.construireBatiment(1, "RESIDENCE", 3, 'F'); // Achat de la résidence, perd 6 pièce, gagne 2 score
+		// Ouvrier/Batiment restant: 0/2            4/4                            3/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 13                 */ /* Score   : 4                  */ /* Score   : 21                 */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 9                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 4                  */
+		/* Poisson : 2                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 0                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.construireBatiment(2, "BOULANGERIE", 3, 'E'); // Perd 2 bois, gagne 4 de score
+		super.changerJoueur(); 
+		super.changerJoueur();
+		super.ajouterOuvrier(2, 'D');                       // Récupère 2 pierre, 1 bois
+		super.ajouterOuvrier(5, 'C');                       // Récupère 1 pierre
+		super.activerBatiment(4, 'B');
+		super.activerPreteurSurGage("BOIS", "BOIS", "PIERRE", "PIERRE"); // Perd 1 pièce et 2 bois, gagne 2 pierres
+		super.construireBatiment(2, "EGLISE", 4, 'F');                   // Perd 4 pierre, gagne 8 score
+
+		// Ouvrier/Batiment restant: 0/2            0/2                            0/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 13                 */ /* Score   : 16                 */ /* Score   : 21                 */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 4                  */
+		/* Poisson : 2                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		// On pourrai activer la résidence mais nous le faisons pas encore dans le scénario
+		// Nous le ferons en interaction avec les enseignants
+
+		j1.nourrirOuvrier();
+		j2.nourrirOuvrier();
+		j3.nourrirOuvrier(0, 4, 0);
+
+		// Ouvrier/Batiment restant: 0/2            0/2                            0/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 7                  */ /* Score   : 4                  */ /* Score   : 21                 */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
+		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.passerManche(); // Plus 2 joueur rouge avec la cathédrale
+
+		// Ouvrier/Batiment restant: 4/2            4/2                            4/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 9                  */ /* Score   : 4                  */ /* Score   : 21                 */
+		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
+		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.ajouterOuvrier (1, 'C'); // Récupère 1 pierre et 1 bois
+		super.activerBatiment(1, 'B'); // Récupère 3 pièces
+		super.construireBatiment(1, "FOIRE", 4, 'E'); // Perd 4 bois, gagne 6 de score
+		super.changerJoueur();
+		super.changerJoueur();
+		super.construireBatiment(1, "RESTAURANT", 2, 'E'); // Perd 2 pierre, 2 bois, gagne 6 score
+		super.changerJoueur();
+		super.changerJoueur();
+		super.ajouterOuvrier(5, 'B'); // Récupère 2 poissons
+		super.activerBatiment(4, 'B');
+		super.activerPreteurSurGage("BOIS", "POISSON", "PIERRE", "POISSON"); 
+		super.changerJoueur();
+
+		// Ouvrier/Batiment restant: 0/0            4/2                            4/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 21                 */ /* Score   : 4                  */ /* Score   : 21                 */
+		/* Piece   : 3                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
+		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
 	}
 }
