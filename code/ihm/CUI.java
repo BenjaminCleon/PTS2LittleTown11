@@ -41,7 +41,7 @@ public class CUI
 	 */
 	public void initCUI()
 	{
-		// Console.effacerEcran ();
+		Console.effacerEcran ();
 		this.choixDebutPartie();
 	}
 
@@ -105,8 +105,9 @@ public class CUI
 			}
 
 			if ( cptPioche < tabPioche.length )
-				Console.print(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1) + ". " + tabPioche[cptPioche++] + 
-				               ((cptPioche==tabPioche.length)?" x" + this.ctrl.getNbChampsDeble():"")));
+				Console.print(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1)
+				              + ". " + tabPioche[cptPioche++] + ((cptPioche==tabPioche.length &&
+							  this.ctrl.getNbChampsDeble() > 0)?" x" + this.ctrl.getNbChampsDeble():"")));
 			else
 			     	Console.print(String.format("  %-18s  |", ""));
 
@@ -445,7 +446,7 @@ public class CUI
 	 */
 	public void mettreIhmAJour(String sMess)
 	{
-		// Console.effacerEcran();
+		Console.effacerEcran();
 		Console.println(this.getHeader());
 		this.afficherPlateau();
 		this.plateauBas(sMess);

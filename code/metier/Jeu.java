@@ -1030,6 +1030,14 @@ public class Jeu
 		int  iLig = 0;
 		char cCol = 0;
 
+		int iConso = 1;
+		int iAjout = 1;
+
+		if ( !this.preteurSurGage )return;
+
+		if ( ressourceSaisi1.equals(ressourceSaisi2) )iConso = 2;
+		if ( ressourceVoulu1.equals(ressourceVoulu2) )iAjout = 2;
+
 		for ( Pion[] subTabPion : this.tabPion )
 			for ( Pion p2 : subTabPion )
 				if ( p2.getNom().equals("PRETEURSURGAGE") )
@@ -1040,10 +1048,10 @@ public class Jeu
 				}
 
 		if(
-		    this.jCourant.consommerRessourcePossible(  1, ressourceSaisi1 ) &&
-		    this.jCourant.consommerRessourcePossible(  1, ressourceSaisi2 ) &&
-		    this.jCourant.ajouterRessourcePossible  ( -1, ressourceVoulu1 ) &&
-		    this.jCourant.ajouterRessourcePossible  ( -1, ressourceVoulu2 )
+		    this.jCourant.consommerRessourcePossible(  iConso, ressourceSaisi1 ) &&
+		    this.jCourant.consommerRessourcePossible(  iConso, ressourceSaisi2 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( -iAjout, ressourceVoulu1 ) &&
+		    this.jCourant.ajouterRessourcePossible  ( -iAjout, ressourceVoulu2 )
 		  )
 		{
 			this.gererPiecePendantActivation(iLig, cCol);
@@ -1118,7 +1126,9 @@ public class Jeu
 		this.tabJoueurs[1] = j2; 
 		this.tabJoueurs[2] = j3;
 
-		this.iNbJoueur = 3;
+		this.iNbJoueur      = 3;
+		this.iNbOuvrierMax  = 4;
+		this.iNbBatimentMax = 6;
 		this.jCourant  = this.tabJoueurs[0];
 	}
 }

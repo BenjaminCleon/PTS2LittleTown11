@@ -518,27 +518,27 @@ public class Joueur
 		return 0;
 	}
 	/**
-	 * Ajoute une quantité passée en paramètre à la ressource dont le nom est passé en paramètre
+	 * Vérifie que l'ajout est possible
 	 * 
 	 * @return
-	 *		true si la quantité a été modifé 
+	 *		true si l'ajout de la ressource est possible
 	 */
 	public boolean ajouterRessourcePossible( int iQte, String sRessource )
 	{
 		switch ( sRessource.toUpperCase() )
 		{
-			case "BLE"    : { return this.rBle    .ajouterRessourcePossible( iQte ); }
-			case "POISSON": { return this.rPoisson.ajouterRessourcePossible( iQte ); }
-			case "BOIS"   : { return this.rBois   .ajouterRessourcePossible( iQte ); }
-			case "PIERRE" : { return this.rPierre .ajouterRessourcePossible( iQte ); }
+			case "BLE"     -> { return this.rBle    .ajouterRessourcePossible( iQte ); }
+			case "POISSON" -> { return this.rPoisson.ajouterRessourcePossible( iQte ); }
+			case "BOIS"    -> { return this.rBois   .ajouterRessourcePossible( iQte ); }
+			case "PIERRE"  -> { return this.rPierre .ajouterRessourcePossible( iQte ); }
 		}
 		return false;
 	}
 	/**
-	 * Retire une quantité passée en paramètre à la ressource dont le nom est passé en paramètre
+	 * Vérifie que la consommation de la ressource est possible
 	 * 
 	 * @return
-	 *		true si la quantité a été modifé 
+	 *		true si la consommation de la ressource est possible
 	 */
 	public boolean consommerRessourcePossible( int iQte, String sRessource )
 	{
