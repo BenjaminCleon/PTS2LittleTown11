@@ -21,7 +21,7 @@ import iut.algo.Console;
 public class CUI
 {
 	/**
-	 * Controleur 
+	 * Controleur de l'application
 	 */
 	Controleur ctrl;
 
@@ -197,6 +197,9 @@ public class CUI
 	}
 	/**
 	 * change la couleur en fonction du joueur
+	 * 
+	 * @param sCoul
+	 * 		Couleur souhaitée
 	 */
 	public void setCouleur(String sCoul)
 	{
@@ -246,7 +249,7 @@ public class CUI
 		Console.println("Nom du joueur n°" + iVal);
 	}
 	/**
-	 * Affichage du menu des différents choix au début de son tour
+	 * Affichage du menu des différents choix en début de tour
 	 */
 	public void afficherMenuChoix()
 	{
@@ -445,13 +448,12 @@ public class CUI
 	{
 		if ( b != null )Console.println(b.toStringInfoConstruction() );
 	}
-
+	/**
+	 *Met à jour l'IHM		
+	 */
 	public void mettreIhmAJour(){ this.mettreIhmAJour(""); }
 	/**
 	 *Met à jour l'IHM
-	 *
-	 * @param sMess
-	 *		
 	 */
 	public void mettreIhmAJour(String sMess)
 	{
@@ -483,6 +485,7 @@ public class CUI
         	Console.println( ctrl.getObj(i) );
 		Console.println("+===========================================================================================================+==========+");
 	}
+	
 	/**
 	 *Affichage de fin de partie avec le classement des joueurs
 	 */

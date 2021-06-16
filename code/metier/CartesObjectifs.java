@@ -21,7 +21,7 @@ public class CartesObjectifs
 	 */
 	private        int iIdentifiant;
 	/**
-	 * le nombre de point que rapporte l'objectif
+	 * le nombre de points que rapporte l'objectif
 	 *
 	 * @see CartesObjectifs#getScore()
 	 * @see CartesObjectifs#toString()
@@ -70,7 +70,7 @@ public class CartesObjectifs
 	 * Constructeur de CartesObjectifs.
 	 *
 	 * @param iScore
-	 *		Nombre de points que donne les cartes objectifs
+	 *		Nombre de points que donnent les cartes objectifs
 	 * @param sObjectif
 	 *		Conditon à remplir pour valider l'objectif
 	 */
@@ -112,10 +112,10 @@ public class CartesObjectifs
 		return false;
 	}
 	/**
-	 * Retourne le nombre de point que rapporte l'objectif
+	 * Retourne le nombre de points que rapporte l'objectif
 	 *
 	 * @return
-	 *		le nombre de point que rapporte l'objectif
+	 *		le nombre de points que rapporte l'objectif
 	 */
 	public int    getScore   (){ return this.iScore;    }
 	/**
@@ -328,7 +328,7 @@ public class CartesObjectifs
 	 */
 	public void setJoueur( Joueur j ){ this.joueur = j; }
 	/**
-	 * Retourne sous forme de chaine de caractère si l'objectif à été validé
+	 * Retourne sous forme de chaine de caractères si l'objectif a été validé
 	 * @return
 	 *		sous forme de chaine de caractère si l'objectif à été validé
 	 */

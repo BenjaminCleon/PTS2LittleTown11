@@ -9,14 +9,14 @@ import equipe_11.BatimentInfo;
 import equipe_11.metier.Joueur;
 
 /**
- * Cette classe regroupe les différents information lié à la partie
+ * Cette classe regroupe les différentes informations liées à la partie
  *
  * @author Equipe 11
  */
 public class Jeu 
 {
 	/**
-	 * Nombre de batiment max
+	 * Nombre de batiments max
 	 *
 	 * @see Jeu#setJoueur(int)
 	 * @see Jeu#construireBatiment(int,String,int,char)
@@ -27,7 +27,7 @@ public class Jeu
 	private String[][] coordCoulChampsDeBle;
 
 	/**
-	 * Nombre d'ouvrier max
+	 * Nombre d'ouvriers max
 	 *
 	 * @see Jeu#setJoueur(int)
 	 * @see Jeu#getNbOuvrierRestantCourant()activerPreteurSurGage
@@ -69,7 +69,7 @@ public class Jeu
 	private int iNumJCourant;
 
 	/**
-	 * Le nombre de joueurs de la partie
+	 * Le nombre de joueurs dans la partie
 	 *
 	 * @see Jeu#setNomJoueur(int, String)
 	 * @see Jeu#setJoueur(int)
@@ -78,7 +78,7 @@ public class Jeu
 	private int iNbJoueur;
 
 	/**
-	 * ensemble des cases sur le plateau
+	 * Ensemble des cases sur le plateau
 	 *
 	 * @see Jeu#getPlateau()
 	 * @see Jeu#initPlateau(int)
@@ -123,7 +123,7 @@ public class Jeu
 	private Joueur[]  tabJoueurs;
 
 	/**
-	 * ensemble des batiment sur le marché
+	 * ensemble des batiments sur le marché
 	 *
 	 * @see Jeu#construireBatiment(int,String,int,char)
 	 * @see Jeu#getLstBat()
@@ -158,6 +158,9 @@ public class Jeu
 	/**
 	 * Constructeur de la classe Jeu
 	 * Initialise uniquement tabPion
+	 * 
+	 * @param alBat
+	 * 		liste des informations des batiments
 	 */
 	public Jeu(ArrayList<BatimentInfo> alBat)
 	{
@@ -216,7 +219,7 @@ public class Jeu
 	public int getNbJoueur(){ return this.tabJoueurs.length; }
 
 	/**
-	 * Cette methode permet d'initialiser le plateau selon le numéro
+	 * Cette méthode permet d'initialiser le plateau selon le numéro
 	 * @param iNumPlateau
 	 *        numéro du plateau 1 ou 2
 	 * @return
@@ -246,10 +249,11 @@ public class Jeu
 
 	/**
 	 * Appel la méthode nourrir ouvrier simple du joueur en paramètre
-	 * La méthode appeler nourri les ouvriers d'un joeur avec des réglages par défaut s'il n'a pas assez de ressources
+	 * La méthode appelée nourrit les ouvriers d'un joueur avec des réglages par défaut s'il n'a pas assez de ressources
 	 * ou exactement le compte
 	 * @param iNumJoueur
 	 * @return
+	 * 		true si les ouvriers ont été nourri
 	 */
 	public boolean nourrirOuvrier(int iNumJoueur)
 	{
@@ -274,11 +278,15 @@ public class Jeu
 	{
 		return this.tabJoueurs[iNumJoueur].nourrirOuvrier(iQtePoisson, iQteBle, iQtePiece);
 	}
-
+	/**
+	 * retourne la couleur du joueur dont c'est le tour
+	 * @return
+	 * 		la couleur du joueur dont c'est le tour
+	 */
 	public String getCouleurJoueurCourant(){ return this.jCourant.getCouleur();	}
 
 	/**
-	 * Créer le tableau de joueur avec lenombre de joueur donné en paramètre
+	 * Créer le tableau de joueur avec le nombre de joueurs donné en paramètre
 	 * Initialise le joueur courant au premier joueur
 	 * Initialise la constante iNbJoueur
 	 * @param iNbJoueur
@@ -311,7 +319,7 @@ public class Jeu
 		return true;
 	}
 	/**
-	 * Retourne la couleur du joueur
+	 * Retourne la couleur du joueur voulu
 	 *
 	 * @param i
 	 *		le numéro du joueur voulu
@@ -365,7 +373,7 @@ public class Jeu
 				this.tabPion[lig][col] = new Pion(lig, (char)('A' + col), "BLANC", ensCase[lig][col]);
 	}
 	/**
-	 * Verifie si les objectifs du joueur ont été complété
+	 * Vérifie si les objectifs du joueur ont été complétés
 	 */
 	public void verifierObjectif()
 	{
@@ -452,9 +460,11 @@ public class Jeu
 	 * Retourne les coordonnées autour du pion du joueur
 	 *
 	 * @param iLig
-	 *     Position de la ligne de l'ouvrier
+	 *		Position de la ligne de l'ouvrier
 	 * @param cCol
-	 *     Position de la colonne de l'ouvrier
+	 *		Position de la colonne de l'ouvrier
+	 * @return
+	 * 		les coordonnées autour du pion du joueur
 	 */
 	public int[] gererCoordonneeAutourDuJoueur(int iLig, char cCol)
 	{
@@ -473,7 +483,7 @@ public class Jeu
 
 	/**
 	 * Permet d'ajouter des ouvriers au joueur courant
-	 * Active les batiments qui n'engendre aucune perte au joueur
+	 * Active les batiments qui n'engendrent aucune perte au joueur
 	 * @param iLig
 	 *		Position de la ligne de l'ouvrier
 	 * @param cCol
@@ -515,8 +525,8 @@ public class Jeu
 	}
 
 	/**
-	 * Permet d'activer les batiments qui n'engendre pas de perte au joueur
-	 * Permet d'ajouter les batiments engendrant des pertes à l'utilisateur dans une liste tmporaire
+	 * Permet d'activer les batiments qui n'engendrent pas de perte au joueur
+	 * Permet d'ajouter les batiments engendrant des pertes à l'utilisateur dans une liste temporaire
 	 * @param
 	 *     Le batiment que l'on souhaite activer
 	 */
@@ -540,7 +550,7 @@ public class Jeu
 		return this.jCourant.getLstBatimentAutourOuvrier();
 	}
 	/**
-	 * Retourne si le joueur peut echanger des ressources avec le stock
+	 * Retourne si le joueur peut échanger des ressources avec le stock
 	 *
 	 * @param iBle
 	 *		quantité de blés à échanger
@@ -553,7 +563,7 @@ public class Jeu
 	 * @param iPiece
 	 *		quantité de pièces à échanger
 	 * @return
-	 *		true si le joueur peut echanger des ressources avec le stock
+	 *		true si le joueur peut échanger des ressources avec le stock
 	 */
 	public boolean verifierEchange( int iBle, int iPierre, int iPoisson, int iBois, int iPiece )
 	{
@@ -596,7 +606,7 @@ public class Jeu
 	 * @param
 	 *      Le caractère de la colonne correspondante
 	 * @return 
-	 *		si un batiment a été activer
+	 *		si un batiment a été activé
 	 */
 	public boolean activerBatiment(int iLig, char cCol)
 	{
@@ -656,7 +666,7 @@ public class Jeu
 		return true;
 	}
 	/**
-	 * Retourne si le joueur peut activer un batiment dont les coordonnées sont entrés en paramètre
+	 * Retourne si le joueur peut activer un batiment dont les coordonnées sont entrées en paramètre
 	 * en fonction du nombre de pièces et de la couleur du batiment, agit sur le nombre de pièces si
 	 * true
 	 *
@@ -753,7 +763,7 @@ public class Jeu
 	}
 
 	/**
-	 * Renvoie s'il ya une résidence de placé dans le jeu
+	 * Renvoie s'il y a une résidence de placée dans le jeu
 	 * @return
 	 * 	   true si la résidence est placé
 	 */
@@ -854,7 +864,7 @@ public class Jeu
 				if ( j.getCouleur().equals(sCoulChateau) )j.setScore(iScoreARajouter);
 	}
 	/**
-	 * Permet d'activer la tuile tour de garde en fin de partie, vérifie si le chateau est possédé
+	 * Permet d'activer la tuile tour de garde en fin de partie, vérifie si la tour de garde est possédé
 	 * par un joueur
 	 */
 	public void gererTourDeGarde()
@@ -887,20 +897,20 @@ public class Jeu
 				if ( j.getCouleur().equals(sCoulTdg))j.setScore(iScoreARajouter);
 	}
 	/**
-	 * retourne le nombre d'ouvrier qui reste au joueur
+	 * retourne le nombre d'ouvriers qui reste au joueur
 	 *
 	 * @return
-	 *		le nombre d'ouvrier qui reste au joueur
+	 *		le nombre d'ouvriers qui reste au joueur
 	 */
 	public int getNbOuvrierRestantCourant()
 	{
 		return this.iNbOuvrierMax - this.jCourant.getNbOuvrier();
 	}
 	/**
-	 * Vérifie si tous les ouvriers de tous les joueurs sont posés
+	 * retourne le nombre de batiments qui reste au joueur
 	 *
 	 * @return
-	 *    true si tous les ouvriers sont posés
+	 *    le nombre de batimenst qui reste au joueur
 	 */
 	public int getNbBatimentRestantCourant()
 	{
@@ -970,7 +980,7 @@ public class Jeu
 	}
 
 	/**
-	 * retourne si trois pièces ont été échangé contre une ressource
+	 * retourne si trois pièces ont été échangées contre une ressource
 	 *
 	 * @param sTypeRes
 	 *		Nom de la ressource a obtenir
@@ -993,10 +1003,10 @@ public class Jeu
 		return false;
 	}
 	/**
-	 * retourne le numéro je joueur dont c'est le tour
+	 * retourne le numéro du joueur dont c'est le tour
 	 *
 	 * @return
-	 * 		le numéro je joueur dont c'est le tour
+	 * 		le numéro du joueur dont c'est le tour
 	 */
 	public int getNumeroJoueurCourant()
 	{
@@ -1111,7 +1121,7 @@ public class Jeu
 		return sDataJoueurs;
 	}
 	/**
-	 * transforme les pièces en point
+	 * transforme les pièces en points
 	 */
 	public void gererFinDePartie()
 	{

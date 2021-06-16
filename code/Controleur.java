@@ -18,7 +18,7 @@ import iut.algo.CouleurConsole;
 import iut.algo.Console;
 
 /**
- * Permet de gerer l'ihm et le metier
+ * Permet de gérer l'ihm et le metier
  */
 public class Controleur
 {
@@ -52,10 +52,10 @@ public class Controleur
 		this.bouclePrincipale();
 	}
 	/**
-	 * Permet de choisir le nombre de joueur durant la partie
+	 * Permet de choisir le nombre de joueurs durant la partie
 	 * 
 	 * @return
-	 * 		true si le nombre de joueur saisi est compris entre 2 et 4
+	 * 		true si le nombre de joueurs saisi est compris entre 2 et 4
 	 */
 	public boolean setNbJoueur()
 	{
@@ -127,7 +127,7 @@ public class Controleur
 		return this.metier.getJoueurCourant().getCouleur();
 	}
 	/**
-	 * Retourne la quantité en stock de la ressource passé en paramètre
+	 * Retourne la quantité en stock de la ressource passée en paramètre
 	 * @param sType
 	 * 		ressource
 	 * @return
@@ -138,7 +138,7 @@ public class Controleur
 		return this.metier.getQteRessourceStock(sType);
 	}
 	/**
-	 * Gère les différents affichages et action durant la parite
+	 * Gère les différents affichages et actions durant la parite
 	 */
 	public void bouclePrincipale()
 	{
@@ -262,7 +262,7 @@ public class Controleur
 		}while(iEntreeUtilisateur != 5);
 	}
 	/**
-	 * Verifie que les paramètres constructions en entré ne sont pas à null
+	 * Vérifie que les paramètres constructions en entrée ne sont pas à null
 	 * @param type
 	 * 		type du batiment
 	 * @param coord
@@ -276,7 +276,7 @@ public class Controleur
 		return true;
 	}
 	/**
-	 * Permet de déclancher les instructions pour poser un ouvrier
+	 * Permet de déclencher les instructions pour poser un ouvrier
 	 */
 	public void ajouterOuvrier()
 	{

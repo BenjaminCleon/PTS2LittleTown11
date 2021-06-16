@@ -14,17 +14,17 @@ public class Ressource
 	/*-----------*/
 
 	/**
-	 * Nombre de piece maximale dans l'inventaire
+	 * Nombre de pieces maximales dans l'inventaire
 	 */
 	private static final int INB_PIECE_MAX     = 40;
 
 	/**
-	 * Nombre de ressource maximale dans l'inventaire par ressource
+	 * Nombre de ressources maximales dans l'inventaire par ressource
 	 */
 	private static final int INB_RESSOURCE_MAX = 15;
 
 	/**
-	 * C'est la quantité de Piece disponible dans le stock
+	 * C'est la quantité de Pieces disponible dans le stock
 	 * 
 	 * @see Ressource#getRessourceByType( String)
 	 * @see Ressource#getQteBle()
@@ -33,7 +33,7 @@ public class Ressource
 	private static AltInt iQtePieceStock = new AltInt( Ressource.INB_PIECE_MAX );
 
 	/**
-	 * C'est la quantite de Ble disponible dans le stock.
+	 * C'est la quantité de Blés disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteBle()
@@ -42,7 +42,7 @@ public class Ressource
 	private static AltInt iQteBleStock    = new AltInt( Ressource.INB_RESSOURCE_MAX );
 
 	/**
-	 * C'est la quantite de Bois disponible dans le stock.
+	 * C'est la quantité de Bois disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQteBois()
@@ -51,7 +51,7 @@ public class Ressource
 	private static AltInt iQteBoisStock   = new AltInt( Ressource.INB_RESSOURCE_MAX );
 
 	/**
-	 * C'est la quantite de poisson disponible dans le stock.
+	 * C'est la quantité de poissons disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQtePoisson()
@@ -60,7 +60,7 @@ public class Ressource
 	private static AltInt iQtePoissonStock    = new AltInt( Ressource.INB_RESSOURCE_MAX );
 	
 	/**
-	 * C'est la quantite de Pierre disponible dans le stock.
+	 * C'est la quantité de Pierres disponible dans le stock.
 	 *
 	 * @see Ressource#getRessourceByType( String )
 	 * @see Ressource#getQtePierre()
@@ -139,7 +139,7 @@ public class Ressource
 	 * Consomme une quantité d'une ressource en stock passé en paramètre.
 	 *
 	 * @param iConso
-	 *          nombre de ressource à consommer
+	 *          nombre de ressources à consommer
 	 * @return
 	 *		true si la ressource a été consommé
 	 */
@@ -175,7 +175,7 @@ public class Ressource
 	 * Consomme à la ressource une quantité passé en paramètre.
 	 *
 	 * @param iConso
-	 *		nombre de ressource à consommer
+	 *		nombre de ressources à consommer
 	 */
 	public boolean consommerRessource( int iConso )
 	{
@@ -191,7 +191,7 @@ public class Ressource
 	 * Ajoute à une ressource une quantité passé en paramètre.
 	 *
 	 * @param iConso
-	 *		nombre de ressource à ajoute
+	 *		nombre de ressources à ajouter
 	 * @return
 	 *		true si la ressource a été ajouté
 	 */

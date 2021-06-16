@@ -77,6 +77,12 @@ public class Pion
      */
     public void   setNom ( String sNom ){ this.sNom = sNom; }
 
+	/**
+	 * retourne le nom du pion
+	 * 
+	 * @return
+	 * 		le nom du pion
+	 */
     public String toString()
     {
         return this.sNom;

@@ -34,7 +34,7 @@ public class Joueur
 	 */
 	private final int    NB_BATIMENT;
 	/**
-	 * C'est le nombre d'objectif du joueur
+	 * C'est le nombre d'objectifs du joueur
 	 *
 	 */
 	private final int NB_OBJECTIF;
@@ -50,7 +50,7 @@ public class Joueur
 	private String sNomJoueur;
 	
 	/**
-	 *C'est le numero du joueur
+	 *C'est le numéro du joueur
 	 * @see Joueur#getNumero()
 	 */
 	private int sNumJoueur;
@@ -86,7 +86,7 @@ public class Joueur
 	 */
 	private Ressource rBle;
 	/**
-	 * Ce sont les ressource de bois du joueur
+	 * Ce sont les ressources de bois du joueur
 	 *
 	 * @see getQteRessource()
 	 * @see ajouterRessource()
@@ -102,7 +102,7 @@ public class Joueur
 	 */
 	private Ressource        rBois;
 	/**
-	 * Ce sont les ressources de pierre du joueur
+	 * Ce sont les ressources de pierres du joueur
 	 *
 	 * @see getQteRessource()
 	 * @see ajouterRessource()
@@ -119,8 +119,8 @@ public class Joueur
 	private Ressource        rPiece ;
 
 	/**
-	 * Liste des batiments que le joueur peux activer après avoir jouer un ouvrier
-	 * Ne prend pas en compte les batiments ou l'activation n'engendre aucune perte
+	 * Liste des batiments que le joueur peux activer après avoir joué un ouvrier
+	 * Ne prend pas en compte les batiments où l'activation n'engendre aucune perte
 	 */
 	private ArrayList<BatimentInfo> alBatimentListeTmp;
 
@@ -134,6 +134,7 @@ public class Joueur
 
 	/**
 	 * Constructeur de joueur
+	 * 
 	 * @param sCouleur
 	 *       Couleur du joueur
 	 * @param nbOuvrier
@@ -214,9 +215,9 @@ public class Joueur
 	public String getCouleur () { return this.SCOULEUR; }
 	
 	/**
-	 * retourne le nombre de point du joueur
+	 * retourne le nombre de points du joueur
 	 * @return 
-	 *		le nombre de point du joueur
+	 *		le nombre de points du joueur
 	 */
     public int    getScore   () { return this.iScore  ; }
 	
@@ -235,11 +236,11 @@ public class Joueur
     public int getNbBatiment() { return this.alBatiment.size();}
 	
 	/**
-	 * retourne le nombre de ressource de la ressource en parametre
+	 * retourne le nombre de ressources de la ressource en paramètre
 	 * @param sType
 	 *		nom de la ressource
 	 * @return 
-	 *		le nombre de ressource de la ressource en parametre
+	 *		le nombre de ressources de la ressource en paramètre
 	 */
 	
 	public int getQteRessource(String sType)
@@ -257,11 +258,11 @@ public class Joueur
 	}
 
 	/**
-	 * retourne la ressource en parametre
+	 * retourne la ressource en paramètre
 	 * @param sType
 	 *		nom de la ressource
 	 * @return 
-	 *		la ressource en parametre
+	 *		la ressource en paramètre
 	 */
 	
 	public Ressource getRessource(String sType)
@@ -279,12 +280,12 @@ public class Joueur
 	}
 	
 	/**
-	 * Augmente le nombre de ressource du joueur dont la somme et
-	 * le nom sont passés en parametre
+	 * Augmente le nombre de ressources du joueur dont la somme et
+	 * le nom sont passés en paramètre
 	 * @param iVal
-	 *		nombre de ressource a ajouter
+	 *		nombre de ressource à ajouter
 	 * @param sType
-	 *		nom de la ressource a incrementer
+	 *		nom de la ressource à incrementer
 	 */
 	public boolean gererRessource(int iVal, String sType)
 	{
@@ -303,7 +304,7 @@ public class Joueur
 	 * Augmente ou diminue le score en fonction de la quantité
 	 * passée en parametre
 	 * @param score
-	 *		nombre de points a utiliser
+	 *		nombre de points à utiliser
 	 */
 	public void setScore( int score )
 	{
@@ -354,15 +355,15 @@ public class Joueur
 	}
 
 	/**
-	 * Retourne le nombre d'ouvrier posé du joueur
+	 * Retourne le nombre d'ouvriers posés appartenant au joueur
 	 * @return
-	 *		Le nombre d'ouvrier posé du joueur
+	 *		Le nombre d'ouvrier posés appartenant au joueur
 	 */
 	public int getNbOuvrier(){ return this.alOuvrier.size(); }
 	/**
-	 * Retourne le nombre d'ouvrier maximum du joueur
+	 * Retourne le nombre d'ouvriers maximum du joueur
 	 * @return
-	 *		Le nombre d'ouvrier maximum du joueur
+	 *		Le nombre d'ouvriers maximum du joueur
 	 */
 	public int getNbOuvrierMax(){ return this.NB_OUVRIER; }
 
@@ -449,7 +450,7 @@ public class Joueur
 		return "Ouvrier nourri avec succès";
 	}
 	/**
-	 * Permet d'ajouter des batiments à la liste des abtiments que l'ouvrier peut peut activer
+	 * Permet d'ajouter des batiments à la liste des batiments que l'ouvrier peut activer
 	 *
 	 * @param bTmp
 	 *		le batiment à ajouter
@@ -459,7 +460,7 @@ public class Joueur
 		this.alBatimentListeTmp.add(bTmp);
 	}
 	/**
-	 * Permet de retirer des batiments à la liste des abtiments que l'ouvrier peut peut activer
+	 * Permet de retirer des batiments à la liste des batiments que l'ouvrier peut activer
 	 *
 	 * @param bTmp
 	 *		le batiment à retirer
@@ -469,17 +470,17 @@ public class Joueur
 		this.alBatimentListeTmp.remove(bTmp);
 	}
 	/**
-	 * Retourne la liste des batiments que l'ouvrier peut activé
+	 * Retourne la liste des batiments que l'ouvrier peut activer
 	 *
 	 * @retourn
-	 *		la liste des batiments que l'ouvrier peut activé
+	 *		la liste des batiments que l'ouvrier peut activer
 	 */
 	public ArrayList<BatimentInfo> getLstBatimentAutourOuvrier()
 	{
 		return this.alBatimentListeTmp;
 	}
 	/**
-	 * Efface la liste de batiment que l'ouvrier peut activer
+	 * Efface la liste de batiments que l'ouvrier peut activer
 	 */
 	public void clearLstBatimentAutourOuvrier()
 	{
@@ -574,13 +575,17 @@ public class Joueur
 		return sRet;
 	}
 	/**
-	 * Transforme les pièces en point
+	 * Transforme les pièces en points
 	 */
 	public void gererFinDePartie()
 	{
 		this.setScore(this.getQteRessource("PIECE")/3);
 	}
-
+	/**
+	 * Permet de définir la liste des cartes objectifs que le joueur possède
+	 * 
+	 * @param alCart
+	 */
 	public void setCartesObjectif(ArrayList<CartesObjectifs> alCart)
 	{
 		this.cartesObjectifs = alCart.toArray(new CartesObjectifs[alCart.size()]);
