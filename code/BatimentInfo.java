@@ -12,18 +12,18 @@ public enum BatimentInfo
 {
 	/**
 	 * // Ble
-	 * blRqC : ble requis         à la construction
-	 * blRqA : ble requis         à l'activation
+	 * blRqC : ble requis        à la construction
+	 * blRqA : ble requis        à l'activation
 	 * blRc  : ble en recompense à l'activation
 	 * 
 	 * // Bois
-	 * boRqC : bois requis         à la construction
-	 * boRqA : bois requis         à l'activation
+	 * boRqC : bois requis        à la construction
+	 * boRqA : bois requis        à l'activation
 	 * boRc  : bois en recompense à l'activation
 	 * 
 	 * // Poisson
-	 * poRqC  : poisson requis         à la construction
-	 * poRqA  : poisson requis         à l'activation
+	 * poRqC  : poisson requis        à la construction
+	 * poRqA  : poisson requis        à l'activation
 	 * poRc   : poisson en recompense à l'activation
 	 * 
 	 * // Pierre
@@ -87,44 +87,44 @@ public enum BatimentInfo
 	 * Constructeur d'un batiment prenant en paramètre des entiers
 	 *
 	 * @param iPoissonReq
-	 *           Quantite de poisson requise pour la construction.
+	 *           Quantité de poisson requise pour la construction.
 	 * @param iPoissonReA
-	 *           Quantite de poisson nécessaire pour activation.
+	 *           Quantité de poisson nécessaire pour activation.
 	 * @param iPoissonRec
-	 *           Quantite de poisson en récompense après activation.
+	 *           Quantité de poisson en récompense après activation.
 	 *
 	 * @param iBleReq
-	 *           Quantite de ble requise pour la construction.
+	 *           Quantité de ble requise pour la construction.
 	 * @param BleReA
-	 *           Quantite de ble nécessaire pour activation.
+	 *           Quantité de ble nécessaire pour activation.
 	 * @param iBleRec
-	 *           Quantite de ble en récompense après activation.
+	 *           Quantité de ble en récompense après activation.
 	 *
 	 * @param iBoisReq
-	 *           Quantite de bois requise pour la construction.
+	 *           Quantité de bois requise pour la construction.
 	 * @param iBoisReA
-	 *           Quantite de bois nécessaire pour activation.
+	 *           Quantité de bois nécessaire pour activation.
 	 * @param iBoisRec
-	 *           Quantite de bois en récompense après activation.
+	 *           Quantité de bois en récompense après activation.
 	 *
 	 * @param iPierreReq
-	 *           Quantite de pierre requise pour la construction.
+	 *           Quantité de pierre requise pour la construction.
 	 * @param iPierreReA
-	 *           Quantite de pierre nécessaire pour activation.
+	 *           Quantité de pierre nécessaire pour activation.
 	 * @param iPierreRec
-	 *           Quantite de pierre en récompense après activation.
+	 *           Quantité de pierre en récompense après activation.
 	 *
 	 * @param iPceReq
-	 *           Quantite de piece requise pour la construction.
+	 *           Quantité de piece requise pour la construction.
 	 * @param iPceReA
-	 *           Quantite de piece nécessaire pour activation.
+	 *           Quantité de piece nécessaire pour activation.
 	 * @param iPceRec
-	 *           Quantite de piece en récompense après activation.
+	 *           Quantité de piece en récompense après activation.
 	 *
 	 * @param iPtConstru
-	 *           Quantite de Point en récompense après construction.
+	 *           Quantité de Point en récompense après construction.
 	 * @param iPtRec
-	 *           Quantite de Point en récompense après activation.
+	 *           Quantité de Point en récompense après activation.
 	 * @param sCategorie
 	 *           Catégorie du batiment, précise si il y a gain ou échange ou 
 	 *           si c'est des ressources.

@@ -9,7 +9,7 @@ import equipe_11.metier.CartesObjectifs;
 
 import java.util.ArrayList;
 /**
- * Cette classe est une pioche de carte objectif, elle créer les objectifs
+ * Cette classe est une pioche de cartes objectifs, elle créer les objectifs
  *
  * @author Equipe 11
  */
@@ -49,7 +49,15 @@ public class PiocheDeCartesObjectifs
 		PiocheDeCartesObjectifs.lstCartesObjectifs.remove(0);
 		return cTmp;
 	}
-
+	/**
+	 * Permet de piocher une carte pour le joueur passé en paramètre
+	 * 
+	 * @param i
+	 * 		carte à ajouter
+	 * @param j
+	 * 		joueur qui pioche la carte
+	 * @return
+	 */
 	public static CartesObjectifs piocheCartesObjectifs(int i, Joueur j)
 	{
 		PiocheDeCartesObjectifs.lstCartesObjectifs.get(i).setJoueur(j);
