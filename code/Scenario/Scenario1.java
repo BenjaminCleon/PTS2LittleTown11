@@ -136,7 +136,7 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 1                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 1                  */
 		/* Poisson : 2                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 1                  */
@@ -170,8 +170,8 @@ public class Scenario1 extends Jeu
 
 		super.ajouterOuvrier (2, 'B');
 		super.activerBatiment(1, 'B'); // On récupère un de blé
-		super.activerBatiment(3, 'B'); // On récupère un de blé mais on paye l'autre joueur
 		super.activerBatiment(3, 'D'); // Ne fonctionne pas car n'est pas autour de l'ouvrier
+		super.activerBatiment(3, 'B'); // On récupère un de blé mais on paye l'autre joueur
 		super.changerJoueur();
 		
 		// Ouvrier/Batiment restant: 0/6            1/6
@@ -179,10 +179,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 2                  */ /* Piece   : 1                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 2                  */
 		/* Ble     : 2                  */ /* Ble     : 2                  */
 		/* Poisson : 3                  */ /* Poisson : 3                  */
-		/* Pierre  : 1                  */ /* Pierre  : 1                  */
+		/* Pierre  : 2                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		// Il reste à placer le dernier ouvrier et à nourrir
