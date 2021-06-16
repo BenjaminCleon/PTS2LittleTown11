@@ -79,14 +79,21 @@ public class CUI
 		for(int i = 'A'; i < tabPlateau[0].length + 'A'; i++)
 			Console.print("     " + (char)i + "     |");
 		
-		Console.print(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1) + ". " + tabPioche[cptPioche++]));
-		
+		if ( tabPioche.length > 0)
+			Console.print(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1) +
+			                                                           ". " + tabPioche[cptPioche++]));
+		else
+			Console.print(String.format("  %-18.18s  |", ""));
+
 		Console.print("\n+---+");
 		for(int nbCol = 0; nbCol < 9; nbCol++)
 				Console.print("-----------+");
 
-		Console.println(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1) + ". " + tabPioche[cptPioche++]));
-
+		if ( tabPioche.length > 1)
+			Console.println(String.format("  %-18.18s  |", String.format("%2d", cptPioche+1) +
+			                                                             ". " + tabPioche[cptPioche++]));
+		else
+			Console.println(String.format("  %-18.18s  |", ""));
 
 		for(int i = 0; i < tabPlateau.length; i++)
 		{
@@ -118,8 +125,10 @@ public class CUI
 				Console.print("-----------+");
 
 			if ( cptPioche < tabPioche.length )
-				Console.print(String.format("  %-18s  |", String.format("%2d", cptPioche+1) + ". " + tabPioche[cptPioche++] + 
-				                           ((cptPioche==tabPioche.length)?" x" + this.ctrl.getNbChampsDeble():"")));
+				Console.print(String.format("  %-18s  |", String.format("%2d", cptPioche+1) + ". " +
+				              tabPioche[cptPioche++] + ((cptPioche==tabPioche.length  &&
+							  this.ctrl.getNbChampsDeble() > 0)?" x" + this.ctrl.getNbChampsDeble():"")));
+
 			else if ( i < tabPlateau.length - 1)
 					Console.print(String.format("  %-18s  |", ""));
 		
