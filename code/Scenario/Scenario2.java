@@ -369,8 +369,8 @@ public class Scenario2 extends Jeu
 		super.activerBatiment(3, 'E'); // Récupère 4 pièces, perd 1 pièce
 		
 		// On demandera ces action aux enseignants
-		// super.ajouterOuvrier (5, 'F');
-		// super.activerBatiment(6, 'F'); // Perd une pièce, gagne 3 bois
+		// super.ajouterOuvrier (5, 'F'); 
+		// super.activerBatiment(6, 'F'); // Ne fonctionne 
 		// super.activerBatiment(4, 'E'); // Récupère 7 de score, perd 1 de chaque ressource
 		// super.activerBatiment(4, 'F'); // Perd 4 pièces, gagne 5 de score
 		

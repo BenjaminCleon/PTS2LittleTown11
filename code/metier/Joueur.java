@@ -439,6 +439,9 @@ public class Joueur
 		if ( iNbPiece/3 > Ressource.getQteBle() + Ressource.getQtePoisson())
 			sRet = "Plus assez de ressource dans l'inventaire pour vos pièces";
 
+		if ( iNbPiece%3 != 0 )
+			sRet = "Rentrez un nombre de pièce multiple de 3";
+
 		if ( ! sRet.isEmpty() )return sRet;
 
 		this.rPoisson.consommerRessource(iNbPoisson);
