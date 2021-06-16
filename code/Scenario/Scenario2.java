@@ -87,7 +87,6 @@ public class Scenario2 extends Jeu
 		super.mettreJoueurA(1);
 		super.ajouterOuvrier(2, 'A'); // On récupère 2 bois
 		super.ajouterOuvrier(3, 'B'); // On récupère 2 bois
-		super.verifierObjectif();      // Validation de l'objectif  1
 
 		super.changerJoueur();
 		super.changerJoueur();
@@ -273,7 +272,7 @@ public class Scenario2 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
 		/* Score   : 13                 */ /* Score   : 16                 */ /* Score   : 21                 */
 		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
-		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 4                  */
 		/* Poisson : 2                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
@@ -291,7 +290,7 @@ public class Scenario2 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
 		/* Score   : 7                  */ /* Score   : 4                  */ /* Score   : 21                 */
 		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
-		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
@@ -304,7 +303,7 @@ public class Scenario2 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
 		/* Score   : 9                  */ /* Score   : 4                  */ /* Score   : 21                 */
 		/* Piece   : 1                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
-		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
@@ -328,10 +327,54 @@ public class Scenario2 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
 		/* Score   : 21                 */ /* Score   : 4                  */ /* Score   : 21                 */
 		/* Piece   : 3                  */ /* Piece   : 2                  */ /* Piece   : 0                  */
-		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 0                  */
+		/* Bois    : 5                  */ /* Bois    : 6                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
 		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.ajouterOuvrier (2, 'D'); // Récupère 2 pierre, 1 bois
+		super.ajouterOuvrier (4, 'H'); // Récupère 1 poisson, 1 bois
+		super.activerBatiment(3, 'H'); // Récupère 1 blé, perd 1 pièce, donne 1 au jaune
+		super.activerBatiment(2, 'I'); // Récupère 1 blé, perd 1 pièce, donne 1 au jaune
+		super.construireBatiment(2, "BAR", 4, 'D'); // Perd 2 blé, 2 pierre, gagne 7 score
+		super.changerJoueur();
+		super.changerJoueur();
+		super.ajouterOuvrier (3, 'C'); // Récupère 1 bois
+		super.activerBatiment(4, 'D'); // Récupère 3 de score
+		super.activerBatiment(4, 'C'); // Récupère 3 pièces
+		super.changerJoueur();
+
+		// Ouvrier/Batiment restant: 0/0            0/1                            4/0
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+		/* Joueur rouge:                */ /* Joueur bleu:                 */ /* Joueur jaune:                */
+		/* Score   : 21                 */ /* Score   : 14                 */ /* Score   : 21                 */
+		/* Piece   : 3                  */ /* Piece   : 3                  */ /* Piece   : 2                  */
+		/* Bois    : 5                  */ /* Bois    : 9                  */ /* Bois    : 1                  */
+		/* Ble     : 0                  */ /* Ble     : 0                  */ /* Ble     : 0                  */
+		/* Poisson : 0                  */ /* Poisson : 0                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */ /* Pierre  : 0                  */
+		/*------------------------------*/ /*------------------------------*/ /*------------------------------*/
+
+		super.ajouterOuvrier(2, 'H'); // 2 poissons et 1 bois 
+
+		// Récupère 4 blés
+		super.activerBatiment(1, 'H');
+		super.activerBatiment(2, 'I');
+		super.activerBatiment(3, 'H');
+		super.activerBatiment(3, 'G');
+
+		super.ajouterOuvrier(5, 'D');  // Récupère 1 pierre
+		super.ajouterOuvrier(3, 'D');  // récupère 1 bois
+		super.activerBatiment(3, 'E'); // Récupère 4 pièces, perd 1 pièce
+		
+		// On demandera ces action aux enseignants
+		// super.ajouterOuvrier (5, 'F');
+		// super.activerBatiment(6, 'F'); // Perd une pièce, gagne 3 bois
+		// super.activerBatiment(4, 'E'); // Récupère 7 de score, perd 1 de chaque ressource
+		// super.activerBatiment(4, 'F'); // Perd 4 pièces, gagne 5 de score
+		
+		// Test des résidences
+
 	}
 }

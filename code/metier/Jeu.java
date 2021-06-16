@@ -618,7 +618,15 @@ public class Jeu
                                                         bTmp.getPoissonReA (), bTmp.getBoisReA  (),
 			                                            bTmp.getPcReq      ()))return false;
 
-		if( bTmp.estPreteurSurGage() ){this.preteurSurGage = true; return false;}
+		if( bTmp.estPreteurSurGage() )
+		{
+			this.preteurSurGage = true;
+			return false;
+		}
+		else
+		{
+			this.preteurSurGage = false; // Utile pour scénario
+		}
 
 		if ( bTmp.getBleRec   () > Ressource.getQteBle   () || bTmp.getPcRec     () > Ressource.getQtePiece  () ||
 		     bTmp.getBoisRec  () > Ressource.getQteBois  () || bTmp.getPoissonRec() > Ressource.getQtePoisson() ||
