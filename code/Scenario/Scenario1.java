@@ -72,8 +72,6 @@ public class Scenario1 extends Jeu
 
 		// Nombre de champs de blé: 5 
 		super.construireBatiment(1, "CHAMPSDEBLE", 1, 'B' ); // Fonctionne
-		// Nombre de champs de blé: 4 
-		super.construireBatiment(1, "CHAMPSDEBLE", 1, 'B' ); // Ne fonctionne pas ( il y a déjà un batiment )
 		// Nombre de champs de blé: 4
 
 		// Changement de joueur automatique car on a construit un batiment
@@ -112,7 +110,7 @@ public class Scenario1 extends Jeu
 		/* Pierre  : 0                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/
 
-		super.ajouterOuvrier(5, 'B');   // Fonctionne
+		super.ajouterOuvrier(2, 'D');   // Fonctionne
 		super.changerJoueur();
 
 		// Ouvrier/Batiment restant: 2/6            3/6
@@ -120,17 +118,17 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 0                  */
 		/* Ble     : 0                  */ /* Ble     : 0                  */
 		/* Poisson : 2                  */ /* Poisson : 2                  */
-		/* Pierre  : 0                  */ /* Pierre  : 0                  */
+		/* Pierre  : 1                  */ /* Pierre  : 0                  */
 		/*------------------------------*/ /*------------------------------*/
 
-		super.ajouterOuvrier (2, 'A'); // Fonctionne (récupère pierre/poisson)
+		super.ajouterOuvrier (2, 'C'); // Fonctionne (récupère pierre/bois)
 		super.activerBatiment(1, 'B'); // Ne fonctionne pas(pas assez de pièce)
 		super.activerBatiment(1, 'G'); // Ne fonctionne pas(pas de batiment)
-		super.activerBatiment(3, 'B'); // Fonctionne (pas besoin de pièce)
 		super.activerBatiment(1, 'A'); // Ne fonctionne pas (c'est une ressource)
+		super.activerBatiment(3, 'B'); // Fonctionne (pas besoin de pièce)
 		super.changerJoueur();
 		
 		// Ouvrier/Batiment restant: 2/6            2/6
@@ -138,10 +136,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 3                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 1                  */
-		/* Poisson : 2                  */ /* Poisson : 3                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		super.construireBatiment(1, "CHAMPSDEBLE", 3, 'D'); // Fonctionne
@@ -150,10 +148,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 2                  */ /* Bois    : 0                  */
+		/* Bois    : 0                  */ /* Bois    : 1                  */
 		/* Ble     : 0                  */ /* Ble     : 1                  */
-		/* Poisson : 2                  */ /* Poisson : 3                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 2                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 		super.ajouterOuvrier (4, 'B'); // On récupère du bois et du poisson
 		super.activerBatiment(3, 'B');
@@ -164,16 +162,16 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 3                  */ /* Piece   : 0                  */
-		/* Bois    : 2                  */ /* Bois    : 0                  */
+		/* Bois    : 0                  */ /* Bois    : 2                  */
 		/* Ble     : 0                  */ /* Ble     : 2                  */
-		/* Poisson : 2                  */ /* Poisson : 4                  */
-		/* Pierre  : 0                  */ /* Pierre  : 1                  */
+		/* Poisson : 2                  */ /* Poisson : 3                  */
+		/* Pierre  : 1                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		super.ajouterOuvrier (2, 'B');
 		super.activerBatiment(1, 'B'); // On récupère un de blé
-		super.activerBatiment(3, 'B'); // On récupère un de blé mais on paye l'autre joueur
 		super.activerBatiment(3, 'D'); // Ne fonctionne pas car n'est pas autour de l'ouvrier
+		super.activerBatiment(3, 'B'); // On récupère un de blé mais on paye l'autre joueur
 		super.changerJoueur();
 		
 		// Ouvrier/Batiment restant: 0/6            1/6
@@ -181,10 +179,10 @@ public class Scenario1 extends Jeu
 		/* Joueur rouge:                */ /* Joueur bleu:                 */
 		/* Score   : 6                  */ /* Score   : 3                  */
 		/* Piece   : 2                  */ /* Piece   : 1                  */
-		/* Bois    : 3                  */ /* Bois    : 0                  */
+		/* Bois    : 1                  */ /* Bois    : 2                  */
 		/* Ble     : 2                  */ /* Ble     : 2                  */
 		/* Poisson : 3                  */ /* Poisson : 3                  */
-		/* Pierre  : 1                  */ /* Pierre  : 1                  */
+		/* Pierre  : 2                  */ /* Pierre  : 1                  */
 		/*------------------------------*/ /*------------------------------*/
 
 		// Il reste à placer le dernier ouvrier et à nourrir

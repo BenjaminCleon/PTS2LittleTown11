@@ -1093,8 +1093,8 @@ public class Jeu
 
 		for ( Joueur j : alJoueur )
 		{
-			sDataJoueurs[iCpt]  [0] = j.getNom    ();
-			sDataJoueurs[iCpt++][1] = j.getCouleur();
+			sDataJoueurs[iCpt]  [0] = j.getCouleur();
+			sDataJoueurs[iCpt++][1] = j.getScore  () + "";
 		}
 
 		return sDataJoueurs;
