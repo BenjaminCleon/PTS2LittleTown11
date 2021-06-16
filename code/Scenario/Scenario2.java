@@ -108,10 +108,10 @@ public class Scenario2 extends Jeu
 		super.activerBatiment(4 , 'B');
 		// Le preteur sur gage est fonctionnel
 		super.activerPreteurSurGage("POISSON", "POISSON", "BLE", "BLE");
-		super.activerPreteurSurGage("BOIS", "BOIS", "POISSON", "POISSON"); // Ne fonctionne pas car déjà activé -1 pièce
+		super.activerPreteurSurGage("BOIS", "BOIS", "POISSON", "POISSON"); // Ne fonctionne pas car déjà activé 
 		super.ajouterOuvrier(4, 'A');
 		super.activerBatiment(4, 'B');
-		super.activerPreteurSurGage("POISSON", "POISSON", "BOIS", "BOIS"); // Ne fonctionne pas car pas assez de ressource -1 pièce
+		super.activerPreteurSurGage("POISSON", "POISSON", "BOIS", "BOIS"); // Ne fonctionne pas car pas assez de ressource
 		super.activerPreteurSurGage("POISSON", "BOIS", "BLE", "BLE");      // Fonctionne
 		super.ajouterOuvrier (2, 'H');
 		super.activerBatiment(2, 'G'); // On récupère 1 bois et 1 poisson, on perd une piece
